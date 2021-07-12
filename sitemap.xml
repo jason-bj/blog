@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://cyun.tech/cloud-libvirt/</loc>
+    
+    <lastmod>2021-07-12T12:12:04.003Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://cyun.tech/tags/index.html</loc>
     
     <lastmod>2021-07-12T09:36:57.888Z</lastmod>
@@ -717,13 +724,6 @@
   
   <url>
     <loc>http://cyun.tech/character-encoding/</loc>
-    
-    <lastmod>2021-07-12T09:36:57.608Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://cyun.tech/cloud-libvirt/</loc>
     
     <lastmod>2021-07-12T09:36:57.608Z</lastmod>
     

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://cyun.tech/cloud-libvirt/</loc>
+    <lastmod>2021-07-12</lastmod>
+  </url>  <url>
     <loc>http://cyun.tech/tips-for-writing-hexo-post/</loc>
     <lastmod>2021-07-12</lastmod>
   </url>  <url>
@@ -296,9 +299,6 @@
     <lastmod>2021-07-12</lastmod>
   </url>  <url>
     <loc>http://cyun.tech/character-encoding/</loc>
-    <lastmod>2021-07-12</lastmod>
-  </url>  <url>
-    <loc>http://cyun.tech/cloud-libvirt/</loc>
     <lastmod>2021-07-12</lastmod>
   </url>  <url>
     <loc>http://cyun.tech/c-language-tips/</loc>
