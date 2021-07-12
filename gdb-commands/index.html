@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/clogo.svg?v=7.4.0" color="#222">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="IntroductionCore file is generated when program crashes, if it’s not turned off, see limitation for the current user by $ ulimit -a or set it with unlimited by $ ulimit -c unlimited to allow core gene">
+<meta name="keywords" content="gdb, coredump, ulimit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gdb-commands">
+<meta property="og:url" content="http://cyun.tech/gdb-commands/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="IntroductionCore file is generated when program crashes, if it’s not turned off, see limitation for the current user by $ ulimit -a or set it with unlimited by $ ulimit -c unlimited to allow core gene">
+<meta property="og:locale" content="en-US">
+<meta property="og:updated_time" content="2021-07-12T09:36:57.619Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="gdb-commands">
+<meta name="twitter:description" content="IntroductionCore file is generated when program crashes, if it’s not turned off, see limitation for the current user by $ ulimit -a or set it with unlimited by $ ulimit -c unlimited to allow core gene">
+  <link rel="alternate" href="/atom.xml" title="CYun" type="application/atom+xml">
+  <link rel="canonical" href="http://cyun.tech/gdb-commands/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>gdb-commands | CYun</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script pjax>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-148730544-1');
+    }
+  </script>
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-US">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CYun</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a class="book-mark-link book-mark-link-fixed" href="#"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/gdb-commands/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">gdb-commands
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-11-25 11:35:16" itemprop="dateCreated datePublished" datetime="2019-11-25T11:35:16+08:00">2019-11-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-12 17:36:57" itemprop="dateModified" datetime="2021-07-12T17:36:57+08:00">2021-07-12</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/coredump/" itemprop="url" rel="index"><span itemprop="name">coredump</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Core file is generated when program crashes, if it’s not turned off, see limitation for the current user by <code>$ ulimit -a</code> or set it with unlimited by <code>$ ulimit -c unlimited</code> to allow core generation.  </p>
+<p><code>ulimit</code> reads /etc/security/limits.conf that controls the limitation for the system, like <code>core file, max opened file etc</code>  </p>
+<a id="more"></a>  
+
+<h2 id="how-gdb-load-debug-info"><a href="#how-gdb-load-debug-info" class="headerlink" title="how gdb load debug info"></a>how gdb load debug info</h2><p>if you compile you application with <code>&#39;-g&#39;</code> option, compiler will write DWARF(debug info) to the objects, actually, it includes two sections<br><code>debug_info</code> and <code>debug_line</code> sections  </p>
+<ul>
+<li>debug_info save function ,variable  </li>
+<li>debug_line  map source line to machine code  </li>
+</ul>
+<p>How does these section save information, it uses DIE (debug info entry), each has lots attributes(key-value) to show the info  </p>
+<pre><code class="text">Each DIE has one or more attribute/value pairs  
+Each attribute has a name  
+– Describes meaning of attribute  
+– Value specified for each attribute  
+– Data format specified in attribute encoding  
+
+● Examples  
+– DW_AT_name – Name of object DIE describes  
+– DW_AT_location – Source location of object  
+– DW_AT_low_pc – Start address of object  
+– DW_AT_high_pc – End address of object  
+– DW_AT_type – Pointer to DIE describing type  
+
+DIE for variable  
+
+1c28: DW_TAG_variable  
+DW_AT_name : decode  
+DW_AT_decl_file : 1  
+DW_AT_decl_line : 1782  
+DW_AT_type : &lt;0x657&gt;  
+DW_AT_location : 0x24ed (location list)  </code></pre>
+<p>show all dwarf info  </p>
+<pre><code class="bash">$ readelf -w  </code></pre>
+<h2 id="core-file-location"><a href="#core-file-location" class="headerlink" title="core file location"></a>core file location</h2><p>By default, core file is generated at the current directory or /var/log/core, change it if needed following the below rules:  </p>
+<pre><code class="text">core file生成的地方是在/proc/sys/kernel/core_pattern文件定义的。  
+改动到生成到自己定义的目录的方法是：  
+echo &quot;pattern&quot; &gt; /proc/sys/kernel/core_pattern  
+并且只有超级用户可以修改这两个文件。  
+&quot;pattern&quot;类似我们C语言打印字符串的格式，相关标识如下：  
+%%: 相当于%  
+%p: 相当于&lt;pid&gt;  
+%u: 相当于&lt;uid&gt;  
+%g: 相当于&lt;gid&gt;  
+%s: 相当于导致dump的信号的数字  
+%t: 相当于dump的时间  
+%h: 相当于hostname  
+%e: 相当于执行文件的名称  
+这时用如下命令设置生成的core file到系统/tmp目录下，并记录pid以及执行文件名  
+echo &quot;/tmp/core-%e-%p&quot; &gt; /proc/sys/kernel/core_pattern  
+after such operations. core file should be generated when segment fault happens.  
+
+change this pattern live  
+
+#echo &apos;/tmp/core_%e.%p.%t&apos; | sudo tee /proc/sys/kernel/core_pattern  
+core file with name core.program.processid.timestamp  
+
+Or change it forever  
+
+edit /etc/sysctl.conf  
+kernel.core_pattern = /tmp/core_%e.%p.%t  
+#systemctl restart systemd-sysctl  </code></pre>
+<p><strong>core file not generated</strong>  </p>
+<ul>
+<li>$ulimit (output must be: unlimited)  </li>
+<li>$cat /proc/sys/kernel/core_pattern (the path must be writable)  </li>
+</ul>
+<h2 id="gdb"><a href="#gdb" class="headerlink" title="gdb"></a>gdb</h2><pre><code class="bash">$ gdb app_binary core_file  </code></pre>
+<h3 id="Getting-help"><a href="#Getting-help" class="headerlink" title="Getting help"></a>Getting help</h3><pre><code class="text">&gt;help  
+&gt;help class  
+&gt;help command  </code></pre>
+<h3 id="Executing-your-program"><a href="#Executing-your-program" class="headerlink" title="Executing your program"></a>Executing your program</h3><pre><code class="text">&gt;run arglist (r &quot;a&quot; &quot;b&quot;)  
+&gt;run  
+&gt;kill  
+&gt;set args arglist (set args &quot;a&quot; &quot;b&quot;)  
+&gt;show args  </code></pre>
+<h3 id="Symbol-table"><a href="#Symbol-table" class="headerlink" title="Symbol table"></a>Symbol table</h3><pre><code class="text">&gt;info address s  
+(info address var_name; info address fun_name) where it is.  
+
+&gt;info func [regex]  
+show names,types of defined functions regular pattern search all matched functions  
+
+&gt;info var [regex]  
+show names types of global variables, not value of it!!  
+&gt;info var ngx_show_version  
+All variables matching regular expression &quot;ngx_show_version&quot;:  
+
+&gt;info locals  </code></pre>
+<h3 id="Breakpoints-and-watchpoints"><a href="#Breakpoints-and-watchpoints" class="headerlink" title="Breakpoints and watchpoints"></a>Breakpoints and watchpoints</h3><pre><code class="text">&gt;break [file:] line  
+&gt;break [file:] func  
+&gt;break *addr (set breakpoint at address addr)  
+&gt;break [above three] if expr  
+&gt;watch expr | watch var  
+# program stops when watched var is read  
+&gt;rwatch expr (read)  
+# program stops when watched var is read or write  
+&gt;awatch expr (read/or write)  
+&gt;info break  
+&gt;info watch  
+&gt;delete [n]  
+&gt;clear [file:]fun  
+&gt;clear [finle:]line  
+&gt;disable [n]  
+&gt;enable [n]  
+&gt;ignore n count (ignore breakpoint n, count times) [n] can be number for breakpoint or watchpoint  </code></pre>
+<h3 id="Program-stack"><a href="#Program-stack" class="headerlink" title="Program stack"></a>Program stack</h3><pre><code class="text">&gt;backtrace (print trace of all frames in stack)  
+&gt;frame [n] (select frame number n)  
+&gt;info frame (describe selected frame)  
+&gt;info args (arguments of selected frame)  
+&gt;info locals (local variables of selected frame)  
+&gt;info reg [rn] (register values [for regs rn] in selected:info reg rax or info reg r10)  </code></pre>
+<h3 id="Working-files"><a href="#Working-files" class="headerlink" title="Working files"></a>Working files</h3><pre><code class="text">&gt;file [file] ( use file for both symbols and executable)  
+&gt;core-file [file] ( read file as coredump;or discard)  
+&gt;exce-file [file] ( use file as executable only; or discard)  
+&gt;symbol-file [file]( use symbol table from file, or discard)  
+&gt;add-sym file addr ( read additional symbols from file, dynamically loaded at addr.)  </code></pre>
+<h3 id="Execution-control"><a href="#Execution-control" class="headerlink" title="Execution control"></a>Execution control</h3><pre><code class="text">&gt;continue (continue running)  
+&gt;step  
+&gt;stepi (step by machine instructions rather than source lines)  
+&gt;next  
+&gt;nexti  
+&gt;finish  
+&gt;return [expr] (pop selected stack frame without executing [setting return value])  
+&gt;signal num (resume execution with signal )  
+&gt;jump line (resume execution at specified line number)  
+&gt;jump *address  
+&gt;set var=expr (evaluate expr without displaying it; use for altering program variables)  </code></pre>
+<h3 id="Display"><a href="#Display" class="headerlink" title="Display"></a>Display</h3><pre><code class="text">&gt;print [/f] [expr] (print a;print /x a;print /t a)  
+    f can be  
+        x    hexadecimal  
+        t     binary  
+        c    character  
+&gt;x [/Nuf] expr (examine memory at address expr; x/1bx 0x123;x/1hx 0x123;x/1wx 0x123)  
+    N is the length you want to see!!  
+    u can be  
+        b individual bytes  
+        h halfwords (two bytes)  
+        w words (four tytes)  
+        g giant words (eight bytes)  
+&gt;disassem [addr] (display memory as machine instructions from addr)  
+&gt;disassem /s function_name (display machine code as well as source code for this function)  </code></pre>
+<h3 id="Automatic-display"><a href="#Automatic-display" class="headerlink" title="Automatic display"></a>Automatic display</h3><pre><code class="text">&gt;display [/f] expr (show value of expr each time program stops)  
+&gt;undisplay n  
+&gt;disable disp n  
+&gt;enable disp n  
+&gt;info display  </code></pre>
+<h3 id="Source-files"><a href="#Source-files" class="headerlink" title="Source files"></a>Source files</h3><pre><code class="text">&gt;dir names (add directory names to front of source path as prefix)  
+&gt;dir (clear source path)  
+&gt;show dir  
+&gt;list (show next ten lines of source)  
+&gt;list - (show previous ten lines)  
+&gt;list line  
+&gt;list func  </code></pre>
+<h3 id="debug-multiple-processes"><a href="#debug-multiple-processes" class="headerlink" title="debug multiple processes"></a>debug multiple processes</h3><p>when parent folks the first!! child, you can use this method to debug the child  </p>
+<pre><code class="text">gdb&gt;set follow-fork-mode child  </code></pre>
+<p>(make sure set breakpoint or watch before running)  </p>
+<p>but if there are more child process want to debug use sleep in that process and attach it to debug first change code add sleep  </p>
+<pre><code class="text">#ps -ef | grep xx (to see the child)  
+gdb&gt;attach child_process_id  
+gdb&gt;b function_name  
+gdb&gt;c  </code></pre>
+<h3 id="multiple-threads"><a href="#multiple-threads" class="headerlink" title="multiple threads"></a>multiple threads</h3><pre><code class="text">gdb&gt;info threads  
+gdb&gt;thread 2  </code></pre>
+<h3 id="show-mapped-shared-memory"><a href="#show-mapped-shared-memory" class="headerlink" title="show mapped shared memory"></a>show mapped shared memory</h3><pre><code class="text">gdb&gt;info proc all  </code></pre>
+<h3 id="show-offset-of-a-given-field"><a href="#show-offset-of-a-given-field" class="headerlink" title="show offset of a given field"></a>show offset of a given field</h3><pre><code class="text">gdb&gt; p &amp;((struct _IO_proc_file *)0)-&gt;next  </code></pre>
+<h3 id="call-a-function-in-gdb"><a href="#call-a-function-in-gdb" class="headerlink" title="call a function in gdb"></a>call a function in gdb</h3><pre><code class="text">gdb&gt;call printf(&quot;hello&quot;)  
+(output is the return value)  
+
+test.c  
+
+#include &lt;stdio.h&gt;  
+#include &lt;stdlib.h&gt;  
+
+struct rule {  
+    int start;  
+    int end;  
+};  
+void f(int a) {  
+    printf(&quot;%d\n&quot;, a);  
+}  
+
+void f2(struct *rule) {  
+    printf(&quot;%d %d\n&quot;, rule-&gt;start, rule-&gt;end);  
+}  
+
+int main() {  
+
+    return 0;  
+}  
+
+$ gcc -d -o test test.c  
+$ gdb test  
+&gt; b main  
+&gt; r  
+&gt;set $var=12  
+&gt;call f($var)  
+
+&gt;call f(12)  
+
+&gt;set $ptr=malloc(sizeof(struct rule))  
+&gt;p $ptr  
+&gt;set ((struct rule*)$ptr)-&gt;start=12  
+&gt;set ((struct rule*)$ptr)-&gt;end=10  
+&gt; p *((struct rule*)$ptr)  
+&gt;call f2($ptr)  
+
+&gt;set $ptr=malloc(4)  
+&gt;set *((int*)$ptr)=12  
+&gt;p *((int*)$ptr)  </code></pre>
+<h3 id="gdb-debug-c"><a href="#gdb-debug-c" class="headerlink" title="gdb debug c++"></a>gdb debug c++</h3><pre><code class="text">set breakpoint on a member function  
+gdb&gt;b class::function  
+
+show fields/members of the given class/struct instance  
+gdb&gt;ptype class_instance  
+
+show attributes of a given instance  
+gdb&gt;p *class_pointer  
+
+show private attribute of a given class instance  
+(you can show all attributes[public, protected, private] by gdb])  
+gdb&gt;p class_pointer-&gt;private_attribute  
+
+show global variable with namespace  
+gdb&gt; p &apos;name_space:log_level&apos;  
+
+disassemble c++ function  
+gdb&gt;disassem &apos;c++ function signature without return type&apos;  
+
+show function signature  
+gdb&gt;info functions xxx  </code></pre>
+<h3 id="ignore-SIGPIPE-in-gdb"><a href="#ignore-SIGPIPE-in-gdb" class="headerlink" title="ignore SIGPIPE in gdb"></a>ignore SIGPIPE in gdb</h3><p>SIGPIPE happens when read/write a closed socket.  </p>
+<pre><code class="text">gdb&gt;handle SIGPIPE nostop  
+gdb&gt;handle SIGPIPE nostop noprint pass  </code></pre>
+<h3 id="how-to-fix-no-such-file-or-directory"><a href="#how-to-fix-no-such-file-or-directory" class="headerlink" title="how to fix no such file or directory"></a>how to fix no such file or directory</h3><pre><code class="text">$cdir compiled path when building binary, get its value  
+gdb&gt; info source  
+
+$cwd  working path when debugging the binary, get its value by  
+gdb&gt; pwd  
+
+gdb&gt; list  
+No such file or directory  
+
+First you need to let gdb store the source path info by &apos;-g&apos;, later on put the source code at proper path.  
+
+gdb saves the file path with absolute path, search it when debugging  
+$gcc -g -o test /tmp/a.c  
+
+gdb saves the file path with relative path, search it by adding compiled path or current working path  
+$gcc -g -o test a.c  
+
+
+$gdb test  
+gdb&gt;list  
+if test build with absolute path, if not found, search compiled path, then working path  
+if test build with relative path, first check $cdir/file_name, then $cwd/file_name  
+if not found &apos;No such file or directory&apos;  </code></pre>
+<p><strong>Sometime you only get the binary file, first check</strong>  </p>
+<pre><code class="bash">$ objdump -WL <span class="built_in">test</span>  
+
+<span class="comment">#  aa:     file format elf64-x86-64  </span>
+<span class="comment">#  </span>
+<span class="comment">#  Decoded dump of debug contents of section .debug_line:  </span>
+<span class="comment">#  </span>
+<span class="comment">#  CU: /tmp/a.c:  </span>
+<span class="comment">#  File name                            Line number    Starting address  </span>
+<span class="comment">#  a.c                                            5            0x400526  </span>
+<span class="comment">#  a.c                                            6            0x40052e  </span>
+<span class="comment">#  a.c                                            8            0x400535  </span>
+<span class="comment">#  a.c                                            9            0x400549  </span>
+<span class="comment">#  a.c                                           10            0x40054e  </span>
+<span class="comment">#  </span>
+<span class="comment">#  CU(compiled unit) shows gdb saves absolute path in debuginfo  </span>
+
+$ objdump -WL <span class="built_in">test</span>  
+<span class="comment"># aa:     file format elf64-x86-64  </span>
+<span class="comment">#  </span>
+<span class="comment"># Decoded dump of debug contents of section .debug_line:  </span>
+<span class="comment">#  </span>
+<span class="comment"># CU: a.c:  </span>
+<span class="comment"># File name                            Line number    Starting address  </span>
+<span class="comment"># a.c                                            5            0x400526  </span>
+<span class="comment"># a.c                                            6            0x40052e  </span>
+<span class="comment"># a.c                                            8            0x400535  </span>
+<span class="comment"># a.c                                            9            0x400549  </span>
+<span class="comment"># a.c                                           10            0x40054e  </span>
+<span class="comment">#  </span>
+<span class="comment"># CU(compiled unit) shows gdb saves relative path in debuginfo  </span>
+<span class="comment"># In this case you also need to know the compiled path  </span>
+
+$ objdump -W aa | grep DW_AT_comp_dir  
+<span class="comment"># &lt;15&gt;   DW_AT_comp_dir    : (indirect string, offset: 0x38): /tmp  </span>
+<span class="comment"># DW_AT_comp_dir     DW_FORM_strp  </span>
+<span class="comment">#  </span>
+<span class="comment"># As you can see, the compiled path is /tmp  </span>
+
+
+<span class="comment"># If you debug the binary on your compliing machine, and you don't move you source code  </span>
+<span class="comment"># every thing is fine!!!  </span>
+<span class="comment">#  </span>
+<span class="comment"># BUT if you get the binary from other guys or you move the source code, it will shows  </span>
+<span class="comment"># 'No such file or directory!'  </span>
+
+<span class="comment"># 1. compiled with absolute path  </span>
+$ gdb  
+gdb&gt;<span class="built_in">set</span> substitute-path <span class="variable">$from</span> <span class="variable">$to</span>  
+<span class="comment"># let's say you moved a.c from /tmp to /home/  </span>
+$ gdb <span class="built_in">test</span>  
+gdb&gt; <span class="built_in">set</span> substitute-path /tmp /home  
+
+<span class="comment"># 2. binary file saves with relative path  </span>
+$ gdb  
+gdb&gt; dir <span class="variable">$new_path</span>  </code></pre>
+<h3 id="debug-with-separate-debug-files"><a href="#debug-with-separate-debug-files" class="headerlink" title="debug with separate debug files."></a>debug with separate debug files.</h3><p>GDB supports two ways of specifying the separate debug info file:  </p>
+<ul>
+<li>The executable contains a debug link that specifies the name of the separate debug info file(.gnu_debuglink)  </li>
+<li>The executable contains a build ID, a unique bit string that is also present in the corresponding debug info file(the build is most stored at .note.gnu.build-id)  </li>
+</ul>
+<pre><code class="bash"><span class="comment"># check the separate debug infor file with command  </span>
+$ readelf -n /lib/x86_64-linux-gnu/libc-2.23.so | grep  BUILD_ID -C 2  
+Displaying notes found at file offset 0x00000270 with length 0x00000024:  
+  Owner                 Data size    Description  
+  GNU                  0x00000014    NT_GNU_BUILD_ID (unique build ID bitstring)  
+    Build ID: 40572882c66d064f9e4134cc94e4127798aad742  
+
+<span class="comment"># check the debug link  </span>
+$ readelf -x.gnu_debuglink /lib/x86_64-linux-gnu/libc-2.23.so  </code></pre>
+<p><strong>Depending on the way the debug info file is specified, GDB uses two different methods of looking for the debug file</strong>  </p>
+<ul>
+<li>For the “debug link” method, GDB looks up the named file in the directory of the executable file, then in a subdirectory of that directory named `.debug’, and finally under the global debug directory, in a subdirectory whose name is identical to the leading directories of the executable’s absolute file name.  </li>
+<li>For the “build ID” method, <font color="red">GDB looks in the .build-id’ subdirectory of the global debug directory for a file named `nn/nnnnnnnn.debug</font>‘, where nn are the first 2 hex characters of the build ID bit string, and nnnnnnnn are the rest of the bit string  </li>
+</ul>
+<p><strong>Example</strong>  </p>
+<p>suppose you ask GDB to debug /usr/bin/ls, which has a debug link that specifies the file ls.debug, and a build ID whose value in hex is abcdef1234. If the global debug directory is /usr/lib/debug, then GDB will look for the following debug information files, in the <font color="green"><strong>indicated order</strong></font>:  </p>
+<pre><code class="bash"><span class="comment"># global debug dir: /usr/lib/debug by default  </span>
+/usr/lib/debug/.build-id/ab/cdef1234.debug  
+/usr/bin/ls.debug  
+/usr/bin/.debug/ls.debug  
+/usr/lib/debug/usr/bin/ls.debug  </code></pre>
+<p><strong>Example to use build-id not from default path</strong>  </p>
+<pre><code class="bash">&gt;gdb  
+&gt;<span class="built_in">set</span> debug-file-directory /tmp/lib/debug  
+&gt;file /usr/bin/nginx  
+&gt;core-file core.nginx  
+&gt;bt  </code></pre>
+<h3 id="detach-symbol-from-binary-compiled-with-g"><a href="#detach-symbol-from-binary-compiled-with-g" class="headerlink" title="detach symbol from binary(compiled with -g)"></a>detach symbol from binary(compiled with -g)</h3><pre><code class="bash"><span class="comment"># detach symbol to a separate file, foo still has symbol  </span>
+$ objcopy --only-keep-debug foo foo.debug  
+
+<span class="comment"># strip symbol from foo, foo has no symbol now  </span>
+$ strip -g foo  
+
+<span class="comment"># attach symbol back to binary  </span>
+$ objcopy --add-gnu-debuglink=foo.debug foo  </code></pre>
+<h3 id="watchpoints-is-deleted-by-gdb-automatically"><a href="#watchpoints-is-deleted-by-gdb-automatically" class="headerlink" title="watchpoints is deleted by gdb automatically"></a>watchpoints is deleted by gdb automatically</h3><p>gdb will delete watchpoints if out of scope of variable used by watchpoints, this usually happens<br>when you add a watchpoint on a local variable, to prevernt gdb delete such watchpoints, add -l/-location<br>to the watchpoint, <strong>but with this type of watchpoint, gdb will pick up changes that other functions make to that same address on the stack, so you can add the qualification if $_caller_is(“your_caller_func”, 0)</strong>  </p>
+<pre><code class="bash">gdb&gt; watch -location <span class="variable">$local_var</span>  
+
+<span class="comment"># better way to use  </span>
+gdb&gt; watch -location <span class="variable">$local_var</span> <span class="keyword">if</span> <span class="variable">$_caller_is</span>(<span class="string">"caller_function"</span>, 0)  </code></pre>
+<h3 id="run-gdb-command-automatically-when-launch-gdb"><a href="#run-gdb-command-automatically-when-launch-gdb" class="headerlink" title="run gdb command automatically when launch gdb"></a>run gdb command automatically when launch gdb</h3><pre><code class="bash"><span class="comment"># create a file ~/.gdbinit  </span>
+<span class="comment"># put gdb command in the file each line  </span>
+<span class="comment"># then start gdb  </span>
+$ gdb  </code></pre>
+<h3 id="pax-on-application"><a href="#pax-on-application" class="headerlink" title="pax on application"></a>pax on application</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">paxctl  is  a tool that allows PaX flags to be modified on a per-binary  </span><br><span class="line">basis(need kernel support!!!)  </span><br><span class="line">  </span><br><span class="line">PaX is part of common  security-enhancing  kernel  patches  and  </span><br><span class="line">secure   distributions,   such   as  GrSecurity  and  Hardened  Gentoo,  </span><br><span class="line">respectively.  Your system needs to be running a properly  patched  and  </span><br><span class="line">configured kernel for this program to have any effect.  </span><br><span class="line">  </span><br><span class="line">-P     enforce paging based non-executable pages (PAGEEXEC)  </span><br><span class="line">  </span><br><span class="line">-p     do not enforce paging based non-executable pages (NOPAGEEXEC)  </span><br><span class="line">  </span><br><span class="line">-E     emulate trampolines (EMUTRAMP)  </span><br><span class="line">  </span><br><span class="line">-e     do not emulate trampolines (NOEMUTRAMP)  </span><br><span class="line">  </span><br><span class="line">-M     enforce secure memory protections (MPROTECT)  </span><br><span class="line">  </span><br><span class="line">-m     do not enforce secure memory protections (NOMPROTECT)  </span><br><span class="line">  </span><br><span class="line">-R     randomize memory regions (RANDMMAP)  </span><br><span class="line">  </span><br><span class="line">-r     do not randomize memory regions (NORANDMMAP)  </span><br><span class="line">  </span><br><span class="line">-X     randomize   base   address   of   normal  (ET_EXEC)  executables  </span><br><span class="line">       (RANDEXEC)  </span><br><span class="line">  </span><br><span class="line">-x     do not randomize base address of  normal  (ET_EXEC)  executables  </span><br><span class="line">       (NORANDEXEC)  </span><br><span class="line">  </span><br><span class="line">-S     enforce segmentation based non-executable pages (SEGMEXEC)  </span><br><span class="line">  </span><br><span class="line">-s     do   not   enforce   segmentation   based  non-executable  pages  </span><br><span class="line">       (NOSEGMEXEC)  </span><br><span class="line">  </span><br><span class="line">-v     view flags  </span><br><span class="line">  </span><br><span class="line">-z     reset all flags (further flags still apply)  </span><br><span class="line">  </span><br><span class="line">-c     create the PT_PAX_FLAGS program header if it does not  exist  by  </span><br><span class="line">       converting the PT_GNU_STACK program header if it exists  </span><br><span class="line">  </span><br><span class="line">-C     create  the  PT_PAX_FLAGS program header if it does not exist by  </span><br><span class="line">       adding a new program header, if it is possible  </span><br><span class="line">  </span><br><span class="line">-q     suppress error messages  </span><br><span class="line">  </span><br><span class="line">-Q     report flags in short format  </span><br><span class="line">  </span><br><span class="line">can&apos;t insert breakpoint even binary compiled with &apos;-g&apos; option  </span><br><span class="line">gdb&gt;  </span><br><span class="line">warning: Cannot call inferior functions, Linux kernel PaX protection forbids return to non-executable pages!  </span><br><span class="line">Warning:  </span><br><span class="line">Cannot insert breakpoint 1.  </span><br><span class="line">Cannot access memory at address 0x4fbbcb  </span><br><span class="line">  </span><br><span class="line">try disable the global setting kernel part as it say &apos;Linux kernel PaX protection forbids&apos;  </span><br><span class="line">    To diable PaX policy globally  </span><br><span class="line">    sysctl -w kernel.pax.softmode=1  </span><br><span class="line">  </span><br><span class="line">    To enable PaX policy globally  </span><br><span class="line">    sysctl -w kernel.pax.softmode=0  </span><br><span class="line">  </span><br><span class="line">if not working, try on this specific program  </span><br><span class="line">    #apt-get install paxctl  </span><br><span class="line">  </span><br><span class="line">    #paxctl -v binary_file  </span><br><span class="line">  </span><br><span class="line">    /*disable security protection for this app */  </span><br><span class="line">    #paxctl -pemrxs binary  </span><br><span class="line">  </span><br><span class="line">    /* if you meet problem like when runs &apos;paxctl -pemrxs binary&apos; */  </span><br><span class="line">    file /xx/nginx does not have a PT_PAX_FLAGS program header, try conversion  </span><br><span class="line">  </span><br><span class="line">If you see  errors like this   </span><br><span class="line">gdb&gt; break test_print  </span><br><span class="line">gdb&gt; c  </span><br><span class="line">Warning:  </span><br><span class="line">Cannot insert breakpoint 1.  </span><br><span class="line">Cannot access memory at address 0x4fbbc  </span><br><span class="line">  </span><br><span class="line">use hbreak to have a try  </span><br><span class="line">gdb&gt; hbreak test_print  </span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+
+<h3 id="use-glibc-source-code-in-gdb"><a href="#use-glibc-source-code-in-gdb" class="headerlink" title="use glibc source code in gdb"></a>use glibc source code in gdb</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">most of time, you application link with glibc dynamic!  </span><br><span class="line">  </span><br><span class="line">check the glibc version that you application used.  </span><br><span class="line">  </span><br><span class="line"># ldd xx_binary  </span><br><span class="line">$ ldd nginx | grep libc  </span><br><span class="line">	libcrypt.so.1 =&gt; /lib/x86_64-linux-gnu/libcrypt.so.1 (0x00007fed50270000)  </span><br><span class="line">	libcrypto.so.1.0.0 =&gt; /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 (0x00007fed4eeb7000)  </span><br><span class="line">	libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007fed4e436000)  </span><br><span class="line">  </span><br><span class="line">install glibc source file and debug symbol from offical repo  </span><br><span class="line">  </span><br><span class="line">```bash  </span><br><span class="line"># source repo  </span><br><span class="line">$ grep &apos;^deb &apos; /etc/apt/sources.list | sed &apos;s/^deb /deb-src /g&apos; | sudo tee /etc/apt/sources.list.d/deb-src.list  </span><br><span class="line">$ cat  /etc/apt/sources.list.d/deb-src.list  </span><br><span class="line"># debug symbol repo  </span><br><span class="line">$ printf &quot;deb http://ddebs.ubuntu.com %s main restricted universe multiverse\n&quot; $(lsb_release -cs)&#123;,-updates,-security,-proposed&#125; | sudo tee -a /etc/apt/sources.list.d/ddebs.list  </span><br><span class="line">  </span><br><span class="line">$ apt update -y  </span><br><span class="line">  </span><br><span class="line"># make sure the libc6 same version with process used!!!!  </span><br><span class="line"># otherwise, you can&apos;t get from ubuntu repo, but from github or somewhere.  </span><br><span class="line"># git clone git://sourceware.org/git/glibc.git  </span><br><span class="line">  </span><br><span class="line"># download source  </span><br><span class="line">$ apt source libc6  </span><br><span class="line">  </span><br><span class="line"># check the debug symbol pkg  </span><br><span class="line">$ apt-cache search libc6-dbg  </span><br><span class="line">$ apt-get install -y libc6-dbg  </span><br><span class="line"> ```  </span><br><span class="line">  </span><br><span class="line">check where shoud I put the source file  </span><br><span class="line">  </span><br><span class="line">Way1:  </span><br><span class="line">...  </span><br><span class="line">gdb&gt;set filename-display absolute  </span><br><span class="line">gdb&gt;bt  </span><br><span class="line">#0  _IO_new_proc_open (fp=fp@entry=0x333bc001110,  </span><br><span class="line">    command=command@entry=0x333cbfcb620 &quot;PYTHONPATH=/path/to/python /usr/bin/timeout -k 25 25 /xx/bin/cli.py --get --xb-status &quot;, mode=&lt;optimized out&gt;, mode@entry=0x536e720e4a &quot;re&quot;) at /build/glibc-Cl5G7W/glibc-2.23/libio/iopopen.c:213  </span><br><span class="line">  </span><br><span class="line">...  </span><br><span class="line">  </span><br><span class="line">so you can see you should put source file at /build/glibc-Cl5G7W/glibc-2.23 !!  </span><br><span class="line">  </span><br><span class="line">Way2:  </span><br><span class="line">gdb&gt; set filename-display relative  </span><br><span class="line">gdb&gt; bt  </span><br><span class="line">gdb&gt; dir $root_of_glibc  </span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+
+
+<h3 id="gdb-with-lots-of-question-marks-even-with-symbol-table-loaded"><a href="#gdb-with-lots-of-question-marks-even-with-symbol-table-loaded" class="headerlink" title="gdb with lots of question marks even with symbol table loaded"></a>gdb with lots of question marks even with symbol table loaded</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line">In some case, even with debug binary(symbol table), gdb still show lots of question marks, like this  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ gdb nginx core.nginx.1615779511.31694.134.11    </span><br><span class="line">Reading symbols from nginx...done.-------&gt;with symbol    </span><br><span class="line">[New LWP 31694]    </span><br><span class="line">Core was generated by nginx: worker  process                                                        .  </span><br><span class="line">Program terminated with signal SIGSEGV, Segmentation fault.    </span><br><span class="line">#0  0x0000184bd5ac9ecd in ?? ()    </span><br><span class="line">(gdb) bt    </span><br><span class="line">#0  0x0000184bd5ac9ecd in ?? ()    </span><br><span class="line">#1  0x0000000000000001 in ?? ()    </span><br><span class="line">#2  0x757f796f19023d00 in ?? ()    </span><br><span class="line">#3  0x0000184bd7031100 in ?? ()    </span><br><span class="line">#4  0x0000000000000000 in ?? ()    </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">This is because of memory protection enabled when complie binary, so that address can&apos;t map to the correct value in binary, hence ? shows.    </span><br><span class="line">  </span><br><span class="line">diable memory protection by `paxctl`    </span><br><span class="line"></span><br><span class="line">$ paxctl -mc binary    </span><br><span class="line">$ gdb nginx core.nginx.1615779511.31694.134.11    </span><br><span class="line">Reading symbols from nginx...done.    </span><br><span class="line">  </span><br><span class="line">warning: exec file is newer than core file.    </span><br><span class="line">[New LWP 31694]    </span><br><span class="line">[Thread debugging using libthread_db enabled]    </span><br><span class="line">Using host libthread_db library &quot;/lib/x86_64-linux-gnu/libthread_db.so.1&quot;.    </span><br><span class="line">Core was generated by nginx: worker   process </span><br><span class="line">Program terminated with signal SIGSEGV, Segmentation fault.    </span><br><span class="line">#0  0x0000184bd5ac9ecd in ngx_http_run_posted_requests (c=0x7371edd76d10) at edge/nginx/src/http/ngx_http_request.c:2296  </span><br><span class="line">2296	        pr = r-&gt;main-&gt;posted_requests;  </span><br><span class="line">(gdb) bt  </span><br><span class="line">#0  0x0000184bd5ac9ecd in ngx_http_run_posted_requests (c=0x7371edd76d10) at edge/nginx/src/http/ngx_http_request.c:2296  </span><br><span class="line">#1  0x0000184bd5b2e31f in ngx_epoll_process_events (cycle=0x184bd7031100, timer=&lt;optimized out&gt;, flags=&lt;optimized out&gt;) at edge/nginx/src/event/modules/ngx_epoll_module.c:937  </span><br><span class="line">#2  0x0000184bd5b3022e in ngx_process_events_and_timers (cycle=cycle@entry=0x184bd7031100) at edge/nginx/src/event/ngx_event.c:242  </span><br><span class="line">#3  0x0000184bd5b42055 in ngx_worker_process_cycle (cycle=cycle@entry=0x184bd7031100, data=data@entry=0x1) at edge/nginx/src/os/unix/ngx_process_cycle.c:989  </span><br><span class="line">#4  0x0000184bd5b40815 in ngx_spawn_process (cycle=cycle@entry=0x184bd7031100, proc=proc@entry=0x184bd5b41f60 &lt;ngx_worker_process_cycle&gt;, data=data@entry=0x1,   </span><br><span class="line">    name=name@entry=0x184bd628fbd3 &quot;worker process&quot;, respawn=respawn@entry=-4) at edge/nginx/src/os/unix/ngx_process.c:213  </span><br><span class="line">#5  0x0000184bd5b41581 in ngx_start_worker_processes (cycle=cycle@entry=0x184bd7031100, n=8, type=type@entry=-4) at edge/nginx/src/os/unix/ngx_process_cycle.c:425  </span><br><span class="line">#6  0x0000184bd5b4387a in ngx_master_process_cycle (cycle=0x184bd7031100) at edge/nginx/src/os/unix/ngx_process_cycle.c:275  </span><br><span class="line">#7  0x0000184bd59ecf74 in main (argc=&lt;optimized out&gt;, argv=&lt;optimized out&gt;) at edge/nginx/src/core/nginx.c:390  </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\linux-tips-daily\" rel="bookmark">linux-tips-daily</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\memory-checker\" rel="bookmark">memory-checker</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\tips-for-debugging-application\" rel="bookmark">tips for debugging application</a></div>
+      
+    </li>
+  
+  </ul>
+
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+            
+              <a href="/tags/coredump/" rel="tag"><i class="fa fa-tag"></i> coredump</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/apt-dpkg-command/" rel="next" title="apt-dpkg-command">
+                  <i class="fa fa-chevron-left"></i> apt-dpkg-command
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/linux-tips-daily/" rel="prev" title="linux-tips-daily">
+                  linux-tips-daily <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#how-gdb-load-debug-info"><span class="nav-number">1.1.</span> <span class="nav-text">how gdb load debug info</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#core-file-location"><span class="nav-number">1.2.</span> <span class="nav-text">core file location</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gdb"><span class="nav-number">1.3.</span> <span class="nav-text">gdb</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Getting-help"><span class="nav-number">1.3.1.</span> <span class="nav-text">Getting help</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Executing-your-program"><span class="nav-number">1.3.2.</span> <span class="nav-text">Executing your program</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Symbol-table"><span class="nav-number">1.3.3.</span> <span class="nav-text">Symbol table</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Breakpoints-and-watchpoints"><span class="nav-number">1.3.4.</span> <span class="nav-text">Breakpoints and watchpoints</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Program-stack"><span class="nav-number">1.3.5.</span> <span class="nav-text">Program stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Working-files"><span class="nav-number">1.3.6.</span> <span class="nav-text">Working files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Execution-control"><span class="nav-number">1.3.7.</span> <span class="nav-text">Execution control</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Display"><span class="nav-number">1.3.8.</span> <span class="nav-text">Display</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Automatic-display"><span class="nav-number">1.3.9.</span> <span class="nav-text">Automatic display</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Source-files"><span class="nav-number">1.3.10.</span> <span class="nav-text">Source files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#debug-multiple-processes"><span class="nav-number">1.3.11.</span> <span class="nav-text">debug multiple processes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#multiple-threads"><span class="nav-number">1.3.12.</span> <span class="nav-text">multiple threads</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#show-mapped-shared-memory"><span class="nav-number">1.3.13.</span> <span class="nav-text">show mapped shared memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#show-offset-of-a-given-field"><span class="nav-number">1.3.14.</span> <span class="nav-text">show offset of a given field</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call-a-function-in-gdb"><span class="nav-number">1.3.15.</span> <span class="nav-text">call a function in gdb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gdb-debug-c"><span class="nav-number">1.3.16.</span> <span class="nav-text">gdb debug c++</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ignore-SIGPIPE-in-gdb"><span class="nav-number">1.3.17.</span> <span class="nav-text">ignore SIGPIPE in gdb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-fix-no-such-file-or-directory"><span class="nav-number">1.3.18.</span> <span class="nav-text">how to fix no such file or directory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#debug-with-separate-debug-files"><span class="nav-number">1.3.19.</span> <span class="nav-text">debug with separate debug files.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#detach-symbol-from-binary-compiled-with-g"><span class="nav-number">1.3.20.</span> <span class="nav-text">detach symbol from binary(compiled with -g)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#watchpoints-is-deleted-by-gdb-automatically"><span class="nav-number">1.3.21.</span> <span class="nav-text">watchpoints is deleted by gdb automatically</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#run-gdb-command-automatically-when-launch-gdb"><span class="nav-number">1.3.22.</span> <span class="nav-text">run gdb command automatically when launch gdb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pax-on-application"><span class="nav-number">1.3.23.</span> <span class="nav-text">pax on application</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#use-glibc-source-code-in-gdb"><span class="nav-number">1.3.24.</span> <span class="nav-text">use glibc source code in gdb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gdb-with-lots-of-question-marks-even-with-symbol-table-loaded"><span class="nav-number">1.3.25.</span> <span class="nav-text">gdb with lots of question marks even with symbol table loaded</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/uploads/avatar.gif"
+      alt="Jason">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">106</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">115</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="GitHub &rarr; https://github.com/jason-cyun"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="bWFpbHRvOmphc29uX2xrbUAxNjMuY29t" title="E-Mail &rarr; mailto:jason_lkm@163.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script><script src="/js/bookmark.js?v=7.4.0"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var id = element.id || '';
+    var src = element.src || '';
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (id !=='') {
+      script.id = element.id;
+    }
+    if (src !== '') {
+      script.src = src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+<script pjax>
+if (document.querySelectorAll('div.pdf').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js', () => {
+    document.querySelectorAll('div.pdf').forEach(element => {
+      PDFObject.embed(element.getAttribute('target'), element, {
+        pdfOpenParams: {
+          navpanes: 0,
+          toolbar: 0,
+          statusbar: 0,
+          pagemode: 'thumbs',
+          view: 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height: element.getAttribute('height') || '500px'
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '09527c4c0e89e8430bc2',
+      clientSecret: 'bf4a9feb1fafe110ea12ea7549a3b493a08f7e03',
+      repo: 'blog',
+      owner: 'jason-bj',
+      admin: ['jason-bj'],
+      id: 'f629dc2aba4ddf97171a648ec9006020',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'false'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+    </div>
+</body>
+</html>

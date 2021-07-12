@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/clogo.svg?v=7.4.0" color="#222">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="pippip commandsHere are frequently used commands with pip(pip3 for python3) search available pkg online goto: official repo pypi 12345678910111213141516171819202122232425262728293031323334353637383940">
+<meta name="keywords" content="pip3 list,pip show">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pip-deep">
+<meta property="og:url" content="http://cyun.tech/pip-deep/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="pippip commandsHere are frequently used commands with pip(pip3 for python3) search available pkg online goto: official repo pypi 12345678910111213141516171819202122232425262728293031323334353637383940">
+<meta property="og:locale" content="en-US">
+<meta property="og:updated_time" content="2021-07-12T09:36:57.654Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pip-deep">
+<meta name="twitter:description" content="pippip commandsHere are frequently used commands with pip(pip3 for python3) search available pkg online goto: official repo pypi 12345678910111213141516171819202122232425262728293031323334353637383940">
+  <link rel="alternate" href="/atom.xml" title="CYun" type="application/atom+xml">
+  <link rel="canonical" href="http://cyun.tech/pip-deep/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>pip-deep | CYun</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script pjax>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-148730544-1');
+    }
+  </script>
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-US">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CYun</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a class="book-mark-link book-mark-link-fixed" href="#"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/pip-deep/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">pip-deep
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-11-21 16:45:31" itemprop="dateCreated datePublished" datetime="2019-11-21T16:45:31+08:00">2019-11-21</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-12 17:36:57" itemprop="dateModified" datetime="2021-07-12T17:36:57+08:00">2021-07-12</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/pip/" itemprop="url" rel="index"><span itemprop="name">pip</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h1><h2 id="pip-commands"><a href="#pip-commands" class="headerlink" title="pip commands"></a>pip commands</h2><p>Here are frequently used commands with pip(pip3 for python3)</p>
+<p>search available pkg online goto: <span class="exturl" data-url="aHR0cHM6Ly9weXBpLm9yZy9weXBp" title="https://pypi.org/pypi">official repo pypi<i class="fa fa-external-link"></i></span></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">$ pip config debug</span><br><span class="line">env_var:</span><br><span class="line">env:</span><br><span class="line">global:</span><br><span class="line">  /etc/xdg/pip/pip.conf, exists: False</span><br><span class="line">  /etc/pip.conf, exists: False</span><br><span class="line">site:</span><br><span class="line">  /home/ubuntu/anaconda3/pip.conf, exists: False</span><br><span class="line">user:</span><br><span class="line">  /home/ubuntu/.pip/pip.conf, exists: False</span><br><span class="line">  /home/ubuntu/.config/pip/pip.conf, exists: False</span><br><span class="line">  </span><br><span class="line">$ pip cache dir</span><br><span class="line">/home/ubuntu/.cache/pip</span><br><span class="line"></span><br><span class="line">$ pip cache list</span><br><span class="line">Nothing cached.</span><br><span class="line"></span><br><span class="line"><span class="comment"># global install, all users see it!!!</span></span><br><span class="line">$ sudo pip install package_name</span><br><span class="line"><span class="comment"># install/uninstall for current user</span></span><br><span class="line">$ pip install package_name <span class="comment"># ~/.local/lib/python</span></span><br><span class="line">$ pip install package_name==version</span><br><span class="line">$ pip uninstall package_name</span><br><span class="line"></span><br><span class="line"><span class="comment"># pip list --format=freeze&gt;req.txt</span></span><br><span class="line">$ pip install -r req.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># list installed python packages using pip</span></span><br><span class="line">$ pip list -v</span><br><span class="line">Package                            Version             Location                                           Installer</span><br><span class="line">---------------------------------- ------------------- -------------------------------------------------- ---------</span><br><span class="line">alabaster                          0.7.12              /home/ubuntu/anaconda3/lib/python3.8/site-packages conda</span><br><span class="line">anaconda-client                    1.7.2               /home/ubuntu/anaconda3/lib/python3.8/site-packages conda</span><br><span class="line">anaconda-navigator                 1.10.0              /home/ubuntu/anaconda3/lib/python3.8/site-packages</span><br><span class="line">anaconda-project                   0.8.3               /home/ubuntu/anaconda3/lib/python3.8/site-packages conda</span><br><span class="line">argh                               0.26.2              /home/ubuntu/anaconda3/lib/python3.8/site-packages</span><br><span class="line">argon2-cffi                        20.1.0              /home/ubuntu/anaconda3/lib/python3.8/site-packages conda</span><br><span class="line">asn1crypto                         1.4.0               /home/ubuntu/anaconda3/lib/python3.8/site-packages conda</span><br><span class="line">astroid                            2.4.2               /home/ubuntu/anaconda3/lib/python3.8/site-packages conda</span><br><span class="line">astropy                            4.0.2               /home/ubuntu/anaconda3/lib/python3.8/site-packages</span><br><span class="line">async-generator                    1.10                /home/ubuntu/anaconda3/lib/python3.8/site-packages conda</span><br><span class="line">atomicwrites                       1.4.0               /home/ubuntu/anaconda3/lib/python3.8/site-packages conda</span><br><span class="line">attrs                              20.3.0              /home/ubuntu/anaconda3/lib/python3.8/site-packages conda</span><br><span class="line">autopep8                           1.5.4               /home/ubuntu/anaconda3/lib/python3.8/site-packages conda</span><br><span class="line">Babel                              2.8.1               /home/ubuntu/anaconda3/lib/python3.8/site-packages conda</span><br><span class="line">backcall                           0.2.0               /home/ubuntu/anaconda3/lib/python3.8/site-packages conda</span><br><span class="line">backports.functools-lru-cache      1.6.1               /home/ubuntu/anaconda3/lib/python3.8/site-packages conda</span><br><span class="line">backports.shutil-get-terminal-size 1.0.0               /home/ubuntu/anaconda3/lib/python3.8/site-packages conda</span><br><span class="line">backports.tempfile                 1.0                 /home/ubuntu/anaconda3/lib/python3.8/site-packages pip</span><br><span class="line"></span><br><span class="line">$ pip list</span><br><span class="line">Package                            Version</span><br><span class="line">---------------------------------- -------------------</span><br><span class="line">alabaster                          0.7.12</span><br><span class="line">anaconda-client                    1.7.2</span><br><span class="line">anaconda-navigator                 1.10.0</span><br><span class="line">anaconda-project                   0.8.3</span><br><span class="line">argh                               0.26.2</span><br><span class="line">argon2-cffi                        20.1.0</span><br><span class="line">asn1crypto                         1.4.0</span><br><span class="line">astroid                            2.4.2</span><br><span class="line">astropy                            4.0.2</span><br><span class="line"></span><br><span class="line">$ pip list --format=freeze</span><br><span class="line">alabaster==0.7.12</span><br><span class="line">anaconda-client==1.7.2</span><br><span class="line">anaconda-navigator==1.10.0</span><br><span class="line">anaconda-project==0.8.3</span><br><span class="line">argh==0.26.2</span><br><span class="line">argon2-cffi==20.1.0</span><br><span class="line">asn1crypto==1.4.0</span><br><span class="line">astroid==2.4.2</span><br><span class="line">astropy==4.0.2</span><br><span class="line">async-generator==1.10</span><br><span class="line">atomicwrites==1.4.0</span><br><span class="line">attrs==20.3.0</span><br><span class="line">autopep8==1.5.4</span><br><span class="line">Babel==2.8.1</span><br><span class="line">backcall==0.2.0</span><br><span class="line"></span><br><span class="line">$ pip list --outdated</span><br><span class="line"></span><br><span class="line"><span class="comment"># !!!while dpkg -l only shows apt-get installed packages!!!</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># show file in package</span></span><br><span class="line">$ pip show packet_name</span><br></pre></td></tr></table></figure>
+
+<h2 id="apt-get-vs-pip"><a href="#apt-get-vs-pip" class="headerlink" title="apt-get vs pip"></a>apt-get vs pip</h2><p><strong>Note: some python pkg may be only available by apt source or pypi source, not both</strong></p>
+<h3 id="pkg-source-is-different"><a href="#pkg-source-is-different" class="headerlink" title="pkg source is different"></a>pkg source is different</h3><p><code>apt-get can install any package from remote repo</code>, not only python related but pip/pip3 only for python package, for some python packages you can install it from apt-get or pip, the difference is <code>apt-get use source.list library that&#39;s dedicated for particular ubuntu version, the package from there is always old, but pip uses its own library(PyPI https://pypi.org/pypi) which always have new version for the application</code>, while for some python package, apt-get may NOT have. from apt-get you can’t specify the version to install while pip can have.</p>
+<p><strong>pypi usually has many versions of a single pkg while apt source only has one</strong></p>
+<h3 id="install-dest-location-is-different"><a href="#install-dest-location-is-different" class="headerlink" title="install dest location is different"></a>install dest location is different</h3><p>apt-get installs python modules in <code>system-wide location</code>. We cannot just install modules in our project virtualenv. pip solves this problem for us. If we are using pip after activating the <code>virtualenv</code>, it is intelligent enough to only install the modules in our project virtualenv. As mentioned in previous point, if there is a version of a particular python package already installed in system-wide location, and one of our project requires an older version of the same python package, in such situations we can use <code>virtualenv and pip to install that older version of python package without any conflicts.</code></p>
+<p><strong>apt dest location</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> show dest location</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> dpkg -L python3-httplib2</span></span><br><span class="line">/usr/bin</span><br><span class="line">/usr/lib/</span><br></pre></td></tr></table></figure>
+
+<p><strong>pip dest location</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> show dest location</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> pip show httplib2</span></span><br><span class="line">/user/local/bin</span><br><span class="line">/usr/local/lib</span><br><span class="line">~/.local/lib</span><br><span class="line">~/.local/bin</span><br></pre></td></tr></table></figure>
+
+<p>if you install one package by these two, there will be two copies(may be two version of this pkg), but apt-get always wins, as the sys.path always, <code>/usr/bin/; /usr/local/bin</code>, but you can change the PATH.</p>
+<h3 id="name-is-different"><a href="#name-is-different" class="headerlink" title="name is different"></a>name is different</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get install python3-jinja2</span><br><span class="line"><span class="comment"># vs</span></span><br><span class="line">$ pip install jinjia2</span><br></pre></td></tr></table></figure>
+
+<h2 id="conda"><a href="#conda" class="headerlink" title="conda"></a>conda</h2><p>conda(which has its own repo: <span class="exturl" data-url="aHR0cHM6Ly9hbmFjb25kYS5vcmcv" title="https://anaconda.org/">https://anaconda.org/<i class="fa fa-external-link"></i></span>) is another way to install python pkg(<strong>pkg installed by conda be get by pip list</strong>).</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">$ conda info</span><br><span class="line">     active environment : base</span><br><span class="line">    active env location : /home/ubuntu/anaconda3</span><br><span class="line">            shell level : 1</span><br><span class="line">       user config file : /home/ubuntu/.condarc</span><br><span class="line"> populated config files : </span><br><span class="line">          conda version : 4.9.2</span><br><span class="line">    conda-build version : 3.20.5</span><br><span class="line">         python version : 3.8.5.final.0</span><br><span class="line">       virtual packages : __glibc=2.27=0</span><br><span class="line">                          __unix=0=0</span><br><span class="line">                          __archspec=1=x86_64</span><br><span class="line">       base environment : /home/ubuntu/anaconda3  (<span class="built_in">read</span> only)</span><br><span class="line">           channel URLs : https://repo.anaconda.com/pkgs/main/linux-64</span><br><span class="line">                          https://repo.anaconda.com/pkgs/main/noarch</span><br><span class="line">                          https://repo.anaconda.com/pkgs/r/linux-64</span><br><span class="line">                          https://repo.anaconda.com/pkgs/r/noarch</span><br><span class="line">          package cache : /home/ubuntu/anaconda3/pkgs</span><br><span class="line">                          /home/ubuntu/.conda/pkgs</span><br><span class="line">       envs directories : /home/ubuntu/.conda/envs</span><br><span class="line">                          /home/ubuntu/anaconda3/envs</span><br><span class="line">               platform : linux-64</span><br><span class="line">             user-agent : conda/4.9.2 requests/2.24.0 CPython/3.8.5 Linux/4.15.0-136-generic ubuntu/18.04.5 glibc/2.27</span><br><span class="line">                UID:GID : 1000:1000</span><br><span class="line">             netrc file : None</span><br><span class="line">           offline mode : False</span><br><span class="line"></span><br><span class="line">$ conda list</span><br><span class="line"><span class="comment"># packages in environment at /home/ubuntu/anaconda3:</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Name                    Version                   Build  Channel</span></span><br><span class="line">_ipyw_jlab_nb_ext_conf    0.1.0                    py38_0  </span><br><span class="line">_libgcc_mutex             0.1                        main  </span><br><span class="line">alabaster                 0.7.12                     py_0  </span><br><span class="line">anaconda                  2020.11                  py38_0  </span><br><span class="line">anaconda-client           1.7.2                    py38_0  </span><br><span class="line">anaconda-navigator        1.10.0                   py38_0  </span><br><span class="line">anaconda-project          0.8.4                      py_0  </span><br><span class="line">argh                      0.26.2                   py38_0  </span><br><span class="line">argon2-cffi               20.1.0           py38h7b6447c_1  </span><br><span class="line">asn1crypto                1.4.0                      py_0  </span><br><span class="line">astroid                   2.4.2                    py38_0  </span><br><span class="line">astropy                   4.0.2            py38h7b6447c_0  </span><br><span class="line">async_generator           1.10                       py_0  </span><br><span class="line">atomicwrites              1.4.0                      py_0  </span><br><span class="line">attrs                     20.3.0             pyhd3eb1b0_0  </span><br><span class="line">autopep8                  1.5.4                      py_0  </span><br><span class="line">babel                     2.8.1              pyhd3eb1b0_0  </span><br><span class="line">backcall                  0.2.0                      py_0  </span><br><span class="line">backports                 1.0                        py_2  </span><br><span class="line"></span><br><span class="line"><span class="comment"># search available pkgs from remote repo</span></span><br><span class="line">$ conda search <span class="string">'*scikit'</span></span><br><span class="line">$ conda search <span class="string">'numpy&gt;=1.12'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># always use pkg from channel conda-forge which has high priority</span></span><br><span class="line">$ conda search pytest-cov</span><br><span class="line">Loading channels: <span class="keyword">done</span></span><br><span class="line"><span class="comment"># Name                       Version           Build  Channel             </span></span><br><span class="line">pytest-cov                     2.5.1          py27_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.5.1  py27hc4181bb_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.5.1          py35_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.5.1  py35h9d7ae03_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.5.1          py36_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.5.1  py36hd4733f3_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.5.1          py37_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.6.0          py27_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.6.0          py35_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.6.0          py36_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.6.0          py37_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.6.1          py27_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.6.1          py36_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.6.1          py37_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.7.1            py_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.8.1            py_0  pkgs/main           </span><br><span class="line">pytest-cov                     2.9.0            py_0  pkgs/main           </span><br><span class="line">pytest-cov                    2.10.0            py_0  pkgs/main           </span><br><span class="line">pytest-cov                    2.10.1            py_0  pkgs/main           </span><br><span class="line">pytest-cov                    2.10.1    pyhd3eb1b0_0  pkgs/main           </span><br><span class="line">pytest-cov                    2.11.0    pyhd3eb1b0_0  pkgs/main           </span><br><span class="line">pytest-cov                    2.11.1    pyhd3eb1b0_0  pkgs/main</span><br><span class="line"></span><br><span class="line">$ conda install -c conda-forge pytest-cov </span><br><span class="line">$ conda info pytest-cov</span><br><span class="line">$ conda uninstall pytest-cov</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+      
+
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/python-advance/" rel="next" title="python-advanced">
+                  <i class="fa fa-chevron-left"></i> python-advanced
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/apt-dpkg-command/" rel="prev" title="apt-dpkg-command">
+                  apt-dpkg-command <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pip"><span class="nav-number">1.</span> <span class="nav-text">pip</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pip-commands"><span class="nav-number">1.1.</span> <span class="nav-text">pip commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apt-get-vs-pip"><span class="nav-number">1.2.</span> <span class="nav-text">apt-get vs pip</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pkg-source-is-different"><span class="nav-number">1.2.1.</span> <span class="nav-text">pkg source is different</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#install-dest-location-is-different"><span class="nav-number">1.2.2.</span> <span class="nav-text">install dest location is different</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#name-is-different"><span class="nav-number">1.2.3.</span> <span class="nav-text">name is different</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conda"><span class="nav-number">1.3.</span> <span class="nav-text">conda</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/uploads/avatar.gif"
+      alt="Jason">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">106</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">115</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="GitHub &rarr; https://github.com/jason-cyun"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="bWFpbHRvOmphc29uX2xrbUAxNjMuY29t" title="E-Mail &rarr; mailto:jason_lkm@163.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script><script src="/js/bookmark.js?v=7.4.0"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var id = element.id || '';
+    var src = element.src || '';
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (id !=='') {
+      script.id = element.id;
+    }
+    if (src !== '') {
+      script.src = src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+<script pjax>
+if (document.querySelectorAll('div.pdf').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js', () => {
+    document.querySelectorAll('div.pdf').forEach(element => {
+      PDFObject.embed(element.getAttribute('target'), element, {
+        pdfOpenParams: {
+          navpanes: 0,
+          toolbar: 0,
+          statusbar: 0,
+          pagemode: 'thumbs',
+          view: 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height: element.getAttribute('height') || '500px'
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '09527c4c0e89e8430bc2',
+      clientSecret: 'bf4a9feb1fafe110ea12ea7549a3b493a08f7e03',
+      repo: 'blog',
+      owner: 'jason-bj',
+      admin: ['jason-bj'],
+      id: 'f38415d584e46b547e4d746581145093',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'false'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+    </div>
+</body>
+</html>

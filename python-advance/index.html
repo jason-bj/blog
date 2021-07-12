@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/clogo.svg?v=7.4.0" color="#222">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Advanced featureretrySometimes function needs to run again when it fails, that’s retry, you can use function from python retrying module, it provides a decorator that can do retrying, just add this de">
+<meta name="keywords" content="some advance feature like daemon, retry, lambda, deep copy, serialization">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-advanced">
+<meta property="og:url" content="http://cyun.tech/python-advance/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="Advanced featureretrySometimes function needs to run again when it fails, that’s retry, you can use function from python retrying module, it provides a decorator that can do retrying, just add this de">
+<meta property="og:locale" content="en-US">
+<meta property="og:updated_time" content="2021-07-12T09:36:57.659Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python-advanced">
+<meta name="twitter:description" content="Advanced featureretrySometimes function needs to run again when it fails, that’s retry, you can use function from python retrying module, it provides a decorator that can do retrying, just add this de">
+  <link rel="alternate" href="/atom.xml" title="CYun" type="application/atom+xml">
+  <link rel="canonical" href="http://cyun.tech/python-advance/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>python-advanced | CYun</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script pjax>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-148730544-1');
+    }
+  </script>
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-US">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CYun</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a class="book-mark-link book-mark-link-fixed" href="#"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/python-advance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">python-advanced
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-11-15 17:49:41" itemprop="dateCreated datePublished" datetime="2019-11-15T17:49:41+08:00">2019-11-15</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-12 17:36:57" itemprop="dateModified" datetime="2021-07-12T17:36:57+08:00">2021-07-12</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/advanced/" itemprop="url" rel="index"><span itemprop="name">advanced</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Advanced-feature"><a href="#Advanced-feature" class="headerlink" title="Advanced feature"></a>Advanced feature</h1><h2 id="retry"><a href="#retry" class="headerlink" title="retry"></a>retry</h2><p>Sometimes function needs to run again when it fails, that’s retry, you can use function from python <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Job2xkZXIvcmV0cnlpbmc=" title="https://github.com/rholder/retrying">retrying<i class="fa fa-external-link"></i></span> module, it provides a decorator that can do retrying, just add this decorator to your function that needs retrying.</p>
+<a id="more"></a>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pip3 install retrying</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">retry_demo</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">from</span> retrying <span class="keyword">import</span> retry</span><br><span class="line"></span><br><span class="line"><span class="meta">    @retry(stop_max_attempt_number=2, wait_random_min=1000, wait_random_max=2000)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">'you should see me twice'</span>)</span><br><span class="line">        <span class="keyword">raise</span> NameError(<span class="string">"hi"</span>)</span><br><span class="line"></span><br><span class="line">    run()</span><br><span class="line">retry_demo()</span><br></pre></td></tr></table></figure>
+
+<pre><code>you should see me twice
+you should see me twice
+
+
+
+---------------------------------------------------------------------------
+
+NameError                                 Traceback (most recent call last)
+
+&lt;ipython-input-15-a0ee7a773b39&gt; in &lt;module&gt;
+      9
+     10     run()
+---&gt; 11 retry_demo()
+
+
+&lt;ipython-input-15-a0ee7a773b39&gt; in retry_demo()
+      8         raise NameError(&quot;hi&quot;)
+      9
+---&gt; 10     run()
+     11 retry_demo()
+
+
+/home/ubuntu/data/anaconda3/lib/python3.8/site-packages/retrying.py in wrapped_f(*args, **kw)
+     47             @six.wraps(f)
+     48             def wrapped_f(*args, **kw):
+---&gt; 49                 return Retrying(*dargs, **dkw).call(f, *args, **kw)
+     50
+     51             return wrapped_f
+
+
+/home/ubuntu/data/anaconda3/lib/python3.8/site-packages/retrying.py in call(self, fn, *args, **kwargs)
+    210                 if not self._wrap_exception and attempt.has_exception:
+    211                     # get() on an attempt with an exception should cause it to be raised, but raise just in case
+--&gt; 212                     raise attempt.get()
+    213                 else:
+    214                     raise RetryError(attempt)
+
+
+/home/ubuntu/data/anaconda3/lib/python3.8/site-packages/retrying.py in get(self, wrap_exception)
+    245                 raise RetryError(self)
+    246             else:
+--&gt; 247                 six.reraise(self.value[0], self.value[1], self.value[2])
+    248         else:
+    249             return self.value
+
+
+/home/ubuntu/data/anaconda3/lib/python3.8/site-packages/six.py in reraise(tp, value, tb)
+    701             if value.__traceback__ is not tb:
+    702                 raise value.with_traceback(tb)
+--&gt; 703             raise value
+    704         finally:
+    705             value = None
+
+
+/home/ubuntu/data/anaconda3/lib/python3.8/site-packages/retrying.py in call(self, fn, *args, **kwargs)
+    198         while True:
+    199             try:
+--&gt; 200                 attempt = Attempt(fn(*args, **kwargs), attempt_number, False)
+    201             except:
+    202                 tb = sys.exc_info()
+
+
+&lt;ipython-input-15-a0ee7a773b39&gt; in run()
+      6     def run():
+      7         print(&apos;you should see me twice&apos;)
+----&gt; 8         raise NameError(&quot;hi&quot;)
+      9
+     10     run()
+
+
+NameError: hi</code></pre><h2 id="daemon"><a href="#daemon" class="headerlink" title="daemon"></a>daemon</h2><p>In some case, app needs to run as a daemon, <code>python-daemon</code> provides us such function, in order to use it, first install <code>pip3 install python-daemon</code></p>
+<p><strong>main.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pip3 install python-daemon</span></span><br><span class="line"><span class="comment">#! /usr/bin/env python3</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> daemon</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> daemon.DaemonContext():</span><br><span class="line">            <span class="comment"># fork a new process</span></span><br><span class="line">            self.run()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># time.sleep(10000)</span></span><br><span class="line">        print(<span class="string">"I runs as a daemon"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app = App()</span><br><span class="line">app.start()</span><br></pre></td></tr></table></figure>
+
+<p>Run in this way</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">./main.py</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="CSV-file"><a href="#CSV-file" class="headerlink" title="CSV file"></a>CSV file</h2><p>If file type is csv, you can use <code>import csv</code> or <code>import pandas</code> to access it, <strong>use <code>pandas</code> always as it’s powerful!</strong></p>
+<p><code>csv file is text file but with fixed format, each row should have the same columns and separated by a &#39;sperator&#39;.</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pandas_csv</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 任意的多组列表</span></span><br><span class="line">    a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">    b = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 字典中的key值即为csv中列名</span></span><br><span class="line">    dataframe = pd.DataFrame(&#123;<span class="string">'a_name'</span>: a, <span class="string">'b_name'</span>: b&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将DataFrame存储为csv,index表示是否显示行名，default=True</span></span><br><span class="line">    <span class="comment"># dataframe.to_csv("test.csv", index=False, sep=',', mode='a')   a--&gt;append  w--&gt;write</span></span><br><span class="line">    dataframe.to_csv(<span class="string">"test.csv"</span>, index=<span class="literal">False</span>, sep=<span class="string">','</span>, mode=<span class="string">'w'</span>)</span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    a_name,b_name</span></span><br><span class="line"><span class="string">    1,     4</span></span><br><span class="line"><span class="string">    2,     5</span></span><br><span class="line"><span class="string">    3,     6</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    data = pd.read_csv(<span class="string">'test.csv'</span>)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">'pandas read test.csv\n'</span>, data)</span><br><span class="line">    print(<span class="string">'pandas read test.csv only values:\n'</span>, data.values)</span><br><span class="line">    os.remove(<span class="string">'test.csv'</span>)</span><br><span class="line"></span><br><span class="line">pandas_csv()</span><br></pre></td></tr></table></figure>
+
+<h2 id="CLI-Parser"><a href="#CLI-Parser" class="headerlink" title="CLI Parser"></a>CLI Parser</h2><p>For good application, it’s better provide good CLI for user, so that user can know how to use it with help, python provides a good parser <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLnB5dGhvbi5vcmcvMy9saWJyYXJ5L2FyZ3BhcnNlLmh0bWw=" title="https://docs.python.org/3/library/argparse.html">argparse<i class="fa fa-external-link"></i></span>.</p>
+<p><strong>Three steps to use this library</strong></p>
+<ul>
+<li>initialize the parser by <font color="red">argparse.ArgumentParser</font></li>
+<li>add argument(keyword) by <font color="red">named argument: parser.add_argument(‘–port’) or positional argument: parser.add_argument(‘port’)</font></li>
+<li>get the parsed args by <font color="red">parser.parse_args()</font> then do more</li>
+</ul>
+<p>Here is a basic example for it.</p>
+<p><strong>app.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># parametrs for add_argument</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># name or flags - Either a name or a list of option strings, e.g. foo or -f, --foo.</span></span><br><span class="line"><span class="comment"># action - The basic type of action to be taken when this argument is encountered at the command line.</span></span><br><span class="line"><span class="comment"># nargs - The number of command-line arguments that should be consumed.</span></span><br><span class="line"><span class="comment"># const - A constant value required by some action and nargs selections.</span></span><br><span class="line"><span class="comment"># default - The value produced if the argument is absent from the command line.</span></span><br><span class="line"><span class="comment"># type - The type to which the command-line argument should be converted.</span></span><br><span class="line"><span class="comment"># choices - A container of the allowable values for the argument.</span></span><br><span class="line"><span class="comment"># required - Whether or not the command-line option may be omitted (optionals only).</span></span><br><span class="line"><span class="comment"># help - A brief description of what the argument does.</span></span><br><span class="line"><span class="comment"># metavar - A name for the argument in usage messages.</span></span><br><span class="line"><span class="comment"># dest - The name of the attribute to be added to the object returned by parse_args(). [if not privided, use name as keyword to store]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line">cli_commands = &#123;</span><br><span class="line">    <span class="string">'get'</span>: &#123;</span><br><span class="line">        <span class="string">'usage'</span>: [<span class="string">"get &lt;type&gt;"</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'put'</span>: &#123;</span><br><span class="line">        <span class="string">'usage'</span>: [<span class="string">"put &lt;type&gt; value"</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">contruct_help_commands</span><span class="params">()</span>:</span></span><br><span class="line">    help_commands = []</span><br><span class="line">    <span class="keyword">for</span> command <span class="keyword">in</span> cli_commands.keys():</span><br><span class="line">        help_commands.extend(</span><br><span class="line">            [<span class="string">"- "</span> + x <span class="keyword">for</span> x <span class="keyword">in</span> cli_commands[command][<span class="string">'usage'</span>]])</span><br><span class="line">    <span class="comment"># here create a command list with '- ' insert'</span></span><br><span class="line">    <span class="comment"># like ['- get &lt;type&gt;', '- put &lt;type&gt; value']</span></span><br><span class="line">    <span class="keyword">return</span> help_commands</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_cli</span><span class="params">()</span>:</span></span><br><span class="line">    commands = contruct_help_commands()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># initialize parser</span></span><br><span class="line">    parser = argparse.ArgumentParser(</span><br><span class="line">        description=<span class="string">'app cli'</span>,</span><br><span class="line">        formatter_class=argparse.RawTextHelpFormatter)</span><br><span class="line"></span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--cmd'</span>, <span class="string">'-c'</span>, nargs=<span class="string">'+'</span>,</span><br><span class="line">        help=<span class="string">'Runs a CLI command where CMD is one of:\n%s'</span> %</span><br><span class="line">        <span class="string">"\n"</span>.join(commands))</span><br><span class="line">    <span class="comment"># '--cmd' is the keyword for user to use, as nargs is '+' means at least 1 parameter for it</span></span><br><span class="line">    <span class="comment"># so parsed args is a list</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># example</span></span><br><span class="line">    <span class="comment"># ./app.py --cmd get LB</span></span><br><span class="line">    <span class="comment"># ./app.py -c get LB</span></span><br><span class="line">    <span class="comment"># after parsed</span></span><br><span class="line">    <span class="comment"># args.cmd = ['get' 'LB']</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># help will show when run -h/--help, it automatically done by parser</span></span><br><span class="line">    <span class="comment"># with const True, you always get parameter with set or default True</span></span><br><span class="line">    <span class="comment"># otherwise, parameter can be None not default!!!???</span></span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--json'</span>, nargs=<span class="string">'?'</span>, dest=<span class="string">'json_output'</span>, default=<span class="literal">False</span>, const=<span class="literal">True</span>,</span><br><span class="line">        help=<span class="string">'Outputs in json format (default: %(default)s)'</span>)</span><br><span class="line">    <span class="comment"># '--json' is the keyword, as nargs is '?' means at most 1 parameter</span></span><br><span class="line">    <span class="comment"># so --json is optional, parsed value saved at args.json_output</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># example</span></span><br><span class="line">    <span class="comment"># ./app.py --json True</span></span><br><span class="line">    <span class="comment"># args.json_output = "True"</span></span><br><span class="line"></span><br><span class="line">    parser.add_argument(<span class="string">'host'</span>, nargs=<span class="number">1</span>, help=<span class="string">'host address'</span>)</span><br><span class="line">    <span class="comment">#positional, no need to proivde keyword, always the last one</span></span><br><span class="line"></span><br><span class="line">    args = parser.parse_args()</span><br><span class="line">    print(args)</span><br><span class="line">    <span class="comment"># ./apppy --cmd get LB --json True www.test.com</span></span><br><span class="line">    <span class="comment"># Namespace(client_id='edge', cmd=['get', 'LB'], json_output='True', host='wwww.test.com')</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Run-shell-command"><a href="#Run-shell-command" class="headerlink" title="Run shell command"></a>Run shell command</h2><p>sometimes we need to run shell command from python, there are several APIs you can use to run shell command, these APIs can be grouped into two types, one is <code>with shell output</code>, the other is <code>without shell output returned</code>.</p>
+<h3 id="shell-output-returned-as-value"><a href="#shell-output-returned-as-value" class="headerlink" title="shell output returned as value"></a>shell output returned as value</h3><p><font color="red"><strong>Old APIs</strong></font></p>
+<ul>
+<li>getoutput()</li>
+<li>getstatusoutput()</li>
+</ul>
+<p><strong>parameter</strong></p>
+<p>these two methods implicitly are invoked with shell mode!, that means parameter is <code>&#39;ls -al&#39; not [&#39;ls&#39;, &#39;-al&#39;]</code></p>
+<p><strong>result:</strong></p>
+<p>getoutput() returns a str of command output or error message like <code>&#39;/bin/sh: 1: lh: not found&#39;</code></p>
+<p>getstatusoutput() returns a tuple (returncode, output), return code 0 means good!</p>
+<p><font color="red"><strong>New API</strong></font></p>
+<ul>
+<li>check_output()–&gt;<code>waits until all output is read. If ssh inherits the pipe then check_output() will wait until it exits (until it closes its inherited pipe ends).</code></li>
+</ul>
+<p><strong>return value: output in bytes</strong></p>
+<p><code>Raise exception if return code is non-zero otherwise output with bytes</code>, it more like <code>getoutput()</code>, but <code>getoutput() doesn&#39;t raise exception if fails</code>.</p>
+<h3 id="no-shell-output-returned-but-print-it-to-console"><a href="#no-shell-output-returned-but-print-it-to-console" class="headerlink" title="no shell output returned but print it to console"></a>no shell output returned but print it to console</h3><p><font color="red"><strong>Old API</strong></font></p>
+<ul>
+<li>call()</li>
+</ul>
+<p><font color="red"><strong>New API</strong></font></p>
+<ul>
+<li>check_call()–&gt;<code>returns as soon as /bin/sh process exits without waiting for descendant processes, fast</code></li>
+</ul>
+<p>These two methods do not store the output, only print it out inside library(may be to console or file depends on current STD)!!! it only <font color="red">returns code with 0 if success to run, otherwise raises exception for check_xx version</font>, catch the exception(<code>CalledProcessError</code>) to see the return code and output attribute in it</p>
+<p>check_call() does the same thing as call(), but <strong><code>check_call() will throw exception when command fails to run, so that you can see where the problem is!!! so always use check_call().</code></strong></p>
+<p><strong>paramter</strong></p>
+<p>these API can run with two modes, shell enabled or disabled, with shell enabled, the parameter is a str, otherwise it’s a list [] like this.<br><font color="red">when shell=True, it uses <code>/bin/sh</code> to run command, <strong><code>/bin/sh</code> does not support brace expansion($echo ‘hi ‘{jason,josh})</strong></font></p>
+<p><code>call([&#39;ls&#39;, &#39;-al&#39;]) check_call(&#39;ls -al&#39;, shell=True)</code></p>
+<p><strong>result</strong></p>
+<p>  exception subprocess.CalledProcessError</p>
+<p>  Subclass of SubprocessError, raised when a process run by check_call() or check_output() returns a non-zero exit status.</p>
+<p>  returncode</p>
+<p>  Exit status of the child process. If the process exited due to a signal, this will be the negative signal number.</p>
+<p>  cmd</p>
+<p>  Command that was used to spawn the child process.</p>
+<p>  output</p>
+<p>  Output of the child process if it was captured by run() or check_output(). Otherwise, None.</p>
+<p>  stdout</p>
+<p>  Alias for output, for symmetry with stderr.</p>
+<p>  stderr</p>
+<p>  Stderr output of the child process if it was captured by run(). Otherwise, None.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"></span><br><span class="line">print(<span class="string">"getoutput('ls /bin/ls') show below"</span>)</span><br><span class="line">print(subprocess.getoutput(<span class="string">'ls /bin/ls'</span>))</span><br><span class="line"></span><br><span class="line">print(<span class="string">"getstatus('/bin/ls') show below"</span>)</span><br><span class="line">print(subprocess.getstatusoutput(<span class="string">'/bin/ls'</span>))</span><br><span class="line">print(<span class="string">"check_output('/bin/ls', shell=True) show below"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># need to decode return value by check_output</span></span><br><span class="line">print(subprocess.check_output(<span class="string">'/bin/ls'</span>, shell=<span class="literal">True</span>).decode(<span class="string">'utf8'</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    subprocess.check_output(<span class="string">'/bin/not_found'</span>, shell=<span class="literal">True</span>)</span><br><span class="line"><span class="keyword">except</span> subprocess.CalledProcessError:</span><br><span class="line">    print(<span class="string">'exception: check_output() not found command'</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'no exception getoutput()'</span>, subprocess.getoutput(<span class="string">'/bin/not_found'</span>)) <span class="comment"># no exception</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>getoutput(&apos;ls /bin/ls&apos;) show below
+/bin/ls
+getstatus(&apos;/bin/ls&apos;) show below
+(0, &apos;builtin-thirdparty-library.ipynb\nclass_advanced.ipynb\ndata_science_notebook\nfilename.txt\nfunction_advanced.ipynb\nlog.txt\npython3_advanced.ipynb\npython3_basic.ipynb\nthread-process\ntools_written_by_python&apos;)
+check_output(&apos;/bin/ls&apos;, shell=True) show below
+builtin-thirdparty-library.ipynb
+class_advanced.ipynb
+data_science_notebook
+filename.txt
+function_advanced.ipynb
+log.txt
+python3_advanced.ipynb
+python3_basic.ipynb
+thread-process
+tools_written_by_python
+
+exception: check_output() not found command
+no exception getoutput() /bin/sh: 1: /bin/not_found: not found</code></pre><h2 id="Deep-copy-and-shallow-copy-of-list-or-dict"><a href="#Deep-copy-and-shallow-copy-of-list-or-dict" class="headerlink" title="Deep copy and shallow copy of list or dict"></a>Deep copy and shallow copy of list or dict</h2><p>A shallow copy means constructing a new collection object and then populating it with references to the <code>child objects found in the original</code>. The <code>copying process does not recurse</code> and therefore will not create copies of the child objects themselves. In case of shallow copy, a reference of object is copied in other object, it means that any changes made to the copied object do reflect in the original object.</p>
+<p><font color="red">reference only works for object</font></p>
+<p><strong>Create shallow copy</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># use copy library</span></span><br><span class="line"><span class="keyword">import</span> copy</span><br><span class="line"><span class="comment"># shallow copy, no recurse for embed object!!!</span></span><br><span class="line">newlt = copy.copy(list)</span><br><span class="line">newdt = copy.copy(dict)</span><br><span class="line"></span><br><span class="line"><span class="comment"># use type feature shallow copy</span></span><br><span class="line">newlt = list1[:]</span><br><span class="line">newdt = dict.copy()</span><br></pre></td></tr></table></figure>
+
+<p><strong>Create deep copy</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> copy</span><br><span class="line"><span class="comment"># recurse for embed object!!!</span></span><br><span class="line">cop.deepcopy(list), copy.deepcopy(dict)</span><br></pre></td></tr></table></figure>
+
+<h3 id="shallow-copy"><a href="#shallow-copy" class="headerlink" title="shallow copy"></a>shallow copy</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">dt = &#123;<span class="string">'a'</span>: [<span class="number">1</span>, <span class="number">2</span>]&#125;</span><br><span class="line">print(<span class="string">'before new dict, org dict: '</span>, dt)</span><br><span class="line">ndt = dt.copy()</span><br><span class="line">ndt[<span class="string">'a'</span>].append(<span class="number">3</span>)</span><br><span class="line">print(<span class="string">'new dict '</span>, ndt)</span><br><span class="line">print(<span class="string">'org dict'</span>, dt)</span><br><span class="line"></span><br><span class="line">lt = [<span class="number">1</span>, [<span class="number">2</span>, <span class="number">3</span>]]</span><br><span class="line">print(<span class="string">'before new list, org list: '</span>, lt)</span><br><span class="line">nlt = lt[:]</span><br><span class="line">nlt[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">5</span></span><br><span class="line">print(<span class="string">'new list: '</span>, nlt)</span><br><span class="line">print(<span class="string">'org list: '</span>, lt)</span><br></pre></td></tr></table></figure>
+
+<pre><code>before new dict, org dict:  {&apos;a&apos;: [1, 2]}
+new dict  {&apos;a&apos;: [1, 2, 3]}
+org dict {&apos;a&apos;: [1, 2, 3]}
+before new list, org list:  [1, [2, 3]]
+new list:  [1, [5, 3]]
+org list:  [1, [5, 3]]</code></pre><h3 id="Deep-copy"><a href="#Deep-copy" class="headerlink" title="Deep copy"></a>Deep copy</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> copy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">dt = &#123;<span class="string">'a'</span>: [<span class="number">1</span>, <span class="number">2</span>]&#125;</span><br><span class="line">dtcc = copy.deepcopy(dt)  <span class="comment"># deep copy.</span></span><br><span class="line">print(<span class="string">"orignal dict: "</span>, dt)</span><br><span class="line">print(<span class="string">"copied dict after deepcopy is: "</span>, dtcc)</span><br><span class="line">dt[<span class="string">'a'</span>].append(<span class="number">3</span>)  <span class="comment"># dtcc doesn't change!!!!</span></span><br><span class="line">print(<span class="string">"added a item in orignal dict: "</span>, dt)</span><br><span class="line">print(<span class="string">"copied dict now is: "</span>, dtcc)</span><br></pre></td></tr></table></figure>
+
+<pre><code>orignal dict:  {&apos;a&apos;: [1, 2]}
+copied dict after deepcopy is:  {&apos;a&apos;: [1, 2]}
+added a item in orignal dict:  {&apos;a&apos;: [1, 2, 3]}
+copied dict now is:  {&apos;a&apos;: [1, 2]}</code></pre><h2 id="any-all-function"><a href="#any-all-function" class="headerlink" title="any/all function"></a>any/all function</h2><p>all(iterable object) returns True if all values in the iterable match bool(elm)==True<br>while any(iterable object) returns True if any value in the iterable matches bool(elm)==True.</p>
+<ul>
+<li><strong>all(empty_iterable) == True</strong></li>
+<li><strong>any(empty_iterable) == False</strong></li>
+</ul>
+<p>One use case for all() is to check if an iterable object includes another.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">any_all_demo</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"any([])="</span>, any([]))</span><br><span class="line">    print(<span class="string">"any([0])="</span>, any([<span class="number">0</span>]))</span><br><span class="line">    print(<span class="string">"any([1])="</span>, any([<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"all(())="</span>, all(()))</span><br><span class="line">    print(<span class="string">"all((1,))="</span>, all((<span class="number">1</span>,)))</span><br><span class="line">    print(<span class="string">"all([0])="</span>, all([<span class="number">0</span>]))</span><br><span class="line">    print(<span class="string">"all('a')="</span>, all(<span class="string">'a'</span>))</span><br><span class="line"></span><br><span class="line">any_all_demo()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_list_container_another</span><span class="params">()</span>:</span></span><br><span class="line">    list1 = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">    list2 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">    <span class="comment"># for..in to loop</span></span><br><span class="line">    <span class="comment"># in to test</span></span><br><span class="line">    result = [elm <span class="keyword">in</span> list2 <span class="keyword">for</span> elm <span class="keyword">in</span> list1]</span><br><span class="line">    print(result)</span><br><span class="line">    <span class="keyword">if</span> all(result):</span><br><span class="line">        print(<span class="string">'list2 contains list1'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'list2 doest not contain list1'</span>)</span><br><span class="line"></span><br><span class="line">check_list_container_another()</span><br></pre></td></tr></table></figure>
+
+<pre><code>any([])= False
+any([0])= False
+any([1])= True
+all(())= True
+all((1,))= True
+all([0])= False
+all(&apos;a&apos;)= True
+[True, True]
+list2 contains list1</code></pre><h2 id="json-operation"><a href="#json-operation" class="headerlink" title="json operation"></a>json operation</h2><p>json is the popular data format for data saving or data tranfering.<br><code>from simplejson import json</code> proivdes easy API to dump and load json data.<br><font color="red" size="3"></font></p>
+<ul>
+<li>json.dumps(dict) retuns a string</li>
+<li>json.loads(string) returns a dict
+
+</li>
+</ul>
+<h2 id="serialization-class-tuple-list-dict"><a href="#serialization-class-tuple-list-dict" class="headerlink" title="serialization class, tuple, list, dict"></a>serialization class, tuple, list, dict</h2><p>In some case we want to <code>save our data into a file with binary(not json)</code>, as it’s small, then read it back with object that we use before, use <code>cloudpickle which extends pickle</code>, it supports serizlization of many objects, <code>class, tuple, list, dict</code> etc.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">save_object_into_file</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">import</span> os</span><br><span class="line">    <span class="keyword">import</span> cloudpickle</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    lt = [<span class="string">'a'</span>, <span class="string">'b'</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># write data to file with binary mode</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'data_binary'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> fd:</span><br><span class="line">        cloudpickle.dump(lt, fd) <span class="comment"># cloudpickle.dumps(lt) returns result of bytes not writing to file</span></span><br><span class="line">    <span class="comment"># read it back</span></span><br><span class="line">    print(<span class="string">"write data to file: "</span>, lt)</span><br><span class="line">    <span class="comment"># must open with binary mode</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'data_binary'</span>, <span class="string">'rb'</span>) <span class="keyword">as</span> fd:</span><br><span class="line">        lt = cloudpickle.load(fd) <span class="comment"># cloudpickle.loads(bytes) loads from a string?</span></span><br><span class="line">        print(<span class="string">'read data back: '</span>, lt)</span><br><span class="line">    os.remove(<span class="string">'data_binary'</span>)</span><br><span class="line"></span><br><span class="line">save_object_into_file()</span><br></pre></td></tr></table></figure>
+
+<pre><code>write data to file:  [&apos;a&apos;, &apos;b&apos;]
+read data back:  [&apos;a&apos;, &apos;b&apos;]</code></pre><h2 id="show-trace-with-try-except"><a href="#show-trace-with-try-except" class="headerlink" title="show trace with try/except"></a>show trace with try/except</h2><p><code>Without try/except</code>, trace is printed when exception happens, but if we want to see trace even we catch the exception, use <code>traceback(new traceback2)</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_traceback_even_with_exception</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">import</span> sys</span><br><span class="line">    <span class="keyword">import</span> traceback2</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        a = <span class="number">12</span> / <span class="number">0</span></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> error:</span><br><span class="line">        print(<span class="string">'------------traceback is printed'</span>)</span><br><span class="line">        traceback2.print_exc(file=sys.stdout)</span><br><span class="line">        print(<span class="string">'------------traceback is printed'</span>)</span><br><span class="line">show_traceback_even_with_exception()</span><br></pre></td></tr></table></figure>
+
+<pre><code>------------traceback is printed
+Traceback (most recent call last):
+  File &quot;&lt;ipython-input-21-fa0276a4acf0&gt;&quot;, line 6, in show_traceback_even_with_exception
+ZeroDivisionError: division by zero
+------------traceback is printed</code></pre><h2 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h2><p>lambda is like a function(<font color="red" size="4">with return implicitly</font>) with <font color="red" size="4"> one statement</font>, but no name(<font color="red" size="4">anonymous function</font>), if you have more logic, use function instead, create a lambda means create a function object, then can call it.</p>
+<ul>
+<li><strong>return implicitly</strong></li>
+<li><strong>one statement</strong></li>
+<li><strong>anonymous function</strong></li>
+</ul>
+<p><code>lambda arg1, arg2: expression</code> the resut of the expression is return value.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[expression <span class="keyword">for</span> x <span class="keyword">in</span> list condition]</span><br><span class="line"><span class="comment"># save result of expression to a list if condition matches</span></span><br><span class="line"><span class="comment"># expression can be simple or lambda!!!</span></span><br></pre></td></tr></table></figure>
+
+<p>If you use lambda make sure, your function is small, <code>the most use case of lambda is like this.</code><br><font color="red"></font></p>
+<ul>
+<li>some API parmaters need a function</li>
+<li>the function is small
+In this case, use lambda instead of a function.
+
+</li>
+</ul>
+<p><strong>map()</strong></p>
+<p>Map applies a function to all the items in an <code>input_list</code>. Here is the blueprint:</p>
+<p><code>map(function_to_apply_must_return_value_with_elm_as_input, list_of_inputs)</code></p>
+<p><strong>filter()</strong></p>
+<p>As the name suggests, filter creates a list of elements for which a function returns true.<br><code>filter(filter_function_must_return_true_or_false_with_elm_as_input, list_of_inputs)</code></p>
+<p><strong>reduce()</strong></p>
+<p>Reduce is a really useful function for performing some computation on a list and returning the result. It applies a rolling computation to sequential pairs of values in a list, <code>it passed the previous reault as the second parameter!</code></p>
+<p><code>reduce(fun_return_value_with_elm_and_previous_result_as_input, list_of_inputs)</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lambda_demo</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line">    <span class="comment">#function created by lambda is said to be anonymous because it was never given a name</span></span><br><span class="line">    f = <span class="keyword">lambda</span> x: x**<span class="number">3</span></span><br><span class="line">    print(f(<span class="number">3</span>))</span><br><span class="line"></span><br><span class="line">    items = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">    squared = list(map(<span class="keyword">lambda</span> x: x**<span class="number">2</span>, items))</span><br><span class="line">    print(squared)</span><br><span class="line"></span><br><span class="line">    number_list = range(<span class="number">-5</span>, <span class="number">5</span>)</span><br><span class="line">    less_than_zero = list(filter(<span class="keyword">lambda</span> x: x &lt; <span class="number">0</span>, number_list))</span><br><span class="line">    print(less_than_zero)</span><br><span class="line"></span><br><span class="line">    list1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">    print(reduce(<span class="keyword">lambda</span> x, y: x * y, list1))</span><br><span class="line">    print(reduce(<span class="keyword">lambda</span> x, y: x + y, list1))</span><br><span class="line">lambda_demo()</span><br></pre></td></tr></table></figure>
+
+<pre><code>27
+[1, 4, 9, 16, 25]
+[-5, -4, -3, -2, -1]
+24
+10</code></pre><h2 id="package-and-module"><a href="#package-and-module" class="headerlink" title="package and module"></a>package and module</h2><ul>
+<li>A package is dir with __init__.py under it</li>
+<li>a module is a python file like request.py</li>
+</ul>
+<p>the most use case is to group related modules within a package then use them, the struct may look like this.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">`-- common</span><br><span class="line">    |-- __init__.py</span><br><span class="line">    `-- request.py</span><br></pre></td></tr></table></figure>
+
+<p><font color="red" size="3">after import you may use xxx.yyy (yyy must be a symbol of xxx.py or symbol of xxx/_<em>init_</em>.py)</font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> package_name</span><br><span class="line"><span class="comment"># then use this way: package_name.module.function</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> package_name <span class="keyword">import</span> module_name</span><br><span class="line"><span class="comment"># then use this way: module_name.function</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> module_name</span><br><span class="line"><span class="keyword">from</span> module_name <span class="keyword">import</span> function_xx</span><br><span class="line"><span class="keyword">from</span> module_name <span class="keyword">import</span> var_xx</span><br><span class="line"><span class="comment"># then use this way: function_xx</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>what content of _<em>init_</em>.py?</strong><br>Idealy, you can write anything in it, <code>it&#39;s just a python file that is called when import the package</code>, but mostly we write it with below content.</p>
+<p><strong>examples of _<em>init_</em>.py</strong></p>
+<ul>
+<li><strong>empty, just required by python</strong></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#__init__.py</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test.py to show how use module</span></span><br><span class="line"><span class="comment"># must use module with package prefix or module prefix!!!</span></span><br><span class="line"><span class="keyword">from</span> common <span class="keyword">import</span> request</span><br><span class="line">request.aaa</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>wrapper modules API</strong></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># __init__.py</span></span><br><span class="line"><span class="keyword">from</span> request <span class="keyword">import</span> *   <span class="comment"># import all from request module.</span></span><br><span class="line"><span class="keyword">from</span> request <span class="keyword">import</span> aaa <span class="comment"># OR only import aaa for package</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test.py</span></span><br><span class="line"><span class="comment"># then you can access module's function by package name like below</span></span><br><span class="line"><span class="comment"># use it</span></span><br><span class="line"><span class="keyword">import</span> common</span><br><span class="line"><span class="comment"># as in common/__init__.py we import aaa from request</span></span><br><span class="line"><span class="comment"># so here just use common.aaa, not request.aaa, common seems a wrapper for its module!!!</span></span><br><span class="line">common.aaa()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>wrapper module API and define package level API as well</strong></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># __init__.py</span></span><br><span class="line"><span class="keyword">from</span> request <span class="keyword">import</span> *   <span class="comment"># import all for package</span></span><br><span class="line"><span class="keyword">from</span> request <span class="keyword">import</span> aaa <span class="comment"># OR only import aaa for package</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># package level API, it may call package api to wrapper them.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pkg_aaa</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"pkg_aaa"</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test.py</span></span><br><span class="line"><span class="keyword">import</span> common</span><br><span class="line"></span><br><span class="line">common.aaa()</span><br><span class="line">common.pkg_aaa()</span><br></pre></td></tr></table></figure>
+
+<h3 id="access-module-at-parent"><a href="#access-module-at-parent" class="headerlink" title="access module at parent"></a>access module at parent</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">`-- app</span><br><span class="line">    |-- app.py</span><br><span class="line">    |-- common</span><br><span class="line">    |   |-- __init__.py</span><br><span class="line">    |   `-- util.py</span><br><span class="line">    `-- tests</span><br><span class="line">        `-- test_app.py</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># file test_app.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">currentdir = os.path.dirname(os.path.realpath(__file__))</span><br><span class="line">parentdir = os.path.dirname(currentdir)</span><br><span class="line">sys.path.append(parentdir)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> app</span><br><span class="line"><span class="keyword">from</span> common <span class="keyword">import</span> util</span><br></pre></td></tr></table></figure>
+
+<h2 id="Some-tips"><a href="#Some-tips" class="headerlink" title="Some tips"></a>Some tips</h2><p> <code>zip()</code> creates pairs from two sequences.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">step_two_sequences_pars</span><span class="params">()</span>:</span></span><br><span class="line">    countries = (<span class="string">'Japan'</span>, <span class="string">'Korea'</span>, <span class="string">'China'</span>)</span><br><span class="line">    cities = (<span class="string">'Tokyo'</span>, <span class="string">'Seoul'</span>, <span class="string">'Beijing'</span>)</span><br><span class="line">    <span class="keyword">for</span> country, city <span class="keyword">in</span> zip(countries, cities):</span><br><span class="line">        print(<span class="string">f'The capital of <span class="subst">&#123;country&#125;</span> is <span class="subst">&#123;city&#125;</span>'</span>)</span><br><span class="line"></span><br><span class="line">step_two_sequences_pars()</span><br></pre></td></tr></table></figure>
+
+<pre><code>The capital of Japan is Tokyo
+The capital of Korea is Seoul
+The capital of China is Beijing</code></pre><h2 id="better-python-code-style"><a href="#better-python-code-style" class="headerlink" title="better python code style"></a>better python code style</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create a new list based on condition from a list</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">-1</span>]</span><br><span class="line">positives = [val <span class="keyword">for</span> val <span class="keyword">in</span> arr <span class="keyword">if</span> val &gt;= <span class="number">0</span>]</span><br><span class="line">print(positives)</span><br><span class="line"></span><br><span class="line"><span class="comment"># open a file always this way</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'filename.txt'</span>, <span class="string">'w'</span>) <span class="keyword">as</span> filename:</span><br><span class="line">    filename.write(<span class="string">'Hello'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># compared with None</span></span><br><span class="line">value = <span class="literal">None</span></span><br><span class="line"><span class="keyword">if</span> value <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">    <span class="comment"># some task</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Use join() to concatenate strings which is faster</span></span><br><span class="line">nst = <span class="string">'a '</span> + <span class="string">'b'</span></span><br><span class="line">print(<span class="string">' '</span>.join([<span class="string">'a'</span>, <span class="string">'b'</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Store unique values with Sets</span></span><br><span class="line">my_list = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">7</span>,<span class="number">7</span>]</span><br><span class="line">my_set = set(my_list) <span class="comment"># removes duplicates</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Save Memory With Generators when list is huge</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># list comprehension</span></span><br><span class="line">my_list = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10000</span>)]</span><br><span class="line">print(sum(my_list)) <span class="comment"># 49995000</span></span><br><span class="line">print(sys.getsizeof(my_list), <span class="string">'bytes'</span>) <span class="comment"># 87616 bytes</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># generator comprehension</span></span><br><span class="line">my_gen = (i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10000</span>))</span><br><span class="line">print(sum(my_gen)) <span class="comment"># 49995000</span></span><br><span class="line">print(sys.getsizeof(my_gen), <span class="string">'bytes'</span>) <span class="comment"># 112 bytes</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>[1, 2]
+a b
+49995000
+87616 bytes
+49995000
+112 bytes</code></pre><h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9ib29rLnB5dGhvbnRpcHMuY29tL2VuL2xhdGVzdC8=" title="https://book.pythontips.com/en/latest/">python intermediate<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9yZWZhY3RvcmluZy5ndXJ1L2Rlc2lnbi1wYXR0ZXJucy9jYXRhbG9n" title="https://refactoring.guru/design-patterns/catalog">design pattern with python<i class="fa fa-external-link"></i></span></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\python-function\" rel="bookmark">python-function</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\python-class\" rel="bookmark">python-class</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\python-basics\" rel="bookmark">python-basics</a></div>
+      
+    </li>
+  
+  </ul>
+
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+            
+              <a href="/tags/python-advanced/" rel="tag"><i class="fa fa-tag"></i> python-advanced</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/python-function/" rel="next" title="python-function">
+                  <i class="fa fa-chevron-left"></i> python-function
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/pip-deep/" rel="prev" title="pip-deep">
+                  pip-deep <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Advanced-feature"><span class="nav-number">1.</span> <span class="nav-text">Advanced feature</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#retry"><span class="nav-number">1.1.</span> <span class="nav-text">retry</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#daemon"><span class="nav-number">1.2.</span> <span class="nav-text">daemon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSV-file"><span class="nav-number">1.3.</span> <span class="nav-text">CSV file</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CLI-Parser"><span class="nav-number">1.4.</span> <span class="nav-text">CLI Parser</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Run-shell-command"><span class="nav-number">1.5.</span> <span class="nav-text">Run shell command</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#shell-output-returned-as-value"><span class="nav-number">1.5.1.</span> <span class="nav-text">shell output returned as value</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#no-shell-output-returned-but-print-it-to-console"><span class="nav-number">1.5.2.</span> <span class="nav-text">no shell output returned but print it to console</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deep-copy-and-shallow-copy-of-list-or-dict"><span class="nav-number">1.6.</span> <span class="nav-text">Deep copy and shallow copy of list or dict</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#shallow-copy"><span class="nav-number">1.6.1.</span> <span class="nav-text">shallow copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deep-copy"><span class="nav-number">1.6.2.</span> <span class="nav-text">Deep copy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#any-all-function"><span class="nav-number">1.7.</span> <span class="nav-text">any/all function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#json-operation"><span class="nav-number">1.8.</span> <span class="nav-text">json operation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#serialization-class-tuple-list-dict"><span class="nav-number">1.9.</span> <span class="nav-text">serialization class, tuple, list, dict</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#show-trace-with-try-except"><span class="nav-number">1.10.</span> <span class="nav-text">show trace with try/except</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lambda"><span class="nav-number">1.11.</span> <span class="nav-text">lambda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#package-and-module"><span class="nav-number">1.12.</span> <span class="nav-text">package and module</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#access-module-at-parent"><span class="nav-number">1.12.1.</span> <span class="nav-text">access module at parent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Some-tips"><span class="nav-number">1.13.</span> <span class="nav-text">Some tips</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#better-python-code-style"><span class="nav-number">1.14.</span> <span class="nav-text">better python code style</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">2.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/uploads/avatar.gif"
+      alt="Jason">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">106</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">115</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="GitHub &rarr; https://github.com/jason-cyun"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="bWFpbHRvOmphc29uX2xrbUAxNjMuY29t" title="E-Mail &rarr; mailto:jason_lkm@163.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script><script src="/js/bookmark.js?v=7.4.0"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var id = element.id || '';
+    var src = element.src || '';
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (id !=='') {
+      script.id = element.id;
+    }
+    if (src !== '') {
+      script.src = src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+<script pjax>
+if (document.querySelectorAll('div.pdf').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js', () => {
+    document.querySelectorAll('div.pdf').forEach(element => {
+      PDFObject.embed(element.getAttribute('target'), element, {
+        pdfOpenParams: {
+          navpanes: 0,
+          toolbar: 0,
+          statusbar: 0,
+          pagemode: 'thumbs',
+          view: 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height: element.getAttribute('height') || '500px'
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '09527c4c0e89e8430bc2',
+      clientSecret: 'bf4a9feb1fafe110ea12ea7549a3b493a08f7e03',
+      repo: 'blog',
+      owner: 'jason-bj',
+      admin: ['jason-bj'],
+      id: '552d05955a7d10c2514dc971bd5a59d7',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'false'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+    </div>
+</body>
+</html>

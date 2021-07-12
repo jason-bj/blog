@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/clogo.svg?v=7.4.0" color="#222">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="HTMLDOMWhen a web page is loaded, the browser creates a Document Object Model of the page, the HTML DOM model is constructed as a tree of Objects  Everything in the DOM is a node(text can be a node as">
+<meta name="keywords" content="html dom and native JS API">
+<meta property="og:type" content="article">
+<meta property="og:title" content="html_dom">
+<meta property="og:url" content="http://cyun.tech/html-dom/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="HTMLDOMWhen a web page is loaded, the browser creates a Document Object Model of the page, the HTML DOM model is constructed as a tree of Objects  Everything in the DOM is a node(text can be a node as">
+<meta property="og:locale" content="en-US">
+<meta property="og:updated_time" content="2021-07-12T09:36:57.621Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="html_dom">
+<meta name="twitter:description" content="HTMLDOMWhen a web page is loaded, the browser creates a Document Object Model of the page, the HTML DOM model is constructed as a tree of Objects  Everything in the DOM is a node(text can be a node as">
+  <link rel="alternate" href="/atom.xml" title="CYun" type="application/atom+xml">
+  <link rel="canonical" href="http://cyun.tech/html-dom/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>html_dom | CYun</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script pjax>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-148730544-1');
+    }
+  </script>
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-US">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CYun</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a class="book-mark-link book-mark-link-fixed" href="#"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/html-dom/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">html_dom
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2020-07-20 09:30:34" itemprop="dateCreated datePublished" datetime="2020-07-20T09:30:34+08:00">2020-07-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-12 17:36:57" itemprop="dateModified" datetime="2021-07-12T17:36:57+08:00">2021-07-12</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/html/" itemprop="url" rel="index"><span itemprop="name">html</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/html/dom/" itemprop="url" rel="index"><span itemprop="name">dom</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><h2 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h2><p>When a web page is loaded, the browser creates a Document Object Model of the page, <code>the HTML DOM model is constructed as a tree of Objects</code></p>
+<p><img alt="Dom Tree" data-src="https://www.w3schools.com/js/pic_htmltree.gif"></p>
+<p>Everything in the DOM is a node(text can be a node as well)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--document node--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">  &lt;h1                        class="big"&gt;             hello                     &lt;/h1&gt;</span></span><br><span class="line"><span class="comment">  h1:element node(object)    attribute node(object)   text noe(object)</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"big"</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>The HTML DOM is a standard object model and programming interface for HTML. It defines:</p>
+<ul>
+<li>The HTML elements as objects</li>
+<li>The properties of all HTML elements</li>
+<li>The methods to access all HTML elements</li>
+<li>The events for all HTML elements</li>
+</ul>
+<h3 id="Document-object"><a href="#Document-object" class="headerlink" title="Document object"></a>Document object</h3><p>The document object represents your web page, it’s root node of the tree, Here are methods commonly used.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>document.getElementById(id)</td>
+<td>Find an element by element id</td>
+</tr>
+<tr>
+<td>document.getElementsByTagName(name)</td>
+<td>Find elements by tag name</td>
+</tr>
+<tr>
+<td>document.getElementsByClassName(name)</td>
+<td>Find elements by class name</td>
+</tr>
+<tr>
+<td>element.setAttribute(attribute, value)</td>
+<td>Change the attribute value of an HTML element</td>
+</tr>
+<tr>
+<td>document.createElement(element)</td>
+<td>Create an HTML element</td>
+</tr>
+<tr>
+<td>document.removeChild(element)</td>
+<td>Remove an HTML element</td>
+</tr>
+<tr>
+<td>document.appendChild(element)</td>
+<td>Add an HTML element</td>
+</tr>
+<tr>
+<td>document.replaceChild(new, old)</td>
+<td>Replace an HTML element</td>
+</tr>
+<tr>
+<td>document.write(text)</td>
+<td>Write into the HTML output stream</td>
+</tr>
+<tr>
+<td>document.getElementById(id).onclick = function(){code}</td>
+<td>Adding event handler code to an onclick event</td>
+</tr>
+</tbody></table>
+<p>Some attributes of document root you should know</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>document.anchors</td>
+<td>Returns all &lt;a&gt; elements that have a name attribute</td>
+</tr>
+<tr>
+<td>document.cookie</td>
+<td>Returns the document’s cookie</td>
+</tr>
+<tr>
+<td>document.forms</td>
+<td>Returns all &lt;form&gt; elements</td>
+</tr>
+<tr>
+<td>document.images</td>
+<td>Returns all &lt;img&gt; elements</td>
+</tr>
+<tr>
+<td>document.links</td>
+<td>Returns all &lt;area&gt; and &lt;a&gt; elements that have a href attribute</td>
+</tr>
+<tr>
+<td>document.title</td>
+<td>Returns the &lt;title&gt; element</td>
+</tr>
+<tr>
+<td>document.URL</td>
+<td>Returns the complete URL of the document</td>
+</tr>
+</tbody></table>
+<h2 id="element-object"><a href="#element-object" class="headerlink" title="element object"></a>element object</h2><p>Find an element through Document object or another element, if the method is called under an element, it checks child of that element, not root.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>element.getElementById(id)</td>
+<td>Find an element by element id</td>
+</tr>
+<tr>
+<td>element.getElementsByTagName(name)</td>
+<td>Find elements by tag name</td>
+</tr>
+<tr>
+<td>element.getElementsByClassName(name)</td>
+<td>Find elements by class name</td>
+</tr>
+<tr>
+<td>element.hasAttributes()</td>
+<td>Return true if has any attribute</td>
+</tr>
+<tr>
+<td>element.hasAttribute(“class”)</td>
+<td>Return true only if has such attribute</td>
+</tr>
+<tr>
+<td>element.setAttribute(attribute, value)</td>
+<td>Change the attribute value of an HTML element</td>
+</tr>
+<tr>
+<td>element.removeAttribute(attribute)</td>
+<td>Remove a particular attribute</td>
+</tr>
+<tr>
+<td>element.hasChildNodes()</td>
+<td>Return true if has at least one child</td>
+</tr>
+<tr>
+<td>element.insertBefore(new, exist)</td>
+<td>Insert child before another existed child</td>
+</tr>
+<tr>
+<td>element.removeChild(element)</td>
+<td>Remove an HTML element</td>
+</tr>
+<tr>
+<td>element.appendChild(element)</td>
+<td>Add an HTML element</td>
+</tr>
+<tr>
+<td>element.replaceChild(new, old)</td>
+<td>Replace an HTML element</td>
+</tr>
+<tr>
+<td>document.write(text)</td>
+<td>Write into the HTML output stream</td>
+</tr>
+<tr>
+<td>element.getElementById(id).onclick = function(){code}</td>
+<td>Adding event handler code to an onclick event</td>
+</tr>
+<tr>
+<td>element.addEventListener(“click”, click_handler)</td>
+<td>Adding event handler for click event</td>
+</tr>
+<tr>
+<td>element.removeEventListener(event_listener)</td>
+<td>Removing event listener</td>
+</tr>
+<tr>
+<td>element.querySelector(“p.intro”)</td>
+<td>Return first element by CSS selector</td>
+</tr>
+<tr>
+<td>element.querySelectorAll(“p.intro”)</td>
+<td>Return all elements by CSS selector</td>
+</tr>
+<tr>
+<td>element.focus()</td>
+<td>Get focus</td>
+</tr>
+</tbody></table>
+<p><strong>add a new element</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"div1"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"p1"</span>&gt;</span>This is a paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"p2"</span>&gt;</span>This is another paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> para = <span class="built_in">document</span>.createElement(<span class="string">"p"</span>);</span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> node = <span class="built_in">document</span>.createTextNode(<span class="string">"This is new."</span>);</span></span><br><span class="line">para.appendChild(node);</span><br><span class="line"></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> element = <span class="built_in">document</span>.getElementById(<span class="string">"div1"</span>);</span></span><br><span class="line">element.appendChild(para);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Attribute for element</p>
+<table>
+<thead>
+<tr>
+<th>attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>element.attributes</td>
+<td>Return all attributes</td>
+</tr>
+<tr>
+<td>element.className</td>
+<td>Return value of ‘class’ attribute</td>
+</tr>
+<tr>
+<td>element.id</td>
+<td>Return Id attribute</td>
+</tr>
+<tr>
+<td>element.innerHTML</td>
+<td>Return inner HTML</td>
+</tr>
+<tr>
+<td>element.innerText</td>
+<td>Only return value of ALL Text nodes include children</td>
+</tr>
+<tr>
+<td>element.nodeName</td>
+<td>Return tag name like p, iframe</td>
+</tr>
+<tr>
+<td>element.parentNode</td>
+<td>Return parent node</td>
+</tr>
+<tr>
+<td>element.firstChild</td>
+<td>Return first direct child node</td>
+</tr>
+<tr>
+<td>element.lastChild</td>
+<td>Return last direct child node</td>
+</tr>
+<tr>
+<td>element.nextSibling</td>
+<td>Return next sibling node</td>
+</tr>
+<tr>
+<td>element.previousSibling</td>
+<td>Return previous sibling node</td>
+</tr>
+<tr>
+<td>element.childNodes</td>
+<td>Return direct child nodes</td>
+</tr>
+<tr>
+<td>element.style.property</td>
+<td>Set/Return css style</td>
+</tr>
+</tbody></table>
+<h2 id="Event"><a href="#Event" class="headerlink" title="Event"></a>Event</h2><p>Event object is passed to event handler when event happens, actually the passed event is not only <code>Event</code> object, but more specific one which is child of <code>Event</code> object, <code>more specific means more meta data about the event</code>, here is the inheritance of events</p>
+<p><a href="/images/web/dom_event_inheritance.png">Event Inheritance</a></p>
+<p>Event object has below attribute</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bubbles</td>
+<td>Return True if event is bubble event</td>
+</tr>
+<tr>
+<td>currentTarget</td>
+<td>Return current Listener target</td>
+</tr>
+<tr>
+<td>target</td>
+<td>Return element who triggered such event</td>
+</tr>
+<tr>
+<td>type</td>
+<td>return type of event</td>
+</tr>
+</tbody></table>
+<p>More specific events, refer to <span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIubW96aWxsYS5vcmcvZW4tVVMvZG9jcy9XZWIvQVBJL0V2ZW50" title="https://developer.mozilla.org/en-US/docs/Web/API/Event">Events API<i class="fa fa-external-link"></i></span>.</p>
+<p><strong>Note: as event could bubble, hence currentTarget may not be target</strong></p>
+<p>There are two ways to add event handler, but addEventListener() method attaches an event handler to an element without overwriting existing event handlers. You can add many different types of event handlers to one element. You can also add many event handlers of the same type to one element, i.e two “click” events.<br>The addEventListener() method makes it easier to control how the event reacts to bubbling.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// function only takes event object as the input or nothing</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params">ev</span>) </span>&#123;</span><br><span class="line">  alert (<span class="string">"Hello World!"</span>);</span><br><span class="line">&#125;</span><br><span class="line">element.addEventListener(<span class="string">"click"</span>, myFunction);</span><br><span class="line">element.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">ev</span>)</span>&#123; alert(<span class="string">"Hello World!"</span>); &#125;); </span><br><span class="line">element.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; alert(<span class="string">"Hello World!"</span>); &#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">  pass H1 object to change Text or nothing</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">onclick</span>=<span class="string">"changeText(this)"</span>&gt;</span>Click on this text!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">onclick</span>=<span class="string">"changeText()"</span>&gt;</span>Click on this text!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="NodeList-vs-HTMLCollection"><a href="#NodeList-vs-HTMLCollection" class="headerlink" title="NodeList vs HTMLCollection"></a>NodeList vs HTMLCollection</h2><p>A NodeList object is a list (collection) of nodes extracted from a document, while HTMLCollection is only for HTML element(tag), NodeList is for inner text as well which is also a node object.</p>
+<p><strong>HTMLCollection returned</strong></p>
+<ul>
+<li>getElementsByTagName()</li>
+<li>getElementsByClassName()</li>
+</ul>
+<p><strong>NodeList returned</strong></p>
+<ul>
+<li>All browsers return a NodeList object for the property childNodes. </li>
+<li>Most browsers return a NodeList object for the method querySelectorAll()</li>
+</ul>
+<p><strong>Same</strong></p>
+<ul>
+<li>Both an HTMLCollection object and a NodeList object is an array-like list (collection) of objects.</li>
+<li>Both have a length property defining the number of items in the list (collection).</li>
+<li>Both provide an index (0, 1, 2, 3, 4, …) to access each item like an array.</li>
+</ul>
+<p><strong>Different</strong></p>
+<ul>
+<li>HTMLCollection items can be accessed by their name, id, or index number.</li>
+<li>NodeList items can only be accessed by their index number.</li>
+<li>Only the NodeList object can contain attribute nodes and text nodes.</li>
+</ul>
+<h2 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h2><p>The Browser Object Model (BOM) allows JavaScript to “talk to” the browser, it’s information about browser, it has several objects to represent such info</p>
+<ul>
+<li>window</li>
+<li>window.screen or screen for short</li>
+<li>window.location</li>
+<li>window.history</li>
+<li>window.navigator</li>
+</ul>
+<h2 id="JQuery"><a href="#JQuery" class="headerlink" title="JQuery"></a>JQuery</h2><p>jQuery was designed to handle Browser Incompatibilities and to simplify HTML DOM Manipulation, Event Handling, Animations, and Ajax, it depends on Dom native API above.</p>
+<p><code>JQuery uses CSS selector to find element</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//import jquery first.</span></span><br><span class="line"><span class="keyword">var</span> myElement = $(<span class="string">"#id01"</span>);</span><br><span class="line"><span class="keyword">var</span> all_p = $(<span class="string">"p"</span>)</span><br><span class="line"><span class="keyword">var</span> class_elements = $(<span class="string">".intro"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Operation(API) on the selected element</p>
+<ul>
+<li>.text   get/set the content of selected element $(“#bsd”).text(“new”);</li>
+<li>.html   get/set the entire html of selected element $(“#bsd”).html()</li>
+<li>.before add a html element(with tag) before the selected element</li>
+<li>.after  add an element after the selected element</li>
+<li>.append add a html element(with tag) inside the selected element</li>
+<li>.attr   get/set the given attr of an html element $(“#bsd”).attr(“given_attr”) $(“$bsd”).attr(“given_attr”, “given_value”);</li>
+<li>.css    get/set the style of the selected elements</li>
+<li>.parent get the parent element of the selected element $(“#bsd”).parent().</li>
+<li>.each   callback on each of the selected groups($(“a”), $(“.className”);<h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3>.ajaxSetup()<br>set defaults for AJAx-related parameters such as caching, methods, error handling, among others, this is used for all AJAX call, also you can set them separately by .ajax()</li>
+</ul>
+<p>All subsequent Ajax calls using any function will use the new settings, unless overridden by the individual calls, until the next invocation of $.ajaxSetup().</p>
+<p>.ajax() parameters are map with key:value, specify method(GET,POST etc) the url, callback functions when error, successful, data type and data cache response etc!!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">load()        get()       post         getJson()</span><br><span class="line">  +             |            |              +</span><br><span class="line">  |             |            |              |</span><br><span class="line">  |             |            |              |</span><br><span class="line">  +-------------+------+-----+--------------+</span><br><span class="line">                       |</span><br><span class="line">                       +</span><br><span class="line">                     ajax()   low level API</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">successFun</span>(<span class="params">data, status</span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">errorFun</span>(<span class="params">request, status, errorthrown</span>)  </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    type: <span class="string">"GET"</span>,</span><br><span class="line">    url: <span class="string">"json.php"</span>,</span><br><span class="line">    dataType: <span class="string">"json"</span>, <span class="comment">//The type of data that you're expecting back from the server.</span></span><br><span class="line">    username: <span class="string">"luo"</span>,</span><br><span class="line">    password: <span class="string">"ps"</span>,</span><br><span class="line">    <span class="comment">//change headers before send</span></span><br><span class="line">    beforeSend: <span class="function"><span class="keyword">function</span>(<span class="params"> xhr </span>) </span>&#123;</span><br><span class="line">        xhr.overrideMimeType( <span class="string">"text/plain; charset=x-user-defined"</span> );</span><br><span class="line">    &#125;</span><br><span class="line">    success: successFun,</span><br><span class="line">    error: errorFun,</span><br><span class="line">    timeout: <span class="number">5000</span>  <span class="comment">//5s</span></span><br><span class="line">);</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    type: <span class="string">"POST"</span>,</span><br><span class="line">    url: <span class="string">"url/ds"</span>,</span><br><span class="line">    contentType: <span class="string">"application/json"</span>,  <span class="comment">//the type of data you send to the server</span></span><br><span class="line">    data: <span class="string">'&#123;"a":1&#125;'</span>, <span class="comment">//json format as a string</span></span><br><span class="line">    success: successFun,</span><br><span class="line">    error: errorFun,</span><br><span class="line">    timeout: <span class="number">5000</span>  <span class="comment">//5s</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9qcy9kZWZhdWx0LmFzcA==" title="https://www.w3schools.com/js/default.asp">W3C DOM<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9odG1sY2hlYXRzaGVldC5jb20vanF1ZXJ5Lw==" title="https://htmlcheatsheet.com/jquery/">JQuery cheatsheet<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIubW96aWxsYS5vcmcvZW4tVVMvZG9jcy9XZWIvQVBJL0V2ZW50" title="https://developer.mozilla.org/en-US/docs/Web/API/Event">Dom Event Interface<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9qc3JlZi9kb21fb2JqX2V2ZW50LmFzcA==" title="https://www.w3schools.com/jsref/dom_obj_event.asp">W3C ALL Events<i class="fa fa-external-link"></i></span></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\bootstrap-component-cases\" rel="bookmark">bootstrap-component-cases</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\html-basic\" rel="bookmark">html_basic</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\html-faq\" rel="bookmark">html-faq</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\html-sse\" rel="bookmark">html_sse</a></div>
+      
+    </li>
+  
+  </ul>
+
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/html/" rel="tag"><i class="fa fa-tag"></i> html</a>
+            
+              <a href="/tags/dom/" rel="tag"><i class="fa fa-tag"></i> dom</a>
+            
+              <a href="/tags/event/" rel="tag"><i class="fa fa-tag"></i> event</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/html-faq/" rel="next" title="html-faq">
+                  <i class="fa fa-chevron-left"></i> html-faq
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/html-jquery/" rel="prev" title="html_jquery">
+                  html_jquery <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML"><span class="nav-number">1.</span> <span class="nav-text">HTML</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM"><span class="nav-number">1.1.</span> <span class="nav-text">DOM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Document-object"><span class="nav-number">1.1.1.</span> <span class="nav-text">Document object</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#element-object"><span class="nav-number">1.2.</span> <span class="nav-text">element object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Event"><span class="nav-number">1.3.</span> <span class="nav-text">Event</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NodeList-vs-HTMLCollection"><span class="nav-number">1.4.</span> <span class="nav-text">NodeList vs HTMLCollection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BOM"><span class="nav-number">1.5.</span> <span class="nav-text">BOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JQuery"><span class="nav-number">1.6.</span> <span class="nav-text">JQuery</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AJAX"><span class="nav-number">1.6.1.</span> <span class="nav-text">AJAX</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">1.7.</span> <span class="nav-text">Ref</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/uploads/avatar.gif"
+      alt="Jason">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">106</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">115</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="GitHub &rarr; https://github.com/jason-cyun"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="bWFpbHRvOmphc29uX2xrbUAxNjMuY29t" title="E-Mail &rarr; mailto:jason_lkm@163.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script><script src="/js/bookmark.js?v=7.4.0"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var id = element.id || '';
+    var src = element.src || '';
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (id !=='') {
+      script.id = element.id;
+    }
+    if (src !== '') {
+      script.src = src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+<script pjax>
+if (document.querySelectorAll('div.pdf').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js', () => {
+    document.querySelectorAll('div.pdf').forEach(element => {
+      PDFObject.embed(element.getAttribute('target'), element, {
+        pdfOpenParams: {
+          navpanes: 0,
+          toolbar: 0,
+          statusbar: 0,
+          pagemode: 'thumbs',
+          view: 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height: element.getAttribute('height') || '500px'
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '09527c4c0e89e8430bc2',
+      clientSecret: 'bf4a9feb1fafe110ea12ea7549a3b493a08f7e03',
+      repo: 'blog',
+      owner: 'jason-bj',
+      admin: ['jason-bj'],
+      id: 'e2b142a5920ed67be1a71fe9aca568bf',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'false'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+    </div>
+</body>
+</html>

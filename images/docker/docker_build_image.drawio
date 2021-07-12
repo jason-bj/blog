@@ -1,0 +1,139 @@
+<mxfile host="app.diagrams.net" modified="2020-06-18T09:19:42.617Z" agent="5.0 (Macintosh)" etag="NCOL6pkevrZAgztDuZZE" version="13.2.6" type="github">
+  <diagram id="q6mFyTJGvsPJWEC4QQTQ" name="Page-1">
+    <mxGraphModel dx="925" dy="597" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-31" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="710" y="540" width="380" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-20" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="780" y="330" width="300" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-30" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="wnRwQ7NwYr3wZG88SDyY-20">
+          <mxGeometry x="-70" y="-50" width="370" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-2" value="docker client" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="wnRwQ7NwYr3wZG88SDyY-20">
+          <mxGeometry x="-52" y="-35" width="330" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-15" value="" style="group" vertex="1" connectable="0" parent="wnRwQ7NwYr3wZG88SDyY-20">
+          <mxGeometry x="60" y="60" width="200" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-14" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="wnRwQ7NwYr3wZG88SDyY-15">
+          <mxGeometry y="5" width="190" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-3" value="Dockerfile" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="wnRwQ7NwYr3wZG88SDyY-15">
+          <mxGeometry x="10" y="9" width="70" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-4" value="app.py" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="wnRwQ7NwYr3wZG88SDyY-15">
+          <mxGeometry x="110" y="10" width="70" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-34" value="2 docker client uploads&lt;br&gt;current dir contents to daemon" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=16;" vertex="1" parent="wnRwQ7NwYr3wZG88SDyY-20">
+          <mxGeometry x="35" y="10" width="230" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="wnRwQ7NwYr3wZG88SDyY-1" target="wnRwQ7NwYr3wZG88SDyY-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-1" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.user;" vertex="1" parent="1">
+          <mxGeometry x="470" y="290" width="47.5" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wnRwQ7NwYr3wZG88SDyY-17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1020" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-17" value="" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="520" width="110" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-18" value="nginx" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="590" width="50" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-21" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="730" y="620" width="470" height="188" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="wnRwQ7NwYr3wZG88SDyY-21" source="wnRwQ7NwYr3wZG88SDyY-10" target="wnRwQ7NwYr3wZG88SDyY-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="270" y="47" />
+              <mxPoint x="270" y="47" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-10" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="wnRwQ7NwYr3wZG88SDyY-21">
+          <mxGeometry x="245" y="77" width="50" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-13" value="" style="group" vertex="1" connectable="0" parent="wnRwQ7NwYr3wZG88SDyY-21">
+          <mxGeometry y="10" width="190" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-12" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="wnRwQ7NwYr3wZG88SDyY-13">
+          <mxGeometry width="190" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-5" value="Dockerfile" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="wnRwQ7NwYr3wZG88SDyY-13">
+          <mxGeometry x="10" y="10" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-6" value="app.py" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="wnRwQ7NwYr3wZG88SDyY-13">
+          <mxGeometry x="110" y="10" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-16" value="web:latest" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="wnRwQ7NwYr3wZG88SDyY-21">
+          <mxGeometry x="295" y="57" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-19" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="wnRwQ7NwYr3wZG88SDyY-21">
+          <mxGeometry x="245" y="47" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="wnRwQ7NwYr3wZG88SDyY-21" source="wnRwQ7NwYr3wZG88SDyY-12" target="wnRwQ7NwYr3wZG88SDyY-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="wnRwQ7NwYr3wZG88SDyY-2" target="wnRwQ7NwYr3wZG88SDyY-12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="803" y="580" />
+              <mxPoint x="803" y="580" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wnRwQ7NwYr3wZG88SDyY-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="810" y="435" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="wnRwQ7NwYr3wZG88SDyY-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="990" y="660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-9" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="965" y="550" width="50" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-11" value="nginx" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="570" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-29" value="Docker hub" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1302" y="490" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-32" value="Docker daemon" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="830" y="560" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-33" value="1 $ docker build -t web ." style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=16;fontStyle=0" vertex="1" parent="1">
+          <mxGeometry x="525" y="285" width="190" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-35" value="3: daemon pull &lt;br&gt;nginx image from hub&lt;br&gt;if it&#39;s not stored locally" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="540" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=16;" edge="1" parent="1" source="wnRwQ7NwYr3wZG88SDyY-36" target="wnRwQ7NwYr3wZG88SDyY-31">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1110" y="688" />
+              <mxPoint x="1110" y="710" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-36" value="4: build new image" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="686" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wnRwQ7NwYr3wZG88SDyY-39" value="Docker client and docker daemon can be on different machine&lt;br&gt;&lt;div&gt;mostly they are on same machine&lt;/div&gt;&lt;div&gt;if they are different machines, need extra option to docker build&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=16;fontStyle=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="710" y="780" width="500" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

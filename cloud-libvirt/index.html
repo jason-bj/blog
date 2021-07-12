@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/clogo.svg?v=7.4.0" color="#222">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="IntroductionLibvirt is collection of software that provides a convenient way to manage virtual machines and other virtualization functionality, such as storage and network interface management. These">
+<meta name="keywords" content="libvirt, qemu, kvm, hypervisor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cloud_libvirt">
+<meta property="og:url" content="http://cyun.tech/cloud-libvirt/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="IntroductionLibvirt is collection of software that provides a convenient way to manage virtual machines and other virtualization functionality, such as storage and network interface management. These">
+<meta property="og:locale" content="en-US">
+<meta property="og:updated_time" content="2021-07-12T09:36:57.608Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cloud_libvirt">
+<meta name="twitter:description" content="IntroductionLibvirt is collection of software that provides a convenient way to manage virtual machines and other virtualization functionality, such as storage and network interface management. These">
+  <link rel="alternate" href="/atom.xml" title="CYun" type="application/atom+xml">
+  <link rel="canonical" href="http://cyun.tech/cloud-libvirt/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>cloud_libvirt | CYun</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script pjax>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-148730544-1');
+    }
+  </script>
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-US">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CYun</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a class="book-mark-link book-mark-link-fixed" href="#"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/cloud-libvirt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">cloud_libvirt
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2021-07-08 11:18:08" itemprop="dateCreated datePublished" datetime="2021-07-08T11:18:08+08:00">2021-07-08</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-12 17:36:57" itemprop="dateModified" datetime="2021-07-12T17:36:57+08:00">2021-07-12</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/cloud/" itemprop="url" rel="index"><span itemprop="name">cloud</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/cloud/libvirt/" itemprop="url" rel="index"><span itemprop="name">libvirt</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Libvirt is collection of software that provides a convenient way to manage virtual machines and other virtualization functionality, such as storage and network interface management. These software pieces include an API library, a daemon (libvirtd), and a command line utility (virsh).</p>
+<p>An primary goal of libvirt is to provide a single way to manage multiple different virtualization providers/hypervisors.</p>
+<p>The libvirt project:</p>
+<ul>
+<li>is a toolkit to <code>manage virtualization platforms</code></li>
+<li>is accessible from <code>C, Python, Perl, Go and more</code></li>
+<li>is licensed under open source licenses</li>
+<li>supports <code>KVM, QEMU, Xen, Virtuozzo, VMWare ESX, LXC</code>, and more</li>
+<li>targets <code>Linux, FreeBSD, Windows and macOS</code></li>
+</ul>
+<p><img alt="libvirt" data-src="https://images4.programmersought.com/922/12/1296db512a81b948b75432a335f6adea.JPEG"></p>
+<a id="more"></a>
+
+<h1 id="libvirt-and-libguestfs"><a href="#libvirt-and-libguestfs" class="headerlink" title="libvirt and libguestfs"></a>libvirt and libguestfs</h1><p>libvirt provides lots of tools to manage VM or virtual disk, let’s take a quick look about them, all commands <strong><code>verified on centos7</code></strong>.</p>
+<p><strong>VM management</strong></p>
+<ul>
+<li>virt-install: install VM etc</li>
+<li>virsh: start, stop, destroy VM, monitor and collect stats of VM etc</li>
+<li>virt-manager: GUI for manage VM</li>
+</ul>
+<p><strong>Virtual disk management(provided by libguestfs)</strong></p>
+<ul>
+<li>guestfish: interactive shell to manage disk</li>
+<li>guestmount/guestumount: mount/umount disk to host path</li>
+<li>virt-cat/virt-copy-in/virt-copy-out/virt-format/virt-xxx: commands to manage virtual disk</li>
+</ul>
+<p><strong>ALL libvirt tools(included libguestfs tools) communicate with <code>libvirt daemon</code> to manage vm or disk, hence we must make sure it runs properly.</strong></p>
+<h2 id="libvirt-daemon"><a href="#libvirt-daemon" class="headerlink" title="libvirt daemon"></a>libvirt daemon</h2><p>As libvrit daemon acts a core part to manage vm or virtual disk, hence we should know how to install, debug it, here are some tips from centos</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># this will install libvirt-client(virsh) and libvirt-daemon(libvirtd)</span></span><br><span class="line">$ yum install -y libvirt</span><br><span class="line"></span><br><span class="line"><span class="comment"># install kvm and bios to start vm</span></span><br><span class="line">$ yum install -y kvm</span><br><span class="line">$ yum install -y seabios</span><br><span class="line"></span><br><span class="line">$ libvirtd --version</span><br><span class="line"></span><br><span class="line"><span class="comment"># /etc/libvirt/libvirtd.conf: global conf of libvirtd</span></span><br><span class="line"><span class="comment"># /etc/sysconfig/libvirtd: override libvirtd.conf</span></span><br><span class="line"><span class="comment"># /usr/lib/systemd/system/libvirtd.service： systemd service</span></span><br><span class="line"><span class="comment"># /var/run/libvirt: runtime of daemon, like daemon socket/pid of each vm</span></span><br><span class="line"><span class="comment"># /etc/libvirt/qemu/networks/default.xml: default network</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># /var/log/libvirt: logs of VM</span></span><br><span class="line"><span class="comment"># /etc/libvirt: XML of VMS</span></span><br><span class="line"><span class="comment"># /var/lib/libvirt/images/: virtual image of VM</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Manage-vm"><a href="#Manage-vm" class="headerlink" title="Manage vm"></a>Manage vm</h2><h3 id="vm-xml"><a href="#vm-xml" class="headerlink" title="vm xml"></a>vm xml</h3><p>Use virsh to edit VM XML </p>
+<ul>
+<li>Virtual Networks: net-edit, net-dumpxml</li>
+<li>Storage Pools: pool-edit, pool-dumpxml</li>
+<li>Storage Volumes: vol-edit, vol-dumpxml</li>
+<li>Interfaces: iface-edit, iface-dumpxml</li>
+</ul>
+<p><strong>Redefining the XML of a running machine will not change anything, the changes will take effect after the next VM start up</strong></p>
+<h3 id="Command-groups"><a href="#Command-groups" class="headerlink" title="Command groups"></a>Command groups</h3><h4 id="Domain-management"><a href="#Domain-management" class="headerlink" title="Domain management"></a>Domain management</h4><ul>
+<li>virsh console</li>
+<li>virsh define (define a guest domain from xml file)</li>
+<li>virsh destroy(immediately terminates a running vm)</li>
+<li>virsh undefine(remove cfg for an inactive vm)</li>
+<li>virsh domjobinfo(return info about jobs running on a domain)</li>
+<li>virsh dumpxml(output vm info as an XML to stdout)</li>
+<li>virsh edit(edit the XML cfg for a vm)</li>
+<li>virsh migrate(migrate vm to another host)</li>
+<li>virsh suspend/start/shutdown/reboot/save/restore/resume/</li>
+<li>virsh setmem/setvcpus</li>
+<li>virsh vcpuinfo/vcpucount/vcpupin</li>
+</ul>
+<h4 id="Domain-monitor"><a href="#Domain-monitor" class="headerlink" title="Domain monitor"></a>Domain monitor</h4><ul>
+<li>virsh domblkinfo / dominfo</li>
+<li>virsh domblkstat /domifstat /dommemstat</li>
+<li>virsh domstate</li>
+<li>virsh list –all</li>
+</ul>
+<h4 id="Domain-Snapshot"><a href="#Domain-Snapshot" class="headerlink" title="Domain Snapshot"></a>Domain Snapshot</h4><ul>
+<li>virsh snapshot-create </li>
+<li>virsh snapshot-delete </li>
+<li>virsh snapshot-list</li>
+<li>virsh snapshot-revert</li>
+</ul>
+<h4 id="Host-and-Hypervisor"><a href="#Host-and-Hypervisor" class="headerlink" title="Host and Hypervisor"></a>Host and Hypervisor</h4><ul>
+<li>virsh capabilities</li>
+<li>virsh nodeinfo</li>
+<li>virsh uri<h4 id="Network-Interface"><a href="#Network-Interface" class="headerlink" title="Network Interface"></a>Network Interface</h4></li>
+<li>virsh iface-dumpxml</li>
+<li>virsh iface-list / iface-name / iface-mac</li>
+<li>virsh iface-define / iface-undefine</li>
+<li>virsh iface-start / iface-destroy</li>
+<li>virsh iface-edit</li>
+</ul>
+<h4 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h4><ul>
+<li>virsh net-create / net-destroy</li>
+<li>virsh net-edit / net-dumpxml</li>
+<li>virsh net-define / net-undefine</li>
+<li>virsh net-start</li>
+<li>virsh net-info / net-list / net-name<h4 id="Node-device"><a href="#Node-device" class="headerlink" title="Node device"></a>Node device</h4></li>
+<li>virsh nodedev-create</li>
+<li>virsh nodedev-reattach / nodedev-dettach</li>
+<li>virsh nodedev-destroy</li>
+<li>virsh nodedev-dumpxml</li>
+<li>virsh nodedev-list</li>
+</ul>
+<h4 id="Storage-pool"><a href="#Storage-pool" class="headerlink" title="Storage pool"></a>Storage pool</h4><ul>
+<li>virsh pool-create / pool-destroy / pool-delete</li>
+<li>virsh pool-define / pool-undefine</li>
+<li>virsh pool-start</li>
+<li>virsh pool-list / pool-dumpxml</li>
+<li>virsh pool-edit / pool-info<h4 id="Storage-Volume"><a href="#Storage-Volume" class="headerlink" title="Storage Volume"></a>Storage Volume</h4></li>
+<li>virsh vol-create / vol-delete</li>
+<li>virsh vol-info /vol-list</li>
+</ul>
+<h3 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ virsh -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># By default virsh will connect with local libvirt by unix socket</span></span><br><span class="line"><span class="comment"># but can connect with remote libvirtd</span></span><br><span class="line">$ virsh --connect qemu+ssh://root@example.com/system</span><br><span class="line"></span><br><span class="line"><span class="comment"># show the connection</span></span><br><span class="line">$ virsh uri</span><br><span class="line"></span><br><span class="line"><span class="comment"># create a vm, for QEMU and LXC, libvirtd stores vm XML to disk and in memory</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># DO NOT edit the XML directly from disk at in that way, there is no validation!!!</span></span><br><span class="line"><span class="comment"># if you edit the on-disk XML is a VM that simply vanishes the next time libvirtd is restarted after the edit.</span></span><br><span class="line"><span class="comment"># The VM disappears from libvirt because the XML has become invalid, after which libvirt can't do anything with it</span></span><br><span class="line"></span><br><span class="line">$ virsh dumpxml <span class="variable">$domain</span></span><br><span class="line">$ virsh edit <span class="variable">$domain</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Run-command-inside-guest-VM"><a href="#Run-command-inside-guest-VM" class="headerlink" title="Run command inside guest(VM)"></a>Run command inside guest(VM)</h3><p>In order to run command inside guest os, we must have two things prepared, <code>a channel and agent runs in guest os to execute the command</code></p>
+<p><strong>Enable the channel</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">channel</span> <span class="attr">type</span>=<span class="string">'unix'</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">target</span> <span class="attr">type</span>=<span class="string">'virtio'</span> <span class="attr">name</span>=<span class="string">'org.qemu.guest_agent.0'</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">channel</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Install agent inside guest vm</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yum install qemu-guest-agent</span><br><span class="line">$ systemctl start qemu-guest-agent</span><br><span class="line">$ systemctl <span class="built_in">enable</span> qemu-guest-agent</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># show all supported commands that can run inside domain</span></span><br><span class="line">$ virsh qemu-agent-command <span class="variable">$&#123;DOMAIN&#125;</span> --pretty <span class="string">'&#123;"execute":"guest-info"&#125;'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># guest-exec</span></span><br><span class="line"><span class="comment"># guest-exec-status</span></span><br><span class="line"><span class="comment"># guest-get-host-name</span></span><br><span class="line"><span class="comment"># guest-get-time</span></span><br><span class="line"><span class="comment"># guest-set-user-password</span></span><br><span class="line"><span class="comment"># xxxx</span></span><br><span class="line"></span><br><span class="line">$ virsh qemu-agent-command <span class="variable">$&#123;DOMAIN&#125;</span> <span class="string">'&#123;"execute":"guest-exec","arguments":&#123;"path":"mkdir","arg":["-p","/root/.ssh"],"capture-output":true&#125;&#125;'</span></span><br><span class="line">&#123;<span class="string">"return"</span>:&#123;<span class="string">"pid"</span>:911&#125;&#125;</span><br><span class="line">$ virsh qemu-agent-command <span class="variable">$&#123;DOMAIN&#125;</span> <span class="string">'&#123;"execute":"guest-exec-status","arguments":&#123;"pid":911&#125;&#125;'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Manage-virtual-disk"><a href="#Manage-virtual-disk" class="headerlink" title="Manage virtual disk"></a>Manage virtual disk</h2><p>libguestfs is a C library tool for <code>creating, accessing and modifying virtual machine disk images</code>. You can look inside the disk images, modify the files they contain, create them from scratch, resize them, and much more.<br><code>yum install libguestfs libguestfs-tool</code><br>libguestfs works with any disk image, including ones created in <code>VMware, KVM, qemu, VirtualBox, Xen, and many other hypervisors</code></p>
+<p><img alt="libguestfs arch" data-src="https://www.gnutoolbox.com/wp-content/uploads/2017/07/libguestfs.jpg"></p>
+<p>guestfish is an interactive shell that you can use from the command line or from shell scripts to access guest virtual machine file systems. <strong>All of the functionality of the libguestfs API is available from the shell</strong>, guestfish shell provides lots of built-in commands(600+) you can use to access guest file systems, <code>it&#39;s a super-set of virt-xxx command below</code>.</p>
+<ul>
+<li>virt-copy-in</li>
+<li>virt-copy-out</li>
+<li>virt-edit</li>
+<li>virt-df</li>
+<li>virt-tar-in</li>
+<li>virt-tar-out</li>
+<li>virt-cat</li>
+<li>virt-ls</li>
+<li>virt-make-fs</li>
+<li>virt-filesystems</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># two ways to run guestfish</span></span><br><span class="line"><span class="comment"># -i means inspect the image and mount the file systems(mount requires a vm started by guestfish)</span></span><br><span class="line"><span class="comment"># 1. for a running VM</span></span><br><span class="line">$ guestfish --ro -d <span class="variable">$domain</span> -i</span><br><span class="line">&gt;&lt;fs&gt; df-h</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. for a virtual disk</span></span><br><span class="line">$ guestfish -a /path/to/disk/image -i</span><br><span class="line">&gt;&lt;fs&gt; df-h</span><br><span class="line"></span><br><span class="line"><span class="comment"># other virt-xxx command</span></span><br><span class="line">$ virt-filesystems -a CentOS-7-x86_64-GenericCloud-1503.qcow2</span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ virt-filesystems -d <span class="variable">$domain</span></span><br><span class="line"></span><br><span class="line">$ virt-ls -d <span class="variable">$domain</span> /home/centos</span><br><span class="line">$ virt-tar-out -d <span class="variable">$domain</span> /home/centos out.tar.gz</span><br><span class="line">$ virt-copy-in -d <span class="variable">$domain</span> test.txt /home/centos</span><br></pre></td></tr></table></figure>
+
+<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><h2 id="Difference-between-qemu-system-and-qemu-session-Which-one-should-I-use"><a href="#Difference-between-qemu-system-and-qemu-session-Which-one-should-I-use" class="headerlink" title="Difference between qemu:///system and qemu:///session? Which one should I use?"></a>Difference between qemu:///system and qemu:///session? Which one should I use?</h2><p>All ‘system’ URIs (be it qemu, lxc, uml, …) connect to the libvirtd daemon running as root which is launched at system startup. <code>Virtual machines created and run using &#39;system&#39; are usually launched as root</code></p>
+<p>All ‘session’ URIs launch a libvirtd instance as your local user, and all VMs are run with local user permissions.<br>You will definitely want to use qemu:///system if your VMs are acting as servers. <code>VM autostart on host boot only works for &#39;system&#39;, and the root libvirtd instance has necessary permissions to use proper networkings via bridges or virtual networks</code></p>
+<h2 id="Migration"><a href="#Migration" class="headerlink" title="Migration"></a>Migration</h2><p>There are two primary types of migration with QEMU/KVM and libvirt:</p>
+<ul>
+<li><p>Plain migration: <code>The source host VM opens a direct unencrypted TCP connection to the destination host for sending the migration data</code>. Unless a port is manually specified, libvirt will choose a migration port in the range 49152-49215, which will need to be open in the firewall on the remote host.</p>
+</li>
+<li><p>Tunneled migration: The source host libvirtd opens a direct connection to the destination host libvirtd for sending migration data. This allows the option of <code>encrypting the data stream</code>. This mode doesn’t require any extra firewall configuration, but is only supported with qemu 0.12.0 or later, and libvirt 0.7.2.</p>
+</li>
+</ul>
+<p>For all QEMU/KVM migrations, <code>libvirtd must be running on the source and destination host</code>.</p>
+<ul>
+<li><p>For tunneled migration, no extra configuration should be required, you simply need to pass the –tunnelled flag to virsh migrate.</p>
+</li>
+<li><p>For plain unencrypted migration, the TCP port range 49152-49215 must be opened in the firewall on the destination host.</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virsh migrate <span class="variable">$domain</span> <span class="variable">$REMOTE_HOST_URI</span> --migrateuri tcp://<span class="variable">$REMOTE_HOST</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="How-to-import-a-vm-from-a-terminal-no-X-display"><a href="#How-to-import-a-vm-from-a-terminal-no-X-display" class="headerlink" title="How to import a vm from a terminal(no X display)"></a>How to import a vm from a terminal(no X display)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ virsh net-list</span><br><span class="line"></span><br><span class="line">$ virt-install --name guest1-rhel7 --memory 2048 --vcpus 2 --disk /home/data/tmp/CentOS-7-x86_64-GenericCloud-1503.qcow2 --import --os-type linux --<span class="built_in">wait</span> 0 --network default</span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ virt-install --name guest1-rhel7 --memory 2048 --vcpus 2 --disk /home/data/tmp/CentOS-7-x86_64-GenericCloud-1503.qcow2 --import --os-type linux --<span class="built_in">wait</span> 0 --network none</span><br><span class="line"><span class="comment"># must set wait 0, otherwise, it will show 'Domain installation still in progress. Waiting for installation to complete'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="How-to-install-a-VM-from-a-terminal"><a href="#How-to-install-a-VM-from-a-terminal" class="headerlink" title="How to install a VM from a terminal"></a>How to install a VM from a terminal</h2><p>Here we use image from remote by –location parameters</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">-l LOCATION , --location=LOCATION</span><br><span class="line">Distribution tree installtion source. virt-install can recognize certain distribution trees and fetches a bootable kernel/initrd pair to launch the install. </span><br><span class="line"></span><br><span class="line">The &quot;LOCATION&quot; can take one of the following forms:</span><br><span class="line">DIRECTORY</span><br><span class="line">    Path to a local directory containing an installable distribution image </span><br><span class="line">nfs:host:/path or nfs://host/path</span><br><span class="line">    An NFS server location containing an installable distribution image </span><br><span class="line">http://host/path</span><br><span class="line">    An HTTP server location containing an installable distribution image </span><br><span class="line">ftp://host/path</span><br><span class="line">    An FTP server location containing an installable distribution image </span><br><span class="line"></span><br><span class="line">centos 7</span><br><span class="line">--location &apos;http://mirror.i3d.net/pub/centos/7/os/x86_64/&apos;</span><br><span class="line"></span><br><span class="line">ubuntu(different versions has different url)</span><br><span class="line">--location &apos;http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/&apos;</span><br><span class="line">--location &apos;http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/&apos;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ virt-install --name ubuntu --memory 2048 --vcpus 2 --disk size=8 --location <span class="string">'http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/'</span> --os-type linux --graphics none --extra-args <span class="string">"console=tty0 console=ttyS0,115200n8"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Frequently-used-command"><a href="#Frequently-used-command" class="headerlink" title="Frequently used command"></a>Frequently used command</h2><ul>
+<li>virsh domblkerror test1</li>
+<li>virsh dominfo test1</li>
+<li>virsh console test1 (exit console <code>Ctrl+]</code>)</li>
+</ul>
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9saWJ2aXJ0Lm9yZy9mb3JtYXQuaHRtbA==" title="https://libvirt.org/format.html">VM XML format<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9saWJ2aXJ0Lm9yZy9zb3VyY2VzL3ZpcnNoY21kcmVmL2h0bWwtc2luZ2xlLw==" title="https://libvirt.org/sources/virshcmdref/html-single/">virsh reference<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93aWtpLmxpYnZpcnQub3JnL3BhZ2UvTWFpbl9QYWdl" title="https://wiki.libvirt.org/page/Main_Page">libvirt Wiki<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93aWtpLmxpYnZpcnQub3JnL3BhZ2UvRkFR" title="https://wiki.libvirt.org/page/FAQ">libvirt FAQ<i class="fa fa-external-link"></i></span></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/cloud/" rel="tag"><i class="fa fa-tag"></i> cloud</a>
+            
+              <a href="/tags/vm/" rel="tag"><i class="fa fa-tag"></i> vm</a>
+            
+              <a href="/tags/libvirt/" rel="tag"><i class="fa fa-tag"></i> libvirt</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/cloud-storage-nbd/" rel="next" title="cloud_storage_nbd">
+                  <i class="fa fa-chevron-left"></i> cloud_storage_nbd
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#libvirt-and-libguestfs"><span class="nav-number">2.</span> <span class="nav-text">libvirt and libguestfs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#libvirt-daemon"><span class="nav-number">2.1.</span> <span class="nav-text">libvirt daemon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Manage-vm"><span class="nav-number">2.2.</span> <span class="nav-text">Manage vm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vm-xml"><span class="nav-number">2.2.1.</span> <span class="nav-text">vm xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Command-groups"><span class="nav-number">2.2.2.</span> <span class="nav-text">Command groups</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Domain-management"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">Domain management</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Domain-monitor"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">Domain monitor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Domain-Snapshot"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">Domain Snapshot</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Host-and-Hypervisor"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">Host and Hypervisor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Network-Interface"><span class="nav-number">2.2.2.5.</span> <span class="nav-text">Network Interface</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Network"><span class="nav-number">2.2.2.6.</span> <span class="nav-text">Network</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Node-device"><span class="nav-number">2.2.2.7.</span> <span class="nav-text">Node device</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Storage-pool"><span class="nav-number">2.2.2.8.</span> <span class="nav-text">Storage pool</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Storage-Volume"><span class="nav-number">2.2.2.9.</span> <span class="nav-text">Storage Volume</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sample"><span class="nav-number">2.2.3.</span> <span class="nav-text">sample</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-command-inside-guest-VM"><span class="nav-number">2.2.4.</span> <span class="nav-text">Run command inside guest(VM)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Manage-virtual-disk"><span class="nav-number">2.3.</span> <span class="nav-text">Manage virtual disk</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FAQ"><span class="nav-number">3.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Difference-between-qemu-system-and-qemu-session-Which-one-should-I-use"><span class="nav-number">3.1.</span> <span class="nav-text">Difference between qemu:///system and qemu:///session? Which one should I use?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Migration"><span class="nav-number">3.2.</span> <span class="nav-text">Migration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-to-import-a-vm-from-a-terminal-no-X-display"><span class="nav-number">3.3.</span> <span class="nav-text">How to import a vm from a terminal(no X display)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-to-install-a-VM-from-a-terminal"><span class="nav-number">3.4.</span> <span class="nav-text">How to install a VM from a terminal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Frequently-used-command"><span class="nav-number">3.5.</span> <span class="nav-text">Frequently used command</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/uploads/avatar.gif"
+      alt="Jason">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">106</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">115</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="GitHub &rarr; https://github.com/jason-cyun"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="bWFpbHRvOmphc29uX2xrbUAxNjMuY29t" title="E-Mail &rarr; mailto:jason_lkm@163.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script><script src="/js/bookmark.js?v=7.4.0"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var id = element.id || '';
+    var src = element.src || '';
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (id !=='') {
+      script.id = element.id;
+    }
+    if (src !== '') {
+      script.src = src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+<script pjax>
+if (document.querySelectorAll('div.pdf').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js', () => {
+    document.querySelectorAll('div.pdf').forEach(element => {
+      PDFObject.embed(element.getAttribute('target'), element, {
+        pdfOpenParams: {
+          navpanes: 0,
+          toolbar: 0,
+          statusbar: 0,
+          pagemode: 'thumbs',
+          view: 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height: element.getAttribute('height') || '500px'
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '09527c4c0e89e8430bc2',
+      clientSecret: 'bf4a9feb1fafe110ea12ea7549a3b493a08f7e03',
+      repo: 'blog',
+      owner: 'jason-bj',
+      admin: ['jason-bj'],
+      id: '316b742d93d3671f8d32916da4c7adf7',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'false'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+    </div>
+</body>
+</html>

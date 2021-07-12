@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/clogo.svg?v=7.4.0" color="#222">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="SASS">
+<meta name="keywords" content="scss, sass, mixins, function, nesting">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css_sass_basic">
+<meta property="og:url" content="http://cyun.tech/css-sass-basic/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="SASS">
+<meta property="og:locale" content="en-US">
+<meta property="og:updated_time" content="2021-07-12T09:36:57.611Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="css_sass_basic">
+<meta name="twitter:description" content="SASS">
+  <link rel="alternate" href="/atom.xml" title="CYun" type="application/atom+xml">
+  <link rel="canonical" href="http://cyun.tech/css-sass-basic/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>css_sass_basic | CYun</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script pjax>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-148730544-1');
+    }
+  </script>
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-US">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CYun</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a class="book-mark-link book-mark-link-fixed" href="#"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/css-sass-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">css_sass_basic
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2020-07-09 17:55:12" itemprop="dateCreated datePublished" datetime="2020-07-09T17:55:12+08:00">2020-07-09</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-12 17:36:57" itemprop="dateModified" datetime="2021-07-12T17:36:57+08:00">2021-07-12</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/web/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="SASS"><a href="#SASS" class="headerlink" title="SASS"></a>SASS</h1><p><img alt="CSS precompiler" data-src="/images/web/css/less_sass_css.png"></p>
+<a id="more"></a>
+
+<h2 id="convert-sass-scss-less-to-css"><a href="#convert-sass-scss-less-to-css" class="headerlink" title="convert sass scss less to css"></a>convert sass scss less to css</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$apt</span>-get install less</span><br><span class="line"><span class="variable">$lessc</span> xx.less &gt; xx.css</span><br><span class="line"></span><br><span class="line"><span class="variable">$apt</span>-get install ruby-sass</span><br><span class="line"><span class="variable">$sass</span> xx.scss xx.css</span><br><span class="line"><span class="variable">$sass</span> xx.sass xx.css</span><br><span class="line"></span><br><span class="line">watch mode <span class="keyword">for</span> s single scss</span><br><span class="line"><span class="variable">$sass</span> --watch xx.scss:xx.css</span><br><span class="line"></span><br><span class="line">watch mode <span class="keyword">for</span> a dir</span><br><span class="line"></span><br><span class="line"><span class="variable">$sass</span> --watch a/scss:b/css</span><br></pre></td></tr></table></figure>
+
+<h2 id="sass-syntax"><a href="#sass-syntax" class="headerlink" title="sass syntax"></a>sass syntax</h2><p>There are keywords and special characters in scss<br><strong>each keyword use <code>@keyword</code> like</strong></p>
+<ul>
+<li>@mixin: define mixin</li>
+<li>@use: import module</li>
+<li>@extend: inheritance</li>
+<li>@inlcude: call mixin</li>
+<li>@function: define a function</li>
+<li>@if/@else/@for/@while/@each/@return control</li>
+</ul>
+<p><strong>special character</strong></p>
+<ul>
+<li>% placeholder</li>
+<li>&amp; access ancestors selector</li>
+<li>$ variable</li>
+<li># link string and variable if varialbe not used as the value of another property<h3 id="variable"><a href="#variable" class="headerlink" title="variable"></a>variable</h3>variable can be color, number, text.</li>
+</ul>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* global variable definition, var must start with $ as prefix */</span></span><br><span class="line"><span class="variable">$mainColor</span>: <span class="number">#963</span>;</span><br><span class="line"><span class="variable">$siteWidth</span>: <span class="number">1024px</span>;</span><br><span class="line"><span class="variable">$borderStyle</span>: dotted;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="comment">/* local vairable */</span></span><br><span class="line">  <span class="variable">$mainColor</span>: <span class="number">#100</span>;</span><br><span class="line">  <span class="comment">/* use variable, local var wins */</span></span><br><span class="line">  <span class="attribute">color</span>: <span class="variable">$mainColor</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="variable">$siteWidth</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">head</span> &#123;</span><br><span class="line">  <span class="comment">/* use global one */</span></span><br><span class="line">  <span class="attribute">color</span>: <span class="variable">$mainColor</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="mixins"><a href="#mixins" class="headerlink" title="mixins"></a>mixins</h3><p>mixin is used to replace several properites, not one for variable, use @include to contain the mixin</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">mixin</span> error(<span class="variable">$bW</span>: 2px) &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="variable">$bW</span>;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.login-error</span> &#123;</span><br><span class="line">  <span class="comment">//@include error() is ok also;</span></span><br><span class="line">  @<span class="keyword">include</span> error;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.logout-error</span> &#123;</span><br><span class="line">  @<span class="keyword">include</span> error(<span class="number">10px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="selector-nesting"><a href="#selector-nesting" class="headerlink" title="selector nesting"></a>selector nesting</h3><p>nested selector is child of parent, when converted to css, <code>a space is added between parent and child</code> but for pesudo class and pesudo element they must no space, hence in these two case, we should use <code>&amp;</code> to refer its parent directly.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">section</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">nav</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">25px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">section</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="selector-tag">nav</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">25px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//converted to css</span></span><br><span class="line"><span class="selector-tag">section</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//a space between section and nav selector</span></span><br><span class="line"><span class="selector-tag">section</span> <span class="selector-tag">nav</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">25px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">section</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="selector-tag">nav</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">25px</span>;</span><br><span class="line">    <span class="selector-tag">a</span> &#123;</span><br><span class="line">      <span class="attribute">color</span>: <span class="number">#0982c1</span>;</span><br><span class="line">      <span class="comment">/* &amp; 引用父选择器  section nav a</span></span><br><span class="line"><span class="comment">       with   &amp;: section nav a:hover</span></span><br><span class="line"><span class="comment">       without&amp;: section nav a :hover   --&gt;not working for hover due to extra space.</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">      &amp;:hover &#123;</span><br><span class="line">        <span class="attribute">text-decoration</span>: underline;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a>Inheritance</h3><p>extend to inherits all properties from its parent</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">%block_base &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">10px</span> <span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="comment">//extend base class</span></span><br><span class="line">  @<span class="keyword">extend</span> %block_base</span><br><span class="line">  border: 1px solid <span class="number">#eee</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Operations"><a href="#Operations" class="headerlink" title="Operations"></a>Operations</h3><p>must add space before and after operation</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$bW</span>: <span class="number">2px</span>;</span><br><span class="line"><span class="variable">$double_bW</span>: <span class="variable">$bW</span> * <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="color-function"><a href="#color-function" class="headerlink" title="color function"></a>color function</h3><p>built-in color functions</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">lighten(<span class="variable">$color</span>, 10%); /* 返回的颜色在<span class="variable">$color</span>基础上变亮10% */</span><br><span class="line">darken(<span class="variable">$color</span>, 10%); /* 返回的颜色在<span class="variable">$color</span>基础上变暗10% */</span><br><span class="line">saturate(<span class="variable">$color</span>, 10%); /* 返回的颜色在<span class="variable">$color</span>基础上饱和度增加10% */</span><br><span class="line">desaturate(<span class="variable">$color</span>, 10%); /* 返回的颜色在<span class="variable">$color</span>基础上饱和度减少10% */</span><br><span class="line">grayscale(<span class="variable">$color</span>); /* 返回<span class="variable">$color</span>的灰度色*/</span><br><span class="line">complement(<span class="variable">$color</span>); /* 返回<span class="variable">$color</span>的补色 */</span><br><span class="line">invert(<span class="variable">$color</span>); /* 返回<span class="variable">$color</span>的反相色 */</span><br><span class="line">mix(<span class="variable">$color1</span>, <span class="variable">$color2</span>, 50%); /* <span class="variable">$color1</span> 和 <span class="variable">$color2</span> 的 50% 混合色*/</span><br></pre></td></tr></table></figure>
+
+<p>Except color functions, scss also has other built-in functions for number, string, list, map etc, refer to <span class="exturl" data-url="aHR0cHM6Ly9zYXNzLWxhbmcuY29tL2RvY3VtZW50YXRpb24vbW9kdWxlcw==" title="https://sass-lang.com/documentation/modules">built-in function<i class="fa fa-external-link"></i></span>.</p>
+<h3 id="import"><a href="#import" class="headerlink" title="import"></a>import</h3><p>Import another scss file at compile time, at last(after generate css) you only see one csss</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//old way</span></span><br><span class="line">@<span class="keyword">import</span> <span class="string">'base'</span></span><br><span class="line">// find base.scss at current folder</span><br><span class="line">@use <span class="string">'base'</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="if-else"><a href="#if-else" class="headerlink" title="if/else"></a>if/else</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  @<span class="keyword">if</span> 1 + 1 == 2 &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid;</span><br><span class="line">  &#125;</span><br><span class="line">  @<span class="keyword">if</span> 5 &lt; 3 &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">2px</span> dotted;</span><br><span class="line">  &#125;</span><br><span class="line">  @<span class="keyword">if</span> null &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">3px</span> double;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$type</span>: monster;</span><br><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  @<span class="keyword">if</span> <span class="variable">$type</span> == ocean &#123;</span><br><span class="line">    <span class="attribute">color</span>: blue;</span><br><span class="line">  &#125; @<span class="keyword">else</span> if <span class="variable">$type</span> == matador &#123;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">  &#125; @<span class="keyword">else</span> if <span class="variable">$type</span> == monster &#123;</span><br><span class="line">    <span class="attribute">color</span>: green;</span><br><span class="line">  &#125; @<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: black;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//note: number and string use same operator "==" and no () for condition;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="loop"><a href="#loop" class="headerlink" title="loop"></a>loop</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* include 3, 1, 2, 3 */</span></span><br><span class="line"><span class="comment">/* @for..from..through to iterate a range of number */</span></span><br><span class="line">@<span class="keyword">for</span> <span class="variable">$i</span> from 1 through 2 &#123;</span><br><span class="line"><span class="selector-class">.item-</span>#&#123;<span class="variable">$i</span>&#125; &#123; <span class="attribute">width</span>: <span class="number">2em</span> * <span class="variable">$i</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//converted to css as you can see #&#123;$i&#125; used to link string and variable!!!</span></span><br><span class="line"><span class="selector-class">.item-1</span> &#123;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">2em</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.item-2</span> &#123;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">4em</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//@each ...in bot work for list and map</span></span><br><span class="line">@<span class="keyword">each</span> <span class="variable">$var</span> in &lt;list&gt;&#123;&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">each</span> <span class="variable">$animal</span> in puma, sea-slug, egret, salamander &#123;</span><br><span class="line">    .#&#123;<span class="variable">$animal</span>&#125;-<span class="attribute">icon</span> &#123;</span><br><span class="line">        <span class="attribute">background-image</span>: url(<span class="string">'/images/#&#123;$animal&#125;.png'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$i</span>: <span class="number">6</span>;</span><br><span class="line">@<span class="keyword">while</span> <span class="variable">$i</span> &gt; 0 &#123;</span><br><span class="line">    <span class="selector-class">.item-</span>#&#123;<span class="variable">$i</span>&#125; &#123; <span class="attribute">width</span>: <span class="number">2em</span> * <span class="variable">$i</span>; &#125;</span><br><span class="line">    <span class="variable">$i</span>: <span class="variable">$i</span> - <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="list-map-built-in"><a href="#list-map-built-in" class="headerlink" title="list/map built-in"></a>list/map built-in</h3><p>list items can be seperated by space, comma<br><strong>list functions</strong></p>
+<ul>
+<li>length($list)</li>
+<li>join($list1,$list2,[$separator]) return a new list, the orignal unchanged</li>
+<li>append($list,$value,[$separator]), return a new list, the orignal unchanged</li>
+</ul>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//define a list with different separators(can only be comma or space!!!)</span></span><br><span class="line"><span class="variable">$linkColor</span>: <span class="number">#08c</span> <span class="number">#333</span>; <span class="comment">//第一个值为默认值，第二个鼠标滑过值</span></span><br><span class="line"><span class="variable">$linkColor</span>: <span class="number">#08c</span>,<span class="number">#333</span>; <span class="comment">//第一个值为默认值，第二个鼠标滑过值</span></span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: nth(<span class="variable">$linkColor</span>, <span class="number">1</span>);</span><br><span class="line">  &amp;:hover &#123;</span><br><span class="line">    <span class="attribute">color</span>: nth(<span class="variable">$linkColor</span>, <span class="number">2</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//append a new element and assign to itself, no quote for green</span></span><br><span class="line">  <span class="variable">$linkColor</span>: append(<span class="variable">$linkColor</span>, green);</span><br><span class="line">  <span class="selector-tag">button</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: nth(<span class="variable">$linkColor</span>, <span class="number">3</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>map functions</strong></p>
+<ul>
+<li>map-get($map, $key)</li>
+<li>map-keys($map)</li>
+<li>map-values($map)<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//define a map</span></span><br><span class="line"><span class="variable">$headings</span>: (</span><br><span class="line">  h1: <span class="number">2em</span>,</span><br><span class="line">  h2: <span class="number">1.5em</span>,</span><br><span class="line">  h3: <span class="number">1.2em</span></span><br><span class="line">);</span><br><span class="line">@<span class="keyword">each</span> <span class="variable">$header</span>, <span class="variable">$size</span> in <span class="variable">$headings</span> &#123;</span><br><span class="line">  #&#123;<span class="variable">$header</span>&#125; &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="variable">$size</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">button</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: map-get(<span class="variable">$headings</span>, h1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="placeholder"><a href="#placeholder" class="headerlink" title="placeholder"></a>placeholder</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">%<span class="selector-tag">base</span> &#123;</span><br><span class="line">    <span class="comment">// if %base is not used, this part will be not converted to css file!!</span></span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="function"><a href="#function" class="headerlink" title="function"></a>function</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@function size() &#123;</span><br><span class="line">  @return 12px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.body</span> &#123;</span><br><span class="line">  <span class="comment">//() is a must to call a function</span></span><br><span class="line">  <span class="attribute">font-size</span>: size();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><ul>
+<li><span class="exturl" data-url="aHR0cDovL2NhaWJhb2ppYW4uY29tL3Nhc3MtbGVzcy1zdHlsdXMuaHRtbA==" title="http://caibaojian.com/sass-less-stylus.html">sass less stylus<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9zYXNzLWxhbmcuY29tL2d1aWRl" title="https://sass-lang.com/guide">sass basic<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9zYXNzL3Nhc3NfaW50cm8uYXNw" title="https://www.w3schools.com/sass/sass_intro.asp">sass tutorial<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9zYXNzLWxhbmcuY29tL2RvY3VtZW50YXRpb24=" title="https://sass-lang.com/documentation">scss document<i class="fa fa-external-link"></i></span></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\css-basic\" rel="bookmark">css_basic</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\css-faq\" rel="bookmark">css_faq</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\css-reponsive-web\" rel="bookmark">css_reponsive_web</a></div>
+      
+    </li>
+  
+  </ul>
+
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/css/" rel="tag"><i class="fa fa-tag"></i> css</a>
+            
+              <a href="/tags/scss/" rel="tag"><i class="fa fa-tag"></i> scss</a>
+            
+              <a href="/tags/sass/" rel="tag"><i class="fa fa-tag"></i> sass</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/css-faq/" rel="next" title="css_faq">
+                  <i class="fa fa-chevron-left"></i> css_faq
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/html-basic/" rel="prev" title="html_basic">
+                  html_basic <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SASS"><span class="nav-number">1.</span> <span class="nav-text">SASS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#convert-sass-scss-less-to-css"><span class="nav-number">1.1.</span> <span class="nav-text">convert sass scss less to css</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sass-syntax"><span class="nav-number">1.2.</span> <span class="nav-text">sass syntax</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#variable"><span class="nav-number">1.2.1.</span> <span class="nav-text">variable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mixins"><span class="nav-number">1.2.2.</span> <span class="nav-text">mixins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#selector-nesting"><span class="nav-number">1.2.3.</span> <span class="nav-text">selector nesting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inheritance"><span class="nav-number">1.2.4.</span> <span class="nav-text">Inheritance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Operations"><span class="nav-number">1.2.5.</span> <span class="nav-text">Operations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#color-function"><span class="nav-number">1.2.6.</span> <span class="nav-text">color function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#import"><span class="nav-number">1.2.7.</span> <span class="nav-text">import</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if-else"><span class="nav-number">1.2.8.</span> <span class="nav-text">if/else</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loop"><span class="nav-number">1.2.9.</span> <span class="nav-text">loop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-map-built-in"><span class="nav-number">1.2.10.</span> <span class="nav-text">list/map built-in</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#placeholder"><span class="nav-number">1.2.11.</span> <span class="nav-text">placeholder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#function"><span class="nav-number">1.2.12.</span> <span class="nav-text">function</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ref"><span class="nav-number">1.3.</span> <span class="nav-text">ref</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/uploads/avatar.gif"
+      alt="Jason">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">106</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">115</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="GitHub &rarr; https://github.com/jason-cyun"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="bWFpbHRvOmphc29uX2xrbUAxNjMuY29t" title="E-Mail &rarr; mailto:jason_lkm@163.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script><script src="/js/bookmark.js?v=7.4.0"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var id = element.id || '';
+    var src = element.src || '';
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (id !=='') {
+      script.id = element.id;
+    }
+    if (src !== '') {
+      script.src = src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+<script pjax>
+if (document.querySelectorAll('div.pdf').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js', () => {
+    document.querySelectorAll('div.pdf').forEach(element => {
+      PDFObject.embed(element.getAttribute('target'), element, {
+        pdfOpenParams: {
+          navpanes: 0,
+          toolbar: 0,
+          statusbar: 0,
+          pagemode: 'thumbs',
+          view: 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height: element.getAttribute('height') || '500px'
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '09527c4c0e89e8430bc2',
+      clientSecret: 'bf4a9feb1fafe110ea12ea7549a3b493a08f7e03',
+      repo: 'blog',
+      owner: 'jason-bj',
+      admin: ['jason-bj'],
+      id: '6d8553ed3bbff6311fa2661ee6fbdf04',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'false'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+    </div>
+</body>
+</html>

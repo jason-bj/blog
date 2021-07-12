@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/clogo.svg?v=7.4.0" color="#222">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="debug applicationHere are list of frequent commands that are used in daily life and some tips that may be useful to debug application">
+<meta name="keywords" content="ldd, gdb, ar, gcc, readel, objdump, iptable, ipv6, arp, tcpdump">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tips for debugging application">
+<meta property="og:url" content="http://cyun.tech/tips-for-debugging-application/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="debug applicationHere are list of frequent commands that are used in daily life and some tips that may be useful to debug application">
+<meta property="og:locale" content="en-US">
+<meta property="og:updated_time" content="2021-07-12T09:36:57.666Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tips for debugging application">
+<meta name="twitter:description" content="debug applicationHere are list of frequent commands that are used in daily life and some tips that may be useful to debug application">
+  <link rel="alternate" href="/atom.xml" title="CYun" type="application/atom+xml">
+  <link rel="canonical" href="http://cyun.tech/tips-for-debugging-application/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>tips for debugging application | CYun</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script pjax>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-148730544-1');
+    }
+  </script>
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-US">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CYun</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a class="book-mark-link book-mark-link-fixed" href="#"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/tips-for-debugging-application/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">tips for debugging application
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-09-27 13:29:20" itemprop="dateCreated datePublished" datetime="2019-09-27T13:29:20+08:00">2019-09-27</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-12 17:36:57" itemprop="dateModified" datetime="2021-07-12T17:36:57+08:00">2021-07-12</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/command/" itemprop="url" rel="index"><span itemprop="name">command</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="debug-application"><a href="#debug-application" class="headerlink" title="debug application"></a>debug application</h1><p>Here are list of frequent commands that are used in daily life and some tips that may be useful to debug application</p>
+<a id="more"></a>
+<p><strong><mark>tested only on ubuntu platform</mark></strong></p>
+<h2 id="show-dynamic-library-used-by-an-application"><a href="#show-dynamic-library-used-by-an-application" class="headerlink" title="show dynamic library used by an application"></a>show dynamic library used by an application</h2><div class="tabs" id="way"><ul class="nav-tabs"><li class="tab active"><a href="#way-1">Way 1</a></li><li class="tab"><a href="#way-2">Way 2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="way-1"><div class="note success">
+            <p><strong>$ ldd app_binary</strong><br>output:<br>linux-vdso.so.1 =&gt;  (0x00007fff76bcd000)<br>libopenvswitch.so.1 =&gt; /usr/lib/libopenvswitch.so.1 (0x00007f19c83c2000)<br>libboost_system.so.1.54.0 =&gt; /usr/lib/x86_64-linux-gnu/libboost_system.so.1.54.0 (0x00007f19c81be000)<br>…</p>
+          </div></div><div class="tab-pane" id="way-2"><div class="note success">
+            <p><strong>$ readelf -d app_binary | grep NEEDED</strong><br>output:<br>0x0000000000000001 (NEEDED)             Shared library: [libopenvswitch.so.1]<br>0x0000000000000001 (NEEDED)             Shared library: [libboost_system.so.1.54.0]<br>…</p><p>then find the library path<br><strong>$ locate libopenvswitch.so.1</strong><br>/usr/lib/debug/usr/lib/libopenvswitch.so.1.0.0<br>/usr/lib/libopenvswitch.so.1<br>/usr/lib/libopenvswitch.so.1.0.0</p><p><strong>$ apt-get install -y chrpath</strong></p><p>how application searches library</p><ul><li>directories listed in the LD_LIBRARY_PATH environment variable (DYLD_LIBRARY_PATH on OSX)</li><li>directories listed in the executable’s rpath($chrpath -l app)</li><li>directories on the system search path, which (on Linux at least) consists of the entries in /etc/ld.so.conf plus /lib and /usr/lib.</li></ul>
+          </div></div></div></div>
+
+<h2 id="create-and-use-static-library"><a href="#create-and-use-static-library" class="headerlink" title="create and use static library"></a>create and use static library</h2><div class="note success">
+            <p>create static lib from object files<br><strong>$ ar cru libopenvswitch.a stream-ssl.o stream.o</strong><br>later on you may want to add a new object in the lib<br><strong>$ ar crs libopenvswitch.a foo.o</strong></p><p>How to use it in your program<br><strong>$ gcc -o app main.c /xx/libopenvswitch.a</strong><br>OR<br><strong>$ gcc -o app main.c -lopenvswitch -L/path/to/openvswitch</strong></p><p><span class="label danger">when adding library in gcc command line the order is important, let&#39;s say if A.a depends on B.a, the command should be $ gcc -o app main.c A.a B.a</span></p><p>show all objects in static library<br><strong>$ ar -t libopenvswitch.a</strong><br>extract object file from static library<br><strong>$ ar -xv libopenvswitch.a stream-ssl.o</strong></p>
+          </div>
+
+<h2 id="create-and-use-dynamic-library"><a href="#create-and-use-dynamic-library" class="headerlink" title="create and use dynamic library"></a>create and use dynamic library</h2><div class="note success">
+            <p><strong>$ gcc -fPIC -g foo.c</strong><br><strong>$ gcc -shared -o libfoo.so foo.o</strong></p><p>Use it later on by this way<br><strong>$ gcc -o app main.c libfoo.so</strong><br>Or<br><strong>$ gcc -app main.c -lfoo -L/path/to/foo</strong></p>
+          </div>
+
+<h2 id="show-symbols-in-dynamics-static-object-file"><a href="#show-symbols-in-dynamics-static-object-file" class="headerlink" title="show symbols in dynamics static object file"></a>show symbols in dynamics static object file</h2><div class="note success">
+            <p><strong>$ readelf -s /usr/lib/x86_64-linux-gnu/libssl.so</strong><br><strong>$ readelf -Ws /usr/lib/x86_64-linux-gnu/libssl.a</strong><br><strong>$ readelf -Ws stream-ssl.o</strong><br><span class="label danger">-W==–wide means show full name of the long symbol</span></p>
+          </div>
+
+<h2 id="enable-forwarding-in-kernel"><a href="#enable-forwarding-in-kernel" class="headerlink" title="enable forwarding in kernel"></a>enable forwarding in kernel</h2><div class="note success">
+            <p>open /etc/sysctl.conf<br>enable net.ipv4.ip_forward=1<br>enable ipv6 forwarding set net.ipv6.conf.all.forwarding=1<br>then restart sysctl service</p><p>Actually, all variables in /etc/sysctl.conf will be applied to corresponding kernel variables through /proc or sysctl API<br><strong>Note:  proc for sysctl is at  /proc/sys</strong><br><strong>$ cat /proc/sys/net/ipv4/ip_forward</strong></p>
+          </div>
+
+<h2 id="IP-address-and-Route"><a href="#IP-address-and-Route" class="headerlink" title="IP address and Route"></a>IP address and Route</h2><div class="note success">
+            <p><strong><mark>IP Address</mark></strong><br>Displaying existing addresses<br><strong>ip [-6] addr show [dev <interface>]</interface></strong></p><p>Add an IP address<br><strong>ip [-6] addr add <ipaddress>/<prefixlength> dev <interface></interface></prefixlength></ipaddress></strong><br><strong>ip -6 addr add 2001:0db8:0:f101::1/64 dev eth0</strong></p><p>Removing an IP address<br><strong>ip [-6] addr del <ipv6address>/<prefixlength> dev <interface></interface></prefixlength></ipv6address></strong><br><strong>ip -6 addr del 2001:0db8:0:f101::1/64 dev eth0</strong></p><p><strong><mark>IP Route</mark></strong><br>show ip routes on all interface<br><strong>ip [-6] route show</strong><br>show ip routes on particular interface<br><strong>ip [-6] route show dev eth0</strong></p><p>Add an IP route through a gateway<br><strong>ip [-6] route add <ipnetwork>/<prefixlength> via <ipaddress> [dev <device>]</device></ipaddress></prefixlength></ipnetwork></strong><br><strong>ip -6 route add 2000::/64 via 2001:0db8:0:f101::1</strong></p><p>Removing an IP route through a gateway<br><strong>ip [-6] route del <ipnetwork>/<prefixlength> via <ipaddress> [dev <device>]</device></ipaddress></prefixlength></ipnetwork></strong><br><strong>ip -6 route del 2000::/3 via 2001:0db8:0:f101::1</strong></p><p>Add an IP route through an interface<br><strong>ip [-6] route add <ipnetwork>/<prefixlength> dev <device> metric 1</device></prefixlength></ipnetwork></strong><br><strong>ip -6 route add 2000::/3 dev eth0 metric 1</strong></p><p>Removing an IP route through an interface<br><strong>ip [-6] route del <ipnetwork>/<prefixlength> dev <device></device></prefixlength></ipnetwork></strong><br><strong>ip -6 route del 2000::/3 dev eth0</strong></p>
+          </div>
+
+<h2 id="Deep-into-route-table"><a href="#Deep-into-route-table" class="headerlink" title="Deep into route table"></a>Deep into route table</h2><div class="note success">
+            <p><mark>Actually, kernel supports 255 route tables with priority, the two main<br>used is local table and main table, local table can’t modified, controlled by kernel<br>while main table is the default table when you use user tools to add/delete/create route, they are in main table</mark></p><p><strong>which table should we use when packet comes in?</strong><br>First check local table, if not match, check main table, DO NOT check other table if no<br>policy(ip rule) is configure, otherwise, check other table based on rule, skip local and main</p><p><mark>For example, tag skb with mark 1, if skb with mark 1, lookup table 100</mark></p><p><strong>iptables -t mangle -A PREROUTING -j MARK –set-mark 1</strong><br><strong>ip rule add fwmark 1 lookup 100</strong><br><strong>ip route add local 0.0.0.0/0 dev lo table 100</strong></p><p>Show routes in different tables<br><strong>ip -6 route show</strong><br><strong>ip -6 route show table local</strong><br><strong>ip -6 route show table 100</strong></p>
+          </div>
+
+<p>lets explain the output fields for each route with ipv4 as example</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">$ ifconfig</span><br><span class="line">docker0   Link encap:Ethernet  HWaddr 02:42:32:26:c0:ce</span><br><span class="line">          inet addr:172.17.0.2  Bcast:172.17.255.255  Mask:255.255.0.0</span><br><span class="line">          inet6 addr: fe80::42:32ff:fe26:c0ce/64 Scope:Link</span><br><span class="line">          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1</span><br><span class="line">          RX packets:27408 errors:0 dropped:0 overruns:0 frame:0</span><br><span class="line">          TX packets:30149 errors:0 dropped:0 overruns:0 carrier:0</span><br><span class="line">          collisions:0 txqueuelen:0</span><br><span class="line">          RX bytes:1717078 (1.7 MB)  TX bytes:67951999 (67.9 MB)</span><br><span class="line"></span><br><span class="line">eth0      Link encap:Ethernet  HWaddr 00:50:56:91:d7:c1</span><br><span class="line">          inet addr:10.107.60.8  Bcast:10.117.7.255  Mask:255.255.252.0</span><br><span class="line">          inet6 addr: fe80::250:56ff:fe91:d7c1/64 Scope:Link</span><br><span class="line">          inet6 addr: fc00:10:117:7:250:56ff:fe91:d7c1/64 Scope:Global</span><br><span class="line">          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1</span><br><span class="line">          RX packets:20424652 errors:1753 dropped:2707017 overruns:0 frame:0</span><br><span class="line">          TX packets:2390188 errors:0 dropped:0 overruns:0 carrier:0</span><br><span class="line">          collisions:0 txqueuelen:1000</span><br><span class="line">          RX bytes:9346260108 (9.3 GB)  TX bytes:32523341970 (32.5 GB)</span><br><span class="line"></span><br><span class="line">lo        Link encap:Local Loopback</span><br><span class="line">          inet addr:127.0.0.1  Mask:255.0.0.0</span><br><span class="line">          inet6 addr: ::1/128 Scope:Host</span><br><span class="line">          UP LOOPBACK RUNNING  MTU:65536  Metric:1</span><br><span class="line">          RX packets:754204 errors:0 dropped:0 overruns:0 frame:0</span><br><span class="line">          TX packets:754204 errors:0 dropped:0 overruns:0 carrier:0</span><br><span class="line">          collisions:0 txqueuelen:1</span><br><span class="line">          RX bytes:74578327 (74.5 MB)  TX bytes:74578327 (74.5 MB)</span><br><span class="line"></span><br><span class="line">(base) root@dev:~/$ ip route show</span><br><span class="line">default via 10.117.7.253 dev eth0 onlink</span><br><span class="line"><span class="comment"># default gateway 10.117.7.253 output eth0</span></span><br><span class="line">10.117.4.0/22 dev eth0  proto kernel  scope link  src 10.117.6.8</span><br><span class="line"><span class="comment"># scope link(local network 10.117.4.0/22), src 10.117.6.8 eth0's ip</span></span><br><span class="line">172.17.0.0/16 dev docker0  proto kernel  scope link  src 172.17.0.2</span><br><span class="line"><span class="comment"># scope link(local network 172.17.0.0/16), src 172.17.0.2 docker0's ip</span></span><br><span class="line"><span class="comment">#local network, match subnet.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">(base) root@dev:~/<span class="comment"># ip route show table local</span></span><br><span class="line">broadcast 10.117.4.0 dev eth0  proto kernel  scope link  src 10.117.6.8</span><br><span class="line"><span class="built_in">local</span> 10.117.6.8 dev eth0  proto kernel  scope host  src 10.117.6.8</span><br><span class="line"><span class="comment"># local mapped to RT_LOCAL(kernel) eth0, scope host-&gt;0 hop, myself</span></span><br><span class="line">broadcast 10.117.7.255 dev eth0  proto kernel  scope link  src 10.117.6.8</span><br><span class="line">broadcast 127.0.0.0 dev lo  proto kernel  scope link  src 127.0.0.1</span><br><span class="line"><span class="built_in">local</span> 127.0.0.0/8 dev lo  proto kernel  scope host  src 127.0.0.1</span><br><span class="line"><span class="built_in">local</span> 127.0.0.1 dev lo  proto kernel  scope host  src 127.0.0.1</span><br><span class="line"><span class="comment"># local mapped to RT_LOCAL(kernel) lo, scope host-&gt;0 hop, myself</span></span><br><span class="line">broadcast 127.255.255.255 dev lo  proto kernel  scope link  src 127.0.0.1</span><br><span class="line">broadcast 172.17.0.0 dev docker0  proto kernel  scope link  src 172.17.0.2</span><br><span class="line"><span class="built_in">local</span> 172.17.0.2 dev docker0  proto kernel  scope host  src 172.17.0.2</span><br><span class="line"><span class="comment"># local mapped to RT_LOCAL(kernel) docker0, scope host-&gt;0 hop, myself</span></span><br><span class="line">broadcast 172.17.255.255 dev docker0  proto kernel  scope link  src 172.17.0.2</span><br><span class="line"><span class="comment"># local address, match 255.255.255.255, exact match</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="prevent-route-missing-after-reboot"><a href="#prevent-route-missing-after-reboot" class="headerlink" title="prevent route missing after reboot"></a>prevent route missing after reboot</h2><div class="note success">
+            <p>There are two ways to do this</p><ol><li><p>add static route</p>undefined</li><li><p>save route table and restore it after reboot</p>undefined</li></ol>
+          </div>
+
+<h2 id="show-arp-entry"><a href="#show-arp-entry" class="headerlink" title="show arp entry"></a>show arp entry</h2><div class="note success">
+            <p><strong>$ arp</strong><br>Address                  HWtype  HWaddress           Flags Mask            Iface<br>127.0.0.3                ether   02:00:00:12:34:05   CM                    loopback-279</p><p>Flags:<br>C—–&gt;entry is completed<br>M——&gt;Permanent entries, user added.</p><p><strong>$ arp -a</strong></p>
+          </div>
+
+<h2 id="save-tcpdump-captured-packet-to-file"><a href="#save-tcpdump-captured-packet-to-file" class="headerlink" title="save tcpdump captured packet to file"></a>save tcpdump captured packet to file</h2><div class="note success">
+            <p><strong>$ tcpdump -i eth0 -s 0 -w /home/lzq/pt.pcap</strong><br>-s limits the size of packet<br>-o indicates no limition!</p>
+          </div>
+
+<h2 id="packet-shows-as-tcp-segment-of-a-reassembled-pdu-in-wireshark"><a href="#packet-shows-as-tcp-segment-of-a-reassembled-pdu-in-wireshark" class="headerlink" title="packet shows as tcp segment of a reassembled pdu in wireshark"></a>packet shows as tcp segment of a reassembled pdu in wireshark</h2><div class="note success">
+            <p>This is due to application message(PDU) is larger than MSS, tcp splits it into several tcp segments, but tcp segment has no Fragment flag, how does wireshark know several tcp segments belong to same PDU?</p><p>wireshark thinks if several tcp segments have the same ACK number but different sequence numbers, they belong to same PDU, refer to <span class="exturl" data-url="aHR0cHM6Ly9tZWRpdW0uY29tL0B5dWFueWlmYW5nL3dpcmVzaGFyay14eHgtc2VnbWVudC1vZi1hLXJlYXNzZW1ibGVkLXBkdS1hMzZjMjNkNDM0ODQ=" title="https://medium.com/@yuanyifang/wireshark-xxx-segment-of-a-reassembled-pdu-a36c23d43484">wireshark segment<i class="fa fa-external-link"></i></span></p>
+          </div>
+
+<h2 id="show-all-sockets"><a href="#show-all-sockets" class="headerlink" title="show all sockets"></a>show all sockets</h2><div class="note success">
+            <p><strong>$ netstat -a -t     #all tcp  sockets</strong><br><strong>$ netstat -a -u     #all udp  sockets</strong><br><strong>$ netstat -a -w     #all raw  sockets</strong><br><strong>$ netstat -a -x     #all unix sockets</strong><br><strong>$ netstat -tulpn    #l means listening p with program name</strong><br><span class="label danger">Note: if -a is not present, it will only display socket in established state</span></p><p>Show all sockets opened by a process<br><strong>$ lsof -p pid</strong><br>show which process opens a socket on particular port<br><strong># lsof -i:80</strong></p>
+          </div>
+
+<h2 id="check-process-thread"><a href="#check-process-thread" class="headerlink" title="check process thread"></a>check process thread</h2><div class="note success">
+            <p>show all processes(not thread) of a given program<br><strong>$ pid program_name</strong><br>show threads in a process<br><strong>$ ps -Lf pid</strong><br>Or see from /proc<br><strong>$ ls /proc/pid/task</strong></p>
+          </div>
+
+<h2 id="do-everything-in-memory"><a href="#do-everything-in-memory" class="headerlink" title="do everything in memory"></a>do everything in memory</h2><div class="note success">
+            <p>As in some case, you have large memory, you can run all commands in memory, it&#39;s fast, but also note these files<br>will be <mark>lost</mark> after reboot.</p><p>For example compile kernel in memory<br><strong>$ tar xjvf linux.tar.gz -C /dev/shm</strong><br><strong>$ cd /dev/shm/linux</strong><br><strong>$ cp /boot/config-4.3.3-4.3.y.20151215.ol7.x86_64 .config</strong><br><strong>$ make oldconfig &amp;&amp; make -j32</strong><br><strong>$ make -j32 modules_install</strong><br><strong>$ make install</strong></p>
+          </div>
+
+<h2 id="debug-dynamic-library-info-when-runs-a-program"><a href="#debug-dynamic-library-info-when-runs-a-program" class="headerlink" title="debug dynamic library info when runs a program"></a>debug dynamic library info when runs a program</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ LD_DEBUG=help ls</span><br><span class="line">Valid options for the LD_DEBUG environment variable are:</span><br><span class="line">libs        display library search paths</span><br><span class="line">reloc       display relocation processing</span><br><span class="line">files       display progress for input file</span><br><span class="line">symbols     display symbol table processing</span><br><span class="line">bindings    display information about symbol binding</span><br><span class="line">versions    display version dependencies</span><br><span class="line">scopes      display scope information</span><br><span class="line">all         all previous options combined</span><br><span class="line">statistics  display relocation statistics</span><br><span class="line">unused      determined unused DSOs</span><br><span class="line">help        display this help message and exit</span><br><span class="line">$ LD_DEBUG=libs ls</span><br><span class="line">$ LD_DEBUG=all ls</span><br></pre></td></tr></table></figure>
+
+<h2 id="useful-commands-in-binutils"><a href="#useful-commands-in-binutils" class="headerlink" title="useful commands in binutils"></a>useful commands in binutils</h2><div class="note success">
+            <p>addr2line, ar, gprof, nm, objdump, readelf, gcov, strip, ranlib, size, strings</p><p>ranlib: generates an index to the contents of an archive<br>(below will generate symbol index for the archive but actuall, it&#39;s not need as &#39;ar&#39; already takes care of it, you can use &#39;nm -s xxx.a&#39; to check the symbol before runing ranlib)<br><strong>$ ranlib xxx.a</strong></p><p>size: list the section size of an object or archive file</p><p>strings: list printable strings from files<br>(note strings only return printable characters, strings displays all strings that are at least four characters in length in the files but can change with -n)<br>strings is always used to get string from Binary file!!!</p><p><strong>$ strings /bin/ls | grep Copyright</strong></p><p>show c++ symbol with namespace<br><strong>$ nm –demangle xxx.a</strong><br>(–demangle shows symbol like namespace::Builder::hello(int); that is readalbe for human not ABXxxhello33x which is really stored by compiler)</p>
+          </div>
+
+<h2 id="process-affinity"><a href="#process-affinity" class="headerlink" title="process affinity"></a>process affinity</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">task state: ZOMBIE(if child exits, it enters in this STATE, allow parent to read it state, after parent read it by wait(), child   resources(task_struct etc) are freed)</span><br><span class="line"></span><br><span class="line">Make sure parent call wait() for child process, otherwise resource may leak!</span><br><span class="line"></span><br><span class="line">priority:</span><br><span class="line">        nice is given when create a process to calculate the static priority</span><br><span class="line">        while scheduling is based on dynamic priority (effective_prio) which considers</span><br><span class="line">        sleep time and static priority</span><br><span class="line"></span><br><span class="line">command</span><br><span class="line">    show nice value</span><br><span class="line">    #ps -axl</span><br><span class="line"></span><br><span class="line">    default priority(20)&lt;-------&gt;nice(0)</span><br><span class="line">    run a program with adjustment nice value</span><br><span class="line">    (nice value for ls ==default_nice_value(0)+(-10)</span><br><span class="line">    #nice -n -10 ls</span><br><span class="line"></span><br><span class="line">    change nice value of processes</span><br><span class="line">    #renice -n 10 -p 1203</span><br><span class="line"></span><br><span class="line">    retrieve/set task affinity</span><br><span class="line">    #taskset -p 1203</span><br><span class="line"></span><br><span class="line">     cpu7    cpu6  cpu5   cpu4 cpu3  cpu2  cpu1  cpu0</span><br><span class="line">       +      +     +      +    +     +     +     +</span><br><span class="line">       |      |     |      |    |     |     |     |</span><br><span class="line">       +------+-----+-----------+-----+-----+-----+</span><br><span class="line">       |                   |                      |</span><br><span class="line">       |   1111(f)         |       0000(0)        |</span><br><span class="line">       +   cpu mask        +       cpu mask       +</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    Let&apos;s say we have 8 cpus, core id</span><br><span class="line">    begins from 0-7, cpu mask is bits</span><br><span class="line">    each bit represent a cpu, 1/0</span><br><span class="line"></span><br><span class="line">    #task -p 1223</span><br><span class="line"></span><br><span class="line">    affinity mask 0x01 means it runs only on cpu0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    Only runs on process #0, set it cpu bit with 1</span><br><span class="line">    #tasket -p 0x01 1203</span><br><span class="line"></span><br><span class="line">CPU bandwidth</span><br><span class="line">    /proc/sys/kernel/sched_rt_period_us:</span><br><span class="line">    The scheduling period that is equivalent to 100% CPU</span><br><span class="line">    bandwidth</span><br><span class="line">    /proc/sys/kernel/sched_rt_runtime_us:</span><br><span class="line">    A global limit on how much time realtime scheduling may</span><br><span class="line">    use.</span><br></pre></td></tr></table></figure>
+
+<h2 id="IRQ-affinity-setting"><a href="#IRQ-affinity-setting" class="headerlink" title="IRQ affinity setting"></a>IRQ affinity setting</h2><div class="note success">
+            <p>see affinity for IRQ<br><strong>$ cat /proc/irq/145/smp_affinity</strong><br>f<br>(0x1111)<br><strong>$ cat /proc/irq/145/smp_affinity_list</strong><br>0-3<br>(cpu0, cpu1, cpu2, cpu3)</p>
+          </div>
+
+<h2 id="trace-process-by-strace"><a href="#trace-process-by-strace" class="headerlink" title="trace process by strace"></a>trace process by strace</h2><div class="note success">
+            <p>strace/ltrace/ptrace/truss<br>show how much time process spent on system call or library,(the library is C library like, memset, fgets etc)</p><p>ptrace is a system call<br>long ptrace(enum __ptrace_request request, pid_t pid, void *addr, void *data);</p><p>strace and ltrace are based on ptrace to implement their feature<br>strace/truss is used to trace system call and signal when it occurs<br>ltrace is used to trace a process&#39;s library call initially</p><p>truss is similar to strace, but it&#39;s for UNIX, not linux</p><p><strong><mark>strace is tool we selected for linux</mark></strong></p><p>#mount -t procfs proc /proc</p><p>#strace -f  -tt -o vim.strace vim</p><p>/*attach a process to see what system (lib) is calling */</p><p>#strace -p pid</p><p>#strace -f -p pid<br>(monitor parent and all its childrens, this is  what -f option does)</p><p>#strace -o filename<br>(save result to a file)</p><p>#strace -T<br>(show time spent on system call)</p><p>#strace -t<br>(show time of day)</p><p>#strace -s 1024<br>(max sie of string to print)</p><p>#strace -e trace=nanosleep<br>     -e trace=network<br>     -e trace=file<br>     -e trace=desc<br>     -e trace=signal</p><p>(trace a particular event)<br>7) strace -f<br>(trace child as well)<br>8) strace -c<br>(count time)<br>ltrace also has options above!!!!!<br>so the usually use case is<br><strong>$ strace -f -tt -T -c -o result vim</strong><br>root@manager:~# strace -f -tt -T -c vim</p>
+          </div>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">% time     seconds  usecs/call     calls    errors syscall</span><br><span class="line">------ ----------- ----------- --------- --------- ----------------</span><br><span class="line"> 21.81    0.000935           3       309           <span class="built_in">read</span></span><br><span class="line"> 15.35    0.000658           2       383       127 <span class="built_in">stat</span></span><br><span class="line">  9.96    0.000427           3       142         5 open</span><br><span class="line">  9.68    0.000415           6        65           munmap</span><br><span class="line">  6.02    0.000258           2       113           mmap</span><br><span class="line">  5.25    0.000225           2       145           close</span><br><span class="line">  4.15    0.000178           2        86        80 openat</span><br><span class="line">  3.48    0.000149           6        25           write</span><br><span class="line">  3.15    0.000135           4        36           mprotect</span><br><span class="line">  2.61    0.000112           2        59           select</span><br><span class="line">  2.59    0.000111           1       160           fcntl</span><br><span class="line">  2.15    0.000092           1       106           fchdir</span><br><span class="line">  2.05    0.000088           2        37           brk</span><br><span class="line">  1.94    0.000083           1        56           <span class="built_in">chdir</span></span><br><span class="line">  1.70    0.000073           1        83           fstat</span><br><span class="line">  1.24    0.000053           1        56           getcwd</span><br><span class="line">  1.19    0.000051           1        56           lseek</span><br><span class="line">  1.10    0.000047           4        12           getdents</span><br><span class="line">  1.03    0.000044           2        21        20 access</span><br><span class="line">  0.84    0.000036          36         1           unlink</span><br><span class="line">  0.63    0.000027           1        25           ioctl</span><br><span class="line">  0.42    0.000018           1        24           rt_sigaction</span><br><span class="line">  0.30    0.000013           7         2         2 connect</span><br><span class="line">  0.23    0.000010          10         1           rename</span><br><span class="line">  0.19    0.000008           4         2         2 statfs</span><br><span class="line">  0.16    0.000007           1         7           rt_sigprocmask</span><br><span class="line">  0.16    0.000007           4         2           socket</span><br><span class="line">  0.16    0.000007           7         1           fchown</span><br><span class="line">  0.12    0.000005           1         6           getuid</span><br><span class="line">  0.09    0.000004           4         1           sysinfo</span><br><span class="line">  0.05    0.000002           1         2           getrlimit</span><br><span class="line">  0.05    0.000002           2         1         1 futex</span><br><span class="line">  0.02    0.000001           1         1           execve</span><br><span class="line">  0.02    0.000001           1         1           uname</span><br><span class="line">  0.02    0.000001           1         2           <span class="built_in">umask</span></span><br><span class="line">  0.02    0.000001           1         1           sigaltstack</span><br><span class="line">  0.02    0.000001           1         1           arch_prctl</span><br><span class="line">  0.02    0.000001           1         1           set_tid_address</span><br><span class="line">  0.02    0.000001           1         1           set_robust_list</span><br><span class="line">------ ----------- ----------- --------- --------- ----------------</span><br><span class="line">100.00    0.004287                  2033       237 total</span><br></pre></td></tr></table></figure>
+
+<h2 id="show-shared-memory-on-the-system"><a href="#show-shared-memory-on-the-system" class="headerlink" title="show shared memory on the system"></a>show shared memory on the system</h2><div class="note success">
+            <p>show ipc shared memory<br><strong>$ ipcs</strong><br>show posix shared memory<br><strong>$ ls /dev/shm</strong></p>
+          </div>
+
+<h2 id="check-set-mtu-or-MAC"><a href="#check-set-mtu-or-MAC" class="headerlink" title="check/set mtu or MAC"></a>check/set mtu or MAC</h2><div class="note success">
+            <p><strong>$ ifconfig eth1</strong><br><strong>$ ifcofnig eth1 mtu 1500</strong></p><p><strong>temporary</strong><br><strong>$ ifconfig eth0 down</strong><br><strong>$ ifconfig eth0 hw ether 00:80:48:BA:d1:30</strong><br><strong>$ ifconfig eth0 up</strong></p><p><strong>permanently</strong><br>edit /etc/network/interfaces<br>    <strong>iface eth0 hwaddress ether 02:01:02:03:04:0</strong></p>
+          </div>
+
+<h2 id="socket-bind-no-local-address"><a href="#socket-bind-no-local-address" class="headerlink" title="socket bind no-local address"></a>socket bind no-local address</h2><div class="note success">
+            <p>if you bind() normally the ip address must be one of the host, bind can be used<br>in two cases</p><ul><li>server call socket/bind/listen/accpet, that means only the dst is for bind address, it will accept it, otherwise no</li><li>client call bind, socket/bind/send | sendto, that means, client uses the bind address as the source address when sending packet.</li></ul><p>but for some case, you want to bind an address which is no-local(none of the host address)<br>which is always need for loadbalancer server!</p><p>global setting, so that every application can bind non local address<br><strong>$ echo 1 &gt; /proc/sys/net/ipv4/ip_nonlocal_bind</strong></p><p>enable it on a socket of the process<br><strong>In programe code, call setsocketopt(IP_TRANSPARENT, 1), then</strong><br><strong>$ setcap CAP_NET_ADMIN program</strong></p><p>IP_TRANSPARENT (since Linux 2.6.24)<br>Setting this boolean option enables transparent proxying on<br>this socket.  This socket option allows the calling<br>application to bind to a nonlocal IP address and operate both<br>as a client and a server with the foreign address as the local<br>endpoint.</p><p><strong>NOTE: this requires that routing be set up in a way that packets going to the foreign address are routed through the TProxy box (i.e., the system hosting the application that employs the IP_TRANSPARENT socket option), make sure packet is not dropped before reaching tproxy module in kernel</strong></p><p>Enabling this socket option requires superuser privilege(the CAP_NET_ADMIN capability).</p>
+          </div>
+
+<h2 id="socket-source-port-selection"><a href="#socket-source-port-selection" class="headerlink" title="socket source port selection"></a>socket source port selection</h2><div class="note success">
+            <p><strong>if not set source port explicitly by bind() source port selected from below range</strong><br>$ cat /proc/sys/net/ipv4/ip_local_port_range<br>32768    60999</p><p><strong>change the source port range</strong><br>$ sysctl -w  net.ipv4.ip_local_port_range=1024 4095</p>
+          </div>
+
+<h2 id="only-show-mem-cpu-usage-of-a-particular-pid"><a href="#only-show-mem-cpu-usage-of-a-particular-pid" class="headerlink" title="only show mem/cpu usage of a particular pid"></a>only show mem/cpu usage of a particular pid</h2><div class="note success">
+            <p><strong>$ ps -p 13687  -o %mem=</strong><br><strong>$ ps -p 13687  -o %cpu=</strong></p>
+          </div>
+
+<h2 id="show-processe-who-opened-a-file-or-dir"><a href="#show-processe-who-opened-a-file-or-dir" class="headerlink" title="show processe who opened a file or dir"></a>show processe who opened a file or dir</h2><div class="note success">
+            <p>all file under dir at top level? no symbol link<br><strong>$ lsof $dir</strong><br>only this file<br><strong>$ lsof file</strong></p>
+          </div>
+
+<h2 id="force-a-running-process-to-generate-a-core-dump"><a href="#force-a-running-process-to-generate-a-core-dump" class="headerlink" title="force a running process to generate a core dump"></a>force a running process to generate a core dump</h2><div class="note success">
+            <p>gcore(from gdb) does NOT kill the process<br><strong>$ apt-get install gdb</strong><br><strong>$ gcore  $pid</strong><br>(usually to see the snapshot of the process memory)</p><p>kill the process as send abort to the process<br><strong>$ kill -SIGABRT $pid</strong></p>
+          </div>
+
+<h2 id="signal"><a href="#signal" class="headerlink" title="signal"></a>signal</h2><div class="note success">
+            <p>A few days ago, i landed upon unix signals that lead to process termination. I guess i was trying to remember the signals generated in linux when one presses Ctrl+Z and Ctrl+C. Memory did not serve me at that moment and i decided to look these up, one more time. I realized that having a consolidated book which explains these terms clearly is better than searching loads of webpages. I did the later since i had kept my unix os book away from my reach.To my disappointment, there was no single link that listed out all differences in an orderly fashion.</p><p>Hence, in this post, i wish to delineate these terms by consolidating my findings from stackoverflow, wikipedia and other unix internals websites. Here it goes:</p><p>SIGKILL: Terminates a process immediately. This signal cannot be handled (caught), ignored or blocked. (The “kill -9” command in linux generates the same signal).</p><p>SIGTERM: Terminates a process immediately. However, this signal can be handled, ignored or caught in code. If the signal is not caught by a process, the process is killed. Also, this is used for graceful termination of a process. (The “kill” command in linux if specified without any signal number like -9, will send SIGTERM)</p><p>SIGINT: Interrupts a process. (The default action is to terminate gracefully). This too, like, SIGTERM can be handled, ignored or caught. The difference between SIGINT and SIGTERM is that the former can be sent from a terminal as input characters. This is the signal generated when a user presses Ctrl+C. (Sidenote: Ctrl+C denotes EOT(End of Transmission) for (say) a network stream)</p><p>SIGQUIT: Terminates a process. This is different from both SIGKILL and SIGTERM in the sense that it generates a core dump of the process and also cleans up resources held up by a process. Like SIGINT, this can also be sent from the terminal as input characters. It can be handled, ignored or caught in code. This is the signal generated when a user presses Ctrl+.</p><p>SIGSTP: Suspends a process. This too, can be handled, ignored or blocked. Since it does not terminate the process, the process can be resumed by sending a SIGCONT signal. This signal can be generated by pressing Ctrl+Z. (Sidenote: Ctrl+Z stands for substitute character which indicates End-of-File in DOS)</p><p>SIGHUP: (From Wikipedia): Hangs up a process when the controlling terminal is disconnected. This especially relates to modem/dial in connections. A process has to explicitly handle this signal for it to work. A good use is to “poke” a process and letting the process (as defined by the programmer) decide what to do with the signal is described here. Hence, SIGHUP can be handled, ignored or caught. This is the signal generated when a user presses Ctrl+D.</p>
+          </div>
+
+<h2 id="show-environment-variables-of-a-running-process"><a href="#show-environment-variables-of-a-running-process" class="headerlink" title="show environment variables of a running process."></a>show environment variables of a running process.</h2><div class="note success">
+            <p><strong>use gdb, environ is a global variable</strong></p><p>environment variables of this process, it’s the final place, absolute right!<br>attach to that process<br>gdb&gt; p environ<br>gdb&gt;environ[0]<br>gdb&gt;environ[1]<br>gdb&gt;environ[2]<br>…<br>gdb&gt;environ[x]</p><p><strong>check /proc/PIDxx/environ</strong></p><p>it only shows the environment variables when process launches, if you added<br>new environment variable by setenv()[C function], it doesn’t have one that<br>added after process launched!!!</p>
+          </div>
+
+<h2 id="check-process-name-when-knows-pid"><a href="#check-process-name-when-knows-pid" class="headerlink" title="check process name when knows pid"></a>check process name when knows pid</h2><div class="note success">
+            <p><strong>$ cat /proc/$pid/status</strong></p>
+          </div>
+
+<h2 id="memory-leak-overflow-tool"><a href="#memory-leak-overflow-tool" class="headerlink" title="memory leak/ overflow tool"></a>memory leak/ overflow tool</h2><div class="note success">
+            <p>Use tools:<br>valgrind and AddressSanitizer</p>
+          </div>
+
+
+<h2 id="shutdown-vs-close"><a href="#shutdown-vs-close" class="headerlink" title="shutdown() vs close()"></a>shutdown() vs close()</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> shutdown() is useful for deliniating when you are done providing a request to a server using TCP.  A typical use is to send a request to a server followed by a shutdown().  The server will read your request followed by an EOF (read of 0 on most unix implementations).  This tells the server that it has your full request.  You then go read blocked on the socket.  The server will process your request and send the necessary data back to you followed by a close.  When you have finished reading all of the response to your request you will read an EOF thus signifying that you have the whole response.</span><br><span class="line"></span><br><span class="line">The shutdown(s, how) call causes all or part of a full-duplex connection on the socket associated with sockfd to be shut down.</span><br><span class="line">- If how is SHUT_RD, further receptions will be disallowed.</span><br><span class="line">    - No FIN sent, only kernel set the state of socket NOT reading(the peer does not know), should not read any more</span><br><span class="line">    - if read on SHUT_RD, -1(ECONNRESET) reset by peer, or end of file if peer close(fd).</span><br><span class="line"></span><br><span class="line">- If how is SHUT_WR, further transmissions will be disallowed.</span><br><span class="line">    - cause FIN sent to peer and the peer recv EOF()(peer should not send any more, as its peer close reading)`the peer can send data even after receiving EOF`</span><br><span class="line">    - if write again on SHUT_WR socket, exception `SIGPIPE, Broken pipe`.</span><br><span class="line"></span><br><span class="line">- If how is SHUT_RDWR,further receptions and transmissions will be disallowed.</span><br><span class="line">    - Both action above</span><br><span class="line"></span><br><span class="line">- close() can do SHUT_RDWR and tell kernel to free socket resource</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line">- shutdown + close()(only for resource free)</span><br><span class="line">- close() only</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="RESET-TCP-from-application"><a href="#RESET-TCP-from-application" class="headerlink" title="RESET TCP from application"></a>RESET TCP from application</h2><p>if application sent RST(RST flag set) on a tcp socket, the socket will go into <code>Closed state imediately(no FIN sent)</code>, the peer that receives RST packet will go into <code>peer Closed state as well</code>, <code>no need ACK for RST packet</code>, this is the quick way to close tcp conenction and free port.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">linger</span> <span class="title">linger</span>;</span></span><br><span class="line"></span><br><span class="line">linger.l_onoff = <span class="number">1</span>;</span><br><span class="line">linger.l_linger = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span> (setsockopt(fd, SOL_SOCKET, SO_LINGER,</span><br><span class="line">               (<span class="keyword">const</span> <span class="keyword">void</span> *) &amp;linger, <span class="keyword">sizeof</span>(struct linger)) == <span class="number">-1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* log error */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//RST packet is sent when call close()</span></span><br><span class="line">close(fd);</span><br></pre></td></tr></table></figure>
+
+<h2 id="create-vlan-interface-and-check-its-real-dev"><a href="#create-vlan-interface-and-check-its-real-dev" class="headerlink" title="create vlan interface and check its real dev"></a>create vlan interface and check its real dev</h2><p>As vlan interface is a virtual device, so it must attach a ‘real’ device, ‘real’ does not mean it must be a physical, it could be another virtual device as well, when send traffic on the vlan interface, it sends out to ‘real’ device after adding vlan id, call ‘real’ device’s dev_queue_xmit().</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">must provide <span class="string">'real'</span> device when creating vlan interface, two vlan interfaces can points to same <span class="string">'real'</span> deivce.</span><br><span class="line"><span class="comment"># ip link add link ens192 name ens192.100 type vlan id 100</span></span><br><span class="line"><span class="comment"># ip link set dev ens192.100 up</span></span><br><span class="line"><span class="comment"># ip -d link show ens192.100</span></span><br><span class="line">446: ens192.100@ens192: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000</span><br><span class="line">    link/ether 00:50:56:b2:01:75 brd ff:ff:ff:ff:ff:ff promiscuity 0</span><br><span class="line">    vlan protocol 802.1Q id 100 &lt;REORDER_HDR&gt; addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535</span><br><span class="line"></span><br><span class="line">ens192.100@ens192  <span class="string">'real device'</span> ens192</span><br><span class="line">vlan protocol 802.1Q id 100</span><br><span class="line"></span><br><span class="line"><span class="comment"># ip link add link ens192 name ens192.200 type vlan id 200</span></span><br><span class="line"><span class="comment"># ip link set dev ens192.200 up</span></span><br><span class="line"><span class="comment"># ip -d link show ens192.200</span></span><br><span class="line">447: ens192.200@ens192: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000</span><br><span class="line">    link/ether 00:50:56:b2:01:75 brd ff:ff:ff:ff:ff:ff promiscuity 0</span><br><span class="line">    vlan protocol 802.1Q id 200 &lt;REORDER_HDR&gt; addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ens192.200@ens192  <span class="string">'real device'</span> ens192</span><br><span class="line">vlan protocol 802.1Q id 200</span><br></pre></td></tr></table></figure>
+
+<h2 id="check-tcp-fastopen-cookie"><a href="#check-tcp-fastopen-cookie" class="headerlink" title="check tcp fastopen cookie"></a>check tcp fastopen cookie</h2><p>When tcp fastopen is enabled both on client and server side, client send cookie request as TCP option, server sends cookie as TCP opetion as well, client saves it at kernel with key(dstip: port), when next TCP SYN will send the cookie if for same dst:port</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># check cookie saved by kernel</span></span><br><span class="line">$ sudo ip tcp_metrics</span><br><span class="line">10.10.10.10 age 4.764sec cwnd 10 rtt 110us rttvar 188us fo_mss 65495 fo_cookie a427a77724e9229f <span class="built_in">source</span> 10.117.6.2</span><br><span class="line"><span class="comment"># fo_cookie is sent by server and save at client in kernel</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># check cookie only for dst 10.10.10.10</span></span><br><span class="line">$ sudo ip tcp_metrics 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># flush cookie</span></span><br><span class="line">$ sudo ip tcp_metrics flush</span><br><span class="line">$ sudo ip tcp_metrics flush 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<p><strong>NOTE when TCP fastopen is enabled(setsockopt), use send() not connect() to setup TCP connection</strong></p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\gdb-commands\" rel="bookmark">gdb-commands</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\linux-tips-daily\" rel="bookmark">linux-tips-daily</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\memory-checker\" rel="bookmark">memory-checker</a></div>
+      
+    </li>
+  
+  </ul>
+
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+            
+              <a href="/tags/linux-command/" rel="tag"><i class="fa fa-tag"></i> linux command</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/performance-tools-for-application/" rel="next" title="performance tools for application">
+                  <i class="fa fa-chevron-left"></i> performance tools for application
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/docker-core-tech-chroot/" rel="prev" title="docker-core-tech-chroot">
+                  docker-core-tech-chroot <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#debug-application"><span class="nav-number">1.</span> <span class="nav-text">debug application</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#show-dynamic-library-used-by-an-application"><span class="nav-number">1.1.</span> <span class="nav-text">show dynamic library used by an application</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#create-and-use-static-library"><span class="nav-number">1.2.</span> <span class="nav-text">create and use static library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#create-and-use-dynamic-library"><span class="nav-number">1.3.</span> <span class="nav-text">create and use dynamic library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#show-symbols-in-dynamics-static-object-file"><span class="nav-number">1.4.</span> <span class="nav-text">show symbols in dynamics static object file</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enable-forwarding-in-kernel"><span class="nav-number">1.5.</span> <span class="nav-text">enable forwarding in kernel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP-address-and-Route"><span class="nav-number">1.6.</span> <span class="nav-text">IP address and Route</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deep-into-route-table"><span class="nav-number">1.7.</span> <span class="nav-text">Deep into route table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#prevent-route-missing-after-reboot"><span class="nav-number">1.8.</span> <span class="nav-text">prevent route missing after reboot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#show-arp-entry"><span class="nav-number">1.9.</span> <span class="nav-text">show arp entry</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#save-tcpdump-captured-packet-to-file"><span class="nav-number">1.10.</span> <span class="nav-text">save tcpdump captured packet to file</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#packet-shows-as-tcp-segment-of-a-reassembled-pdu-in-wireshark"><span class="nav-number">1.11.</span> <span class="nav-text">packet shows as tcp segment of a reassembled pdu in wireshark</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#show-all-sockets"><span class="nav-number">1.12.</span> <span class="nav-text">show all sockets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#check-process-thread"><span class="nav-number">1.13.</span> <span class="nav-text">check process thread</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#do-everything-in-memory"><span class="nav-number">1.14.</span> <span class="nav-text">do everything in memory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#debug-dynamic-library-info-when-runs-a-program"><span class="nav-number">1.15.</span> <span class="nav-text">debug dynamic library info when runs a program</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#useful-commands-in-binutils"><span class="nav-number">1.16.</span> <span class="nav-text">useful commands in binutils</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#process-affinity"><span class="nav-number">1.17.</span> <span class="nav-text">process affinity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IRQ-affinity-setting"><span class="nav-number">1.18.</span> <span class="nav-text">IRQ affinity setting</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trace-process-by-strace"><span class="nav-number">1.19.</span> <span class="nav-text">trace process by strace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#show-shared-memory-on-the-system"><span class="nav-number">1.20.</span> <span class="nav-text">show shared memory on the system</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#check-set-mtu-or-MAC"><span class="nav-number">1.21.</span> <span class="nav-text">check/set mtu or MAC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#socket-bind-no-local-address"><span class="nav-number">1.22.</span> <span class="nav-text">socket bind no-local address</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#socket-source-port-selection"><span class="nav-number">1.23.</span> <span class="nav-text">socket source port selection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#only-show-mem-cpu-usage-of-a-particular-pid"><span class="nav-number">1.24.</span> <span class="nav-text">only show mem/cpu usage of a particular pid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#show-processe-who-opened-a-file-or-dir"><span class="nav-number">1.25.</span> <span class="nav-text">show processe who opened a file or dir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#force-a-running-process-to-generate-a-core-dump"><span class="nav-number">1.26.</span> <span class="nav-text">force a running process to generate a core dump</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#signal"><span class="nav-number">1.27.</span> <span class="nav-text">signal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#show-environment-variables-of-a-running-process"><span class="nav-number">1.28.</span> <span class="nav-text">show environment variables of a running process.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#check-process-name-when-knows-pid"><span class="nav-number">1.29.</span> <span class="nav-text">check process name when knows pid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#memory-leak-overflow-tool"><span class="nav-number">1.30.</span> <span class="nav-text">memory leak/ overflow tool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shutdown-vs-close"><span class="nav-number">1.31.</span> <span class="nav-text">shutdown() vs close()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RESET-TCP-from-application"><span class="nav-number">1.32.</span> <span class="nav-text">RESET TCP from application</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#create-vlan-interface-and-check-its-real-dev"><span class="nav-number">1.33.</span> <span class="nav-text">create vlan interface and check its real dev</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#check-tcp-fastopen-cookie"><span class="nav-number">1.34.</span> <span class="nav-text">check tcp fastopen cookie</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/uploads/avatar.gif"
+      alt="Jason">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">106</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">115</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="GitHub &rarr; https://github.com/jason-cyun"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="bWFpbHRvOmphc29uX2xrbUAxNjMuY29t" title="E-Mail &rarr; mailto:jason_lkm@163.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script><script src="/js/bookmark.js?v=7.4.0"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var id = element.id || '';
+    var src = element.src || '';
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (id !=='') {
+      script.id = element.id;
+    }
+    if (src !== '') {
+      script.src = src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+<script pjax>
+if (document.querySelectorAll('div.pdf').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js', () => {
+    document.querySelectorAll('div.pdf').forEach(element => {
+      PDFObject.embed(element.getAttribute('target'), element, {
+        pdfOpenParams: {
+          navpanes: 0,
+          toolbar: 0,
+          statusbar: 0,
+          pagemode: 'thumbs',
+          view: 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height: element.getAttribute('height') || '500px'
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '09527c4c0e89e8430bc2',
+      clientSecret: 'bf4a9feb1fafe110ea12ea7549a3b493a08f7e03',
+      repo: 'blog',
+      owner: 'jason-bj',
+      admin: ['jason-bj'],
+      id: '3c32281dc7490cc988275122cf0fb023',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'false'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+    </div>
+</body>
+</html>

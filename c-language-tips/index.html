@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/clogo.svg?v=7.4.0" color="#222">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Overviewparameter passingx86 always uses stack to pass function parameter, while x86-64 always uses registers to pass function if possible(as it has more registers than x86)  ESP (Extended Stack Point">
+<meta name="keywords" content="c language">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c-language-tips">
+<meta property="og:url" content="http://cyun.tech/c-language-tips/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="Overviewparameter passingx86 always uses stack to pass function parameter, while x86-64 always uses registers to pass function if possible(as it has more registers than x86)  ESP (Extended Stack Point">
+<meta property="og:locale" content="en-US">
+<meta property="og:updated_time" content="2021-07-12T09:36:57.607Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="c-language-tips">
+<meta name="twitter:description" content="Overviewparameter passingx86 always uses stack to pass function parameter, while x86-64 always uses registers to pass function if possible(as it has more registers than x86)  ESP (Extended Stack Point">
+  <link rel="alternate" href="/atom.xml" title="CYun" type="application/atom+xml">
+  <link rel="canonical" href="http://cyun.tech/c-language-tips/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>c-language-tips | CYun</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script pjax>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-148730544-1');
+    }
+  </script>
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-US">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CYun</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a class="book-mark-link book-mark-link-fixed" href="#"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/c-language-tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">c-language-tips
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2020-01-02 10:43:29" itemprop="dateCreated datePublished" datetime="2020-01-02T10:43:29+08:00">2020-01-02</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-12 17:36:57" itemprop="dateModified" datetime="2021-07-12T17:36:57+08:00">2021-07-12</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/c/" itemprop="url" rel="index"><span itemprop="name">c</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/c/tips/" itemprop="url" rel="index"><span itemprop="name">tips</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><h2 id="parameter-passing"><a href="#parameter-passing" class="headerlink" title="parameter passing"></a>parameter passing</h2><p><code>x86 always uses stack</code> to pass function parameter, while <code>x86-64 always uses registers</code> to pass function if possible(as it has more registers than x86)</p>
+<ul>
+<li><code>ESP (Extended Stack Pointer), always points to the top of the stack. RSP(x86-64)</code></li>
+<li><code>EBP (Extended Stack Base pointer), like a stack boundary for a function, all stack variables are offset from it.RBP(x86-64)</code>, <strong>EBP bottom of stack which has the largest address</strong>.</li>
+</ul>
+<a id="more"></a>
+
+<ul>
+<li><strong>push</strong><ul>
+<li>decrease ESP(get a slot), save value to stack(slot, 4 bytes or 8 bytes)</li>
+</ul>
+</li>
+<li><strong>pop</strong><ul>
+<li>get the value, increase ESP</li>
+</ul>
+</li>
+</ul>
+<p><strong>stack change when call a function on x86-64</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foobar</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> xx = a + <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> yy = b + <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">int</span> zz = c + <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span> sum = xx + yy + zz;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> xx * yy * zz + sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> foobar(<span class="number">77</span>, <span class="number">88</span>, <span class="number">99</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>On 86-64, arguments passed into foobar use registers, while local variables of that function, along with some other data, are going to be stored on the stack when foobar is called. <code>This set of data on the stack is called a frame for this function</code>.</p>
+<p><img alt="stack" data-src="https://eli.thegreenplace.net/images/2011/08/x64_frame_leaf.png"></p>
+<ol>
+<li>push IP into stack(called by CPU at runtime)</li>
+<li>push rbp(parent) into stack</li>
+<li>pass parameter into register</li>
+<li>push local variable into stack</li>
+<li>calculate</li>
+<li>pop rbp</li>
+<li>pop IP</li>
+</ol>
+<p>Note: <strong><code>One process just has one stack, not each for one function</code></strong>, but xx,yy,zz location may be different based on complier or os arch, <font color="red" size="4"><strong>before calling a function</strong>, CPU will put the next ins onto stack.</font></p>
+<p><strong>x86-64 assembly</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">4:a.c           **** int foobar(int a, int b, int c)</span><br><span class="line">  5:a.c           **** &#123;</span><br><span class="line"> 11 0000 55       		pushq	%rbp</span><br><span class="line"> 14 0001 4889E5   		movq	%rsp, %rbp</span><br><span class="line"> 16 0004 897DEC   		movl	%edi, -20(%rbp)----&gt;get parameter from register, save to local stack</span><br><span class="line"> 17 0007 8975E8   		movl	%esi, -24(%rbp)</span><br><span class="line"> 18 000a 8955E4   		movl	%edx, -28(%rbp)</span><br><span class="line">  6:a.c           ****     int xx = a + 2;</span><br><span class="line"> 20 000d 8B45EC   		movl	-20(%rbp), %eax</span><br><span class="line"> 21 0010 83C002   		addl	$2, %eax</span><br><span class="line"> 22 0013 8945F0   		movl	%eax, -16(%rbp)---&gt; save result to xx</span><br><span class="line">  7:a.c           ****     int yy = b + 3;</span><br><span class="line"> 24 0016 8B45E8   		movl	-24(%rbp), %eax</span><br><span class="line"> 25 0019 83C003   		addl	$3, %eax</span><br><span class="line"> 26 001c 8945F4   		movl	%eax, -12(%rbp)---&gt; save result to yy</span><br><span class="line">  8:a.c           ****     int zz = c + 4;</span><br><span class="line"> 28 001f 8B45E4   		movl	-28(%rbp), %eax</span><br><span class="line"> 29 0022 83C004   		addl	$4, %eax</span><br><span class="line"> 30 0025 8945F8   		movl	%eax, -8(%rbp)----&gt; save result to zz</span><br><span class="line">  9:a.c           ****     int sum = xx + yy + zz;</span><br><span class="line"> 32 0028 8B55F0   		movl	-16(%rbp), %edx</span><br><span class="line"> 33 002b 8B45F4   		movl	-12(%rbp), %eax</span><br><span class="line"> 34 002e 01C2     		addl	%eax, %edx ---&gt; edx has result xx + yy</span><br><span class="line"> 35 0030 8B45F8   		movl	-8(%rbp), %eax</span><br><span class="line"> 36 0033 01D0     		addl	%edx, %eax</span><br><span class="line"> 37 0035 8945FC   		movl	%eax, -4(%rbp)--&gt;save result to sum</span><br><span class="line"> 10:a.c           ****</span><br><span class="line"> 11:a.c           ****     return xx * yy * zz + sum;</span><br><span class="line"> 39 0038 8B45F0   		movl	-16(%rbp), %eax</span><br><span class="line"> 40 003b 0FAF45F4 		imull	-12(%rbp), %eax</span><br><span class="line"> 41 003f 0FAF45F8 		imull	-8(%rbp), %eax</span><br><span class="line"> 42 0043 89C2     		movl	%eax, %edx</span><br><span class="line"> 43 0045 8B45FC   		movl	-4(%rbp), %eax</span><br><span class="line"> 44 0048 01D0     		addl	%edx, %eax</span><br><span class="line"> 12:a.c           **** &#125;</span><br><span class="line"> ...</span><br><span class="line"> 14:a.c           **** int main()</span><br><span class="line"> 15:a.c           **** &#123;</span><br><span class="line"> 58 004c 55       		pushq	%rbp-----&gt;save rbp</span><br><span class="line"> 61 004d 4889E5   		movq	%rsp, %rbp--&gt;move rbp points to rsp</span><br><span class="line"> 16:a.c           ****     return foobar(77, 88, 99);</span><br><span class="line"> 64 0050 BA630000 		movl	$99, %edx----&gt;use register to pass parameter</span><br><span class="line"> 64      00</span><br><span class="line"> 65 0055 BE580000 		movl	$88, %esi</span><br><span class="line"> 65      00</span><br><span class="line"> 66 005a BF4D0000 		movl	$77, %edi</span><br><span class="line"> 66      00</span><br><span class="line"> 67 005f E8000000 		call	foobar</span><br><span class="line"> 67      00</span><br><span class="line"> 17:a.c           **** &#125;</span><br><span class="line"> 68              		.loc 1 17 0</span><br><span class="line"> 69 0064 5D       		popq	%rbp</span><br></pre></td></tr></table></figure>
+
+<h2 id="function-vs-macro"><a href="#function-vs-macro" class="headerlink" title="function vs macro"></a>function vs macro</h2><p>Both are used to replace similar code that are always used in different places, macro makes writing code simple and easy to read, but the <code>assembly code is not reduced after used macro</code> while function has the same advantages as Macro does, and the <code>assembly code is small, takes small disk space and small memory when loaded after used function</code>. but the disadvantages is that <code>calling a function takes some time if it&#39;s not a inline function</code>. below are some general rules to obey when use function or macro.</p>
+<h3 id="rules-to-obey"><a href="#rules-to-obey" class="headerlink" title="rules to obey"></a>rules to obey</h3><ul>
+<li><p><strong>large similar use function</strong></p>
+<p> here I say similar not same, same code is easy to define a function, but similar code may have some trouble, similar code here the logical process is same, but the variable may be different TYPE, as function parameter only has one TYPE, so it’s not easy for this case, the solution for this is to <code>abstract the same part for each of TYPE, access the same part of it in the function, if TYPES have no same parts(members), define each of a tinny function(different part depends on type)(void*) for each of the TYPE, call the tinny function in the common function, so that common function(with void*) can replace the &#39;similar code&#39;</code> and easy to read and extend for new TYPES.</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A and B function have the same logical but only small part is different.</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tiny_a</span><span class="params">(<span class="keyword">void</span> *v)</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">A</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">    common(a, type)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tiny_b</span><span class="params">(<span class="keyword">void</span> *v)</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">B</span><span class="params">(<span class="keyword">char</span> b)</span> </span>&#123;</span><br><span class="line">    common(b, type)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">common</span><span class="params">(<span class="keyword">void</span>* v, type)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//same logical</span></span><br><span class="line">    <span class="keyword">if</span> (type == A) &#123;</span><br><span class="line">        tiny_a(v); <span class="comment">//special for A</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (type == B) &#123;</span><br><span class="line">        tiny_b(v); <span class="comment">// special for B</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//same logical</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>small similar code two choices depending on the code</strong><ul>
+<li>similar code accesses the <code>same type of variable</code>, use inline function(can use macro as well),</li>
+<li>similar code accessed the <code>different types of variables</code> use Macro</li>
+</ul>
+</li>
+</ul>
+<h3 id="tips-for-using-macro"><a href="#tips-for-using-macro" class="headerlink" title="tips for using macro"></a>tips for using macro</h3><ul>
+<li><p>you can pass parameter from one macro to another.</p>
+</li>
+<li><p><font color="red"># </font>used to get the string of “passed_value” <code>in the body</code></p>
+</li>
+<li><p><font color="red">##</font>used to link parameter with other <code>in the body</code></p>
+</li>
+<li><p>you can <code>NOT use # and ## during parameter passing</code>, there is no effect</p>
+</li>
+<li><p>do <code>NOT define variable inside macro</code> while <code>used outside of it</code></p>
+</li>
+<li><p>difference between ## and # in macro</p>
+</li>
+<li><p><code>macro is only effect from the beginning to the end of that file, but if you define it in \*.h, as you know *.h will be copied to the file(*.c) who includes it</code></p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// '#' used to get the string of the parameter, you can pass hello without "" but #msg return the value of "hello" !!!</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> print(msg) printf(<span class="meta-string">"msg: %s\n"</span>, #msg)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    print(hello);</span><br><span class="line">    print(<span class="string">"hello"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>msg: hello</p>
+<p>msg: “hello”</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">file: a.c</span><br><span class="line"><span class="comment">// '##' used to link tokens, normally, parameter will replace token but how to identify a token</span></span><br><span class="line"><span class="comment">// a token is separated by whitespace or ; or others(parameter) after C compiler parsed.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// how to identify a token(token separated by whitespace) that will be replaced with macro.`</span></span><br><span class="line"><span class="comment">// - function name</span></span><br><span class="line"><span class="comment">// - parameter</span></span><br><span class="line"><span class="comment">// - lvalue/rvalue</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> print(msg) \</span></span><br><span class="line">&#123;\</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, b_msg);\   <span class="comment">// here msg is NOT replaced.</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, b_##msg);\ <span class="comment">// msg is replaced with hello</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, b_##msg##_a);\</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        print(hello);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">root@dev:/tmp# gcc -o t a.c</span><br><span class="line">a.c: In function ‘main’:</span><br><span class="line">a.c:6:20: error: ‘b_msg’ undeclared (first use in this function)</span><br><span class="line">     printf("%s\n", b_msg);\</span><br><span class="line">                    ^</span><br><span class="line">a.c:12:9: note: in expansion of macro ‘print’</span><br><span class="line">         print(hello);</span><br><span class="line">         ^</span><br><span class="line">a.c:6:20: note: each undeclared identifier is reported only once for each function it appears in</span><br><span class="line">     printf("%s\n", b_msg);\</span><br><span class="line">                    ^</span><br><span class="line">a.c:12:9: note: in expansion of macro ‘print’</span><br><span class="line">         print(hello);</span><br><span class="line">         ^</span><br><span class="line">a.c:7:20: error: ‘b_hello’ undeclared (first use in this function)</span><br><span class="line">     printf("%s\n", b_##msg);\</span><br><span class="line">                    ^</span><br><span class="line">a.c:12:9: note: in expansion of macro ‘print’</span><br><span class="line">         print(hello);</span><br><span class="line">         ^</span><br><span class="line">a.c:8:20: error: ‘b_hello_a’ undeclared (first use in this function)</span><br><span class="line">     printf("%s\n", b_##msg##_a);\</span><br><span class="line">                    ^</span><br><span class="line">a.c:12:9: note: in expansion of macro ‘print’</span><br><span class="line">         print(hello);</span><br></pre></td></tr></table></figure>
+
+<h3 id="ifdef-if-vs-macro"><a href="#ifdef-if-vs-macro" class="headerlink" title="ifdef/if vs macro"></a>ifdef/if vs macro</h3><p><code>macro and ifdef are executed before compiling(**precompile**)</code> but <strong><code>macro is more earlier than ifdef</code></strong>, so first taking replacement with macro, then ifdef.</p>
+<ul>
+<li><code>how to identify a token(token separated by whitespace) that will be replaced with macro.</code><ul>
+<li>function name</li>
+<li>parameter</li>
+<li>lvalue/rvalue</li>
+</ul>
+</li>
+</ul>
+<p><strong>if they are equal(same with macro parameter) with macro, replace it with macro!!!</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HELLO hello</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> HELLO</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NUM 12</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">(<span class="keyword">int</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"hello %d \n"</span>, a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    HELLO(NUM);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>what can be used as a condition in ifdef</li>
+</ul>
+<p><strong><code>literal object</code>, number 12 or char ‘H’ , if you use variable, its evaluation is always 0</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//it's ok as replacement take first like 12 &gt;10</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NUM 12</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> NUM &gt; 10</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> var1 10</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//as we never define name so name is 0!! var3 is defined</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> name!=<span class="meta-string">'H'</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> var3 30</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//as we never define name and name1, so they always 0, var4 is defined</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> name==name1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> var4 40</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d %d %d\n"</span>, var1, var3, var4)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Free-memory-when-process-exits"><a href="#Free-memory-when-process-exits" class="headerlink" title="Free memory when process exits"></a>Free memory when process exits</h2><p>It depends on the operating system. <code>The majority of modern (and all major) operating systems will free memory when process ends</code>.</p>
+<p><code>Relying on this is bad practice and it is better free it explicitly</code>. The issue isn’t just that your code looks bad. You may decide you want to integrate your small program into a larger, long running one. Then a while later you have to spend hours tracking down memory leaks.</p>
+<p>Relying on a feature of an operating system also makes the code less portable.</p>
+<p>Even if your OS (not all do that) frees memory at exit, <strong><code>there are some reasons to free it explicitly</code></strong>.</p>
+<ul>
+<li>it’s good manner</li>
+<li>it adds symmetry, so code looks better</li>
+<li>if someone takes this code and place it in a program that uses the libraries only in a small part of his runtime, the resources will be free when not needed.</li>
+<li>if you are looking for bad memory leaks, your debugger won’t find these unimportant ones.</li>
+<li><font color="red"><strong>OS does not automatically free some resources at exit, like devices (sensors, scanners…),  temporary files, <code>shared memory</code></strong>.</font></li>
+</ul>
+<h2 id="IPC"><a href="#IPC" class="headerlink" title="IPC"></a>IPC</h2><ul>
+<li>Pipe, socketpair, socket</li>
+<li>signal, eventfd</li>
+<li>shared memory, file, need lock</li>
+</ul>
+<h3 id="pipe"><a href="#pipe" class="headerlink" title="pipe"></a>pipe</h3><p><strong>Only for parent process—-&gt;child process, it’s stream-oriented</strong></p>
+<p><img alt data-src="https://cyun.tech/images/C/pipe.jpg"></p>
+<p>It’s a <code>one-way communication mechanism, with one end opened for reading(fd[0]) and the other end for writing(fd[1]</code>. Therefore, parent and child need to agree on which way to use the pipe, from parent to child or the other way around. A pipe is also a <code>stream communication mechanism</code>, that is all messages <code>sent through the pipe are placed in order</code>,when readers asks for a certain number of bytes from this stream, <strong>he is given as many as bytes as are available, up to the amount of request, Note that these bytes may have come from the same call to write() or from several calls to write() which are concatenated</strong>.</p>
+<h3 id="socketpair"><a href="#socketpair" class="headerlink" title="socketpair"></a>socketpair</h3><p><strong>Only for parent process&lt;—-&gt;child process, it can be <code>stream or datagram</code></strong></p>
+<p><img alt data-src="https://cyun.tech/images/C/socketpair.png"></p>
+<p>Two-way communication mechanism, an extension of pipe.</p>
+<h3 id="AF-LOCAL-AF-UNIX-socket"><a href="#AF-LOCAL-AF-UNIX-socket" class="headerlink" title="AF_LOCAL(AF_UNIX) socket"></a>AF_LOCAL(AF_UNIX) socket</h3><p><strong>any process&lt;—-&gt;any process</strong></p>
+<p>Unix domain allows communication between <code>any two processes that are in same machine</code>.</p>
+<h3 id="signal"><a href="#signal" class="headerlink" title="signal"></a>signal</h3><p><strong>any process&lt;—-&gt;any process within same machine</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># send signal to process with kill() API</span><br><span class="line">int kill(pid_t pid, int signal);</span><br></pre></td></tr></table></figure>
+
+<p><strong>tiny, only signal number sent, can not take payload</strong></p>
+<h3 id="eventfd"><a href="#eventfd" class="headerlink" title="eventfd"></a>eventfd</h3><p><strong>it’s fd but used for event counter, parent&lt;—-&gt;child</strong></p>
+<p><code>between threads or between process</code> to notify something happens by <code>write a counter into kernel and walkup the reader to handle things</code>.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">uint64_t</span> u;</span><br><span class="line">efd = eventfd(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">switch</span>(fork()) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0</span>: <span class="comment">//child</span></span><br><span class="line">        u = <span class="number">10</span>;</span><br><span class="line">        write(efd, &amp;u, <span class="keyword">sizeof</span>(u));</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">       read(efd, &amp;u, <span class="keyword">sizeof</span>(<span class="keyword">uint64_t</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>tiny, can only take integer payload</strong></p>
+<h3 id="share-memory"><a href="#share-memory" class="headerlink" title="share memory"></a>share memory</h3><p><strong>Any process&lt;—&gt;any process on same machine, most of time, need lock</strong></p>
+<h4 id="system-v-style"><a href="#system-v-style" class="headerlink" title="system-v style"></a>system-v style</h4><p>it uses <code>key to identify the named shared memory</code>, so that other process can access the shared memory, but can also <code>without key for private memory for parent/child</code>, as the shared memory is created before fork(), so both see it.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//one process</span></span><br><span class="line"><span class="keyword">key_t</span> key;</span><br><span class="line">key = <span class="number">1000</span>;</span><br><span class="line">shmget(key, SHMSZ, IPC_CREAT | <span class="number">0666</span>));<span class="comment">// create shared memory with flag: IPC_CREAT</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//another process</span></span><br><span class="line"><span class="keyword">key_t</span> key;</span><br><span class="line">key = <span class="number">1000</span>;</span><br><span class="line">shmget(key, SHMSZ, <span class="number">0666</span>);<span class="comment">//attach to the shared memory identified by key 1000</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Private share memory parent/child</strong></li>
+</ul>
+<p><strong>shmget() with <code>IPC_PRIVATE as the key</code></strong></p>
+<p><code>IPC_PRIVATE isn&#39;t a flag field but a key_t type</code>.  If this special value is used for key, the system call ignores everything but the least significant 9 bits of shmflg and  creates a new shared memory segment (on success). The name choice IPC_PRIVATE was perhaps unfortunate, IPC_NEW would more clearly show its function. <code>Both child and parent see the same memory, they always use same memory!!!</code></p>
+<h4 id="posix-style"><a href="#posix-style" class="headerlink" title="posix style"></a>posix style</h4><p>Intend to share memory between unrelated processes. <code>One process creates the file, then other process opens it and maps it for sharing (think it as a normal file)</code></p>
+<p>it uses <code>special file to identify the share memory located at /dev/shm</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//one process</span></span><br><span class="line">fd = shm_open(<span class="string">"test"</span>, O_CREAT | O_RDWR, <span class="number">0666</span>);<span class="comment">//create a file at /dev/shm/test, O_CREAT</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// set the shared memory size</span></span><br><span class="line">addr = mmap(<span class="literal">NULL</span>, PAGE_SIZE, PROT_READ | PROT_WRITE,</span><br><span class="line">            MAP_SHARED, fd, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// the other</span></span><br><span class="line">shm_fd = shm_open(<span class="string">"test"</span>, O_RDONLY, <span class="number">0666</span>);</span><br><span class="line"><span class="comment">//attach to it</span></span><br><span class="line">addr = mmap(<span class="literal">NULL</span>, PAGE_SIZE, PROT_READ | PROT_WRITE,</span><br><span class="line">            MAP_SHARED, fd, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>As shm_open() creates a file descriptor, so user must call shm_unlink() to close it(close fd, decrease the reference counter)</p>
+<p><strong>Warning</strong></p>
+<p><code>if process does not call shm_unlink, fd is closed, but reference count is not decreased!!! so the shared memory may be never freed at all</code>.</p>
+<ul>
+<li><strong>share memory between parent/child</strong></li>
+</ul>
+<p>without shm_open(), use <code>MAP_ANONYMOUS</code> and fd(-1) as parent/child all know the shared memory</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//before fork()</span></span><br><span class="line">    addr = mmap(<span class="literal">NULL</span>, PAGE_SIZE, PROT_READ | PROT_WRITE,</span><br><span class="line">                MAP_SHARED | MAP_ANONYMOUS, <span class="number">-1</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>for mmap() with MAP_PRIVATE</strong></li>
+</ul>
+<p>Create a <code>private copy-on-write mapping</code>.  Updates to the mapping are not visible to other processes mapping the same file, and are not carried through to the underlying file. It is unspecified whether changes made to the file after the mmap() call are visible in the mapped region</p>
+<p><code>That means each process has its own copy of it if it writes to shared memory, other process does not see changed part!!!!</code></p>
+<h2 id="Multiplexing"><a href="#Multiplexing" class="headerlink" title="Multiplexing"></a>Multiplexing</h2><p>The poll() API performs the similar API as the existing select() API. The only difference between these two APIs is the interface provided to the caller.</p>
+<p>The <code>select() API</code> requires that the application pass in a set of bits in which <code>one bit is used to represent each descriptor number</code>(for example if we only create a socket with fd 1000, the first argument for select is 1000+1, and kernel will create 1001 structure in kernel and unnecessary loop!!!, even if we only create one socket). When descriptor numbers are very large, it can overflow the 30KB allocated memory size, forcing multiple iterations of the process. This overhead can adversely affect performance.</p>
+<hr>
+<p>The <code>poll()</code> API allows the application to <code>pass an array of structures rather than a set of bits</code>. Because each pollfd structure can contain up to 8 bytes, the application only needs to pass one structure for each descriptor (we created), even if descriptor numbers are very large.</p>
+<hr>
+<p><code>Both poll() and select() require the full list of file descriptors to watch on each invocation</code>. <code>The kernel must then walk the list of each file descriptor to be monitored</code>. When this list grows large, it may contain hundreds or even thousands of file descriptors walking the list on each invocation becomes a scalability bottleneck.</p>
+<ul>
+<li><p><code>select</code> needs to set monitor fd for each call</p>
+</li>
+<li><p><code>select</code> limits fd number 1024</p>
+</li>
+<li><p>even with one fd=1000, <code>select</code> has to iterate from 0–1000 times</p>
+</li>
+<li><p><code>poll</code> needs set monitor fd only once!!</p>
+</li>
+<li><p><code>poll</code> no limits fd number</p>
+</li>
+<li><p>if only with one fd=1000, <code>poll</code> iterates only once, it <code>only iterates the monitored fd</code>.</p>
+</li>
+</ul>
+<hr>
+<p><code>epoll</code> circumvents this problem by<code>decoupling the monitor registration from the actual monitoring</code>. One system call initializes an epoll context, another adds monitored file descriptors to or removes them from the context, and a third performs the actual event wait.</p>
+<ul>
+<li><code>epoll</code> needs set monitor fd only once!!</li>
+<li><code>epoll</code> no limits fd number</li>
+<li>it only <code>iterates the monitored fd which has event</code>, fast.</li>
+</ul>
+<h3 id="select"><a href="#select" class="headerlink" title="select"></a>select</h3><p>One API: <code>select()</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select(fdmax+<span class="number">1</span>, &amp;read_fds, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>)</span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>; i &lt;= fdmax; i++) &#123;</span><br><span class="line">    <span class="comment">// check which one has read event</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// fdmax the max fd descriptor we monitors</span></span><br><span class="line"><span class="comment">// read_fds: 1024 bit sets, set the fd bit if we want to monitor it.</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>For each loop</strong></p>
+<ul>
+<li>tell the<code>max fd and fds that monitors</code></li>
+<li>if event happens, check <code>all from 0--max</code> to know event on which fd(both in kernel and user)</li>
+</ul>
+<p>The major <code>disadvantages</code> include:</p>
+<ul>
+<li><p>select <code>modifies the passed fd_sets so none of them can be reused</code>. Even if you don’t need to change anything, such as if one of descriptors received data and needs to receive more data, a whole set has to be either recreated again or restored from a backup copy via FD_COPY. And <code>this has to be done each time the select is called</code>.</p>
+</li>
+<li><p>To find out which descriptors raised the events you have to manually <code>iterate through all the descriptors in the set and call FD_ISSET on each one of them</code>. When you have 2,000 of those descriptors and only one of them is active, likely, the last one, you’re wasting CPU cycles each time you wait.</p>
+</li>
+<li><p><code>Max number of supported fd 1024</code>, Did I just mention 2,000 descriptors? Well, select cannot support that much. At least on Linux. The maximum number of the supported descriptors is defined by the FD_SETSIZE constant, which Linux happily defines as 1024. And while some operating systems allow you to hack this restriction by redefining the FD_SETSIZE before including the sys/select.h, this is not portable. Indeed, Linux would just ignore this hack and the limit will stay the same.</p>
+</li>
+<li><p><code>Can not close fd if it&#39;s in select() now</code>, You cannot modify the descriptor set from a different thread while waiting. Suppose a thread is executing the code above. Now suppose you have a housekeeping thread which decided that sock1 has been waiting too long for the input data, and it is time to cut the cord. Since this socket could be reused to serve another paying working client, the housekeeping thread wants to close the socket. However the socket is in the fd_set which select is waiting for. Now what happens when this socket is closed? man select has the answer, and you won’t like it. The answer is, “If a file descriptor being monitored by select() is closed in another thread, the result is unspecified”.</p>
+</li>
+<li><p><code>Can&#39;t send data on fd if it&#39;s in select() now</code> Same problem arises if another thread suddenly decides to send something via sock1. It is not possible to start monitoring the socket for the output event until select returns.</p>
+</li>
+<li><p>select puts extra burden on you when filling up the descriptor list to calculate the largest descriptor number and provide it as a function parameter.</p>
+</li>
+</ul>
+<p><strong>is there is any reason to use select at all?</strong></p>
+<ul>
+<li><p>The first reason is <code>portability</code>. select has been around for ages, and you can be sure that every single platform around which has network support and nonblocking sockets will have a working select implementation while it might not have poll at all. And unfortunately I’m not talking about the tubes and ENIAC here; poll is only available on Windows Vista and above which includes Windows XP – still used by the whooping 34% of users as of Sep 2013 despite the Microsoft pressure. Another option would be to still use poll on those platforms and emulate it with select on those which do not have it; it is up to you whether you consider it reasonable investment.</p>
+</li>
+<li><p>The second reason is more exotic, and is related to the fact that select can – theoretically – <code>handle the timeouts with in the one nanosecond precision, while both poll and epoll can only handle the one millisecond precision</code>. This is not likely to be a concern on a desktop or server system, which clocks doesn’t even run with such precision, but it may be necessary on a realtime embedded platform while interacting with some hardware components. Such as lowering control rods to shut down a nuclear reactor – in this case, please, use select to make sure we’re all stay safe!</p>
+</li>
+</ul>
+<p>The case above would probably be the only case where you would have to use select and could not use anything else. However if you are writing an application which would <code>never have to handle more than a handful of sockets (like, 200)</code>, the difference between using <code>poll and select would not be based on performance</code>, but more on personal preference or other factors.</p>
+<h3 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h3><p>One API: <code>pool()</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">poll(ufds, <span class="number">2</span>, <span class="number">3500</span>);</span><br><span class="line"><span class="comment">/* ufds     array of fds monitor</span></span><br><span class="line"><span class="comment"> * 2        the array size (how many fds we want to monitor)</span></span><br><span class="line"><span class="comment"> * 3500     3.5s</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>For each loop</strong></p>
+<ul>
+<li>tell <code>only the fds monitors</code></li>
+<li>if event happens, check <code>all monitors</code> to see event on which fd(both in kerenel and user)</li>
+</ul>
+<p>poll was mainly created to fix the pending problems select had, so it has the following <code>advantages over it</code>:</p>
+<ul>
+<li><p>There is no <code>hard limit on the number of descriptors poll can monitor</code>, so the limit of 1024 does not apply here.</p>
+</li>
+<li><p>It does not modify the data passed in the struct pollfd data. Therefore it could be <code>reused between the poll() calls</code> as long as set to zero the revents member for those descriptors which generated the events. The IEEE specification states that “In each pollfd structure, poll() shall clear the revents member, except that where the application requested a report on a condition by setting one of the bits of events listed above, poll() shall set the corresponding bit in revents if the requested condition is true“. However in my experience at least one platform did not follow this recommendation, and man 2 poll on Linux does not make such guarantee either (man 3p poll does though).</p>
+</li>
+<li><p>It allows more fine-grained control of events comparing to select. For example, it can <code>detect remote peer shutdown without monitoring for read events</code>.</p>
+</li>
+</ul>
+<p><strong>poll still has a few issues which need to be kept in mind:</strong></p>
+<ul>
+<li><p>Like select, it is still not possible to find out which descriptors have the events triggered without <code>iterating through the whole list and checking the revents</code>. Worse, the same happens in the kernel space as well, as the kernel has to iterate through the list of file descriptors to find out which sockets are monitored, and iterate through the whole list again to set up the events.</p>
+</li>
+<li><p>Like select, it is <code>not possible to dynamically modify the set or close the socket which is being polled</code></p>
+</li>
+</ul>
+<p><strong>poll should be your preferred method even over epoll if the following is true:</strong></p>
+<ul>
+<li><p>You need to support more than just Linux, and do not want to use <code>epoll wrappers such as libevent</code> (epoll is Linux only);</p>
+</li>
+<li><p>Your application needs to monitor <code>less than 1000 sockets at a time</code> (you are not likely to see any benefits from using epoll);</p>
+</li>
+<li><p>Your application needs to monitor more than 1000 sockets at a time, but the<code>connections are very short-lived</code> (this is a close case, but most likely in this scenario you are not likely to see any benefits from using epoll because the speedup in event waiting would be wasted on adding those new descriptors into the set – see below)</p>
+</li>
+<li><p>Your application is not designed the way that it changes the events while another thread is waiting for them (i.e. you’re not porting an app using kqueue or IO Completion Ports).</p>
+</li>
+</ul>
+<h3 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h3><p><img alt data-src="https://cyun.tech/images/nginx/epoll_basic.png"><br>Two APIs: <code>epoll_ctl() and epoll_wait()</code></p>
+<p><strong>For each loop</strong></p>
+<ul>
+<li><code>no need to tell fds monitors as kernel keeps it from another API</code></li>
+<li>if event happens, <code>no need to check</code> to see event on which fd, as <code>epoll() returns only the fd that has events</code>.</li>
+</ul>
+<p>epoll has some <code>significant advantages over select/poll</code> both in terms of performance and functionality:</p>
+<ul>
+<li><p>epoll returns only the list of descriptors which triggered the events. <code>No need to iterate through 10,000 descriptors anymore to find that one which triggered the event</code>!</p>
+</li>
+<li><p>You can <code>attach meaningful context to the monitored event</code> instead of socket file descriptors. In our example we attached the class pointers which could be called directly, saving you another lookup.</p>
+</li>
+<li><p>You can <code>add sockets or remove them from monitoring anytime, even if another thread is in the epoll_wait function</code>. You can even modify the descriptor events. Everything will work properly, and this behavior is supported and documented. This gives you much more flexibility in implementation.</p>
+</li>
+<li><p>Since the kernel knows all the monitoring descriptors, it can <code>register the events happening on them even when nobody is calling epoll_wait</code>. This allows implementing interesting features such as edge triggering</p>
+</li>
+<li><p>It is possible to have the <code>multiple threads waiting on the same epoll queue with epoll_wait()</code>, something you cannot do with select/poll. In fact it is not only possible with epoll, but the recommended method in the edge triggering mode.</p>
+</li>
+</ul>
+<p><strong>epoll is not a “better poll”, and it also has disadvantages when comparing to poll:</strong></p>
+<ul>
+<li><p><code>Changing the event flags</code> (i.e. from READ to WRITE) requires the epoll_ctl syscall, while when using poll this is a simple bitmask operation done entirely in userspace. Switching 5,000 sockets from reading to writing with epoll would require 5,000 syscalls and hence context switches (as of 2014 calls to epoll_ctl still  could not be batched, and each descriptor must be changed separately), while in poll it would require a single loop over the pollfd structure.</p>
+</li>
+<li><p>Each accepted socket needs to be added to the set, and same as above, with epoll it has to be done by calling epoll_ctl which means there are <code>two required syscalls per new connection socket instead of one for poll</code>. If your server has many <code>short-lived connections which send or receive little traffic, epoll will likely take longer than poll to serve them</code>.</p>
+</li>
+<li><p>epoll is <code>exclusively Linux domain</code>, and while other platforms have similar mechanisms, they are not exactly the same ,edge triggering, for example, is pretty unique (FreeBSD’s kqueue supports it too though).</p>
+</li>
+<li><p>High performance processing logic is more complex and hence more difficult to debug, especially for edge triggering which is prone to deadlocks if you miss extra read/write.</p>
+</li>
+</ul>
+<p><strong>Therefore you should only use epoll if all following is true:</strong></p>
+<ul>
+<li><p>Your application runs a thread poll which <code>handles many network connections</code> by a handful of threads. You would lose most of epoll benefits in a single-threaded application, and most likely it won’t outperform poll.</p>
+</li>
+<li><p>You expect to have a reasonably <code>large number of sockets to monitor</code> (at least 1,000); with a smaller number epoll is not likely to have any performance benefits over poll and may actually worse the performance;</p>
+</li>
+<li><p>Your connections are relatively long-lived; as stated above epoll will be slower than poll in a situation when a new connection sends a few bytes of data and immediately disconnects because of extra system call required to add the descriptor into epoll set;</p>
+</li>
+<li><p>Your app depends on other Linux-specific features (so in case portability question would suddenly pop up, epoll wouldn’t be the only roadblock), or you can provide wrappers for other supported systems. In the last case you should strongly consider libevent.</p>
+</li>
+</ul>
+<p><strong>epoll Triggering modes</strong></p>
+<p>epoll provides both <font color="red">edge-triggered and level-triggered modes</font>. <code>In edge-triggered mode, a call to epoll_wait will return only when a new event is enqueued with the epoll object, you should receive all data when event happens, otherwise, next call epoll_wait will block if no new data,  while in level-triggered mode, epoll_wait will return as long as the condition holds.</code></p>
+<p>For instance, if a pipe registered with epoll has received data, a call to epoll_wait will return, signaling the presence of data to be read. Suppose, the reader only consumed part of data from the buffer. In level-triggered mode, further calls to epoll_wait will return immediately, as long as the pipe’s buffer contains data to be read. In edge-triggered mode, however, epoll_wait will return only once new data is written to the pipe.</p>
+<p><strong>edge-triggered mode must read them all if read event happens</strong></p>
+<ul>
+<li>how do I know all data is read for this time(read event)?</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">n = recv(fd, buf, buflen)</span><br><span class="line"><span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">//end of file</span></span><br><span class="line">    close(fd);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (n == <span class="number">-1</span>) &#123;</span><br><span class="line">   <span class="keyword">if</span> (error == EAGAIN) &#123;</span><br><span class="line">   <span class="comment">//no data to read, !!!read them all!!!</span></span><br><span class="line">   &#125; <span class="keyword">else</span> (error == EINTR) &#123;</span><br><span class="line">   <span class="comment">//interrupted when block</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (n &lt; buflen) &#123;</span><br><span class="line"><span class="comment">// !!!read them all!!!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Multi-thread"><a href="#Multi-thread" class="headerlink" title="Multi-thread"></a>Multi-thread</h2><h3 id="pthread-cleanup-pop-and-pthread-cleanup-push"><a href="#pthread-cleanup-pop-and-pthread-cleanup-push" class="headerlink" title="pthread_cleanup_pop and pthread_cleanup_push"></a>pthread_cleanup_pop and pthread_cleanup_push</h3><p>As multi-threads share the address namespace, if a resources is shared by multi-thread for writing, a mutex lock is needed for this, something like this in all threads, but in some case one thread may call <code>pthread_cancel() to abort another thread, if that thread just gets lock but did not run unlock, it will be terminated, no chance to run unlock, hence causes other threads waiting on the lock which will never be freed,deadlock.</code> so we can add a callback that will be called even <code>abort</code> signal  by pthread_cleanup_pop and pthread_cleanup_push.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pthread_mutex_lock(&amp;mutex);</span><br><span class="line"><span class="comment">// do_something()</span></span><br><span class="line">pthread_mutex_unlock(&amp;mutex);</span><br></pre></td></tr></table></figure>
+
+<p><code>pthread_cleanup_push added a callback that will be called even receives abort signal</code>, so we can unlock the mutex in<br>the callback.</p>
+<p><strong>the callback executes in three cases.</strong></p>
+<ul>
+<li>The thread exits (that is, calls pthread_exit()).</li>
+<li>The thread acts upon a cancellation request.</li>
+<li>The thread calls pthread_cleanup_pop() with a non-zero execute argument</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// void pthread_cleanup_push(void (*routine)(void*), void *arg);</span></span><br><span class="line">pthread_cleanup_push(some_clean_func,...)</span><br><span class="line">pthread_mutex_lock(&amp;mutex);</span><br><span class="line"><span class="comment">// do_something</span></span><br><span class="line">pthread_mutex_unlock(&amp;mutex);</span><br><span class="line">pthread_cleanup_pop(<span class="number">0</span>); <span class="meta"># remove the callback, never call it.</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="phread-join"><a href="#phread-join" class="headerlink" title="phread_join"></a>phread_join</h3><p>In multiple threads, one thread may depend on another thread, for instance, A must executes after B quits, or before A quits we must quit B firstly, that’s why pthread_join comes in. one typical case:</p>
+<p><code>In main thread, we create a new thread, if no pthread_join, the two threads may run across</code>, if main thread quits before the new thread (new thread still some work to do), the left work can’t be done, because when the main thread quits, all resources will be freed by OS, the new thread will exit as well!</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">start</span><span class="params">(<span class="keyword">void</span> *str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        sleep(<span class="number">2</span>);</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">"This in the thread : %d\n"</span> , i );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pthread_t</span> pth;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> ret = pthread_create(&amp;pth, <span class="literal">NULL</span>, start, (<span class="keyword">void</span> *)(i)); <span class="comment">//start to run now</span></span><br><span class="line">    pthread_join(pth, <span class="literal">NULL</span>); <span class="comment">//wait until thread exits</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        sleep(<span class="number">1</span>);</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">"This in the main : %d\n"</span> , i );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// If without pthread_join(pth, NULL), the output is unpredictable!!!! Because you</span></span><br><span class="line"><span class="comment">// don’t know when the main thread will exit.</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="thread-safe-vs-multi-safe-vs-signal-safe"><a href="#thread-safe-vs-multi-safe-vs-signal-safe" class="headerlink" title="thread-safe vs multi-safe vs signal-safe"></a>thread-safe vs multi-safe vs signal-safe</h3><h3 id="lockless-queue-stack"><a href="#lockless-queue-stack" class="headerlink" title="lockless queue/stack"></a>lockless queue/stack</h3><p>In order to achieve lockless, there are two main points.</p>
+<ul>
+<li>use <code>CMPXCHG(x86)</code> directive <code>atomic operation</code></li>
+<li>optimize your code and data structure, to <code>compress your code to access critical area in one statement(switch</code></li>
+</ul>
+<p><strong>what does CMPXCHG do</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//simulate it in C code</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">val_compare_and_swap</span> <span class="params">( <span class="keyword">int</span> *memory_location, <span class="keyword">int</span> expected_value, <span class="keyword">int</span> new_value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> old_value = *memory_location;</span><br><span class="line">  <span class="keyword">if</span> (old_value == expected_value)</span><br><span class="line">     *memory_location = new_value;</span><br><span class="line">  <span class="keyword">return</span> old_value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">bool_compare_and_swap</span> <span class="params">( <span class="keyword">int</span> *memory_location, <span class="keyword">int</span> expected_value, <span class="keyword">int</span> new_value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> old_value = *memory_location;</span><br><span class="line">  <span class="keyword">if</span> (old_value == expected_value) &#123;</span><br><span class="line">     *memory_location = new_value;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Thanks to gcc, we no need to write assembly code to do it, as it provides us two functions with written in assembly(CMPXCHG)</p>
+<p><strong>GCC built-in</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> __sync_bool_compare_and_swap (type *ptr, type oldval, type newval, ...)</span><br><span class="line">type __sync_val_compare_and_swap (type *ptr, type oldval, type newval, ...)</span><br></pre></td></tr></table></figure>
+
+<p><strong>lockless stack</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">list</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">head</span>;</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">p</span> = <span class="title">malloc</span>(<span class="title">sizeof</span>(<span class="title">struct</span> <span class="title">node</span>));</span></span><br><span class="line">        <span class="keyword">if</span> (p) &#123;</span><br><span class="line">            p-&gt;val = val;</span><br><span class="line">            <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">                p-&gt;next = head;</span><br><span class="line">                <span class="comment">//check if head is changed by another thread, if not switch</span></span><br><span class="line">                <span class="comment">//otherwise, do another loop.</span></span><br><span class="line">                <span class="keyword">if</span> (__sync_bool_compare_and_swap(&amp;head, p-&gt;next, p)) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="glibc-pthread-mutex-Semaphores-and-futex"><a href="#glibc-pthread-mutex-Semaphores-and-futex" class="headerlink" title="glibc pthread mutex Semaphores and futex"></a>glibc pthread mutex Semaphores and futex</h3><p>Before introduce futex(fast userspace mutex), let’s see how pthread_mutex implement in earlier days, when you call pthread_mutex_lock(), it calls another <code>sytem call whick will do below things in kernel</code>.</p>
+<ul>
+<li>check if the lock available</li>
+<li>if unavailable, sleep the caller.</li>
+</ul>
+<p>what’s the problem with such solution? let’s say if the lock is <code>not used frequently, we still need to go to kernel to check and get the lock.</code> but for <strong><code>check and get the lock</code> we can <code>move it to user space</code></strong>, so that if lock is not used highly, we do not need to go to kernel as no need to sleep the process which must be done by kernel. this is the core concept that futex does, <strong><code>futex includes two parts one part is in glibc that checks the lock, the other part is in kernel when lock not available, call a system api(futex()) to sleep the caller, futex can also wake a process based on parameter</code></strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//futex 的逻辑可以用如下C语言表示</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> val = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> c</span><br><span class="line">    <span class="keyword">if</span> ((c = cmpxchg(val, <span class="number">0</span>, <span class="number">1</span>)) != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (c != <span class="number">2</span>)</span><br><span class="line">            c = xchg(val, <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">while</span> (c != <span class="number">0</span>) &#123;</span><br><span class="line">            futex_wait((&amp;val, <span class="number">2</span>);</span><br><span class="line">            c = xchg(val, <span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> unlock()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (atomic_dec(val) != <span class="number">1</span>)</span><br><span class="line">        futex_wake(&amp;val, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>futex(uaddr, FUTEX_WAKE, 1)</code></p>
+<p><code>futex(uaddr, FUTEX_WAIT, 1)</code></p>
+<p><strong>From kernel 2.5.7(2002), glic uses futex to implement pthread_mutex and semaphores, pthread_join() also calls futex to sleep the caller</strong></p>
+<h3 id="get-thread-id"><a href="#get-thread-id" class="headerlink" title="get thread id"></a>get thread id</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/syscall.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">pid_t</span> x = syscall(__NR_gettid);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>, x)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Multi-process"><a href="#Multi-process" class="headerlink" title="Multi-process"></a>Multi-process</h2><h3 id="wait-vs-waitpid"><a href="#wait-vs-waitpid" class="headerlink" title="wait() vs waitpid()"></a>wait() vs waitpid()</h3><p><code>Always call wait in parent process, otherwise child process will never die(destroyed by os), without wait() call, exited child is in zombie state, memory is freed, but task struct is not freed</code>.</p>
+<p><strong>zombie process</strong></p>
+<p>When a process <code>exits, OS frees all memory for it and closes all fds</code>, only left <code>task struct</code> which has meta data of exited process like process id, exit state, cpu usage etc, then OS <code>sends SIGCHILD to its parent</code>, before parent call wait or waitpid, the exited process is a zombie, if parent never calls wait/waitpid, it’s always zombie, after parent calls wait/waitpid, the only left <code>task struct</code> is freed.</p>
+<p>The wait() system call <code>suspends execution</code> of the current process until <code>one of its children terminates</code>.  The call wait(&amp;status) is equivalent to: waitpid(-1, &amp;status, 0), but waitpid support non-block mode if no child exited by setting option.</p>
+<ul>
+<li>WNOHANG     return immediately if no child has exited.</li>
+</ul>
+<p>The waitpid() system call suspends execution of the current process until <code>a child specified by pid argument has changed state(terminated or stopped)</code>.</p>
+<p><code>waitpid(pid, &amp;status, WIFEXITED)</code></p>
+<p><code>waitpid(pid, &amp;status, WIFSTOPPED)</code></p>
+<ul>
+<li><span class="exturl" data-url="aHR0cDovL21hbjcub3JnL2xpbnV4L21hbi1wYWdlcy9tYW4yL3dhaXRpZC4yLmh0bWw=" title="http://man7.org/linux/man-pages/man2/waitid.2.html">wait() api<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vd3VjaGFubWluZy9wLzQwMjA0NjMuaHRtbA==" title="https://www.cnblogs.com/wuchanming/p/4020463.html">zombie process<i class="fa fa-external-link"></i></span></li>
+</ul>
+<p><strong>Always use waitpid() as it’s powerful,<br>it can return when [any one] or ]particular one] or ]no one exited]</strong></p>
+<h3 id="execve"><a href="#execve" class="headerlink" title="execve()"></a>execve()</h3><p><span class="exturl" data-url="aHR0cDovL21hbjcub3JnL2xpbnV4L21hbi1wYWdlcy9tYW4zL2V4ZWMuMy5odG1s" title="http://man7.org/linux/man-pages/man3/exec.3.html">exec() familiy<i class="fa fa-external-link"></i></span> executes the program referred to by pathname.  This causes the program that is currently being run by the calling process to be <code>replaced with a new program, with newly initialized stack, heap, and (initialized and uninitialized) data segments</code>, <strong>except below:</strong></p>
+<ul>
+<li>File descriptors open except for those whose close-on-exec flag (FD_CLOEXEC) is set</li>
+<li>Process ID</li>
+<li>Parent process ID</li>
+<li>Process group ID</li>
+<li>Session membership</li>
+<li>Real user ID</li>
+<li>Real group ID</li>
+<li>Current working directory</li>
+<li>File mode creation mask</li>
+<li>Process signal mask</li>
+<li>Pending signals</li>
+</ul>
+<p><strong><font color="red">In short</font></strong></p>
+<p>you can <strong><code>think it roughly all are replaced except keeping the file descriptors and signal</code></strong><br>so make sure close these opened file by two ways.</p>
+<p>One way</p>
+<p><strong>Add flag when open a file(socket) with O_CLOEXEC</strong></p>
+<p>The other way</p>
+<p><strong>after open, use fcntl() to set a flag FD_CLOEXEC</strong></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vaG5yYWlubGwvYXJjaGl2ZS8yMDExLzA3LzIzLzIxMTQ4NTQuaHRtbA==" title="https://www.cnblogs.com/hnrainll/archive/2011/07/23/2114854.html">demo for each function<i class="fa fa-external-link"></i></span></p>
+<h2 id="Mix-process-and-thread-call-fork-in-thread"><a href="#Mix-process-and-thread-call-fork-in-thread" class="headerlink" title="Mix process and thread, call fork in thread?"></a>Mix process and thread, call fork in thread?</h2><p><font color="red"><strong>Should never call fork in multi-thread</strong> </font>as there are lots of non-obvious problems that you can’t detect them easily.</p>
+<p>The non-obvious problem in this approach(mix them) is that <code>at the moment of the fork(2) call some threads may be in critical sections of code, doing non-atomic operations protected by mutexes</code>. In the child process the threads just disappears and left data half-modified without any possibility to “fix” them, there is no way to say what other threads were doing and what should be done to make the data consistent. Moreover: <code>state of mutexes is undefined, they might be unusable and the only way to use them in the child is to call pthread_mutex_init() to reset them to a usable state</code>. It’s implementation dependent how mutexes behave after fork(2) was called. On my Linux machine locked mutexes are locked in the child.</p>
+<p><strong>malloc, syslog(), printf()</strong> use lock internally, be careful with them in multi-thread or multi-process.</p>
+<p>More details, refer to <span class="exturl" data-url="aHR0cDovL3d3dy5saW51eHByb2dyYW1taW5nYmxvZy5jb20vdGhyZWFkcy1hbmQtZm9yay10aGluay10d2ljZS1iZWZvcmUtdXNpbmctdGhlbQ==" title="http://www.linuxprogrammingblog.com/threads-and-fork-think-twice-before-using-them">think-twice-before-using-tem<i class="fa fa-external-link"></i></span></p>
+<h2 id="pipe-vs-pipe2-vs-socketpair-and-dup-vs-dup2"><a href="#pipe-vs-pipe2-vs-socketpair-and-dup-vs-dup2" class="headerlink" title="pipe vs pipe2 vs socketpair and dup vs dup2"></a>pipe vs pipe2 vs socketpair and dup vs dup2</h2><p>pipe(fd[2])/pipe2(fd[2], flag) create a unidirection channel with two fds(<code>fd[0] for read, while fd[1] for write</code>), <code>pipe2 gives more control when creating the channel like set NON_BLOCK</code> etc.</p>
+<p>pipe2() exists is to avoid race conditions by taking the O_CLOEXEC | O_NONBLOCK, <span class="exturl" data-url="aHR0cHM6Ly9tYW43Lm9yZy9saW51eC9tYW4tcGFnZXMvbWFuMi9vcGVuLjIuaHRtbA==" title="https://man7.org/linux/man-pages/man2/open.2.html">https://man7.org/linux/man-pages/man2/open.2.html<i class="fa fa-external-link"></i></span></p>
+<p>socketpair(domain, proto, fd[2]) is similar to pipe, actually, <code>it&#39;s extension of pipe, it&#39;s two-way communication.</code></p>
+<p>dup(oldfd)/dup2(oldfd, newfd) make duplicate the fd, hence <code>dup2 lets you provide the new fd while dup() pick the smallest unused fd</code></p>
+<p><strong><code>dup(oldfd) will duplicate the oldfd, the return value is new fd(dup always pick the smallest fd unused)</code></strong></p>
+<p><code>dup2(oldfd, newfd) takes two fd, oldfd must be created before dup2, it will use newfd points to oldfd, if newfd is open, it will silently close it before reuse it.</code></p>
+<p><strong>typical use for pipe</strong></p>
+<p>parent creates a pipe, then fork child, child/parent use pipe for one-way communication.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd[<span class="number">2</span>];</span><br><span class="line">pipe(fd);</span><br><span class="line"><span class="keyword">int</span> pid = fork();</span><br><span class="line"><span class="keyword">if</span>(pid) &#123;</span><br><span class="line">    <span class="comment">//parent read</span></span><br><span class="line">    close(fd[<span class="number">1</span>]);</span><br><span class="line">    read(fd[<span class="number">0</span>]);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//child write</span></span><br><span class="line">    close(fd[<span class="number">0</span>]);</span><br><span class="line">    write(fd[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>typical use for dup/dup2 along with pipe</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd[<span class="number">2</span>];</span><br><span class="line">pipe(fd);</span><br><span class="line"><span class="keyword">int</span> pid = fork();</span><br><span class="line"><span class="keyword">if</span> (pid) &#123;</span><br><span class="line">    <span class="comment">//parent read</span></span><br><span class="line">    close(fd(<span class="number">1</span>));</span><br><span class="line">    read(fd(<span class="number">0</span>));</span><br><span class="line">    close[fd[<span class="number">0</span>]);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//child write</span></span><br><span class="line">    close(fd[<span class="number">0</span>])</span><br><span class="line">    <span class="comment">//redirect STDOUT, hence parent will get the output from execv!!!</span></span><br><span class="line">    dup2(fd[<span class="number">1</span>], STDOUT_FILENO);</span><br><span class="line">    execlp(<span class="string">"grep"</span>, <span class="string">"grep"</span>, <span class="string">"pipe"</span>,<span class="literal">NULL</span>);</span><br><span class="line">    close(fd[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="little-endian-and-big-endian"><a href="#little-endian-and-big-endian" class="headerlink" title="little-endian and big-endian"></a>little-endian and big-endian</h2><p>“Little Endian” means that the <code>low-order byte of the number is stored in memory at the lowest address</code>, and the high-order byte at the highest address. (The little end comes first.) For example, a 4 byte Int</p>
+<pre><code>`Byte3 Byte2 Byte1 Byte0`</code></pre><p>will be arranged in memory as follows:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Base Address+0   Byte0</span><br><span class="line">Base Address+1   Byte1</span><br><span class="line">Base Address+2   Byte2</span><br><span class="line">Base Address+3   Byte3</span><br></pre></td></tr></table></figure>
+
+<p><strong>Intel processors (those used in PC’s) use “Little Endian” byte order</strong>.<br>“Big Endian” means that the high-order byte of the number is stored in memory at the lowest address, and the low-order byte at the highest address. (The big end comes first.) Our LongInt, would then be stored as:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Base Address+0   Byte3</span><br><span class="line">Base Address+1   Byte2</span><br><span class="line">Base Address+2   Byte1</span><br><span class="line">Base Address+3   Byte0</span><br></pre></td></tr></table></figure>
+
+<p>Motorola processors (those used in Mac’s) use “Big Endian” byte order.</p>
+<h2 id="gcc"><a href="#gcc" class="headerlink" title="gcc"></a>gcc</h2><p>gcc provides lots of built-in keywords like <code>inline, typeof etc</code> for better use.</p>
+<p>Note: while <code>-ansi and the various -std options disable certain keywords</code> (asm, inline typeof) in such case, use<code>__asm__, __inline__, __typeof__</code> when -ansi or -std is enable during compiling.</p>
+<h3 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h3><p><code>get type of variable then define internal variable in Macro</code>, this is what ‘typeof’ is always used.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//a and b are two pointers</span></span><br><span class="line">typeof(<span class="keyword">int</span>*) a, b;</span><br><span class="line"></span><br><span class="line"><span class="comment">//a is a pointer while b is int</span></span><br><span class="line">typeof(<span class="keyword">int</span>) *a, b;</span><br></pre></td></tr></table></figure>
+
+<h3 id="inline"><a href="#inline" class="headerlink" title="inline"></a>inline</h3><p>GCC does <code>not inline any functions without optimizing(-o0)</code> unless you specify the ‘always_inline’ attribute for the function.</p>
+<ul>
+<li><strong>suggest inline, inline or not determined by compiler</strong><br><code>inline void foo() {}</code></li>
+<li><strong>force inline</strong><br><code>inline void foo()__attribute__((always_inline)) {}</code></li>
+</ul>
+<p><strong>Note: inline keyword is added at function definition not declaration</strong></p>
+<p><strong><code>What does compiler do if it inlines that function?</code></strong></p>
+<p>Actually for a inline function, compiler will repace the function call with extended code, that means there is <code>no function call happens for inline function</code>, fast but with more code, but there are <code>exceptions here, if we assign inline function to a function pointer</code>, compiler will create function(even it’s inline) for it with an address, otherwise, if this no function in assemble code for inline function.</p>
+<p><strong>inline in dot c file</strong></p>
+<p>if you<code>define inline function in dot c and want to call it in another dot c</code>, compiler will create a function address for inline function as well, <code>another dot c sees it as a normal function, but in the file it defines, it&#39;s a inline.</code> function.</p>
+<p><strong>inline in dot h file</strong></p>
+<p>if you define it in dot h, <code>as dot h will be copied to the c file who includes it</code>, so that there are several copied of this inline function <code>like it&#39;s defined in that dot c file so it&#39;s inlined for dot c file</code>.</p>
+<p><code>For short shared function, define it as inline in dot h file with static keyword</code></p>
+<h3 id="static-used-in-header"><a href="#static-used-in-header" class="headerlink" title="static used in header"></a>static used in header</h3><p>One important thing that must know is that for <code>header file it will be copied to dot c file who includes it</code>. that means if you <code>static int b = 12</code> in a header file, if it’s included by two dot c files, it has the same effect that two dot c files define <code>static int b = 12</code> for themself.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//File q7a.h:</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> err_code = <span class="number">3</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printErrCode</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//File q7a.c:</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"q7a.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printErrCode</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"%d\n"</span>, err_code);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//File q7main.c:</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"q7a.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    err_code = <span class="number">5</span>;</span><br><span class="line">    printErrCode();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">gcc –Wall –c q7a.c –o q7a.o</span></span><br><span class="line"><span class="meta">$</span><span class="bash">gcc –Wall –c q7main.c –o q7main.o</span></span><br><span class="line"><span class="meta">$</span><span class="bash">gcc q7main.o q7a.o –o q7</span></span><br><span class="line"><span class="meta">$</span><span class="bash">./q7</span></span><br><span class="line">the output is 3</span><br></pre></td></tr></table></figure>
+
+<h3 id="attribute-of-function"><a href="#attribute-of-function" class="headerlink" title="attribute of function"></a>attribute of function</h3><p><strong><code>__attribute__ can be used only in declaration!</code></strong> here only list common attributes that may be used in your daily life.</p>
+<ul>
+<li>deprecated: indicate you’d better not use me as I’m deprecated, if used, warning will appear/</li>
+<li><strong>constructor: run before main</strong></li>
+<li><strong>destructor:  run after main</strong></li>
+<li>section: specify the section that I’m defined</li>
+<li>warn_unused_result: warning if result is not used</li>
+<li>noinline: prevent me from being considered for inlining.</li>
+<li>always_inline: force inline</li>
+<li>ununsed: prevent printing warning if not used.</li>
+</ul>
+<p><code>void fun() __attribute__((deprecated));</code></p>
+<h3 id="attribute-of-variable"><a href="#attribute-of-variable" class="headerlink" title="attribute of variable"></a>attribute of variable</h3><ul>
+<li><p>aligned: This attribute specifies a <code>minimum alignment for the variable or structure field</code>, measured in bytes, <strong>if type default alignment is large than this value, use default.</strong> <strong>alignment=max(default, aligned)</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Whenever you leave out the alignment factor in an aligned attribute specification, the compiler automatically sets the alignment for the declared variable or field to the largest alignment which is ever used for any data type on the target machine you are compiling for. Doing this can often make copy operations more efficient, because the compiler can use whatever instructions copy the biggest chunks of memory when performing copies to or from the variables or fields that you have aligned this way.</span><br></pre></td></tr></table></figure>
+
+<p>  The <code>aligned attribute can only increase the alignment</code>; but you can decrease it by specifying packed as well</p>
+</li>
+<li><p>packed: The packed attribute specifies that a variable or structure field should <code>have the smallest possible alignment</code>–one byte for a variable, and one bit for a field,         <strong>alignment=min(default, packed)</strong></p>
+</li>
+<li><p>deprecated: see function</p>
+</li>
+<li><p>section: see function</p>
+</li>
+<li><p>unused: see function</p>
+</li>
+</ul>
+<h3 id="attribute-of-type"><a href="#attribute-of-type" class="headerlink" title="attribute of type"></a>attribute of type</h3><ul>
+<li>aligned: same as variable</li>
+<li>packed: specifying this attribute for struct and union types is <code>equivalent to specifying the packed attribute on each of the structure or union members</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">T1</span>&#123;</span></span><br><span class="line">    <span class="keyword">char</span> a;</span><br><span class="line">    <span class="keyword">short</span> b;</span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">int</span> d __attribute__((packed));</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//sizeof(struct T1)==10</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">T2</span>&#123;</span></span><br><span class="line">    <span class="keyword">char</span> a;</span><br><span class="line">    <span class="keyword">short</span> b;</span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">int</span> d;</span><br><span class="line">&#125; __attribute__((packed)); <span class="comment">// like each member __attribute__((packed))</span></span><br><span class="line"><span class="comment">//sizeof(struct T2)==8</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>deprecated: see variable.</li>
+</ul>
+<p><code>typedef int T1 __attribute__((deprecated));</code></p>
+<h3 id="built-in-function"><a href="#built-in-function" class="headerlink" title="built-in function"></a>built-in function</h3><ul>
+<li>the most/less significant bit</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> val = <span class="number">0b1100</span>; <span class="comment">// binary</span></span><br><span class="line">	<span class="built_in">printf</span> (<span class="string">"there are %d zero before the fist bit 1 for 1100\n"</span>,__builtin_clz (val));</span><br><span class="line">	<span class="built_in">printf</span> (<span class="string">"there are %d zero after the fist bit 1 for 1100\n"</span>,__builtin_ctz (val));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h1><h2 id="should-add-void-to-funtion-who-has-no-parameter"><a href="#should-add-void-to-funtion-who-has-no-parameter" class="headerlink" title="should add void to funtion who has no parameter?"></a>should add void to funtion who has no parameter?</h2><p>Yes, it’s better do that as if compiling with <code>-Werror=strict-prototypes</code>, it will show error if function did not add void to function that does not need parameter.</p>
+<p><code>void hello(void);</code></p>
+<h2 id="Eliminate-unused-warning"><a href="#Eliminate-unused-warning" class="headerlink" title="Eliminate unused warning"></a>Eliminate unused warning</h2><p>In some case, you do not want to comment <code>unsed variable</code> out , but avoid compiling warning, or avoid warning for <code>unused return value</code>.</p>
+<ul>
+<li><code>(void)unsed_var;</code></li>
+<li><code>(void)function();</code></li>
+</ul>
+<h2 id="use-do-while-0-if-want-to-use-block-in-macro"><a href="#use-do-while-0-if-want-to-use-block-in-macro" class="headerlink" title="use do{}while(0) if want to use block in macro"></a>use do{}while(0) if want to use block in macro</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// group macro in block with do/while, limit var scope if defined in macro</span></span><br><span class="line"><span class="comment">// to avoid conflict with caller.</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> hello(msg) \</span></span><br><span class="line"><span class="keyword">do</span> &#123; \</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">12</span>; \</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %s"</span>, a, msg); \</span><br><span class="line">&#125; <span class="keyword">while</span>(<span class="number">0</span>) \</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    hello(<span class="string">"boy"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="see-assembly-and-source-code"><a href="#see-assembly-and-source-code" class="headerlink" title="see assembly and source code"></a>see assembly and source code</h2><p><code>gcc -c -g -Wa,-a,-ad a.c &gt; test.lst</code></p>
+<h2 id="show-convertion-warning-when-compile-code"><a href="#show-convertion-warning-when-compile-code" class="headerlink" title="show convertion warning when compile code"></a>show convertion warning when compile code</h2><p><code>gcc -Wconversion</code></p>
+<h2 id="cacheline-aligned"><a href="#cacheline-aligned" class="headerlink" title="cacheline aligned"></a>cacheline aligned</h2><p>In some case, we want a variable(struct) cache line aligned, so that CPU can read them once(cpu read memory cache line every time), so it’s better put related field(if access a, will access b soon, a, b are related) together in a cache line, check struct layout with <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FjbWVsL2R3YXJ2ZXM=" title="https://github.com/acmel/dwarves">pahole<i class="fa fa-external-link"></i></span></p>
+<p><strong>two typical cache line size: 32 bytes or 64 bytes.</strong></p>
+<h2 id="bit-shift"><a href="#bit-shift" class="headerlink" title="bit shift"></a>bit shift</h2><p><strong>left shift</strong>: always pad with 0</p>
+<p><strong>right shift</strong>:</p>
+<ul>
+<li>unsigned operator, padding with 0</li>
+<li><strong>signed operator, padding with flag bit(for positive 0, 1 for negative)</strong></li>
+</ul>
+<h2 id="send-recv-packet-API-difference"><a href="#send-recv-packet-API-difference" class="headerlink" title="send/recv packet API difference"></a>send/recv packet API difference</h2><p>pairs of API for sending /recving message</p>
+<p><code>&quot;connected&quot; socket  can be [STREAM, DGGRAM called connect()]</code></p>
+<ul>
+<li>read/readv: read one buffer/several buffers on fd <code>[file like API]</code></li>
+<li>write/writev: write with one buffer/several on ‘connected fd <code>[file like API]</code></li>
+<li>recv/send: with one buffer on ‘connected’ socket</li>
+<li>recvfrom/sendto: with on buffer on ‘unconnected’ socket</li>
+<li>recvmsg/sendmsg: with several buffers on ‘connected’ socket</li>
+</ul>
+<h2 id="STREAM-vs-Datagram"><a href="#STREAM-vs-Datagram" class="headerlink" title="STREAM vs Datagram"></a>STREAM vs Datagram</h2><p><code>Stream communication</code> implies several things, communication takes place across a connection between two sockets, the communication is reliable, error-free, and <code>no message boundaries are kept</code>, <code>reading from a stream may result in reading the data sent from one or several calls to write() or only part of the data from single call</code>, if there is not enough room for the entire message, or if not all data from a large message has been transferred, the protocol implementing such a style will retransmit message received with errors, it will also return error if one tries to send a message after the connection has been broken.</p>
+<p><code>Datagram communication</code> doesn’t use connection, <code>each message is addressed individually</code>, if the address is correct, it will generally be received, although this is not guaranteed, the individual datagram will be kept separate when they are read, that is<code>message boundaries(from user level not from kernel level) are preserved</code>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TCP-----byte--------stream-----send receive---------------------in order --- -------------may partial</span><br><span class="line">UDP----message------datagram—--send—receive---------------------not guarantee(may lost)---full message</span><br><span class="line">Like TCP:  sender: AA  BB----recver: A   AB    B</span><br><span class="line">	 UDP:  sender: AA  BB---recver:  BB        AA</span><br></pre></td></tr></table></figure>
+
+<p><img alt data-src="https://cyun.tech/images/C/stream-vs-datagram.png"></p>
+<p>when call sendto(), there are two limitation, one is the socket sendbufer, the other is</p>
+<p><code>MAX_MESSAGE_SIZE(udp payload)==65507==65535(max ip length)-20(ip header)-8(udp header)</code> but there ip package will may be fragment due to MTU(1500), so you can send max udp message(not include udp header) is 65507, <code>fragment always happens at IP layer for UDP if possible, but for TCP, there is no IP fragment at sender machine as TCP already split into smaller message before call IP layer</code>, but if socket send buffer is not enough to hold it, sendto() will blocked until kernel send some message and free the room.</p>
+<h2 id="add-a-wrapper-for-a-function-who-defined-in-dynamic-library"><a href="#add-a-wrapper-for-a-function-who-defined-in-dynamic-library" class="headerlink" title="add a wrapper for a function who defined in dynamic library"></a>add a wrapper for a function who defined in dynamic library</h2><p>this is used when need to add a wrapper for a function that’s defined in dynamic library(so that you don’t see the source code of it!!) like C dynamic library or other dynamic library (dynamic library!!!!!!!!)</p>
+<ul>
+<li><p>step 1: create you own dynamic library</p>
+<pre><code>1.1 program wrapper library
+void* malloc(size_t size)
+{
+    void *ret;
+    static void* (*realmalloc(size_t size)) = NULL;
+    if (realmalloc == NULL) {
+        realmalloc = dlsym(RTLD_NEXT, &quot;malloc&quot;); /* function that will be wrapped
+    }
+    ret = realmalloc(size);
+    !!!!add trace here!!!!!!!!!!!!
+    return ret;
+}
+1.2 compile it into wrapper.so</code></pre></li>
+<li><p>step 2: create your program like before, see nothing happens</p>
+<pre><code>ptr = malloc(64);</code></pre></li>
+<li><p>setp 2: load it</p>
+<pre><code>LD_PRLOAD=./wrapper.so ./program
+(wrapper.so is your dynamic library that wrapps
+ the dynamic library(like C dynamic library)</code></pre></li>
+</ul>
+<h2 id="NULL-vs-0"><a href="#NULL-vs-0" class="headerlink" title="NULL vs 0"></a>NULL vs 0</h2><p>when evaluate the value of NULL, it’s 0, <code>but if you assign NULL to non-pointer, it&#39;s a warning</code>, but a has value 0!</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="literal">NULL</span>? <span class="number">1</span>: <span class="number">2</span>; <span class="comment">//now a is 2!!!</span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">NULL</span> == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"equal"</span>);<span class="comment">//printed</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="function-pointer"><a href="#function-pointer" class="headerlink" title="function pointer"></a>function pointer</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">(<span class="keyword">void</span>(*h)())</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// h is function pointer var</span></span><br><span class="line">    h();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// by is a function pointer type</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*by)</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="sizeof-vs-strlen"><a href="#sizeof-vs-strlen" class="headerlink" title="sizeof vs strlen"></a>sizeof vs strlen</h2><p>strlen returns when it sees ‘\0’ while sizeof calculates the size of bytes that the variable takes.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *p = <span class="string">"a"</span>; <span class="comment">//sizeof(p)==8 (x86-64), strlen(p)==1</span></span><br><span class="line"><span class="keyword">int</span> p[] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;; <span class="comment">//sizeof(p)==12</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// char *p and char p[] behave same when used in parameter</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">char</span> p [])</span> <span class="comment">// same as char *p!!!</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, <span class="keyword">sizeof</span>(p));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="what-about-char-p-0-in-a-struct"><a href="#what-about-char-p-0-in-a-struct" class="headerlink" title="what about char p[0] in a struct"></a>what about char p[0] in a struct</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">prot</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> a</span><br><span class="line">    <span class="keyword">char</span> p[<span class="number">0</span>]; <span class="comment">//always as a label for dynamic size allocated after a!!! take no memory</span></span><br><span class="line">    <span class="comment">// struct prot * p = malloc(sizeof(struct prot) + 100);</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">sizeof</span>(struct prot) == <span class="number">4</span>!!!</span><br></pre></td></tr></table></figure>
+
+<h3 id="what-about-function-in-a-struct"><a href="#what-about-function-in-a-struct" class="headerlink" title="what about function in a struct"></a>what about function in a struct</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">prot</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> a</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;<span class="built_in">printf</span>(<span class="string">"hello"</span>);&#125; <span class="comment">//define a function inside a struct</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">sizeof</span>(struct prot) == <span class="number">4</span>!!!</span><br></pre></td></tr></table></figure>
+
+<h2 id="shared-variable-between-source-global-variable"><a href="#shared-variable-between-source-global-variable" class="headerlink" title="shared variable between source(global variable)"></a>shared variable between source(global variable)</h2><ul>
+<li>define it at xxx.c</li>
+</ul>
+<p><code>int global_v = 10;</code></p>
+<ul>
+<li>export it at xxx.h others can include such header</li>
+</ul>
+<p><code>extern int global_v</code>;</p>
+<h2 id="Can-we-return-a-local-pointer-variable-from-a-function"><a href="#Can-we-return-a-local-pointer-variable-from-a-function" class="headerlink" title="Can we return a local pointer variable from a function"></a>Can we return a local pointer variable from a function</h2><p><strong>Actually you should NOT do this</strong>, as it’s not a good way as if local pointer points to memory on the stack after function call, it will be freed!!!</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> * <span class="title">f1</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> * p = <span class="string">"abc"</span>;</span><br><span class="line">    <span class="keyword">return</span> p; <span class="comment">// as 'abc' is literal, so its memory is not on stack!!</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">char</span> * <span class="title">f2</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> p[] = <span class="string">"cde"</span>;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *str;</span><br><span class="line">    str = f1 ();</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"%s\n"</span>, str); <span class="comment">//we still see right value as str points to the memory which is not on stack!!!</span></span><br><span class="line">    str = f2 ();</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"%s\n"</span>, str); <span class="comment">//segment fault!</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="type-length-and-overflow"><a href="#type-length-and-overflow" class="headerlink" title="type length and overflow"></a>type length and overflow</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c = <span class="number">0x40</span>; <span class="comment">//64</span></span><br><span class="line"><span class="keyword">char</span> x = <span class="number">64</span>;</span><br><span class="line"><span class="keyword">char</span> b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d\n"</span>,(<span class="keyword">char</span>)(x*b)); <span class="comment">// the highest bit is flag(0(+), 1(-1)), result: -128</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d\n"</span>, c&lt;&lt;<span class="number">3</span>);       <span class="comment">// result: 512 as %d is used, like int tmp = c&lt;&lt;3</span></span><br><span class="line"><span class="built_in">printf</span> (<span class="string">"%d\n"</span>, (<span class="keyword">char</span>)(c&lt;&lt;<span class="number">3</span>)); <span class="comment">//truncted result: 0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="what-does-volatile-really-mean"><a href="#what-does-volatile-really-mean" class="headerlink" title="what does volatile really mean"></a>what does volatile really mean</h2><p>‘volatile’ is a keyword to <strong>prevent compiler optimizing(like cache value, reorder etc) for the described variable</strong>. its value can be changed by code outside the scope of current code at any time. The system <strong>always reads the current value of a volatile object from the memory location rather than keeping its value in temporary register at the point it is requested</strong>, even if a previous instruction asked for a value from the same object</p>
+<p>it may be used to<br><font color="red" size="4"></font></p>
+<ul>
+<li>describe an object corresponding to a memory-mapped input/output port(driver also does)</li>
+<li>global object accessed by an asynchronously interrupting function(ISR, signal handler)</li>
+<li>global object accessed by two threads
+
+</li>
+</ul>
+<h3 id="two-threads"><a href="#two-threads" class="headerlink" title="two threads"></a>two threads</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> flag = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">thread1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/* now at thread1 compiler thinks flag is always 1</span></span><br><span class="line"><span class="comment">     * so it optimizes the code as</span></span><br><span class="line"><span class="comment">     * while (1) &#123;</span></span><br><span class="line"><span class="comment">     * &#125;</span></span><br><span class="line"><span class="comment">     * later on even thread2 changes the value, thread1 does not know</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">while</span>(flag)</span><br><span class="line">    &#123;</span><br><span class="line">        sleep(<span class="number">10</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"flag with 1\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"flag with 0"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">thread2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    sleep(<span class="number">3</span>);</span><br><span class="line">    <span class="comment">/* change the global value */</span></span><br><span class="line">    flag = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="one-thread-and-signal-handler"><a href="#one-thread-and-signal-handler" class="headerlink" title="one thread and signal handler"></a>one thread and signal handler</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> flag = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">thread1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/* now at thread1 compiler thinks flag is always 1</span></span><br><span class="line"><span class="comment">     * so it optimizes the code as</span></span><br><span class="line"><span class="comment">     * while (1) &#123;</span></span><br><span class="line"><span class="comment">     * &#125;</span></span><br><span class="line"><span class="comment">     * later on even signal handler changes the value, thread1 does not know</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">while</span>(flag)</span><br><span class="line">    &#123;</span><br><span class="line">        sleep(<span class="number">10</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"flag with 1\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"flag with 0"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">signal_xx_handler</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/* change the global value */</span></span><br><span class="line">    flag = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ISR"><a href="#ISR" class="headerlink" title="ISR"></a>ISR</h3><p>when ISR always mapps port/io/device register from device exported, we should get its value from memory not cache register as it can be changed by DMA out scope of processor.</p>
+<h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuY3Byb2dyYW1taW5nLmNvbS8=" title="https://www.cprogramming.com/">c c++ programming<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL3RsZHAub3JnL0hPV1RPL1Byb2dyYW0tTGlicmFyeS1IT1dUTy9pbmRleC5odG1s" title="http://tldp.org/HOWTO/Program-Library-HOWTO/index.html">linux library howto<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly91c2Vycy5jcy5jZi5hYy51ay9EYXZlLk1hcnNoYWxsL0Mvbm9kZTI3Lmh0bWw=" title="https://users.cs.cf.ac.uk/Dave.Marshall/C/node27.html">shared memory<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9tZWRpdW0uY29tL0Bjb3B5Y29uc3RydWN0L3RoZS1tZXRob2QtdG8tZXBvbGxzLW1hZG5lc3MtZDlkMmQ2Mzc4NjQy" title="https://medium.com/@copyconstruct/the-method-to-epolls-madness-d9d2d6378642">epoll<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC9kZmQ5NDBlN2ZjYTI=" title="https://www.jianshu.com/p/dfd940e7fca2">select vs pool vs epoll<i class="fa fa-external-link"></i></span></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/c-language/" rel="tag"><i class="fa fa-tag"></i> c language</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/bash-basic/" rel="next" title="bash-basic">
+                  <i class="fa fa-chevron-left"></i> bash-basic
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/http-apache/" rel="prev" title="http-apache">
+                  http-apache <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#parameter-passing"><span class="nav-number">1.1.</span> <span class="nav-text">parameter passing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#function-vs-macro"><span class="nav-number">1.2.</span> <span class="nav-text">function vs macro</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rules-to-obey"><span class="nav-number">1.2.1.</span> <span class="nav-text">rules to obey</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tips-for-using-macro"><span class="nav-number">1.2.2.</span> <span class="nav-text">tips for using macro</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ifdef-if-vs-macro"><span class="nav-number">1.2.3.</span> <span class="nav-text">ifdef/if vs macro</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Free-memory-when-process-exits"><span class="nav-number">1.3.</span> <span class="nav-text">Free memory when process exits</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPC"><span class="nav-number">1.4.</span> <span class="nav-text">IPC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pipe"><span class="nav-number">1.4.1.</span> <span class="nav-text">pipe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socketpair"><span class="nav-number">1.4.2.</span> <span class="nav-text">socketpair</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AF-LOCAL-AF-UNIX-socket"><span class="nav-number">1.4.3.</span> <span class="nav-text">AF_LOCAL(AF_UNIX) socket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#signal"><span class="nav-number">1.4.4.</span> <span class="nav-text">signal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#eventfd"><span class="nav-number">1.4.5.</span> <span class="nav-text">eventfd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#share-memory"><span class="nav-number">1.4.6.</span> <span class="nav-text">share memory</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#system-v-style"><span class="nav-number">1.4.6.1.</span> <span class="nav-text">system-v style</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#posix-style"><span class="nav-number">1.4.6.2.</span> <span class="nav-text">posix style</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multiplexing"><span class="nav-number">1.5.</span> <span class="nav-text">Multiplexing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#select"><span class="nav-number">1.5.1.</span> <span class="nav-text">select</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poll"><span class="nav-number">1.5.2.</span> <span class="nav-text">poll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#epoll"><span class="nav-number">1.5.3.</span> <span class="nav-text">epoll</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multi-thread"><span class="nav-number">1.6.</span> <span class="nav-text">Multi-thread</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pthread-cleanup-pop-and-pthread-cleanup-push"><span class="nav-number">1.6.1.</span> <span class="nav-text">pthread_cleanup_pop and pthread_cleanup_push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#phread-join"><span class="nav-number">1.6.2.</span> <span class="nav-text">phread_join</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thread-safe-vs-multi-safe-vs-signal-safe"><span class="nav-number">1.6.3.</span> <span class="nav-text">thread-safe vs multi-safe vs signal-safe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lockless-queue-stack"><span class="nav-number">1.6.4.</span> <span class="nav-text">lockless queue/stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#glibc-pthread-mutex-Semaphores-and-futex"><span class="nav-number">1.6.5.</span> <span class="nav-text">glibc pthread mutex Semaphores and futex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-thread-id"><span class="nav-number">1.6.6.</span> <span class="nav-text">get thread id</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multi-process"><span class="nav-number">1.7.</span> <span class="nav-text">Multi-process</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wait-vs-waitpid"><span class="nav-number">1.7.1.</span> <span class="nav-text">wait() vs waitpid()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#execve"><span class="nav-number">1.7.2.</span> <span class="nav-text">execve()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mix-process-and-thread-call-fork-in-thread"><span class="nav-number">1.8.</span> <span class="nav-text">Mix process and thread, call fork in thread?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pipe-vs-pipe2-vs-socketpair-and-dup-vs-dup2"><span class="nav-number">1.9.</span> <span class="nav-text">pipe vs pipe2 vs socketpair and dup vs dup2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#little-endian-and-big-endian"><span class="nav-number">1.10.</span> <span class="nav-text">little-endian and big-endian</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gcc"><span class="nav-number">1.11.</span> <span class="nav-text">gcc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#typeof"><span class="nav-number">1.11.1.</span> <span class="nav-text">typeof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inline"><span class="nav-number">1.11.2.</span> <span class="nav-text">inline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-used-in-header"><span class="nav-number">1.11.3.</span> <span class="nav-text">static used in header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#attribute-of-function"><span class="nav-number">1.11.4.</span> <span class="nav-text">attribute of function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#attribute-of-variable"><span class="nav-number">1.11.5.</span> <span class="nav-text">attribute of variable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#attribute-of-type"><span class="nav-number">1.11.6.</span> <span class="nav-text">attribute of type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#built-in-function"><span class="nav-number">1.11.7.</span> <span class="nav-text">built-in function</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tips"><span class="nav-number">2.</span> <span class="nav-text">tips</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#should-add-void-to-funtion-who-has-no-parameter"><span class="nav-number">2.1.</span> <span class="nav-text">should add void to funtion who has no parameter?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Eliminate-unused-warning"><span class="nav-number">2.2.</span> <span class="nav-text">Eliminate unused warning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#use-do-while-0-if-want-to-use-block-in-macro"><span class="nav-number">2.3.</span> <span class="nav-text">use do{}while(0) if want to use block in macro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#see-assembly-and-source-code"><span class="nav-number">2.4.</span> <span class="nav-text">see assembly and source code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#show-convertion-warning-when-compile-code"><span class="nav-number">2.5.</span> <span class="nav-text">show convertion warning when compile code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cacheline-aligned"><span class="nav-number">2.6.</span> <span class="nav-text">cacheline aligned</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bit-shift"><span class="nav-number">2.7.</span> <span class="nav-text">bit shift</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#send-recv-packet-API-difference"><span class="nav-number">2.8.</span> <span class="nav-text">send/recv packet API difference</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STREAM-vs-Datagram"><span class="nav-number">2.9.</span> <span class="nav-text">STREAM vs Datagram</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#add-a-wrapper-for-a-function-who-defined-in-dynamic-library"><span class="nav-number">2.10.</span> <span class="nav-text">add a wrapper for a function who defined in dynamic library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NULL-vs-0"><span class="nav-number">2.11.</span> <span class="nav-text">NULL vs 0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#function-pointer"><span class="nav-number">2.12.</span> <span class="nav-text">function pointer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sizeof-vs-strlen"><span class="nav-number">2.13.</span> <span class="nav-text">sizeof vs strlen</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#what-about-char-p-0-in-a-struct"><span class="nav-number">2.13.1.</span> <span class="nav-text">what about char p[0] in a struct</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#what-about-function-in-a-struct"><span class="nav-number">2.13.2.</span> <span class="nav-text">what about function in a struct</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shared-variable-between-source-global-variable"><span class="nav-number">2.14.</span> <span class="nav-text">shared variable between source(global variable)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Can-we-return-a-local-pointer-variable-from-a-function"><span class="nav-number">2.15.</span> <span class="nav-text">Can we return a local pointer variable from a function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#type-length-and-overflow"><span class="nav-number">2.16.</span> <span class="nav-text">type length and overflow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-does-volatile-really-mean"><span class="nav-number">2.17.</span> <span class="nav-text">what does volatile really mean</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#two-threads"><span class="nav-number">2.17.1.</span> <span class="nav-text">two threads</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#one-thread-and-signal-handler"><span class="nav-number">2.17.2.</span> <span class="nav-text">one thread and signal handler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ISR"><span class="nav-number">2.17.3.</span> <span class="nav-text">ISR</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REF"><span class="nav-number">3.</span> <span class="nav-text">REF</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/uploads/avatar.gif"
+      alt="Jason">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">106</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">115</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="GitHub &rarr; https://github.com/jason-cyun"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="bWFpbHRvOmphc29uX2xrbUAxNjMuY29t" title="E-Mail &rarr; mailto:jason_lkm@163.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script><script src="/js/bookmark.js?v=7.4.0"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var id = element.id || '';
+    var src = element.src || '';
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (id !=='') {
+      script.id = element.id;
+    }
+    if (src !== '') {
+      script.src = src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+<script pjax>
+if (document.querySelectorAll('div.pdf').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js', () => {
+    document.querySelectorAll('div.pdf').forEach(element => {
+      PDFObject.embed(element.getAttribute('target'), element, {
+        pdfOpenParams: {
+          navpanes: 0,
+          toolbar: 0,
+          statusbar: 0,
+          pagemode: 'thumbs',
+          view: 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height: element.getAttribute('height') || '500px'
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '09527c4c0e89e8430bc2',
+      clientSecret: 'bf4a9feb1fafe110ea12ea7549a3b493a08f7e03',
+      repo: 'blog',
+      owner: 'jason-bj',
+      admin: ['jason-bj'],
+      id: '8cc7ea3d383b5787869625dad5e79f90',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'false'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/clogo.svg?v=7.4.0" color="#222">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Kube Cluster Deployment Tools1. Kubespray Kubespray provides a set of Ansible roles for Kubernetes deployment and configuration. Kubespray can use AWS, GCE, Azure, OpenStack or a bare metal Infrastruc">
+<meta name="keywords" content="tools of development, monitoring, cli, security, testing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s_tools">
+<meta property="og:url" content="http://cyun.tech/k8s-tools/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="Kube Cluster Deployment Tools1. Kubespray Kubespray provides a set of Ansible roles for Kubernetes deployment and configuration. Kubespray can use AWS, GCE, Azure, OpenStack or a bare metal Infrastruc">
+<meta property="og:locale" content="en-US">
+<meta property="og:updated_time" content="2021-07-12T09:36:57.637Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="k8s_tools">
+<meta name="twitter:description" content="Kube Cluster Deployment Tools1. Kubespray Kubespray provides a set of Ansible roles for Kubernetes deployment and configuration. Kubespray can use AWS, GCE, Azure, OpenStack or a bare metal Infrastruc">
+  <link rel="alternate" href="/atom.xml" title="CYun" type="application/atom+xml">
+  <link rel="canonical" href="http://cyun.tech/k8s-tools/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>k8s_tools | CYun</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script pjax>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-148730544-1');
+    }
+  </script>
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-US">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CYun</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a class="book-mark-link book-mark-link-fixed" href="#"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/k8s-tools/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">k8s_tools
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2021-03-24 14:21:43" itemprop="dateCreated datePublished" datetime="2021-03-24T14:21:43+08:00">2021-03-24</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-12 17:36:57" itemprop="dateModified" datetime="2021-07-12T17:36:57+08:00">2021-07-12</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/k8s/deploy/" itemprop="url" rel="index"><span itemprop="name">deploy</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Kube-Cluster-Deployment-Tools"><a href="#Kube-Cluster-Deployment-Tools" class="headerlink" title="Kube Cluster Deployment Tools"></a>Kube Cluster Deployment Tools</h1><h2 id="1-Kubespray"><a href="#1-Kubespray" class="headerlink" title="1. Kubespray"></a><strong>1. Kubespray</strong></h2><p><img alt="#Kubespray" data-src="https://caylent.com/wp-content/uploads/2018/05/1-Kubespray-small.png"></p>
+<p>Kubespray provides a set of Ansible roles for Kubernetes deployment and configuration. Kubespray can use AWS, GCE, Azure, OpenStack or a bare metal Infrastructure as a Service (IaaS) platform. Kubespray is an open-source project with an open development model. The tool is a good choice for people who already know Ansible as there’s no need to use another tool for provisioning and orchestration. Kubespray uses kubeadm under the hood.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMtaW5jdWJhdG9yL2t1YmVzcHJheQ==" title="https://github.com/kubernetes-incubator/kubespray">https://github.com/kubernetes-incubator/kubespray<i class="fa fa-external-link"></i></span></p>
+<a id="more"></a>
+
+<h2 id="2-Minikube"><a href="#2-Minikube" class="headerlink" title="2. Minikube"></a><strong>2. Minikube</strong></h2><p><img alt="#Minikube" data-src="https://caylent.com/wp-content/uploads/2018/05/2-Minikube-1024x993.png"></p>
+<p>Minikube allows you to install and try out Kubernetes locally. The tool is a good starting point for Kubernetes exploration. Easily launch a single-node Kubernetes cluster inside a virtual machine (VM) on your laptop. Minikube is available on Windows, Linux, and OSX. In just 5 minutes you will be able to explore Kubernetes’ main features. Launch the Minikube dashboard straight-from-the-box with just one command.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMvbWluaWt1YmU=" title="https://github.com/kubernetes/minikube">https://github.com/kubernetes/minikube<i class="fa fa-external-link"></i></span></p>
+<h2 id="3-Kubeadm"><a href="#3-Kubeadm" class="headerlink" title="3. Kubeadm"></a><strong>3. Kubeadm</strong></h2><p>Kubeadm is a Kubernetes distribution tool since version 1.4. The tool helps to bootstrap best-practice Kubernetes clusters on existing infrastructure. Kubeadm cannot provision infrastructure for you though. Its main advantage is the ability to launch minimum viable Kubernetes clusters anywhere. Add-ons and networking setup are both out of Kubeadm’s scope though, so you will need to install this manually or using another tool.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMva3ViZWFkbQ==" title="https://github.com/kubernetes/kubeadm">https://github.com/kubernetes/kubeadm<i class="fa fa-external-link"></i></span></p>
+<h2 id="4-Kops"><a href="#4-Kops" class="headerlink" title="4. Kops"></a><strong>4. Kops</strong></h2><p>Kops helps you create, destroy, upgrade, and maintain production-grade, highly available Kubernetes clusters from the command line. Amazon Web Services (AWS) is currently officially supported, with GCE in beta support, and VMware vSphere in alpha, and other platform support is planned. Kops allows you to control the full Kubernetes cluster lifecycle; from infrastructure provisioning to cluster deletion.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMva29wcw==" title="https://github.com/kubernetes/kops">https://github.com/kubernetes/kops<i class="fa fa-external-link"></i></span></p>
+<h2 id="5-Bootkube"><a href="#5-Bootkube" class="headerlink" title="5. Bootkube"></a><strong>5. Bootkube</strong></h2><p>Bootkube is a great tool for launching self-hosted Kubernetes clusters. It helps you set up a temporary Kubernetes control plane which will operate until the self-hosted control plane is able to handle requests.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMtaW5jdWJhdG9yL2Jvb3RrdWJl" title="https://github.com/kubernetes-incubator/bootkube">https://github.com/kubernetes-incubator/bootkube<i class="fa fa-external-link"></i></span></p>
+<h2 id="6-Kubernetes-on-AWS-Kube-AWS"><a href="#6-Kubernetes-on-AWS-Kube-AWS" class="headerlink" title="6. Kubernetes on AWS (Kube-AWS)"></a><strong>6. Kubernetes on AWS (Kube-AWS)</strong></h2><p><img alt="Kubernetes on AWS (#KubeAWS)" data-src="https://caylent.com/wp-content/uploads/2018/05/6-Kube-aws-150x150.png"></p>
+<p>Kube-AWS is a console tool provided by CoreOS which deploys a fully-functional Kubernetes cluster using AWS CloudFormation. Kube-AWS allows you to deploy a traditional Kubernetes cluster and automatically provision every K8s service with native AWS features (e.g., ELB, S3, and Auto Scaling, etc.).</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMtaW5jdWJhdG9yL2t1YmUtYXdz" title="https://github.com/kubernetes-incubator/kube-aws">https://github.com/kubernetes-incubator/kube-aws<i class="fa fa-external-link"></i></span></p>
+<h2 id="7-JAAS"><a href="#7-JAAS" class="headerlink" title="7. JAAS"></a><strong>7. JAAS</strong></h2><p><img alt="#JAAS" data-src="https://caylent.com/wp-content/uploads/2018/05/pubRLhkD_400x400.png"></p>
+<p>JAAS, is Juju as a service which simplifies how you configure, scale and operate today’s complex software. Juju deploys everywhere: to public or private clouds. JAAS deploys your workload to your cloud of choice.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9qYWFzLmFpLw==" title="https://jaas.ai/">https://jaas.ai/<i class="fa fa-external-link"></i></span></p>
+<h2 id="8-Conjure-up"><a href="#8-Conjure-up" class="headerlink" title="8. Conjure-up"></a><strong>8. Conjure-up</strong></h2><p><img alt="#conjure-up" data-src="https://caylent.com/wp-content/uploads/2018/05/conjureup-300x63.jpg"></p>
+<p>Conjure-up is another Canonical product which allows you to deploy “The Canonical Distribution of Kubernetes on Ubuntu” with a few simple commands. It supports AWS, GCE, Azure, Joyent, OpenStack, VMware, bare metal, and localhost deployments. Juju, MAAS, and LXD are the underlying technology for Conjure-up.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9jb25qdXJlLXVwLmlvLw==" title="https://conjure-up.io/">https://conjure-up.io/<i class="fa fa-external-link"></i></span></p>
+<h2 id="9-Amazon-EKS"><a href="#9-Amazon-EKS" class="headerlink" title="9. Amazon EKS"></a><strong>9. Amazon EKS</strong></h2><p>Amazon Elastic Container Service for Kubernetes (<em>Amazon EKS</em>) is a managed service which makes it simple to deploy, manage, and scale containerized applications using Kubernetes. Amazon EKS manages your Kubernetes infrastructure across multiple AWS Availability Zones, while automatically detecting and replacing unhealthy control plane nodes, and providing on-demand upgrades and patching. You simply provision worker nodes and connect them to the provided Amazon EKS endpoint.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9hd3MuYW1hem9uLmNvbS9la3Mv" title="https://aws.amazon.com/eks/">https://aws.amazon.com/eks/<i class="fa fa-external-link"></i></span></p>
+<h1 id="Monitoring-Tools"><a href="#Monitoring-Tools" class="headerlink" title="Monitoring Tools"></a><strong>Monitoring Tools</strong></h1><h2 id="10-Kubebox"><a href="#10-Kubebox" class="headerlink" title="10. Kubebox"></a><strong>10. Kubebox</strong></h2><p>Kubebox is a terminal console for Kubernetes cluster which allows you to manage and monitor your cluster-live status with nice, old-school interface. Kubebox shows your pod resource usage, cluster monitoring, and container logs, etc. Additionally, you can easily navigate to the desired namespace and execute into the desired container for fast troubleshooting/recovery.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FzdGVmYW51dHRpL2t1YmVib3g=" title="https://github.com/astefanutti/kubebox">https://github.com/astefanutti/kubebox<i class="fa fa-external-link"></i></span></p>
+<h2 id="11-Kubernetes-Operational-View-Kube-ops-view"><a href="#11-Kubernetes-Operational-View-Kube-ops-view" class="headerlink" title="11. Kubernetes Operational View (Kube-ops-view)"></a><strong>11. Kubernetes Operational View (Kube-ops-view)</strong></h2><p>Kube-ops-view is a read-only system dashboard for multiple K8s clusters. With Kube-ops-view you can easily navigate between your cluster and monitor nodes as well as your pod’s healthiness. Kube-ops-view animates some Kubernetes processes such as pod creation and termination. </p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hqYWNvYnMva3ViZS1vcHMtdmlldw==" title="https://github.com/hjacobs/kube-ops-view">https://github.com/hjacobs/kube-ops-view<i class="fa fa-external-link"></i></span></p>
+<h2 id="12-Kubetail"><a href="#12-Kubetail" class="headerlink" title="12. Kubetail"></a><strong>12. Kubetail</strong></h2><p>Kubetail is a small bash script which allows you to aggregate logs from multiple pods into one stream. The initial Kubetail version doesn’t have filtering or highlighting features, but there is an additional Kubetail fork on Github. This can form and perform logs coloring using multitail tools.</p>
+<p>Link:<br><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2pvaGFuaGFsZWJ5L2t1YmV0YWls" title="https://github.com/johanhaleby/kubetail">https://github.com/johanhaleby/kubetail<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Frcy9rdWJldGFpbA==" title="https://github.com/aks/kubetail">https://github.com/aks/kubetail<i class="fa fa-external-link"></i></span></p>
+<h2 id="13-Kubewatch"><a href="#13-Kubewatch" class="headerlink" title="13. Kubewatch"></a><strong>13. Kubewatch</strong></h2><p>Kubewatch is a Kubernetes watcher which can publish K8s events to the team communication app, Slack. Kubewatch runs as a pod inside Kubernetes clusters and monitors changes that occur in the system. You can specify the notifications you want to receive by editing the configuration file.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2JpdG5hbWktbGFicy9rdWJld2F0Y2g=" title="https://github.com/bitnami-labs/kubewatch">https://github.com/bitnami-labs/kubewatch<i class="fa fa-external-link"></i></span></p>
+<h2 id="14-Weave-Scope"><a href="#14-Weave-Scope" class="headerlink" title="14. Weave Scope"></a><strong>14. Weave Scope</strong></h2><p><img alt="#weavescope" data-src="https://caylent.com/wp-content/uploads/2018/05/weavescope.png"></p>
+<p>Weave Scope is a troubleshooting and monitoring tool for Docker and Kubernetes clusters. It can automatically generate applications and infrastructure topologies which can help you to identify application performance bottlenecks easily. You can deploy Weave Scope as a standalone application on your local server/laptop, or you can choose the Weave Scope Software as a Service (SaaS) solution on Weave Cloud. With Weave Scope, you can easily group, filter or search containers using names, labels, and/or resource consumption.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly93d3cud2VhdmUud29ya3Mvb3NzL3Njb3BlLw==" title="https://www.weave.works/oss/scope/">https://www.weave.works/oss/scope/<i class="fa fa-external-link"></i></span></p>
+<h2 id="15-Prometheus"><a href="#15-Prometheus" class="headerlink" title="15. Prometheus"></a>15. Prometheus</h2><p>Prometheus monitoring has fast become the go-to tool for Kubernetes monitoring tool. It offers a multi-dimensional data model and a very user-accessible format and protocols. Exposing Prometheus metrics in Kubernetes is a pretty straightforward task. The data scraped is human readable, in a self-explanatory format, and published using a standard HTTP transport.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9wcm9tZXRoZXVzLmlvLw==" title="https://prometheus.io/">https://prometheus.io/<i class="fa fa-external-link"></i></span></p>
+<h2 id="16-Searchlight"><a href="#16-Searchlight" class="headerlink" title="16. Searchlight"></a><strong>16. Searchlight</strong></h2><p><img alt="#Searchlight" data-src="https://caylent.com/wp-content/uploads/2018/05/16-Searchlight.png"></p>
+<p>Searchlight by AppsCode is a Kubernetes operator for Icinga. Searchlight periodically runs various checks on Kubernetes clusters and alerts you via email, SMS or chat if something goes wrong. Searchlight includes a default suite of checks written specifically for Kubernetes. Also, it can enhance Prometheus monitoring with external black-box monitoring and serves as a fallback in case internal systems completely fail.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FwcHNjb2RlL3NlYXJjaGxpZ2h0" title="https://github.com/appscode/searchlight">https://github.com/appscode/searchlight<i class="fa fa-external-link"></i></span></p>
+<h2 id="17-cAdvisor"><a href="#17-cAdvisor" class="headerlink" title="17.cAdvisor"></a><strong>17.cAdvisor</strong></h2><p><img alt="cAdvisor" data-src="https://caylent.com/wp-content/uploads/2017/11/cAdvisor-1024x518.png"></p>
+<p>CAdvisor is installed by default on all cluster nodes to collect metrics for Kubernetes about running containers and nodes. CAdvisor Kubelet exposes these metrics through Kubelet APIs (with a default of one-minute resolution). The Metrics Server identifies all available nodes and calls Kubelet API to get containers and nodes resources usage before exposing the metrics through Kubernetes aggregation API.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvb2dsZS9jYWR2aXNvcg==" title="https://github.com/google/cadvisor">https://github.com/google/cadvisor<i class="fa fa-external-link"></i></span></p>
+<h2 id="18-Kube-state-metrics"><a href="#18-Kube-state-metrics" class="headerlink" title="18. Kube-state-metrics"></a>18. Kube-state-metrics</h2><p>kube-state-metrics generates metrics from Kubernetes API objects without modification by listening to the Kubernetes API server. It doesn’t examine the health of individual Kubernetes components so much as it focuses on the health of the various objects inside, such as deployments, nodes and pods.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMva3ViZS1zdGF0ZS1tZXRyaWNz" title="https://github.com/kubernetes/kube-state-metrics">https://github.com/kubernetes/kube-state-metrics<i class="fa fa-external-link"></i></span></p>
+<h2 id="19-Sumo-Logic-App"><a href="#19-Sumo-Logic-App" class="headerlink" title="19. Sumo Logic App"></a>19. Sumo Logic App</h2><p><img alt="#sumologic" data-src="https://caylent.com/wp-content/uploads/2018/05/sumo.png"></p>
+<p>The Sumo Logic Kubernetes App offer complete visibility into the worker nodes within your clusters, as well as for their application logs. The app allows users to monitor and troubleshoot container health, replication, load balancing, pod state and hardware resource allocation. The App utilizes <span class="exturl" data-url="aHR0cHM6Ly9mYWxjby5vcmcvZG9jcy8=" title="https://falco.org/docs/">Falco<i class="fa fa-external-link"></i></span> events to monitor and detect anomalous container, application, host, and network activity.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly93d3cuc3Vtb2xvZ2ljLmNvbS9hcHBsaWNhdGlvbi9rdWJlcm5ldGVzLw==" title="https://www.sumologic.com/application/kubernetes/">https://www.sumologic.com/application/kubernetes/<i class="fa fa-external-link"></i></span></p>
+<h2 id="20-Dynatrace"><a href="#20-Dynatrace" class="headerlink" title="20. Dynatrace"></a>20. Dynatrace</h2><p><img alt="#dynatrace" data-src="https://caylent.com/wp-content/uploads/2018/05/dynatrace.png"></p>
+<p>Dynatrace OneAgent is container-aware and comes with built-in support for out-of-the-box monitoring of Kubernetes. Dynatrace provides <span class="exturl" data-url="aHR0cHM6Ly93d3cuZHluYXRyYWNlLmNvbS90ZWNobm9sb2dpZXMva3ViZXJuZXRlcy1tb25pdG9yaW5nLw==" title="https://www.dynatrace.com/technologies/kubernetes-monitoring/">full-stack monitoring for Kubernetes<i class="fa fa-external-link"></i></span>, i.e. monitoring from the application down to the infrastructure layer. However, if you don’t have access to the infrastructure layer, Dynatrace provides also the option of application-only monitoring.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly93d3cuZHluYXRyYWNlLmNvbS9zdXBwb3J0L2hlbHAvdGVjaG5vbG9neS1zdXBwb3J0L2Nsb3VkLXBsYXRmb3Jtcy9rdWJlcm5ldGVzL2luc3RhbGxhdGlvbi1hbmQtb3BlcmF0aW9uL2Z1cnRoZXItaW50ZWdyYXRpb25zL2Nvbm5lY3QteW91ci1rdWJlcm5ldGVzLWNsdXN0ZXJzLXRvLWR5bmF0cmFjZS8jY29uZmlndXJlLWFjdGl2ZWdhdGU=" title="https://www.dynatrace.com/support/help/technology-support/cloud-platforms/kubernetes/installation-and-operation/further-integrations/connect-your-kubernetes-clusters-to-dynatrace/#configure-activegate">https://www.dynatrace.com/<i class="fa fa-external-link"></i></span></p>
+<h1 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a><strong>Testing</strong></h1><h2 id="21-Kube-monkey"><a href="#21-Kube-monkey" class="headerlink" title="21. Kube-monkey"></a><strong>21. Kube-monkey</strong></h2><p>Kube-monkey is the Kubernetes’ version of Netflix’s Chaos Monkey. Kube-monkey is a tool that follows the principles of chaos engineering. It can delete K8s pods at random, check services are failure-resilient, and contribute to your system’s healthiness. Kube-monkey is also configured by a TOML file where you can specify which app is to be killed and when to practice your recovery strategies.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Fzb2J0aS9rdWJlLW1vbmtleQ==" title="https://github.com/asobti/kube-monkey">https://github.com/asobti/kube-monkey<i class="fa fa-external-link"></i></span></p>
+<h2 id="22-K8s-testsuite"><a href="#22-K8s-testsuite" class="headerlink" title="22. K8s-testsuite"></a><strong>22. K8s-testsuite</strong></h2><p>K8s-testsuite is made up of 2 Helm charts which work for network bandwidth testing and load testing a single Kubernetes cluster. Load tests emulate simple web-servers with loadbots which run as a Kubernetes microservice based on the Vegeta. Network tests use iperf3 and netperf-2.7.0 internally and run three times. Both sets of tests generate comprehensive log messages with all results and metrics.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21yYWhiYXIvazhzLXRlc3RzdWl0ZQ==" title="https://github.com/mrahbar/k8s-testsuite">https://github.com/mrahbar/k8s-testsuite<i class="fa fa-external-link"></i></span></p>
+<h2 id="23-Test-infra"><a href="#23-Test-infra" class="headerlink" title="23. Test-infra"></a><strong>23. Test-infra</strong></h2><p><img alt="#Testinfra" data-src="https://caylent.com/wp-content/uploads/2018/05/20-Test-infra.png"></p>
+<p>Test-infra is a collection of tools for Kubernetes testing and results verification. Test-infra includes a few dashboards for displaying history, aggregating failures, and showing what is currently testing. You can enhance your test-infra suite by creating your own test jobs. Test-infra can perform end-to-end Kubernetes testing with full Kubernetes lifecycle emulation on different providers using the Kubetest tool.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMvdGVzdC1pbmZyYQ==" title="https://github.com/kubernetes/test-infra">https://github.com/kubernetes/test-infra<i class="fa fa-external-link"></i></span></p>
+<h2 id="24-Sonobuoy"><a href="#24-Sonobuoy" class="headerlink" title="24. Sonobuoy"></a><strong>24. Sonobuoy</strong></h2><p><img alt="#Sonobuoy" data-src="https://caylent.com/wp-content/uploads/2018/05/21-Sonobuoy-150x150.png"></p>
+<p>Sonobuoy allows you to understand your current Kubernetes cluster state by running a set of tests in an accessible and non-destructive manner. Sonobuoy generates informative reports with detailed information about cluster performance. Sonobuoy supports 3 Kubernetes minor versions: the current release and 2 minor versions before. Sonobuoy Scanner is a browser-based tool which allows you to test Kubernetes clusters in a few clicks, but the CLI version has a bigger set of tests available.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9zb25vYnVveS5pby8=" title="https://sonobuoy.io/">https://sonobuoy.io/<i class="fa fa-external-link"></i></span></p>
+<h2 id="25-PowerfulSeal"><a href="#25-PowerfulSeal" class="headerlink" title="25. PowerfulSeal"></a><strong>25. PowerfulSeal</strong></h2><p>PowerfulSeal is a tool similar to Kube-monkey and follows the Principles of Chaos Engineering. PowerfulSeal can kill pods and remove/add VMs from or to your clusters. In contrast to Kube-monkey, PowefulSeal has an interactive mode which allows you to manually break specific cluster components. Also, PowefulSeal doesn’t need external dependencies apart from SSH.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Jsb29tYmVyZy9wb3dlcmZ1bHNlYWw=" title="https://github.com/bloomberg/powerfulseal">https://github.com/bloomberg/powerfulseal<i class="fa fa-external-link"></i></span></p>
+<h1 id="Security"><a href="#Security" class="headerlink" title="Security"></a><strong>Security</strong></h1><h2 id="26-Trireme"><a href="#26-Trireme" class="headerlink" title="26. Trireme"></a><strong>26. Trireme</strong></h2><p>Trireme is a flexible and straightforward implementation of the Kubernetes Network Policies. Trireme works in any Kubernetes cluster and allows you to manage traffic between pods from different clusters. The main advantages of Trireme are the lack of a need for any centralized policy management, the ability to easily organize the interaction of the two resources deployed in Kubernetes, and the lack of complexities of SDN, VLAN tags, and subnets (Trireme uses a conventional L3-network).</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Fwb3JldG8taW5jL3RyaXJlbWUta3ViZXJuZXRlcw==" title="https://github.com/aporeto-inc/trireme-kubernetes">https://github.com/aporeto-inc/trireme-kubernetes<i class="fa fa-external-link"></i></span></p>
+<h2 id="27-Aporeto"><a href="#27-Aporeto" class="headerlink" title="27. Aporeto"></a><strong>27. Aporeto</strong></h2><p><img alt="#aporeto" data-src="https://caylent.com/wp-content/uploads/2018/05/download-1.png"></p>
+<p>Aporeto provides security for containers, microservices, cloud and legacy applications based on workload identity, encryption, and distributed policies. As Aporeto policies function independently of the underlying infrastructure, security policies can be enabled across Kubernetes clusters or over hybrid environments that include Kubernetes and non-Kubernetes deployments.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly93d3cuYXBvcmV0by5jb20v" title="https://www.aporeto.com/">https://www.aporeto.com/<i class="fa fa-external-link"></i></span></p>
+<h2 id="28-Twistlock"><a href="#28-Twistlock" class="headerlink" title="28. Twistlock"></a><strong>28. Twistlock</strong></h2><p><img alt="#" data-src="https://caylent.com/wp-content/uploads/2018/05/25-Twistlock-300x76.png"></p>
+<p>Twistlock continually monitors your applications deployed on K8s for vulnerability and compliance issues, including the underlying host as well as containers and images. In addition, Twistlock Runtime Defense automatically models container behavior, allowing known, good behavior while alerting on or blocking anomalous activity. Finally, Twistlock provides both layer 3 microsegmentation as well as a layer 7 firewall that can protect front end microservices from common attacks.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly93d3cudHdpc3Rsb2NrLmNvbS8=" title="https://www.twistlock.com/">https://www.twistlock.com/<i class="fa fa-external-link"></i></span></p>
+<h2 id="29-Falco"><a href="#29-Falco" class="headerlink" title="29. Falco"></a><strong>29. Falco</strong></h2><p><img alt="#falco" data-src="https://caylent.com/wp-content/uploads/2018/05/falco-logo-1024x408.png"></p>
+<p>Falco is a behavioral activity monitor designed to detect anomalous activity in your applications. Falco is based on the Sysdig Project, an open source tool (and now a commercial service), built for monitoring container performance by way of tracking kernel system calls. Falco lets you continuously monitor and detect container, application, host, and network activity with one set of rules.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9zeXNkaWcuY29tL29wZW5zb3VyY2UvZmFsY28v" title="https://sysdig.com/opensource/falco/">https://sysdig.com/opensource/falco/<i class="fa fa-external-link"></i></span></p>
+<h2 id="30-Sysdig-Secure"><a href="#30-Sysdig-Secure" class="headerlink" title="30. Sysdig Secure"></a><strong>30. Sysdig Secure</strong></h2><p><img alt="#SysdigSecure" data-src="https://caylent.com/wp-content/uploads/2018/05/27-Sysdig-Secure-300x47.png"></p>
+<p>Sysdig Secure, part of the Sysdig Container Intelligence Platform, comes out-of-the-box with unmatched container visibility and deep integrations with container orchestration tools. These include Kubernetes, Docker, AWS ECS, and Apache Mesos. With Sysdig Secure you can Implement service-aware policies, block attacks, analyze your history, and monitor cluster performance. Sysdig Secure is available as cloud and on-premise software offerings.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9zeXNkaWcuY29tL3Byb2R1Y3Qvc2VjdXJlLw==" title="https://sysdig.com/product/secure/">https://sysdig.com/product/secure/<i class="fa fa-external-link"></i></span></p>
+<h2 id="31-Kubesec-io"><a href="#31-Kubesec-io" class="headerlink" title="31. Kubesec.io"></a><strong>31. Kubesec.io</strong></h2><p><img alt="#Kubesec" data-src="https://caylent.com/wp-content/uploads/2018/05/28-Kubesec.png"></p>
+<p>Kubesec.io is a service which allows you to score Kubernetes resources for security feature usage. Kubesec.io verifies resource configuration according to Kubernetes security best-practices. As a result, you will have total control and additional suggestions for how to improve overall system security. The site also contains plenty of external links related to containers and Kubernetes security.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9rdWJlc2VjLmlv" title="https://kubesec.io">https://kubesec.io<i class="fa fa-external-link"></i></span></p>
+<h1 id="Helpful-CLI-Tools"><a href="#Helpful-CLI-Tools" class="headerlink" title="Helpful CLI Tools"></a><strong>Helpful CLI Tools</strong></h1><h2 id="32-Cabin"><a href="#32-Cabin" class="headerlink" title="32. Cabin"></a><strong>32. Cabin</strong></h2><p><strong>NOTE: This project is currently not under active development</strong></p>
+<p>Cabin functions as a mobile dashboard for the remote management of Kubernetes clusters. With Cabin, users can quickly manage applications, scale deployments, and troubleshoot overall K8s cluster from their Android or iOS device. Cabin is a great tool for operators of K8s clusters as it allows you to perform quick remediation actions in case of incidents.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2JpdG5hbWktbGFicy9jYWJpbg==" title="https://github.com/bitnami-labs/cabin">https://github.com/bitnami-labs/cabin<i class="fa fa-external-link"></i></span></p>
+<h2 id="33-Kubectx-Kubens"><a href="#33-Kubectx-Kubens" class="headerlink" title="33. Kubectx/Kubens"></a><strong>33. Kubectx/Kubens</strong></h2><p>Kubectx is a small open-source utility tool which enhances Kubectl functionality with the possibility to switch context easily and connect to a few Kubernetes clusters at the same time. Kubens allows you to navigate between Kubernetes namespaces. Both tools have an auto-completion feature on bash/zsh/fish shells.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FobWV0Yi9rdWJlY3R4" title="https://github.com/ahmetb/kubectx">https://github.com/ahmetb/kubectx<i class="fa fa-external-link"></i></span></p>
+<h2 id="34-Kube-shell"><a href="#34-Kube-shell" class="headerlink" title="34. Kube-shell"></a><strong>34. Kube-shell</strong></h2><p>Kube-shell increases your productivity when working with kubectl. Kube-shell enables command auto-completion and auto-suggestion. Also, Kube-shell will provide in-line documentation about executed command. Kube-shell even can search and correct commands when wrongly typed. It’s a great tool to increase your performance and productivity in the K8s console.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Nsb3VkbmF0aXZlbGFicy9rdWJlLXNoZWxs" title="https://github.com/cloudnativelabs/kube-shell">https://github.com/cloudnativelabs/kube-shell<i class="fa fa-external-link"></i></span></p>
+<h2 id="35-Kail"><a href="#35-Kail" class="headerlink" title="35. Kail"></a><strong>35. Kail</strong></h2><p>Kail is short for Kubernetes tail and works for Kubernetes clusters. With Kail, you can tail Docker logs for all matched pods. Kail allows you to filter pods by service, deployment, labels, and other features. Pods will be added (or removed) automatically to the log after a launch if it matches the criteria.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Jvei9rYWls" title="https://github.com/boz/kail">https://github.com/boz/kail<i class="fa fa-external-link"></i></span></p>
+<h1 id="Development-Tools"><a href="#Development-Tools" class="headerlink" title="Development Tools"></a><strong>Development Tools</strong></h1><h2 id="36-Telepresence"><a href="#36-Telepresence" class="headerlink" title="36. Telepresence"></a><strong>36. Telepresence</strong></h2><p><img alt="#Telepresence" data-src="https://caylent.com/wp-content/uploads/2018/05/images-300x156.png"></p>
+<p>Telepresence provides the possibility to debug Kubernetes clusters locally by proxy data from your Kubernetes environment to the local process. Telepresence is able to provide access to Kubernetes services and AWS/GCP resources for your local code as it will be deployed to the cluster. With Telepresence, Kubernetes counts local code as a normal pod within your cluster.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly93d3cudGVsZXByZXNlbmNlLmlvLw==" title="https://www.telepresence.io/">https://www.telepresence.io/<i class="fa fa-external-link"></i></span></p>
+<h2 id="37-Helm"><a href="#37-Helm" class="headerlink" title="37. Helm"></a><strong>37. Helm</strong></h2><p><img alt="#Helm" data-src="https://caylent.com/wp-content/uploads/2018/05/download.png"></p>
+<p>Helm is a package manager for Kubernetes. It is like APT/Yum/Homebrew, but for Kubernetes. Helm operates with Charts which is an archive set of Kubernetes resource manifests that make up a distributed application. You can share your application by creating a Helm chart. Helm allows you to create reproducible builds and manage Kubernetes manifests easily.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMvaGVsbQ==" title="https://github.com/kubernetes/helm">https://github.com/kubernetes/helm<i class="fa fa-external-link"></i></span></p>
+<h2 id="38-Jaeger"><a href="#38-Jaeger" class="headerlink" title="38. Jaeger"></a><strong>38. Jaeger</strong></h2><p><img alt="#jaeger" data-src="https://caylent.com/wp-content/uploads/2018/05/jaeger-logo-1024x334.png"></p>
+<p>The Jaeger Operator is an implementation of a <span class="exturl" data-url="aHR0cHM6Ly9jb3Jlb3MuY29tL29wZXJhdG9ycy8=" title="https://coreos.com/operators/">Kubernetes Operator<i class="fa fa-external-link"></i></span> and provides another method of packaging, deploying, and managing a Kubernetes application.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly93d3cuamFlZ2VydHJhY2luZy5pby8=" title="https://www.jaegertracing.io/">https://www.jaegertracing.io/<i class="fa fa-external-link"></i></span> </p>
+<h2 id="39-turbonomic"><a href="#39-turbonomic" class="headerlink" title="39. turbonomic"></a><strong>39. turbonomic</strong></h2><p><img alt="#turbonomic" data-src="https://caylent.com/wp-content/uploads/2018/05/turbo.png"></p>
+<p>turbonomic’s kubernetes-as-a-service (KaaS) management capabilities include support for Amazon Elastic Container Service for Kubernetes (EKS), Microsoft Azure Kubernetes Service (AKS), Google Kubernetes Engine (GKE), and Pivotal Container Service (PKS). Self-managing Kubernetes optimizes performance, efficiency, and compliance so IT organizations can scale and accelerate cloud native intiatives.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly90dXJib25vbWljLmNvbS9wcm9kdWN0L2ludGVncmF0aW9ucy9rdWJlcm5ldGVzLw==" title="https://turbonomic.com/product/integrations/kubernetes/">https://turbonomic.com/product/integrations/kubernetes/<i class="fa fa-external-link"></i></span></p>
+<h2 id="40-Supergiant"><a href="#40-Supergiant" class="headerlink" title="40. Supergiant"></a><strong>40. Supergiant</strong></h2><p><img alt="#supergiant" data-src="https://caylent.com/wp-content/uploads/2018/05/super.png"></p>
+<p>Supergiant  is an open source collection of utilities that simplify installing and managing your Kubernetes clusters. The Supergiant Kubernetes toolkit is three separate applications: Control, Analyze, and Capacity. Essentially, Supergiant acts as a microservices application that allows using these three tools separately. </p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9zdXBlcmdpYW50LmlvL3Rvb2xraXQv" title="https://supergiant.io/toolkit/">https://supergiant.io/toolkit/<i class="fa fa-external-link"></i></span></p>
+<h2 id="41-Keel"><a href="#41-Keel" class="headerlink" title="41. Keel"></a><strong>41. Keel</strong></h2><p><img alt="#Keel" data-src="https://caylent.com/wp-content/uploads/2018/05/35-kell-logo-300x300.png"></p>
+<p>Keel allows you to automate Kubernetes deployment updates and can be launched as a Kubernetes service in a dedicated namespace. With such organization, Keel introduces a minimal load on your environment and adds significant robustness. Keel helps to deploy Kubernetes service through labels, annotations, and charts. You just need to specify an update policy for each deployment or Helm release. Keel will automatically update your environment as soon as the new application version is available in the repository.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9rZWVsLnNoLw==" title="https://keel.sh/">https://keel.sh/<i class="fa fa-external-link"></i></span></p>
+<h2 id="42-Apollo"><a href="#42-Apollo" class="headerlink" title="42. Apollo"></a><strong>42. Apollo</strong></h2><p><img alt="#Apollo" data-src="https://caylent.com/wp-content/uploads/2018/05/36-final-300x85.png"></p>
+<p>Apollo is an open source application providing teams with self-service UI for creating and deploying their services to Kubernetes. Apollo allows operators to view logs and revert deployments to any point in time with just one click. Apollo has flexible permission models for deployments. Each user can deploy only what he needs to deploy.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2xvZ3ppby9hcG9sbG8=" title="https://github.com/logzio/apollo">https://github.com/logzio/apollo<i class="fa fa-external-link"></i></span></p>
+<h2 id="43-Draft"><a href="#43-Draft" class="headerlink" title="43. Draft"></a><strong>43. Draft</strong></h2><p><img alt="#Draft" data-src="https://caylent.com/wp-content/uploads/2018/05/37-draft-logo-300x108.png"></p>
+<p>Draft is a tool provided by the Azure team that streamlines application development and deployment into any Kubernetes cluster. Draft creates “inner loops” between code deployment and code commits which significantly speed up the change verification process. With Draft, developers can prepare application Dockerfiles and Helm charts plus deploy applications to a remote or local Kubernetes cluster with two commands.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2F6dXJlL2RyYWZ0" title="https://github.com/azure/draft">https://github.com/azure/draft<i class="fa fa-external-link"></i></span></p>
+<h2 id="44-Deis-Workflow"><a href="#44-Deis-Workflow" class="headerlink" title="44. Deis Workflow"></a><strong>44. Deis Workflow</strong></h2><p><img alt="#DeisWorkflow" data-src="https://caylent.com/wp-content/uploads/2018/05/38.jpg"><br><strong>NOTE: This project is no longer maintained</strong></p>
+<p>Deis Workflow is an open source tool. The Platform as a Service (PaaS) creates additional layers of abstraction on top of Kubernetes clusters. These layers allow you to deploy and/or update Kubernetes applications without specific domain knowledge from developers. Workflow builds upon Kubernetes concepts to provide simple, developer-friendly app deployment. Delivered as a set of Kubernetes microservices, operators can easily install the platform. Workflow can deploy new versions of your app with zero downtime.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9kZWlzLmNvbS93b3JrZmxvdy8=" title="https://deis.com/workflow/">https://deis.com/workflow/<i class="fa fa-external-link"></i></span></p>
+<h2 id="45-Kel"><a href="#45-Kel" class="headerlink" title="45. Kel"></a><strong>45. Kel</strong></h2><p><img alt="#Kel" data-src="https://caylent.com/wp-content/uploads/2018/05/39-final-300x300.png"></p>
+<p>Kel is an open source PaaS from Eldarion, Inc. which helps to manage Kubernetes applications through the entire lifecycle. Kel provides two additional layers written in Python and Go on top of Kubernetes. Level 0 allows you to provision Kubernetes resources, and Level 1 helps you to deploy any application on K8s.</p>
+<p>Link: <span class="exturl" data-url="aHR0cDovL3d3dy5rZWxwcm9qZWN0LmNvbS8=" title="http://www.kelproject.com/">http://www.kelproject.com/<i class="fa fa-external-link"></i></span></p>
+<h2 id="46-Kong"><a href="#46-Kong" class="headerlink" title="46. Kong"></a><strong>46. Kong</strong></h2><p><img alt="#Kong" data-src="https://caylent.com/wp-content/uploads/2018/08/Kong.png"></p>
+<p>Kong, previously known as Kong Community (CE), is an open-source scalable API gateway technology initiated by Kong Inc and has a growing community. Kong allows developers to manage authentication, data  encryption, logging, rate limiting and other standard features with Kubernetes that they would expect from a basic API management system. All of this is powered by a straightforward RESTful API, and the platform itself is built on top of the NGINX proxy server and the <span class="exturl" data-url="aHR0cHM6Ly9jYXNzYW5kcmEuYXBhY2hlLm9yZy8=" title="https://cassandra.apache.org/">Apache Cassandra<i class="fa fa-external-link"></i></span> database management system.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9rb25naHEuY29tLw==" title="https://konghq.com/">https://konghq.com/<i class="fa fa-external-link"></i></span></p>
+<h1 id="Serverless-Function-Tools"><a href="#Serverless-Function-Tools" class="headerlink" title="Serverless/Function Tools"></a><strong>Serverless/Function Tools</strong></h1><h2 id="48-Kubeless"><a href="#48-Kubeless" class="headerlink" title="48. Kubeless"></a><strong>48. Kubeless</strong></h2><p><img alt="#Kubeless" data-src="https://caylent.com/wp-content/uploads/2018/05/40-kubeless-logo-300x73.png"></p>
+<p>Kubeless is a Kubernetes-native serverless framework that lets you deploy small bits of code without having to worry about the underlying infrastructure plumbing. Kubeless is aware of Kubernetes resources out-of-the-box and also provides auto-scaling, API routing, monitoring, and troubleshooting. Kubeless fully relies on K8s primitives, so Kubernetes users will also be able to use native K8s API servers and API gateways.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVsZXNzL2t1YmVsZXNz" title="https://github.com/kubeless/kubeless">https://github.com/kubeless/kubeless<i class="fa fa-external-link"></i></span></p>
+<h2 id="49-Fission"><a href="#49-Fission" class="headerlink" title="49. Fission"></a><strong>49. Fission</strong></h2><p><img alt="#Fission" data-src="https://caylent.com/wp-content/uploads/2018/05/Fission-300x95.png"></p>
+<p>Fission is a fast serverless framework for Kubernetes with a focus on developer productivity and high performance. Fission works on a Kubernetes cluster anywhere: on your laptop, in any public cloud, or in a private data-center. You can write your function using Python, NodeJS, Go, C# or PHP, and deploy it on K8s clusters with Fission.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9maXNzaW9uLmlvLw==" title="https://fission.io/">https://fission.io/<i class="fa fa-external-link"></i></span></p>
+<h2 id="50-Funktion"><a href="#50-Funktion" class="headerlink" title="50. Funktion"></a><strong>50. Funktion</strong></h2><p><img alt="#Funktion" data-src="https://caylent.com/wp-content/uploads/2018/05/42-Funktion-logo-300x291.png"></p>
+<p><strong>NOTE: This project is now sandboxed</strong>For a long time, there was only one Function as a Service (FaaS) implementation available for Kubernetes: Funktion. Funktion is an open source event-driven lambda-style programming model designed for Kubernetes. Funktion is tightly coupled with the fabric8 platform. With Funktion, you can create flows to subscribe from over 200 event sources to invoke your function, including most databases, messaging systems, social media, and other middleware and protocols.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Z1bmt0aW9uaW8vZnVua3Rpb24=" title="https://github.com/funktionio/funktion">https://github.com/funktionio/funktion<i class="fa fa-external-link"></i></span></p>
+<h2 id="51-IronFunction"><a href="#51-IronFunction" class="headerlink" title="51. IronFunction"></a><strong>51. IronFunction</strong></h2><p><img alt="#IronFunction" data-src="https://caylent.com/wp-content/uploads/2018/05/43-IronFunction-logo-300x69.png"></p>
+<p>IronFunctions is an open source serverless platform or FaaS platform that you can run anywhere. IronFunction is written on Golang and really supports functions in any language. The main advantage of IronFunction is that it supports the AWS Lambda format. Import functions directly from Lambda and run them wherever you want.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lyb24taW8vZnVuY3Rpb25z" title="https://github.com/iron-io/functions">https://github.com/iron-io/functions<i class="fa fa-external-link"></i></span></p>
+<h2 id="52-OpenWhisk"><a href="#52-OpenWhisk" class="headerlink" title="52. OpenWhisk"></a><strong>52. OpenWhisk</strong></h2><p><img alt="#ApacheOpenWhisk" data-src="https://caylent.com/wp-content/uploads/2018/05/44-final-300x51.png"></p>
+<p>Apache OpenWhisk is a robust open source FaaS platform driven by IBM and Adobe. OpenWhisk can be deployed on a local on-premise device or on the cloud. The design of Apache OpenWhisk means it acts as an asynchronous and loosely-coupled execution environment that can run functions against external triggers. OpenWhisk is available as SaaS solution on Bluemix, or you can deploy a Vagrant-based VM locally.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9jb25zb2xlLmJsdWVtaXgubmV0L29wZW53aGlzay8=" title="https://console.bluemix.net/openwhisk/">https://console.bluemix.net/openwhisk/<i class="fa fa-external-link"></i></span></p>
+<h2 id="53-OpenFaaS"><a href="#53-OpenFaaS" class="headerlink" title="53. OpenFaaS"></a><strong>53. OpenFaaS</strong></h2><p><img alt="#OpenFaaS" data-src="https://caylent.com/wp-content/uploads/2018/05/45-openfaas-logo-300x70.png"></p>
+<p>The OpenFaaS framework aims to manage serverless functions on Docker Swarm or Kubernetes where it will collect and analyze a wide range of metrics. You can package any process inside your function and use it without repetitive coding or any other routine action. FaaS has Prometheus metrics baked-in, which means it can automatically scale your functions up and down for demand. FaaS natively supports a web-based interface where you can try out your function.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL29wZW5mYWFzL2ZhYXM=" title="https://github.com/openfaas/faas">https://github.com/openfaas/faas<i class="fa fa-external-link"></i></span></p>
+<h2 id="54-Nuclio"><a href="#54-Nuclio" class="headerlink" title="54. Nuclio"></a><strong>54. Nuclio</strong></h2><p><img alt="#Nuclio" data-src="https://caylent.com/wp-content/uploads/2018/05/46-nuclio-logo-300x138.png"></p>
+<p>Nuclio is a serverless project which aims to proceed with high-performance events and large amounts of data. Nuclio can be launched on an on-premise device as a standalone library or inside a VM/Docker container. Also, Nuclio supports Kubernetes out of the box. Nuclio provides real-time data processing with maximum parallelism and minimum overheads. You can try out Nuclio on the playground page.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL251Y2xpby9udWNsaW8=" title="https://github.com/nuclio/nuclio">https://github.com/nuclio/nuclio<i class="fa fa-external-link"></i></span></p>
+<h2 id="55-Virtual-Kubelet"><a href="#55-Virtual-Kubelet" class="headerlink" title="55. Virtual-Kubelet"></a><strong>55. Virtual-Kubelet</strong></h2><p>Virtual Kubelet is an open source Kubernetes Kubelet implementation that masquerades as a kubelet for the purposes of connecting Kubernetes to other APIs. Virtual Kubelet allows the nodes to be backed by other services like ACI, Hyper.sh, and AWS, etc. This connector features a pluggable architecture and direct use of Kubernetes primitives, making it much easier to build on.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly92aXJ0dWFsLWt1YmVsZXQuaW8v" title="https://virtual-kubelet.io/">https://virtual-kubelet.io/<i class="fa fa-external-link"></i></span></p>
+<h2 id="56-Fnproject"><a href="#56-Fnproject" class="headerlink" title="56. Fnproject"></a><strong>56. Fnproject</strong></h2><p><img alt="#Fnproject" data-src="https://caylent.com/wp-content/uploads/2018/05/48-fnproject-logo-1.png"></p>
+<p>Fnproject is a container native serverless project which supports practically any language and can run almost everywhere. Fn is written on Go, so it is performance-ready and lightweight. Fnproject supports AWS Lambda format style, so you can easily import your Lambda functions and launch it with Fnproject.</p>
+<p>Link: <span class="exturl" data-url="aHR0cDovL2ZucHJvamVjdC5pby8=" title="http://fnproject.io/">http://fnproject.io/<i class="fa fa-external-link"></i></span></p>
+<h1 id="Service-Mesh-Tools"><a href="#Service-Mesh-Tools" class="headerlink" title="Service Mesh Tools"></a><strong>Service Mesh Tools</strong></h1><h2 id="57-Istio"><a href="#57-Istio" class="headerlink" title="57. Istio"></a><strong>57. Istio</strong></h2><p><img alt data-src="https://caylent.com/wp-content/uploads/2018/08/istio.png"></p>
+<p>Istio is an open source service mesh intended to make it easier to connect, manage and secure traffic between, and observe telemetry about microservices running in containers. Istio is a collaboration between IBM, Google and Lyft. </p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9pc3Rpby5pby8=" title="https://istio.io/">https://istio.io/<i class="fa fa-external-link"></i></span></p>
+<h2 id="58-Linkerd-Linkerd2"><a href="#58-Linkerd-Linkerd2" class="headerlink" title="58. Linkerd + Linkerd2"></a>58. Linkerd + Linkerd2</h2><p><img alt="#Linkerd" data-src="https://caylent.com/wp-content/uploads/2018/05/33582867-3e646e02-d90c-11e7-85a2-2e238737e859.png"></p>
+<p>Linkerd (rhymes with “chickadee”) is an open source service mesh tool that makes service-to-service communication reliable, fast and safe. By intercepting network communication within the application, service meshes are able to extract metrics (“telemetry”), apply service-to-service policies and encrypt the exchange. Linkerd2 is an ultralight service mesh from Linkerd that works specifically with Kubernetes.</p>
+<p>Links:<br><span class="exturl" data-url="aHR0cHM6Ly9saW5rZXJkLmlvLw==" title="https://linkerd.io/">https://linkerd.io/<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2xpbmtlcmQvbGlua2VyZDI=" title="https://github.com/linkerd/linkerd2">https://github.com/linkerd/linkerd2<i class="fa fa-external-link"></i></span></p>
+<h2 id="59-Hashicorp’s-Consul"><a href="#59-Hashicorp’s-Consul" class="headerlink" title="59. Hashicorp’s Consul"></a>59. Hashicorp’s Consul</h2><p><img alt="Consul" data-src="https://caylent.com/wp-content/uploads/2017/11/Consul.png"></p>
+<p>Consul is a service networking solution that connects and secure sservices across any runtime platform and public or private cloud. Like the above service mesh technologies, Istio and Linkerd, HashiCorp’s Consul Connect opts for a proxy that’s deployed as a sidecar. The proxy transparently secures communication among microservices and enables policy definition through a concept known as Intentions.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly93d3cuaGFzaGljb3JwLmNvbS9wcm9kdWN0cy9jb25zdWwv" title="https://www.hashicorp.com/products/consul/">https://www.hashicorp.com/products/consul/<i class="fa fa-external-link"></i></span></p>
+<h1 id="Native-Service-Discovery"><a href="#Native-Service-Discovery" class="headerlink" title="Native Service Discovery"></a><strong>Native Service Discovery</strong></h1><h2 id="60-CoreDNS"><a href="#60-CoreDNS" class="headerlink" title="60. CoreDNS"></a><strong>60. CoreDNS</strong></h2><p>CoreDNS is a set of plugins written in Go which perform DNS functions. CoreDNS with additional Kubernetes plugins can replace the default Kube-DNS service and implement the specification defined for Kubernetes DNS-based service discovery. CoreDNS can also listen for DNS requests coming in over UDP/TCP, TLS, and gRPC.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9jb3JlZG5zLmlvLw==" title="https://coredns.io/">https://coredns.io/<i class="fa fa-external-link"></i></span></p>
+<h1 id="Native-Visualization-amp-Control"><a href="#Native-Visualization-amp-Control" class="headerlink" title="Native Visualization &amp; Control"></a><strong>Native Visualization &amp; Control</strong></h1><h2 id="61-Kubernetes-Dashboard"><a href="#61-Kubernetes-Dashboard" class="headerlink" title="61. Kubernetes Dashboard"></a><strong>61. Kubernetes Dashboard</strong></h2><p>Kubernetes Dashboard is a general purpose, web-based UI for Kubernetes clusters. It is much easier to troubleshoot and monitor K8s clusters with a native dashboard. You need to create a secure proxy channel between your machine and Kubernetes API server to access the dashboard. The native Kubernetes dashboard relies on the Heapster data collector, so it also needs to be installed in the system.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMvZGFzaGJvYXJkI2t1YmVybmV0ZXMtZGFzaGJvYXJk" title="https://github.com/kubernetes/dashboard#kubernetes-dashboard">https://github.com/kubernetes/dashboard#kubernetes-dashboard<i class="fa fa-external-link"></i></span></p>
+<h1 id="Cost-Management"><a href="#Cost-Management" class="headerlink" title="Cost Management"></a><strong>Cost Management</strong></h1><h2 id="62-Replex"><a href="#62-Replex" class="headerlink" title="62. Replex"></a>62. Replex</h2><p><img alt="#Replex" data-src="https://caylent.com/wp-content/uploads/2018/05/replex.jpg"></p>
+<p>Replex is a namesake governance and cost management platform designed for working in Kubernetes environments. The tool solves the challenges surrounding Kubernetes’ dynamic nature by unifying cost and governance management for deployments in the cloud.</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly93d3cucmVwbGV4LmlvLw==" title="https://www.replex.io/">https://www.replex.io/<i class="fa fa-external-link"></i></span></p>
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9kem9uZS5jb20vYXJ0aWNsZXMvNTAtdXNlZnVsLWt1YmVybmV0ZXMtdG9vbHM=" title="https://dzone.com/articles/50-useful-kubernetes-tools">k8s useful tools<i class="fa fa-external-link"></i></span></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\k8s-autoscale\" rel="bookmark">k8s_autoscale</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\k8s-faq\" rel="bookmark">k8s_faq</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\k8s-concept\" rel="bookmark">k8s_concept</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\k8s-cri-oci\" rel="bookmark">k8s_cri_oci</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\k8s-ha\" rel="bookmark">k8s_ha</a></div>
+      
+    </li>
+  
+  </ul>
+
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/k8s/" rel="tag"><i class="fa fa-tag"></i> k8s</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/nginx-log/" rel="next" title="nginx-log">
+                  <i class="fa fa-chevron-left"></i> nginx-log
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/k8s-minikube/" rel="prev" title="k8s_minikube">
+                  k8s_minikube <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kube-Cluster-Deployment-Tools"><span class="nav-number">1.</span> <span class="nav-text">Kube Cluster Deployment Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Kubespray"><span class="nav-number">1.1.</span> <span class="nav-text">1. Kubespray</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Minikube"><span class="nav-number">1.2.</span> <span class="nav-text">2. Minikube</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Kubeadm"><span class="nav-number">1.3.</span> <span class="nav-text">3. Kubeadm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Kops"><span class="nav-number">1.4.</span> <span class="nav-text">4. Kops</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Bootkube"><span class="nav-number">1.5.</span> <span class="nav-text">5. Bootkube</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Kubernetes-on-AWS-Kube-AWS"><span class="nav-number">1.6.</span> <span class="nav-text">6. Kubernetes on AWS (Kube-AWS)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-JAAS"><span class="nav-number">1.7.</span> <span class="nav-text">7. JAAS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Conjure-up"><span class="nav-number">1.8.</span> <span class="nav-text">8. Conjure-up</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Amazon-EKS"><span class="nav-number">1.9.</span> <span class="nav-text">9. Amazon EKS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Monitoring-Tools"><span class="nav-number">2.</span> <span class="nav-text">Monitoring Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Kubebox"><span class="nav-number">2.1.</span> <span class="nav-text">10. Kubebox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-Kubernetes-Operational-View-Kube-ops-view"><span class="nav-number">2.2.</span> <span class="nav-text">11. Kubernetes Operational View (Kube-ops-view)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-Kubetail"><span class="nav-number">2.3.</span> <span class="nav-text">12. Kubetail</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-Kubewatch"><span class="nav-number">2.4.</span> <span class="nav-text">13. Kubewatch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-Weave-Scope"><span class="nav-number">2.5.</span> <span class="nav-text">14. Weave Scope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-Prometheus"><span class="nav-number">2.6.</span> <span class="nav-text">15. Prometheus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-Searchlight"><span class="nav-number">2.7.</span> <span class="nav-text">16. Searchlight</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-cAdvisor"><span class="nav-number">2.8.</span> <span class="nav-text">17.cAdvisor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-Kube-state-metrics"><span class="nav-number">2.9.</span> <span class="nav-text">18. Kube-state-metrics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19-Sumo-Logic-App"><span class="nav-number">2.10.</span> <span class="nav-text">19. Sumo Logic App</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-Dynatrace"><span class="nav-number">2.11.</span> <span class="nav-text">20. Dynatrace</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Testing"><span class="nav-number">3.</span> <span class="nav-text">Testing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#21-Kube-monkey"><span class="nav-number">3.1.</span> <span class="nav-text">21. Kube-monkey</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-K8s-testsuite"><span class="nav-number">3.2.</span> <span class="nav-text">22. K8s-testsuite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23-Test-infra"><span class="nav-number">3.3.</span> <span class="nav-text">23. Test-infra</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#24-Sonobuoy"><span class="nav-number">3.4.</span> <span class="nav-text">24. Sonobuoy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#25-PowerfulSeal"><span class="nav-number">3.5.</span> <span class="nav-text">25. PowerfulSeal</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Security"><span class="nav-number">4.</span> <span class="nav-text">Security</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#26-Trireme"><span class="nav-number">4.1.</span> <span class="nav-text">26. Trireme</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#27-Aporeto"><span class="nav-number">4.2.</span> <span class="nav-text">27. Aporeto</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#28-Twistlock"><span class="nav-number">4.3.</span> <span class="nav-text">28. Twistlock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#29-Falco"><span class="nav-number">4.4.</span> <span class="nav-text">29. Falco</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#30-Sysdig-Secure"><span class="nav-number">4.5.</span> <span class="nav-text">30. Sysdig Secure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#31-Kubesec-io"><span class="nav-number">4.6.</span> <span class="nav-text">31. Kubesec.io</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Helpful-CLI-Tools"><span class="nav-number">5.</span> <span class="nav-text">Helpful CLI Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#32-Cabin"><span class="nav-number">5.1.</span> <span class="nav-text">32. Cabin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#33-Kubectx-Kubens"><span class="nav-number">5.2.</span> <span class="nav-text">33. Kubectx/Kubens</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#34-Kube-shell"><span class="nav-number">5.3.</span> <span class="nav-text">34. Kube-shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#35-Kail"><span class="nav-number">5.4.</span> <span class="nav-text">35. Kail</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Development-Tools"><span class="nav-number">6.</span> <span class="nav-text">Development Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#36-Telepresence"><span class="nav-number">6.1.</span> <span class="nav-text">36. Telepresence</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#37-Helm"><span class="nav-number">6.2.</span> <span class="nav-text">37. Helm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#38-Jaeger"><span class="nav-number">6.3.</span> <span class="nav-text">38. Jaeger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#39-turbonomic"><span class="nav-number">6.4.</span> <span class="nav-text">39. turbonomic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#40-Supergiant"><span class="nav-number">6.5.</span> <span class="nav-text">40. Supergiant</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#41-Keel"><span class="nav-number">6.6.</span> <span class="nav-text">41. Keel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#42-Apollo"><span class="nav-number">6.7.</span> <span class="nav-text">42. Apollo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#43-Draft"><span class="nav-number">6.8.</span> <span class="nav-text">43. Draft</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#44-Deis-Workflow"><span class="nav-number">6.9.</span> <span class="nav-text">44. Deis Workflow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#45-Kel"><span class="nav-number">6.10.</span> <span class="nav-text">45. Kel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#46-Kong"><span class="nav-number">6.11.</span> <span class="nav-text">46. Kong</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Serverless-Function-Tools"><span class="nav-number">7.</span> <span class="nav-text">Serverless/Function Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#48-Kubeless"><span class="nav-number">7.1.</span> <span class="nav-text">48. Kubeless</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#49-Fission"><span class="nav-number">7.2.</span> <span class="nav-text">49. Fission</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#50-Funktion"><span class="nav-number">7.3.</span> <span class="nav-text">50. Funktion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#51-IronFunction"><span class="nav-number">7.4.</span> <span class="nav-text">51. IronFunction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#52-OpenWhisk"><span class="nav-number">7.5.</span> <span class="nav-text">52. OpenWhisk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#53-OpenFaaS"><span class="nav-number">7.6.</span> <span class="nav-text">53. OpenFaaS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#54-Nuclio"><span class="nav-number">7.7.</span> <span class="nav-text">54. Nuclio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#55-Virtual-Kubelet"><span class="nav-number">7.8.</span> <span class="nav-text">55. Virtual-Kubelet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#56-Fnproject"><span class="nav-number">7.9.</span> <span class="nav-text">56. Fnproject</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Service-Mesh-Tools"><span class="nav-number">8.</span> <span class="nav-text">Service Mesh Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#57-Istio"><span class="nav-number">8.1.</span> <span class="nav-text">57. Istio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#58-Linkerd-Linkerd2"><span class="nav-number">8.2.</span> <span class="nav-text">58. Linkerd + Linkerd2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#59-Hashicorp’s-Consul"><span class="nav-number">8.3.</span> <span class="nav-text">59. Hashicorp’s Consul</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Native-Service-Discovery"><span class="nav-number">9.</span> <span class="nav-text">Native Service Discovery</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#60-CoreDNS"><span class="nav-number">9.1.</span> <span class="nav-text">60. CoreDNS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Native-Visualization-amp-Control"><span class="nav-number">10.</span> <span class="nav-text">Native Visualization &amp; Control</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#61-Kubernetes-Dashboard"><span class="nav-number">10.1.</span> <span class="nav-text">61. Kubernetes Dashboard</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cost-Management"><span class="nav-number">11.</span> <span class="nav-text">Cost Management</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#62-Replex"><span class="nav-number">11.1.</span> <span class="nav-text">62. Replex</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">12.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/uploads/avatar.gif"
+      alt="Jason">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">106</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">115</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uLWN5dW4=" title="GitHub &rarr; https://github.com/jason-cyun"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="bWFpbHRvOmphc29uX2xrbUAxNjMuY29t" title="E-Mail &rarr; mailto:jason_lkm@163.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script><script src="/js/bookmark.js?v=7.4.0"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var id = element.id || '';
+    var src = element.src || '';
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (id !=='') {
+      script.id = element.id;
+    }
+    if (src !== '') {
+      script.src = src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+<script pjax>
+if (document.querySelectorAll('div.pdf').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js', () => {
+    document.querySelectorAll('div.pdf').forEach(element => {
+      PDFObject.embed(element.getAttribute('target'), element, {
+        pdfOpenParams: {
+          navpanes: 0,
+          toolbar: 0,
+          statusbar: 0,
+          pagemode: 'thumbs',
+          view: 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height: element.getAttribute('height') || '500px'
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '09527c4c0e89e8430bc2',
+      clientSecret: 'bf4a9feb1fafe110ea12ea7549a3b493a08f7e03',
+      repo: 'blog',
+      owner: 'jason-bj',
+      admin: ['jason-bj'],
+      id: '365607c1d6e6408f751b5cb8f617cdf0',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'false'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+    </div>
+</body>
+</html>
