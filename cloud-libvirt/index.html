@@ -67,7 +67,7 @@
 <meta property="og:site_name" content="CYun">
 <meta property="og:description" content="IntroductionLibvirt is collection of software that provides a convenient way to manage virtual machines and other virtualization functionality, such as storage and network interface management. These">
 <meta property="og:locale" content="en-US">
-<meta property="og:updated_time" content="2021-07-12T12:12:04.003Z">
+<meta property="og:updated_time" content="2021-07-13T03:04:04.214Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cloud_libvirt">
 <meta name="twitter:description" content="IntroductionLibvirt is collection of software that provides a convenient way to manage virtual machines and other virtualization functionality, such as storage and network interface management. These">
@@ -324,7 +324,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-12 20:12:04" itemprop="dateModified" datetime="2021-07-12T20:12:04+08:00">2021-07-12</time>
+                <time title="Modified: 2021-07-13 11:04:04" itemprop="dateModified" datetime="2021-07-13T11:04:04+08:00">2021-07-13</time>
               </span>
             
           
@@ -407,7 +407,7 @@
 <li>virsh dumpxml(output vm info as an XML to stdout)</li>
 <li>virsh edit(edit the XML cfg for a vm)</li>
 <li>virsh migrate(migrate vm to another host)</li>
-<li>virsh suspend/start/shutdown/reboot/save/restore/resume/</li>
+<li>virsh suspend/resume/start/shutdown/reboot/reset/save/restore</li>
 <li>virsh setmem/setvcpus</li>
 <li>virsh vcpuinfo/vcpucount/vcpupin</li>
 <li>virsh domiflist</li>
@@ -455,12 +455,13 @@
 <li>virsh vol-create / vol-delete</li>
 <li>virsh vol-info /vol-list</li>
 </ul>
-<h3 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ virsh -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># By default virsh will connect with local libvirt by unix socket</span></span><br><span class="line"><span class="comment"># but can connect with remote libvirtd</span></span><br><span class="line">$ virsh --connect qemu+ssh://root@example.com/system</span><br><span class="line"></span><br><span class="line"><span class="comment"># show the connection</span></span><br><span class="line">$ virsh uri</span><br><span class="line"></span><br><span class="line"><span class="comment"># create a vm, for QEMU and LXC, libvirtd stores vm XML to disk and in memory</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># DO NOT edit the XML directly from disk at in that way, there is no validation!!!</span></span><br><span class="line"><span class="comment"># if you edit the on-disk XML is a VM that simply vanishes the next time libvirtd is restarted after the edit.</span></span><br><span class="line"><span class="comment"># The VM disappears from libvirt because the XML has become invalid, after which libvirt can't do anything with it</span></span><br><span class="line"></span><br><span class="line">$ virsh dumpxml <span class="variable">$domain</span></span><br><span class="line">$ virsh edit <span class="variable">$domain</span></span><br></pre></td></tr></table></figure>
+<h3 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ virsh -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># By default virsh will connect with local libvirt by unix socket</span></span><br><span class="line"><span class="comment"># but can connect with remote libvirtd</span></span><br><span class="line">$ virsh --connect qemu+ssh://root@example.com/system</span><br><span class="line"></span><br><span class="line"><span class="comment"># show the connection</span></span><br><span class="line">$ virsh uri</span><br><span class="line"></span><br><span class="line"><span class="comment"># create a vm, for QEMU and LXC, libvirtd stores vm XML to disk and in memory</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># DO NOT edit the XML directly from disk at in that way, there is no validation!!!</span></span><br><span class="line"><span class="comment"># if you edit the on-disk XML is a VM that simply vanishes the next time libvirtd is restarted after the edit.</span></span><br><span class="line"><span class="comment"># The VM disappears from libvirt because the XML has become invalid, after which libvirt can't do anything with it</span></span><br><span class="line"></span><br><span class="line">$ virsh dumpxml <span class="variable">$domain</span></span><br><span class="line">$ virsh edit <span class="variable">$domain</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># delete a vm and related files</span></span><br><span class="line">$ virsh destroy  <span class="variable">$domain</span></span><br><span class="line">$ virsh undefine <span class="variable">$domain</span> -remove-all-storage</span><br></pre></td></tr></table></figure>
 
 <h3 id="Run-command-inside-guest-VM"><a href="#Run-command-inside-guest-VM" class="headerlink" title="Run command inside guest(VM)"></a>Run command inside guest(VM)</h3><p>In order to run command inside guest os, we must have two things prepared, <code>a channel and agent runs in guest os to execute the command</code></p>
 <p><strong>Enable the channel</strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">channel</span> <span class="attr">type</span>=<span class="string">'unix'</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">target</span> <span class="attr">type</span>=<span class="string">'virtio'</span> <span class="attr">name</span>=<span class="string">'org.qemu.guest_agent.0'</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">channel</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+<p>After enable this channel, on host a unix socket is created for the VM at /var/lib/libvirt/qemu/channel/target/domain-41-guest1-rhel7/org.qemu.guest_agent.0<br>Inside the domain, <code>a char device(/dev/virtio-ports/org.qemu.guest_agent.0) is exported to user by virtio</code>, <strong>write/read to char dev inside guest OS, data is available at unix socket on host.</strong></p>
 <p><strong>Install agent inside guest vm</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yum install qemu-guest-agent</span><br><span class="line">$ systemctl start qemu-guest-agent</span><br><span class="line">$ systemctl <span class="built_in">enable</span> qemu-guest-agent</span><br></pre></td></tr></table></figure>
 
@@ -511,9 +512,24 @@
 <h2 id="How-to-reset-a-user-password-of-running-domain"><a href="#How-to-reset-a-user-password-of-running-domain" class="headerlink" title="How to reset a user password of running domain"></a>How to reset a user password of running domain</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># shutdown it first</span></span><br><span class="line">$ virsh shutdown <span class="variable">$domain</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># generate your password</span></span><br><span class="line">$ openssl passwd -1 <span class="variable">$yourpassword</span></span><br><span class="line"><span class="variable">$6</span><span class="variable">$FU5Nl9oxxxx</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># mount the disk with read/write mode</span></span><br><span class="line">$ guestfish --rw -a /var/lib/libvirt/images/debian9-vm1.qcow2 -i</span><br><span class="line"></span><br><span class="line">&gt;&lt;fs&gt; vi /etc/shadow</span><br><span class="line"><span class="comment"># modify password</span></span><br><span class="line">root:<span class="variable">$6</span><span class="variable">$FU5Nl9oxxxx</span>:17572:0:99999:7:::</span><br><span class="line"></span><br><span class="line">&gt;&lt;fs&gt; flush</span><br><span class="line">&gt;&lt;fs&gt; quit</span><br></pre></td></tr></table></figure>
 
 <h1 id="Frequently-used-command"><a href="#Frequently-used-command" class="headerlink" title="Frequently used command"></a>Frequently used command</h1><ul>
-<li>virsh domblkerror test1</li>
-<li>virsh dominfo test1</li>
-<li>virsh console test1 (exit console <code>Ctrl+]</code>)</li>
+<li><p>virsh help dominfo</p>
+</li>
+<li><p>virsh domblkinfo domblkstat/ domifstat / dommemstat /</p>
+</li>
+<li><p>virsh domblkerror test1</p>
+</li>
+<li><p>virsh dominfo test1</p>
+</li>
+<li><p>virsh domjobinfo</p>
+</li>
+<li><p>virsh domstate test1 –reason</p>
+</li>
+<li><p>virsh console test1 (exit console <code>Ctrl+]</code>)</p>
+</li>
+<li><p>virsh dumpxl</p>
+</li>
+<li><p>virsh migrate</p>
+</li>
 </ul>
 <h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
 <li><span class="exturl" data-url="aHR0cHM6Ly9saWJ2aXJ0Lm9yZy9mb3JtYXQuaHRtbA==" title="https://libvirt.org/format.html">VM XML format<i class="fa fa-external-link"></i></span></li>
