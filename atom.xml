@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cyun.tech/"/>
-  <updated>2021-07-14T01:05:49.815Z</updated>
+  <updated>2021-07-14T04:01:00.110Z</updated>
   <id>http://cyun.tech/</id>
   
   <author>
@@ -15,6 +15,21 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>yum-rpm-pkg</title>
+    <link href="http://cyun.tech/yum-rpm-pkg/"/>
+    <id>http://cyun.tech/yum-rpm-pkg/</id>
+    <published>2021-07-14T04:01:00.000Z</published>
+    <updated>2021-07-14T04:01:00.110Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>cloud_libvirt</title>
@@ -540,43 +555,6 @@
       <category term="ssl" scheme="http://cyun.tech/tags/ssl/"/>
     
       <category term="security" scheme="http://cyun.tech/tags/security/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>stress_workload_generator</title>
-    <link href="http://cyun.tech/stress-workload-generator/"/>
-    <id>http://cyun.tech/stress-workload-generator/</id>
-    <published>2021-04-15T12:43:48.000Z</published>
-    <updated>2021-07-14T02:23:30.014Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>It is a simple workload generator for POSIX systems. It imposes a configurable amount of CPU, memory, I/O, and disk stress on the system. It will <code>stress test a server</code> for the following features:</p><ul><li>CPU compute</li><li>Cache thrashing</li><li>VM stress</li><li>Drive stress</li><li>I/O syncs</li><li>Socket stressing</li><li>Context switching</li><li>Process creation and termination</li><li>It includes over 60 different stress tests, over 50 CPU specific stress tests that exercise floating point, integer, bit manipulation and control flow, over 20 virtual memory stress tests.<a id="more"></a></li></ul><p><strong>Lots of stressors</strong></p><p><strong>It is not a benchmark, but is rather a tool designed</strong></p><h1 id="Stressor"><a href="#Stressor" class="headerlink" title="Stressor"></a>Stressor</h1><p><code>The stress-ng stressors are grouped together in different classes, each class may have many stressors or one stressor</code>, when you start stress, <strong>you can run a class(all stressor in that class) or just a specific stressor or several stressors at a time.</strong></p><p><strong>Classes:</strong>  </p><ul><li>cpu - CPU intensive</li><li>cpu-cache - stress CPU instruction and/or data caches</li><li>device - raw device driver stressors</li><li>io - generic input/output</li><li>interrupt - high interrupt load generators</li><li>filesystem - file system activity</li><li>memory - stack, heap, memory mapping, shared memory stressors</li><li>network - TCP/IP, UDP and UNIX domain socket stressors</li><li>os - core kernel stressors</li><li>pipe - pipe and UNIX socket stressors</li><li>scheduler - force high levels of context switching</li><li>security - AppArmor stressor</li><li>vm - Virtual Memory stressor (paging and memory) </li></ul><p><strong>Stressors</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yum install -y stress-ng</span><br><span class="line">$ stress-ng --stressor</span><br><span class="line">access af-alg affinity aio aiol apparmor atomic bad-altstack bad-ioctl bigheap <span class="built_in">bind</span>-mount binderfs branch brk bsearch cache <span class="built_in">cap</span> chattr <span class="built_in">chdir</span> chmod chown chroot clock <span class="built_in">clone</span> close context copy-file cpu cpu-online crypt cyclic daemon dccp dentry dev dev-shm dir dirdeep dnotify dup dynlib efivar enosys env epoll eventfd <span class="built_in">exec</span> fallocate fanotify fault fcntl fiemap fifo file-ioctl filename flock fork fp-error fstat full funccall funcret futex get getdent getrandom handle hdd heapsort hrtimers hsearch icache icmp-flood idle-page inode-flags inotify io iomix ioport ioprio io-uring ipsec-mb itimer judy kcmp key <span class="built_in">kill</span> klog l1cache lease link locka lockbus lockf lockofd longjmp loop lsearch madvise malloc matrix matrix-3d mcontend membarrier memcpy memfd memhotplug memrate memthrash mergesort mincore mknod mlock mlockmany mmap mmapaddr mmapfixed mmapfork mmapmany mq mremap msg msync nanosleep netdev netlink-proc netlink-task nice nop null numa oom-pipe opcode open personality physpage pidfd ping-sock pipe pipeherd pkey poll prctl procfs pthread ptrace pty qsort quota radixsort ramfs rawdev rawpkt rawsock rawudp rdrand readahead reboot remap rename resources revio rlimit rmap rseq rtc schedpolicy sctp seal seccomp secretmem seek sem sem-sysv sendfile session <span class="built_in">set</span> shellsort shm shm-sysv sigabrt sigchld sigfd sigfpe sigio signal sigpending sigpipe sigq sigrt sigsegv sigsuspend sigtrap skiplist sleep sock sockabuse sockdiag sockfd sockpair sockmany softlockup spawn splice stack stackmmap str stream swap switch symlink sync-file sysbadaddr sysinfo sysinval sysfs tee timer timerfd tlb-shootdown tmpfs tree tsc tsearch tun udp udp-flood unshare uprobe urandom userfaultfd utime vdso vecmath verity vfork vforkmany vm vm-addr vm-rw vm-segv vm-splice <span class="built_in">wait</span> watchdog wcs x86syscall xattr yield zero zlib zombie</span><br></pre></td></tr></table></figure><p><strong>Options</strong>  </p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">-a N, --all N, --parallel N (mostly used combined with  --class)</span><br><span class="line">    start N instances of all stressors <span class="keyword">in</span> parallel. If N is less than  zero,  <span class="keyword">then</span>  the</span><br><span class="line">    number  of CPUs online is used <span class="keyword">for</span> the number of instances.  If N is zero, <span class="keyword">then</span> the</span><br><span class="line">    number of CPUs <span class="keyword">in</span> the system is used.</span><br><span class="line"></span><br><span class="line">--sequential N</span><br><span class="line">    sequentially  run  all  the  stressors  one by one <span class="keyword">for</span> a default of 60 seconds. The</span><br><span class="line">    number of instances of each of the individual stressors to be started is N.   If  N</span><br><span class="line">    is  less  than  zero,  <span class="keyword">then</span>  the  number  of  CPUs online is used <span class="keyword">for</span> the number of</span><br><span class="line">    instances.  If N is zero, <span class="keyword">then</span> the number of CPUs <span class="keyword">in</span> the system is used.   Use  the</span><br><span class="line">    --timeout option to specify the duration to run each stressor.</span><br><span class="line"></span><br><span class="line">--taskset list</span><br><span class="line">    <span class="built_in">set</span> CPU affinity based on the list of CPUs provided; stress-ng is bound to just use</span><br><span class="line">    these CPUs (Linux only). The CPUs to be used are specified  by  a  comma  separated</span><br><span class="line">    list  of  CPU  (0  to N-1). One can specify a range of CPUs using <span class="string">'-'</span>, <span class="keyword">for</span> example:</span><br><span class="line">    --taskset 0,2-3,6,7-11</span><br><span class="line"></span><br><span class="line">-t N, --timeout T</span><br><span class="line">    stop  stress  <span class="built_in">test</span>  after  T  seconds.  One  can  also specify the units of time <span class="keyword">in</span></span><br><span class="line">    seconds, minutes, hours, days or years with the suffix s, m, h, d or  y.   Note:  A</span><br><span class="line">    timeout of 0 will run stress-ng without any timeouts (run forever).</span><br><span class="line"></span><br><span class="line">--vm-keep</span><br><span class="line">    don not continually unmap and map memory, just keep on re-writing to</span><br><span class="line">    it.</span><br><span class="line"></span><br><span class="line">--vm-populate</span><br><span class="line">    populate (prefault) page tables <span class="keyword">for</span> the memory mappings; this can</span><br><span class="line">    stress swapping. Only available on systems that support</span><br><span class="line">    MAP_POPULATE (since Linux 2.5.46).</span><br></pre></td></tr></table></figure><h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># fork two processes for 10 seconds</span></span><br><span class="line">$ stress-ng -c 2 -t 10s --metrics-brief</span><br><span class="line">$ stress-ng -c 2 -t 1m --metrics-brief</span><br><span class="line"></span><br><span class="line"><span class="comment"># fork process of inline CPU</span></span><br><span class="line">$ stress-ng -c 0 -t 1m --metrics-brief</span><br><span class="line"></span><br><span class="line"><span class="comment"># run 3 instances of the CPU stressor and pin them to CPUs 0, 2 and 3.</span></span><br><span class="line">$ stress-ng --taskset 0,2-3 --cpu 3</span><br></pre></td></tr></table></figure><h3 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># fork 1 process malloc/free 128M</span></span><br><span class="line">$ stress-ng -m 1 --vm-bytes 128M -t 10s --metrics-brief</span><br><span class="line"><span class="comment"># fork 1 process malloc/free 1G</span></span><br><span class="line">$ stress-ng -m 1 --vm-bytes 1G -t 10s --metrics-brief</span><br><span class="line"></span><br><span class="line">$ stress-ng -m 1 --vm-bytes 1G -t 10s --vm-keep --vm-populate --metrics-brief</span><br><span class="line"></span><br><span class="line"><span class="comment"># fork 2 processes malloc/free 50% available memory, one 25 %</span></span><br><span class="line">$ stress-ng -m 2 --vm-bytes 50% -t 10s --metrics-brief</span><br></pre></td></tr></table></figure><h3 id="interrupt-load"><a href="#interrupt-load" class="headerlink" title="interrupt load"></a>interrupt load</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 32 instances at 1MHz:</span></span><br><span class="line">$ stress-ng --timer 32 --timer-freq 1000000</span><br></pre></td></tr></table></figure><h3 id="page-faults"><a href="#page-faults" class="headerlink" title="page faults"></a>page faults</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># You can generate major page faults (by accessing a page is not loaded in memory at the time of the fault) and see the page fault rate using:</span></span><br><span class="line">$ stress-ng --fault 0 --perf -t 1m</span><br><span class="line"></span><br><span class="line"><span class="comment"># or with newer kernels use the userfaultfd stressor to force even more major faults:</span></span><br><span class="line">$ stress-ng --userfaultfd 0 --perf -t 1m</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Overview&quot;&gt;&lt;a href=&quot;#Overview&quot; class=&quot;headerlink&quot; title=&quot;Overview&quot;&gt;&lt;/a&gt;Overview&lt;/h1&gt;&lt;p&gt;It is a simple workload generator for POSIX systems. It imposes a configurable amount of CPU, memory, I/O, and disk stress on the system. It will &lt;code&gt;stress test a server&lt;/code&gt; for the following features:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;CPU compute&lt;/li&gt;
-&lt;li&gt;Cache thrashing&lt;/li&gt;
-&lt;li&gt;VM stress&lt;/li&gt;
-&lt;li&gt;Drive stress&lt;/li&gt;
-&lt;li&gt;I/O syncs&lt;/li&gt;
-&lt;li&gt;Socket stressing&lt;/li&gt;
-&lt;li&gt;Context switching&lt;/li&gt;
-&lt;li&gt;Process creation and termination&lt;/li&gt;
-&lt;li&gt;It includes over 60 different stress tests, over 50 CPU specific stress tests that exercise floating point, integer, bit manipulation and control flow, over 20 virtual memory stress tests.
-    
-    </summary>
-    
-    
-      <category term="stress" scheme="http://cyun.tech/categories/stress/"/>
-    
-      <category term="generator" scheme="http://cyun.tech/categories/stress/generator/"/>
-    
-    
-      <category term="stress" scheme="http://cyun.tech/tags/stress/"/>
-    
-      <category term="generator" scheme="http://cyun.tech/tags/generator/"/>
     
   </entry>
   

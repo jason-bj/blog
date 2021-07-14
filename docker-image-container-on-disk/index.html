@@ -67,7 +67,7 @@
 <meta property="og:site_name" content="CYun">
 <meta property="og:description" content="Image and Container ConceptThe major difference between a container and an image is the top writable layer. All writes to the container that add new or modify existing data are stored in this writable">
 <meta property="og:locale" content="en-US">
-<meta property="og:updated_time" content="2021-07-14T01:32:29.233Z">
+<meta property="og:updated_time" content="2021-07-14T04:01:21.542Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker-image-container-on-disk">
 <meta name="twitter:description" content="Image and Container ConceptThe major difference between a container and an image is the top writable layer. All writes to the container that add new or modify existing data are stored in this writable">
@@ -324,7 +324,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-14 09:32:29" itemprop="dateModified" datetime="2021-07-14T09:32:29+08:00">2021-07-14</time>
+                <time title="Modified: 2021-07-14 12:01:21" itemprop="dateModified" datetime="2021-07-14T12:01:21+08:00">2021-07-14</time>
               </span>
             
           
@@ -379,9 +379,9 @@
 <li><strong>mnt/</strong>: As in diff/, it only shows content of each layer, here it shows content of all layers it based on(actually it’s aufs mount point(single dir)).</li>
 </ul>
 <p><mark>Note: without container runs, all are empty!<br>when container runs only the contain layer mount point has content!!!</mark></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">(base) root@dev:/var/lib/docker<span class="comment"># tree -L 2 aufs</span></span><br><span class="line">aufs</span><br><span class="line">|-- diff</span><br><span class="line">|   |-- 268f3ca66142b2b9791504df67c604a5f0bf331064f4e1f899fcdd33686b602d</span><br><span class="line">|   |-- 38fd587650e8a0befc2a177395a2afa380abcd32ac78316c6a38ea6b01bdadd7</span><br><span class="line">|   |-- 39d5b8fbe7446545c8e982bc3c2e0a0e955a81c99a88a85121252800406c88cf</span><br><span class="line">|   |-- 9bd9ca976269998def585a7848e180207f88cdec9e95b11e930532cfe84780e6</span><br><span class="line">|   |-- afc8986c55fb3ec896070d3f475a61ababf6e5e458107e7d8d449df6b53055cf</span><br><span class="line">|   `-- afc8986c55fb3ec896070d3f475a61ababf6e5e458107e7d8d449df6b53055cf-init</span><br><span class="line">|-- layers</span><br><span class="line">|   |-- 268f3ca66142b2b9791504df67c604a5f0bf331064f4e1f899fcdd33686b602d</span><br><span class="line">|   |-- 38fd587650e8a0befc2a177395a2afa380abcd32ac78316c6a38ea6b01bdadd7</span><br><span class="line">|   |-- 39d5b8fbe7446545c8e982bc3c2e0a0e955a81c99a88a85121252800406c88cf</span><br><span class="line">|   |-- 9bd9ca976269998def585a7848e180207f88cdec9e95b11e930532cfe84780e6</span><br><span class="line">|   |-- afc8986c55fb3ec896070d3f475a61ababf6e5e458107e7d8d449df6b53055cf</span><br><span class="line">|   `-- afc8986c55fb3ec896070d3f475a61ababf6e5e458107e7d8d449df6b53055cf-init</span><br><span class="line">`-- mnt</span><br><span class="line">    |-- 268f3ca66142b2b9791504df67c604a5f0bf331064f4e1f899fcdd33686b602d</span><br><span class="line">    |-- 38fd587650e8a0befc2a177395a2afa380abcd32ac78316c6a38ea6b01bdadd7</span><br><span class="line">    |-- 39d5b8fbe7446545c8e982bc3c2e0a0e955a81c99a88a85121252800406c88cf</span><br><span class="line">    |-- 9bd9ca976269998def585a7848e180207f88cdec9e95b11e930532cfe84780e6</span><br><span class="line">    |-- afc8986c55fb3ec896070d3f475a61ababf6e5e458107e7d8d449df6b53055cf</span><br><span class="line">    `-- afc8986c55fb3ec896070d3f475a61ababf6e5e458107e7d8d449df6b53055cf-init</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">root@dev:/var/lib/docker<span class="comment"># tree -L 2 aufs</span></span><br><span class="line">aufs</span><br><span class="line">|-- diff</span><br><span class="line">|   |-- 268f3ca66142b2b9791504df67c604a5f0bf331064f4e1f899fcdd33686b602d</span><br><span class="line">|   |-- 38fd587650e8a0befc2a177395a2afa380abcd32ac78316c6a38ea6b01bdadd7</span><br><span class="line">|   |-- 39d5b8fbe7446545c8e982bc3c2e0a0e955a81c99a88a85121252800406c88cf</span><br><span class="line">|   |-- 9bd9ca976269998def585a7848e180207f88cdec9e95b11e930532cfe84780e6</span><br><span class="line">|   |-- afc8986c55fb3ec896070d3f475a61ababf6e5e458107e7d8d449df6b53055cf</span><br><span class="line">|   `-- afc8986c55fb3ec896070d3f475a61ababf6e5e458107e7d8d449df6b53055cf-init</span><br><span class="line">|-- layers</span><br><span class="line">|   |-- 268f3ca66142b2b9791504df67c604a5f0bf331064f4e1f899fcdd33686b602d</span><br><span class="line">|   |-- 38fd587650e8a0befc2a177395a2afa380abcd32ac78316c6a38ea6b01bdadd7</span><br><span class="line">|   |-- 39d5b8fbe7446545c8e982bc3c2e0a0e955a81c99a88a85121252800406c88cf</span><br><span class="line">|   |-- 9bd9ca976269998def585a7848e180207f88cdec9e95b11e930532cfe84780e6</span><br><span class="line">|   |-- afc8986c55fb3ec896070d3f475a61ababf6e5e458107e7d8d449df6b53055cf</span><br><span class="line">|   `-- afc8986c55fb3ec896070d3f475a61ababf6e5e458107e7d8d449df6b53055cf-init</span><br><span class="line">`-- mnt</span><br><span class="line">    |-- 268f3ca66142b2b9791504df67c604a5f0bf331064f4e1f899fcdd33686b602d</span><br><span class="line">    |-- 38fd587650e8a0befc2a177395a2afa380abcd32ac78316c6a38ea6b01bdadd7</span><br><span class="line">    |-- 39d5b8fbe7446545c8e982bc3c2e0a0e955a81c99a88a85121252800406c88cf</span><br><span class="line">    |-- 9bd9ca976269998def585a7848e180207f88cdec9e95b11e930532cfe84780e6</span><br><span class="line">    |-- afc8986c55fb3ec896070d3f475a61ababf6e5e458107e7d8d449df6b53055cf</span><br><span class="line">    `-- afc8986c55fb3ec896070d3f475a61ababf6e5e458107e7d8d449df6b53055cf-init</span><br></pre></td></tr></table></figure>
 
-<h3 id="docker-containers-directory"><a href="#docker-containers-directory" class="headerlink" title="docker/containers directory"></a>docker/containers directory</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(base) root@dev:/var/lib/docker<span class="comment"># tree -L 2 containers/</span></span><br><span class="line">containers/</span><br><span class="line">`-- 1eb906e718d8271061ac894972533234af4c563364bd7522f482b1d427095270</span><br><span class="line">    |-- 1eb906e718d8271061ac894972533234af4c563364bd7522f482b1d427095270-json.log</span><br><span class="line">    |-- config.v2.json</span><br><span class="line">    |-- hostconfig.json</span><br><span class="line">    |-- hostname</span><br><span class="line">    |-- hosts</span><br><span class="line">    |-- resolv.conf</span><br><span class="line">    |-- resolv.conf.hash</span><br><span class="line">    `-- shm</span><br></pre></td></tr></table></figure>
+<h3 id="docker-containers-directory"><a href="#docker-containers-directory" class="headerlink" title="docker/containers directory"></a>docker/containers directory</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@dev:/var/lib/docker<span class="comment"># tree -L 2 containers/</span></span><br><span class="line">containers/</span><br><span class="line">`-- 1eb906e718d8271061ac894972533234af4c563364bd7522f482b1d427095270</span><br><span class="line">    |-- 1eb906e718d8271061ac894972533234af4c563364bd7522f482b1d427095270-json.log</span><br><span class="line">    |-- config.v2.json</span><br><span class="line">    |-- hostconfig.json</span><br><span class="line">    |-- hostname</span><br><span class="line">    |-- hosts</span><br><span class="line">    |-- resolv.conf</span><br><span class="line">    |-- resolv.conf.hash</span><br><span class="line">    `-- shm</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><strong>containers/</strong>: includes the <mark>config and runtime</mark> info about this container etc</li>
@@ -407,6 +407,13 @@
     <li class="popular-posts-item">
       
       
+      <div class="popular-posts-title"><a href="\docker-core-tech-chroot\" rel="bookmark">docker-core-tech-chroot</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
       <div class="popular-posts-title"><a href="\docker-create-image\" rel="bookmark">docker-create-image</a></div>
       
     </li>
@@ -428,14 +435,7 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\docker-core-tech-chroot\" rel="bookmark">docker-core-tech-chroot</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\docker-storage-driver\" rel="bookmark">docker-storage-driver</a></div>
+      <div class="popular-posts-title"><a href="\docker-network\" rel="bookmark">docker-network</a></div>
       
     </li>
   
@@ -561,7 +561,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
