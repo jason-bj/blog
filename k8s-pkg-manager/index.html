@@ -67,7 +67,7 @@
 <meta property="og:site_name" content="CYun">
 <meta property="og:description" content="IntroductionHelm is the best way to find, share, and use software built Kubernetes, a software in k8s may be one separate deployment or several deployments that works together to provides service to u">
 <meta property="og:locale" content="en-US">
-<meta property="og:updated_time" content="2021-07-12T09:36:57.635Z">
+<meta property="og:updated_time" content="2021-07-14T02:05:07.463Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="k8s_pkg_manager">
 <meta name="twitter:description" content="IntroductionHelm is the best way to find, share, and use software built Kubernetes, a software in k8s may be one separate deployment or several deployments that works together to provides service to u">
@@ -324,7 +324,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-12 17:36:57" itemprop="dateModified" datetime="2021-07-12T17:36:57+08:00">2021-07-12</time>
+                <time title="Modified: 2021-07-14 10:05:07" itemprop="dateModified" datetime="2021-07-14T10:05:07+08:00">2021-07-14</time>
               </span>
             
           
@@ -370,7 +370,7 @@
 <li><strong>A release is a running instance of a chart, combined with a specific config.</strong></li>
 </ul>
 <h1 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h1><p>In order to use helm, we need to install it firstly with below command</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo snap install helm --classic</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Centos7 to install snap</span></span><br><span class="line">$ yum install -y snapd</span><br><span class="line">$ systemctl <span class="built_in">enable</span> --now snapd.socket</span><br><span class="line">$ ln -s /var/lib/snapd/snap /snap</span><br><span class="line"></span><br><span class="line">$ sudo snap install helm --classic</span><br></pre></td></tr></table></figure>
 
 <p><strong>As helm install application in k8s(create deployment), hence in order to use it, you MUST have kubernetes and kubectl installed before. there are required!!!</strong></p>
 <p><strong>Helm and K8s compatibility</strong></p>

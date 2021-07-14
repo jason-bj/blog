@@ -67,7 +67,7 @@
 <meta property="og:site_name" content="CYun">
 <meta property="og:description" content="IntroductionNetwork block devices (NBD) are used to access remote storage device that does not physically reside in the local machine, for each network block device, it’s mapped(/dev/nbdx) to client a">
 <meta property="og:locale" content="en-US">
-<meta property="og:updated_time" content="2021-07-12T09:36:57.609Z">
+<meta property="og:updated_time" content="2021-07-14T01:06:11.803Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cloud_storage_nbd">
 <meta name="twitter:description" content="IntroductionNetwork block devices (NBD) are used to access remote storage device that does not physically reside in the local machine, for each network block device, it’s mapped(/dev/nbdx) to client a">
@@ -324,7 +324,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-12 17:36:57" itemprop="dateModified" datetime="2021-07-12T17:36:57+08:00">2021-07-12</time>
+                <time title="Modified: 2021-07-14 09:06:11" itemprop="dateModified" datetime="2021-07-14T09:06:11+08:00">2021-07-14</time>
               </span>
             
           
@@ -364,6 +364,8 @@
 <p>NBD works according to a client/server architecture. You use the server to make a volume available as a network block device from a host, then run the client to connect to it from another host.</p>
 <p><img alt="NBD ARCH" data-src="https://www.linuxjournal.com/files/linuxjournal.com/linuxjournal/articles/037/3778/3778f1.jpg"></p>
 <a id="more"></a>
+
+<p><strong><font color="red">All commands verified on Centos7</font></strong></p>
 <p><strong>NBD uses TCP as its transport protocol. There is no well known port used for NBD</strong></p>
 <ul>
 <li>Client accesses <code>/dev/nbdx</code> after nbd mounts</li>

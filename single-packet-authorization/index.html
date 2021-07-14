@@ -67,7 +67,7 @@
 <meta property="og:site_name" content="CYun">
 <meta property="og:description" content="OverviewSingle Packet Authorization (SPA) is defined as the communication of authentication information over spa server port, together with the dynamic reconfiguration of a default-drop firewall polic">
 <meta property="og:locale" content="en-US">
-<meta property="og:updated_time" content="2021-07-12T09:36:57.664Z">
+<meta property="og:updated_time" content="2021-07-14T02:20:29.551Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Single_Packet_Authorization">
 <meta name="twitter:description" content="OverviewSingle Packet Authorization (SPA) is defined as the communication of authentication information over spa server port, together with the dynamic reconfiguration of a default-drop firewall polic">
@@ -324,7 +324,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-12 17:36:57" itemprop="dateModified" datetime="2021-07-12T17:36:57+08:00">2021-07-12</time>
+                <time title="Modified: 2021-07-14 10:20:29" itemprop="dateModified" datetime="2021-07-14T10:20:29+08:00">2021-07-14</time>
               </span>
             
           
@@ -372,8 +372,10 @@
 <li>Firewall(iptables) checks protocol headers for access.</li>
 </ul>
 <h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><p>Here are the steps to install fwknop from source code, first make sure you have dev machine and env to compile from source, install from package is available for ubuntu as well, but here I want to share how to install from source.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install from pkg</span></span><br><span class="line">$ apt-get install -y fwknop-server</span><br><span class="line">$ apt-get install -y fwknop-client</span><br></pre></td></tr></table></figure>
+<p><strong>install from package</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ubuntu18</span></span><br><span class="line">$ apt-get install -y fwknop-server</span><br><span class="line">$ apt-get install -y fwknop-client</span><br><span class="line"><span class="comment"># Centos7</span></span><br><span class="line">yum install -y fwknop</span><br></pre></td></tr></table></figure>
 
+<p><strong>install from source</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install dependencies</span></span><br><span class="line">$ apt-get update</span><br><span class="line">$ apt-get install -y build-essential autoconf autotools-dev libtool textinfo git</span><br></pre></td></tr></table></figure>
 
 <p><strong>install server</strong></p>

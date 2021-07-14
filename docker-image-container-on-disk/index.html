@@ -67,7 +67,7 @@
 <meta property="og:site_name" content="CYun">
 <meta property="og:description" content="Image and Container ConceptThe major difference between a container and an image is the top writable layer. All writes to the container that add new or modify existing data are stored in this writable">
 <meta property="og:locale" content="en-US">
-<meta property="og:updated_time" content="2021-07-12T09:36:57.617Z">
+<meta property="og:updated_time" content="2021-07-14T01:32:29.233Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker-image-container-on-disk">
 <meta name="twitter:description" content="Image and Container ConceptThe major difference between a container and an image is the top writable layer. All writes to the container that add new or modify existing data are stored in this writable">
@@ -324,7 +324,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-12 17:36:57" itemprop="dateModified" datetime="2021-07-12T17:36:57+08:00">2021-07-12</time>
+                <time title="Modified: 2021-07-14 09:32:29" itemprop="dateModified" datetime="2021-07-14T09:32:29+08:00">2021-07-14</time>
               </span>
             
           
@@ -371,7 +371,7 @@
 </ul>
 <h2 id="Image-on-disk-var-lib-docker"><a href="#Image-on-disk-var-lib-docker" class="headerlink" title="Image on disk /var/lib/docker"></a>Image on disk /var/lib/docker</h2><p>Let’s see what’s the file layout for image and container. here is the layout for it<br><img alt="image layout" data-src="https://cyun.tech/images/docker/image-on-disk.png"></p>
 <p><mark>Below output is the file layout after create a  container(official ubuntu image)</mark></p>
-<h3 id="docker-aufs-directory"><a href="#docker-aufs-directory" class="headerlink" title="docker/aufs directory"></a>docker/aufs directory</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(base) root@dev:/var/lib/docker<span class="comment"># ls aufs</span></span><br><span class="line">diff  layers  mnt</span><br></pre></td></tr></table></figure>
+<h3 id="docker-aufs-directory"><a href="#docker-aufs-directory" class="headerlink" title="docker/aufs directory"></a>docker/aufs directory</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ls /var/lib/docker/aufs</span><br><span class="line">diff  layers  mnt</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><strong>diff/</strong>: content of each layer(image layer and init  layer and container layer)</li>

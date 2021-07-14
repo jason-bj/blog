@@ -67,7 +67,7 @@
 <meta property="og:site_name" content="CYun">
 <meta property="og:description" content="Docker CLIBefore going into docker cli, let’s see how docker client, daemon and registry works, here is an overview of these two part and how they work with each other.">
 <meta property="og:locale" content="en-US">
-<meta property="og:updated_time" content="2021-07-12T09:36:57.616Z">
+<meta property="og:updated_time" content="2021-07-14T01:31:47.608Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker-frequently-used-commands">
 <meta name="twitter:description" content="Docker CLIBefore going into docker cli, let’s see how docker client, daemon and registry works, here is an overview of these two part and how they work with each other.">
@@ -324,7 +324,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-12 17:36:57" itemprop="dateModified" datetime="2021-07-12T17:36:57+08:00">2021-07-12</time>
+                <time title="Modified: 2021-07-14 09:31:47" itemprop="dateModified" datetime="2021-07-14T09:31:47+08:00">2021-07-14</time>
               </span>
             
           
@@ -368,7 +368,7 @@
 <p>All docker commands are available here <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLmRvY2tlci5jb20vZW5naW5lL3JlZmVyZW5jZS9jb21tYW5kbGluZS9kb2NrZXIv" title="https://docs.docker.com/engine/reference/commandline/docker/">docker cli reference<i class="fa fa-external-link"></i></span></p>
 <h2 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h2><ul>
 <li><p>Run a container in interactive mode</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker run = docker create + docker start</span></span><br><span class="line">$ docker run -it nginx bash</span><br><span class="line"><span class="comment"># this will pull nginx(image) and create a container and start it with bash command</span></span><br><span class="line"><span class="comment"># Note: bash overwrite CMD provide in nginx so nginx daemon is not started in this docker</span></span><br><span class="line"></span><br><span class="line">$ docker run --rm -it nginx bash</span><br><span class="line">control + C</span><br><span class="line"><span class="comment">#--rm means this docker will be removed when it exited</span></span><br><span class="line">$ docker ps -a <span class="comment"># will not show it as it's removed</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker run = docker create + docker start</span></span><br><span class="line">$ docker run -it nginx bash</span><br><span class="line"><span class="comment"># this will pull nginx(image) and create a container and start it with bash command</span></span><br><span class="line"><span class="comment"># Note: bash overwrite CMD provide in nginx so nginx daemon is not started in this docker</span></span><br><span class="line"></span><br><span class="line">$ docker run --rm -it nginx bash</span><br><span class="line">control + C</span><br><span class="line"><span class="comment"># --rm means this docker will be removed when it exited</span></span><br><span class="line">$ docker ps -a <span class="comment"># will not show it as it's removed</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Run a container in detached mode or non-detached mode</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># detach(run in background) then later on you attach to it</span></span><br><span class="line">$ docker run -d nginx --name my-nginx</span><br><span class="line">$ docker attach <span class="variable">$container_id</span></span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ docker run nginx</span><br><span class="line"><span class="comment"># both will run nginx image from CMD provided in docker image CMD ["nginx" "-g" "daemon"]</span></span><br><span class="line"><span class="comment"># as docker run will create container if not exist(user docker create) so it's also</span></span><br><span class="line"><span class="comment"># has lots of args like create provide https://docs.docker.com/engine/reference/commandline/run/</span></span><br></pre></td></tr></table></figure>
@@ -400,7 +400,7 @@
 <li><p>build an image<br>Details refer to <a href="/docker-create-image/" title="Dockfile inside">Dockfile inside</a></p>
 </li>
 <li><p>check history of an image</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">history</span> <span class="variable">$image_id</span></span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ docker <span class="built_in">history</span> <span class="variable">$image_id</span> --no-trunc</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">history</span> <span class="variable">$image_id</span></span><br><span class="line"><span class="comment"># OR to show history full description</span></span><br><span class="line">$ docker <span class="built_in">history</span> <span class="variable">$image_id</span> --no-trunc</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>list images</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker images</span><br></pre></td></tr></table></figure>
