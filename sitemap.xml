@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://cyun.tech/yum-rpm-pkg/</loc>
+    
+    <lastmod>2021-07-15T02:26:01.805Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://cyun.tech/docker-image-container-on-disk/</loc>
     
     <lastmod>2021-07-14T04:01:21.542Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://cyun.tech/http-apache/</loc>
     
     <lastmod>2021-07-14T04:01:15.399Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://cyun.tech/yum-rpm-pkg/</loc>
-    
-    <lastmod>2021-07-14T04:01:00.110Z</lastmod>
     
   </url>
   

@@ -59,14 +59,18 @@
   };
 </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="IntroductionYUM is the primary package management tool for installing, updating, removing, and managing software packages in Red Hat Enterprise Linux. YUM performs dependency resolution when installin">
+<meta name="keywords" content="yum, rpm, cache, repos">
+<meta property="og:type" content="article">
 <meta property="og:title" content="yum-rpm-pkg">
 <meta property="og:url" content="http://cyun.tech/yum-rpm-pkg/index.html">
 <meta property="og:site_name" content="CYun">
+<meta property="og:description" content="IntroductionYUM is the primary package management tool for installing, updating, removing, and managing software packages in Red Hat Enterprise Linux. YUM performs dependency resolution when installin">
 <meta property="og:locale" content="en-US">
-<meta property="og:updated_time" content="2021-07-14T04:01:00.110Z">
+<meta property="og:updated_time" content="2021-07-15T02:26:01.805Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yum-rpm-pkg">
+<meta name="twitter:description" content="IntroductionYUM is the primary package management tool for installing, updating, removing, and managing software packages in Red Hat Enterprise Linux. YUM performs dependency resolution when installin">
   <link rel="alternate" href="/atom.xml" title="CYun" type="application/atom+xml">
   <link rel="canonical" href="http://cyun.tech/yum-rpm-pkg/">
 
@@ -312,6 +316,38 @@
               <time title="Created: 2021-07-14 12:01:00" itemprop="dateCreated datePublished" datetime="2021-07-14T12:01:00+08:00">2021-07-14</time>
             </span>
           
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-15 10:26:01" itemprop="dateModified" datetime="2021-07-15T10:26:01+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/pkg/" itemprop="url" rel="index"><span itemprop="name">pkg</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/pkg/rpm/" itemprop="url" rel="index"><span itemprop="name">rpm</span></a></span>
+
+                
+                
+              
+            </span>
+          
 
           
 
@@ -324,7 +360,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>YUM is the primary package management tool for <code>installing, updating, removing, and managing software packages in Red Hat Enterprise Linux</code>. YUM performs dependency resolution when installing, updating, and removing software packages.</p>
+<p>RPM is a popular package management tool in Red Hat Enterprise Linux-based distros. Using RPM, you can install, uninstall, and query individual software packages. Still, it <code>cannot manage dependency resolution like YUM</code>. RPM does provide you useful output, including a list of required packages. An RPM package consists of an archive of files and metadata. Metadata includes helper scripts, file attributes, and information about packages.</p>
+<h2 id="Yum"><a href="#Yum" class="headerlink" title="Yum"></a>Yum</h2><p>Yum is much more useful than rpm as it resolves dependencies of the package and installs them all!, First yum download meta data of packages from enalbed repo, rpm is downloaded only when it’s installing. any another command like search, list only check the meta data.</p>
+<h3 id="Useful-command"><a href="#Useful-command" class="headerlink" title="Useful command"></a>Useful command</h3><p><strong>conf</strong></p>
+<ul>
+<li>/etc/yum.conf: global conf</li>
+<li>/etc/yum.repos.d/: each repos</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># show all repos, disabled and enabled</span></span><br><span class="line">$ yum repolist all </span><br><span class="line"></span><br><span class="line"><span class="comment"># yum cache</span></span><br><span class="line">$ yum clean all</span><br><span class="line">$ yum makecache</span><br><span class="line"></span><br><span class="line"><span class="comment"># show packages</span></span><br><span class="line">$ yum list</span><br><span class="line">$ yum list installed</span><br><span class="line">$ yum list mysql*</span><br><span class="line"></span><br><span class="line">mysql++.x86_64  3.1.0-12.el7    epel  <span class="comment"># not install available from epel repo</span></span><br><span class="line">ipvsadm.x86_64  1.27-8.el7      @base <span class="comment"># installed from base repo: @ indicate installed</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># check all packages contains ipvs in its name</span></span><br><span class="line">$ yum search ipvs</span><br><span class="line"></span><br><span class="line">$ yum info ipvsadm        <span class="comment"># show basic info of a package</span></span><br><span class="line">$ yum provides /etc/fstab <span class="comment"># show which package(installed or not installed) has such file</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install</span></span><br><span class="line">$ yum install -y ipvsadm</span><br><span class="line">$ yum remove ipvsadm</span><br><span class="line"></span><br><span class="line">$ yum grouplist</span><br><span class="line">$ yum groupinfo <span class="string">"Development tools"</span> <span class="comment"># show what packages in this group</span></span><br><span class="line">$ yum groupinstall -y <span class="string">"Development Tools"</span> <span class="comment"># install group of packages</span></span><br><span class="line">$ yum groupremove</span><br><span class="line"></span><br><span class="line"><span class="comment">######################## Download file of given rpm #########################</span></span><br><span class="line">$ yumdownloader ipvsadm                                 <span class="comment"># save at current dir</span></span><br><span class="line">$ yum install --downloadonly ipvsadm                    <span class="comment"># saved at /var/cache/yum/x86_64/</span></span><br><span class="line">$ yum install --downloadonly --downloaddir=/tmp ipvsadm</span><br><span class="line">$ yumdownloader --<span class="built_in">source</span> ipvsadm                        <span class="comment"># download ipvsadm-xxx-src.rpm</span></span><br><span class="line"><span class="comment">######################## Download file of given rpm #########################</span></span><br><span class="line"></span><br><span class="line">$ yum <span class="built_in">history</span> <span class="comment"># show what operations happened</span></span><br><span class="line">$ yum <span class="built_in">history</span> undo &lt;id&gt; <span class="comment"># undo an operation</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="RPM"><a href="#RPM" class="headerlink" title="RPM"></a>RPM</h2><p>Name Format of RPM <code>name-version-release.os.arch.</code>, example: bash-4.3.2-5.el6.x86_64.rpm</p>
+<ul>
+<li>name: package name</li>
+<li>version: package version</li>
+<li>release: identifier of RPM itself, not related to package</li>
+<li>os: operation system</li>
+<li>arch：i686、x86_64、amd64、ppc（power-pc）、noarch</li>
+</ul>
+<p><strong>RPM repo</strong></p>
+<ul>
+<li><span class="exturl" data-url="aHR0cDovL21pcnJvcnMuc29odS5jb20=" title="http://mirrors.sohu.com">http://mirrors.sohu.com<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL3JwbWZpbmQubmV0" title="http://rpmfind.net">http://rpmfind.net<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL3JwbS5wYm9uZS5uZXQv" title="http://rpm.pbone.net/">http://rpm.pbone.net/<i class="fa fa-external-link"></i></span></li>
+</ul>
+<p><code>epel: extended packages provided by RedHat, Maintained by Fedora.</code></p>
+<h3 id="Useful-command-for-rpm"><a href="#Useful-command-for-rpm" class="headerlink" title="Useful command for rpm"></a>Useful command for rpm</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install</span></span><br><span class="line">$ rpm -ivh xx.rpm</span><br><span class="line">$ rpm -ivh https://xxx.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># rebuild xx.rpm from source, then install it</span></span><br><span class="line">$ rpm -rebuild *.src.rpm</span><br><span class="line">$ rpm -ivh /usr/src/dist/RPMS/xx.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query</span></span><br><span class="line">$ rpm -qa                   <span class="comment"># check all installed packages</span></span><br><span class="line">$ rpm -q ipvsadm            <span class="comment"># check if ipvsadm installed or not</span></span><br><span class="line">$ rpm -qi ipvsadm           <span class="comment"># check basic info of this rpm package</span></span><br><span class="line">$ rpm -qlv ipvsadm          <span class="comment"># check all installed files</span></span><br><span class="line">$ rpm -qf /usr/sbin/ipvsadm <span class="comment"># check which rpm this file belongs to</span></span><br><span class="line">$ rpm -q --scripts ipvsadm  <span class="comment"># check scripts of these rpm, post/pre etc</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Uninstall</span></span><br><span class="line">$ rpm -e ipvsadm</span><br><span class="line"></span><br><span class="line"><span class="comment"># Extract rpm files</span></span><br><span class="line">$ rpm2cpio ./packagecloud-test-1.1-1.x86_64.rpm | cpio -idmv</span><br><span class="line"></span><br><span class="line"><span class="comment">############################ For uninstalled package ###########################################################</span></span><br><span class="line"><span class="comment"># -p, --package PACKAGE_FILE</span></span><br><span class="line"><span class="comment">#    Query  an (uninstalled) package PACKAGE_FILE.  The PACKAGE_FILE may be specified as an ftp or http style URL</span></span><br><span class="line"><span class="comment">############################ For uninstalled package ###########################################################</span></span><br><span class="line"></span><br><span class="line">$ rpm -qpi ./ipvsadm.x86_64 0:1.27-8.el7</span><br><span class="line"></span><br><span class="line"><span class="comment"># Rebuild rpm from installed files then deploy it with rebuild rpm</span></span><br><span class="line"><span class="comment"># edit some conf files then rebuild it</span></span><br><span class="line">$ rpmrebuild ipvsadm</span><br></pre></td></tr></table></figure>
+
+<p>Note: even some scripts in rpm(built-in, no such files after installation) come from <code>.spec</code>, there is <strong>NO spec file</strong> in <code>xxx.rpm</code> but <code>xxx.src.rpm</code>.</p>
+<h1 id="Build-rpm"><a href="#Build-rpm" class="headerlink" title="Build rpm"></a>Build rpm</h1>
     </div>
 
     
@@ -353,6 +417,17 @@
       
 
       <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/yum/" rel="tag"><i class="fa fa-tag"></i> yum</a>
+            
+              <a href="/tags/rpm/" rel="tag"><i class="fa fa-tag"></i> rpm</a>
+            
+          </div>
+        
 
         
 
@@ -419,6 +494,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Yum"><span class="nav-number">1.1.</span> <span class="nav-text">Yum</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Useful-command"><span class="nav-number">1.1.1.</span> <span class="nav-text">Useful command</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPM"><span class="nav-number">1.2.</span> <span class="nav-text">RPM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Useful-command-for-rpm"><span class="nav-number">1.2.1.</span> <span class="nav-text">Useful command for rpm</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Build-rpm"><span class="nav-number">2.</span> <span class="nav-text">Build rpm</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
@@ -662,7 +739,11 @@
         
           
         
-        <span class="site-state-item-count">106</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">108</span>
         <span class="site-state-item-name">categories</span>
         </a>
       </div>
@@ -907,7 +988,11 @@
         
           
         
-        <span class="site-state-item-count">115</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">117</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
