@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="JQueryjQuery takes a lot of common tasks that require many lines of JavaScript code to accomplish, and wraps them into methods that you can call with a single line of code. jQuery greatly simplifies J">
+<meta property="og:type" content="article">
+<meta property="og:title" content="html_jquery">
+<meta property="og:url" content="http://cyun.tech/2020/07/20/html-jquery/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="JQueryjQuery takes a lot of common tasks that require many lines of JavaScript code to accomplish, and wraps them into methods that you can call with a single line of code. jQuery greatly simplifies J">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-20T10:15:20.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.149Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="jquery">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2020/07/20/html-jquery/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2020/07/20/html-jquery/","path":"2020/07/20/html-jquery/","title":"html_jquery"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>html_jquery | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JQuery"><span class="nav-number">1.</span> <span class="nav-text">JQuery</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#syntax"><span class="nav-number">1.1.</span> <span class="nav-text">syntax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#selector"><span class="nav-number">1.2.</span> <span class="nav-text">selector</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#change-effects"><span class="nav-number">1.3.</span> <span class="nav-text">change effects</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#action-Chain"><span class="nav-number">1.4.</span> <span class="nav-text">action Chain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#element"><span class="nav-number">1.5.</span> <span class="nav-text">element</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#change-attribute"><span class="nav-number">1.6.</span> <span class="nav-text">change attribute</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#change-style"><span class="nav-number">1.7.</span> <span class="nav-text">change style</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#add-x2F-del-x2F-replace-element"><span class="nav-number">1.8.</span> <span class="nav-text">add&#x2F;del&#x2F;replace element</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#parent-x2F-child"><span class="nav-number">1.9.</span> <span class="nav-text">parent&#x2F;child</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#events"><span class="nav-number">1.10.</span> <span class="nav-text">events</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ajax"><span class="nav-number">1.11.</span> <span class="nav-text">Ajax</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#load"><span class="nav-number">1.11.1.</span> <span class="nav-text">load</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get"><span class="nav-number">1.11.2.</span> <span class="nav-text">get</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#post"><span class="nav-number">1.11.3.</span> <span class="nav-text">post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-json"><span class="nav-number">1.11.4.</span> <span class="nav-text">get json</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#plugin"><span class="nav-number">1.12.</span> <span class="nav-text">plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REF"><span class="nav-number">1.13.</span> <span class="nav-text">REF</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2020/07/20/html-jquery/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="html_jquery | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          html_jquery
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-07-20 18:15:20" itemprop="dateCreated datePublished" datetime="2020-07-20T18:15:20+08:00">2020-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/html/" itemprop="url" rel="index"><span itemprop="name">html</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/html/jquery/" itemprop="url" rel="index"><span itemprop="name">jquery</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="JQuery"><a href="#JQuery" class="headerlink" title="JQuery"></a>JQuery</h1><p>jQuery takes a lot of common tasks that require many lines of JavaScript code to accomplish, and wraps them into methods that you can call with a single line of code.</p>
+<p>jQuery greatly simplifies JavaScript programming but run it make sure</p>
+<ul>
+<li>load your script after jquery</li>
+<li>runs it when document is ready<span id="more"></span></li>
+</ul>
+<p><strong>The jQuery library contains the following features:</strong></p>
+<ul>
+<li>HTML&#x2F;DOM manipulation</li>
+<li>CSS manipulation</li>
+<li>HTML event methods</li>
+<li>Effects and animations</li>
+<li>AJAX</li>
+<li>Utilities</li>
+</ul>
+<p><strong>use it on your website</strong><br>Include jQuery from a CDN, like Google</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="comment">//$(&quot;p&quot;) select all &lt;p&gt; elements</span></span><br><span class="line">    <span class="comment">//set its click callback!</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* if you use raw method, you need to</span></span><br><span class="line"><span class="comment">     * get all elements by document.getElementByTagName(&quot;p&quot;)</span></span><br><span class="line"><span class="comment">     * then iterate each element and set it e.click=</span></span><br><span class="line"><span class="comment">     * jquery method can add event for one or an array based on selector</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    $(<span class="string">&quot;p&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="comment">// this set display: none</span></span><br><span class="line">        $(<span class="variable language_">this</span>).<span class="title function_">hide</span>();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="syntax"><a href="#syntax" class="headerlink" title="syntax"></a>syntax</h2><p>The jQuery syntax is tailor-made for selecting HTML elements and performing some action on the element(s).</p>
+<p>Basic syntax is: $(selector).action()</p>
+<ul>
+<li>$ sign to define&#x2F;access jQuery</li>
+<li>(selector) to “query (or find)” HTML elements</li>
+<li>jQuery action() to be performed on the element(s)</li>
+</ul>
+<p>Examples:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//The optional speed parameter specifies the speed of the hiding/showing, and can take the following values: &quot;slow&quot;, &quot;fast&quot;, or milliseconds</span></span><br><span class="line">$(<span class="variable language_">this</span>).<span class="title function_">hide</span>(<span class="number">1000</span>)  <span class="comment">//hides the current element.</span></span><br><span class="line">$(<span class="string">&quot;p&quot;</span>).<span class="title function_">hide</span>(<span class="string">&quot;slow&quot;</span>) <span class="comment">//hides all &lt;p&gt; elements slowly</span></span><br><span class="line">$(<span class="string">&quot;.test&quot;</span>).<span class="title function_">hide</span>()   <span class="comment">//hides all elements with class=&quot;test&quot;.</span></span><br><span class="line">$(<span class="string">&quot;#test&quot;</span>).<span class="title function_">hide</span>()   <span class="comment">//hides the element with id=&quot;test&quot;.</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="selector"><a href="#selector" class="headerlink" title="selector"></a>selector</h2><p>It’s based on the existing CSS Selectors, and in addition, it has some own custom selectors <a target="_blank" rel="noopener" href="https://www.w3schools.com/cssref/css_selectors.asp">css selector</a></p>
+<h2 id="change-effects"><a href="#change-effects" class="headerlink" title="change effects"></a>change effects</h2><p>hide&#x2F;show vs fadeIn&#x2F;fadeOut slideDown&#x2F;slideUp are used to <code>display or hide element with different effects</code>.</p>
+<ul>
+<li>Fadeout is a function that will change the <code>opacity of an element to 0</code>, time can be a parameter of the function (but also has a default value if unspecified), opposite of fadeIn() that will <code>change opacity to 1</code>.   <ul>
+<li>with fdeOut() you see the element from clear to unclear slowly, at last not see it(opacity changes)</li>
+</ul>
+</li>
+<li>Hide function will <code>just set display:none to</code> the element, opposite to show() that will just set display:block.<ul>
+<li>With hide(), you see the element from clear to disappear.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;p&quot;</span>).<span class="title function_">toggle</span>();</span><br><span class="line">  <span class="comment">//$(&quot;p&quot;).toggle(1000); speed</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>With jQuery you can fade an element in and out of visibility.<br>jQuery has the following fade methods:</p>
+<ul>
+<li>fadeIn()</li>
+<li>fadeOut()</li>
+<li>fadeToggle()</li>
+<li>fadeTo()</li>
+</ul>
+<p>The jQuery fadeTo() method allows fading to a given opacity (value between 0 and 1)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;#div1&quot;</span>).<span class="title function_">fadeToggle</span>();</span><br><span class="line">  $(<span class="string">&quot;#div2&quot;</span>).<span class="title function_">fadeToggle</span>(<span class="string">&quot;slow&quot;</span>);</span><br><span class="line">  $(<span class="string">&quot;#div3&quot;</span>).<span class="title function_">fadeToggle</span>(<span class="number">3000</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>With jQuery you can create a sliding effect on elements.<br>jQuery has the following slide methods:</p>
+<ul>
+<li>slideDown()</li>
+<li>slideUp()</li>
+<li>slideToggle(</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#flip&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;#panel&quot;</span>).<span class="title function_">slideToggle</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>The jQuery animate() method is used to create custom animations<br>Only properties containing numeric values!<br>Syntax:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(selector).<span class="title function_">animate</span>(&#123;params&#125;,speed,callback);</span><br></pre></td></tr></table></figure>
+
+<p>The required params parameter defines the CSS properties to be animated</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//The following example demonstrates a simple use of the animate() method; it moves a &lt;div&gt; element to the right, until it has reached a left property of 250px:</span></span><br><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;div&quot;</span>).<span class="title function_">animate</span>(&#123;<span class="attr">left</span>: <span class="string">&#x27;250px&#x27;</span>&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//param defined the result should be from the orginal</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;div&quot;</span>).<span class="title function_">animate</span>(&#123;</span><br><span class="line">    <span class="attr">left</span>: <span class="string">&#x27;250px&#x27;</span>,</span><br><span class="line">    <span class="attr">opacity</span>: <span class="string">&#x27;0.5&#x27;</span>,</span><br><span class="line">    <span class="attr">height</span>: <span class="string">&#x27;150px&#x27;</span>,</span><br><span class="line">    <span class="attr">width</span>: <span class="string">&#x27;150px&#x27;</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;div&quot;</span>).<span class="title function_">animate</span>(&#123;</span><br><span class="line">    <span class="attr">left</span>: <span class="string">&#x27;250px&#x27;</span>,</span><br><span class="line">    <span class="attr">height</span>: <span class="string">&#x27;+=150px&#x27;</span>,</span><br><span class="line">    <span class="attr">width</span>: <span class="string">&#x27;+=150px&#x27;</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> div = $(<span class="string">&quot;div&quot;</span>);</span><br><span class="line">  div.<span class="title function_">animate</span>(&#123;<span class="attr">left</span>: <span class="string">&#x27;100px&#x27;</span>&#125;, <span class="string">&quot;slow&quot;</span>);</span><br><span class="line">  div.<span class="title function_">animate</span>(&#123;<span class="attr">fontSize</span>: <span class="string">&#x27;3em&#x27;</span>&#125;, <span class="string">&quot;slow&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>The jQuery stop() method is used to stop an animation or effect(slide) before it is finished.</p>
+<p>with all above<br>JavaScript statements are executed line by line. However, with effects, the next line of code can be run even though the effect is not finished. This can create errors.</p>
+<p>To prevent this, you can create a callback function.</p>
+<p>A callback function is executed after the current effect is finished.</p>
+<p>Typical syntax: $(selector).hide(speed,callback);</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;p&quot;</span>).<span class="title function_">hide</span>(<span class="string">&quot;slow&quot;</span>, <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&quot;The paragraph is now hidden&quot;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="action-Chain"><a href="#action-Chain" class="headerlink" title="action Chain"></a>action Chain</h2><p>There is a technique called chaining, that allows us to run multiple jQuery commands, one after the other, on the same element(s).</p>
+<p>Tip: This way, browsers do not have to find the same element(s) more than once.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#p1&quot;</span>).<span class="title function_">css</span>(<span class="string">&quot;color&quot;</span>, <span class="string">&quot;red&quot;</span>).<span class="title function_">slideUp</span>(<span class="number">2000</span>).<span class="title function_">slideDown</span>(<span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="element"><a href="#element" class="headerlink" title="element"></a>element</h2><p>Three simple, but useful, jQuery methods for DOM manipulation are:</p>
+<ul>
+<li>text() - Sets or returns the text content of selected elements</li>
+<li>html() - Sets or returns the content of selected elements (including HTML markup)</li>
+<li>val() - Sets or returns the value of form fields</li>
+</ul>
+<h2 id="change-attribute"><a href="#change-attribute" class="headerlink" title="change attribute"></a>change attribute</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//GET</span></span><br><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="title function_">alert</span>($(<span class="string">&quot;#w3s&quot;</span>).<span class="title function_">attr</span>(<span class="string">&quot;href&quot;</span>));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//SET</span></span><br><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;#w3s&quot;</span>).<span class="title function_">attr</span>(<span class="string">&quot;href&quot;</span>,<span class="string">&quot;image/2.png&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//SET multiple attr</span></span><br><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;#w3s&quot;</span>).<span class="title function_">attr</span>(&#123;</span><br><span class="line">    <span class="string">&quot;href&quot;</span> : <span class="string">&quot;https://www.w3schools.com/jquery/&quot;</span>,</span><br><span class="line">    <span class="string">&quot;title&quot;</span> : <span class="string">&quot;W3Schools jQuery Tutorial&quot;</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="change-style"><a href="#change-style" class="headerlink" title="change style"></a>change style</h2><p>Query has several methods for CSS manipulation. We will look at the following methods:</p>
+<ul>
+<li>addClass()    - Adds one or more classes to the selected elements</li>
+<li>removeClass() - Removes one or more classes from the selected elements</li>
+<li>toggleClass() - Toggles between adding&#x2F;removing classes from the selected elements</li>
+<li>css()         - Sets or returns the style attribute</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;#div1&quot;</span>).<span class="title function_">addClass</span>(<span class="string">&quot;row&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//GET</span></span><br><span class="line">$(<span class="string">&quot;p&quot;</span>).<span class="title function_">css</span>(<span class="string">&quot;background-color&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//SET</span></span><br><span class="line">$(<span class="string">&quot;p&quot;</span>).<span class="title function_">css</span>(<span class="string">&quot;background-color&quot;</span>, <span class="string">&quot;yellow&quot;</span>);</span><br><span class="line"></span><br><span class="line">$(<span class="string">&quot;p&quot;</span>).<span class="title function_">css</span>(&#123;<span class="string">&quot;background-color&quot;</span>: <span class="string">&quot;yellow&quot;</span>, <span class="string">&quot;font-size&quot;</span>: <span class="string">&quot;200%&quot;</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//also set do this with css</span></span><br><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;#div1&quot;</span>).<span class="title function_">width</span>(<span class="number">500</span>).<span class="title function_">height</span>(<span class="number">500</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="add-x2F-del-x2F-replace-element"><a href="#add-x2F-del-x2F-replace-element" class="headerlink" title="add&#x2F;del&#x2F;replace element"></a>add&#x2F;del&#x2F;replace element</h2><p>We will look at four jQuery methods that are used to add new content:</p>
+<ul>
+<li>append() - Inserts content at the end of the selected elements(as end child)</li>
+<li>prepend() - Inserts content at the beginning of the selected elements(as first child)</li>
+<li>after() - Inserts content after the selected elements(as siblings)</li>
+<li>before() - Inserts content before the selected elements(as siblings)</li>
+<li>replaceWith() - replace selected element with new one(element)</li>
+<li>html()- replace children of selected element with new child(element)</li>
+<li>text()- the content will be seen only as text, text(‘&lt;h1&gt;hello&lt;&#x2F;h1&gt;’), h1 has no meaning!!!</li>
+</ul>
+<p>Content here can be text or html element!</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;p&quot;</span>).<span class="title function_">append</span>(<span class="string">&quot;Some appended text.&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">appendText</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> txt1 = <span class="string">&quot;&lt;p&gt;Text.&lt;/p&gt;&quot;</span>;               <span class="comment">// Create element with HTML</span></span><br><span class="line">  <span class="keyword">var</span> txt2 = $(<span class="string">&quot;&lt;p&gt;&lt;/p&gt;&quot;</span>).<span class="title function_">text</span>(<span class="string">&quot;Text.&quot;</span>);   <span class="comment">// Create with jQuery</span></span><br><span class="line">  <span class="keyword">var</span> txt3 = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;p&quot;</span>);  <span class="comment">// Create with DOM</span></span><br><span class="line">  txt3.<span class="property">innerHTML</span> = <span class="string">&quot;Text.&quot;</span>;</span><br><span class="line">  $(<span class="string">&quot;body&quot;</span>).<span class="title function_">append</span>(txt1, txt2, txt3);      <span class="comment">// Append the new elements</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Remove Elements&#x2F;Content</strong></p>
+<ul>
+<li>remove() - Removes the selected element (and its child elements)</li>
+<li>empty() - Removes the child elements from the selected element</li>
+</ul>
+<p><strong>Filter the Elements to be Removed</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;p&quot;</span>).<span class="title function_">remove</span>(<span class="string">&quot;.test, .demo&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="parent-x2F-child"><a href="#parent-x2F-child" class="headerlink" title="parent&#x2F;child"></a>parent&#x2F;child</h2><p>The parent() method returns the direct parent element of the selected element.<br>The parents() method returns all ancestor elements of the selected element, all the way up to the document’s root element (&lt;html&gt;).</p>
+<p>The children() method returns all direct children of the selected element.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;div&quot;</span>).<span class="title function_">children</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>Sibling</strong></p>
+<ul>
+<li>siblings()</li>
+<li>next()</li>
+<li>nextAll()</li>
+<li>nextUntil()</li>
+<li>prev()</li>
+<li>prevAll()</li>
+<li>prevUntil()</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;h2&quot;</span>).<span class="title function_">siblings</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;h2&quot;</span>).<span class="title function_">siblings</span>(<span class="string">&quot;p&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>The first(), last(), eq(), filter() and not() Methods</p>
+<p>The most basic filtering methods are first(), last() and eq(), which allow you to select a specific element based on its position in a group of elements.</p>
+<p>Other filtering methods, like filter() and not() allow you to select elements that match, or do not match, a certain criteria.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;div&quot;</span>).<span class="title function_">first</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//The eq() method returns an element with a specific index number of the selected elements.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//The index numbers start at 0, so the first element will have the index number 0 and not 1. The following example selects the second &lt;p&gt; element (index number 1):</span></span><br><span class="line"></span><br><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;p&quot;</span>).<span class="title function_">eq</span>(<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//The filter() method lets you specify a criteria. Elements that do not match the criteria are removed from the selection, and those that match will be returned.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//The following example returns all &lt;p&gt; elements with class name &quot;intro&quot;:</span></span><br><span class="line"></span><br><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;p&quot;</span>).<span class="title function_">filter</span>(<span class="string">&quot;.intro&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="events"><a href="#events" class="headerlink" title="events"></a>events</h2><p>Jquery provides lots of methods to attach callback for an event like, but all of them are shorthand of $(‘selector’).on() which is low level API. the callback and the default callback runs in this order</p>
+<ul>
+<li><ol>
+<li>jQuery click-handlers</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>onclick-handlers</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>native&#x2F;default behavior (calling the link, writing it to window.location)</li>
+</ol>
+</li>
+</ul>
+<p><strong>but if you call <code>e.preventDefault()</code> in jquery handler, the native&#x2F;default behavior isn’t performed by the browser</strong></p>
+<ul>
+<li>$(‘selector’).click()</li>
+<li>$(‘selector’).hover()</li>
+<li>$(‘selector’).change()</li>
+<li>$(‘selector’).focus()</li>
+<li>$(‘selector’).keyup() etc</li>
+<li>$(‘selector’).mousedown() etc</li>
+<li>$(‘selector’).submit()</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Stupid way!!!</span></span><br><span class="line"><span class="comment">//iterate each html element and add addEventListener</span></span><br><span class="line">$(<span class="string">&#x27;button&#x27;</span>).<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">//this is html element, not jquery object</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, clickCallback);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// always use this way!!!</span></span><br><span class="line">$(<span class="string">&#x27;button&#x27;</span>).<span class="title function_">click</span>(clickCallback);</span><br></pre></td></tr></table></figure>
+
+<p>The hover() method takes two functions and is a combination of the mouseenter() and mouseleave() methods.</p>
+<p>The first function is executed when the mouse enters the HTML element, and the second function is executed when the mouse leaves the HTML element:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#p1&quot;</span>).<span class="title function_">hover</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="title function_">alert</span>(<span class="string">&quot;You entered p1!&quot;</span>);</span><br><span class="line">&#125;,</span><br><span class="line"><span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="title function_">alert</span>(<span class="string">&quot;Bye! You now leave p1!&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>The blur() method attaches an event handler function to an HTML form field.</p>
+<p>The function is executed when the form field loses focus:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;input&quot;</span>).<span class="title function_">blur</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="variable language_">this</span>).<span class="title function_">css</span>(<span class="string">&quot;background-color&quot;</span>, <span class="string">&quot;#ffffff&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h2><p>jQuery provides several methods for AJAX functionality.</p>
+<p>With the jQuery AJAX methods, you can request text, HTML, XML, or JSON from a remote server using both HTTP Get and HTTP Post - And you can load the external data directly into the selected HTML elements of your web page!</p>
+<h3 id="load"><a href="#load" class="headerlink" title="load"></a>load</h3><p>$(selector).load(URL,data,callback);<br>The required URL parameter specifies the URL you wish to load.<br>The optional data parameter specifies a set of query string key&#x2F;value pairs to send along with the request.<br>The optional callback parameter is the name of a function to be executed after the load() method is completed</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>jQuery and AJAX is FUN!!!<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;p1&quot;</span>&gt;</span>This is some text in a paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#div1&quot;</span>).<span class="title function_">load</span>(<span class="string">&quot;demo_test.txt&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="string">&quot;#div1&quot;</span>).<span class="title function_">load</span>(<span class="string">&quot;demo_test.txt&quot;</span>, <span class="keyword">function</span>(<span class="params">responseTxt, statusTxt, xhr</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(statusTxt == <span class="string">&quot;success&quot;</span>)</span><br><span class="line">      <span class="title function_">alert</span>(<span class="string">&quot;External content loaded successfully!&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(statusTxt == <span class="string">&quot;error&quot;</span>)</span><br><span class="line">      <span class="title function_">alert</span>(<span class="string">&quot;Error: &quot;</span> + xhr.<span class="property">status</span> + <span class="string">&quot;: &quot;</span> + xhr.<span class="property">statusText</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><p><strong>$.get(URL,callback)</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $.<span class="title function_">get</span>(<span class="string">&quot;demo_test.asp&quot;</span>, <span class="keyword">function</span>(<span class="params">data, status</span>)&#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&quot;Data: &quot;</span> + data + <span class="string">&quot;\nStatus: &quot;</span> + status);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="post"><a href="#post" class="headerlink" title="post"></a>post</h3><p><strong>$.post(URL,data,callback)</strong><br>The required URL parameter specifies the URL you wish to request.<br>The optional data parameter specifies some data to send along with the request.<br>The optional callback parameter is the name of a function to be executed if the request succeeds.<br>The following example uses the $.post() method to send some data along with the request:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $.<span class="title function_">post</span>(<span class="string">&quot;demo_test_post.asp&quot;</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;Donald Duck&quot;</span>,</span><br><span class="line">    <span class="attr">city</span>: <span class="string">&quot;Duckburg&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">function</span>(<span class="params">data, status</span>)&#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&quot;Data: &quot;</span> + data + <span class="string">&quot;\nStatus: &quot;</span> + status);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="get-json"><a href="#get-json" class="headerlink" title="get json"></a>get json</h3><p><strong>Get Json</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $.<span class="title function_">getJSON</span>(<span class="string">&quot;demo_ajax_json.js&quot;</span>, <span class="keyword">function</span>(<span class="params">data,result</span>)&#123;</span><br><span class="line">    $.<span class="title function_">each</span>(result, <span class="keyword">function</span>(<span class="params">i, field</span>)&#123;</span><br><span class="line">      $(<span class="string">&quot;div&quot;</span>).<span class="title function_">append</span>(field + <span class="string">&quot; &quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//Json.parse(data); No need this as getJSON</span></span><br><span class="line">    <span class="comment">//already parsed the json!!!</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h2><p>In addition, jQuery has a lot lot plugins, with these plugins you can do!!</p>
+<ul>
+<li>UI like bootstrap (static) not better than</li>
+<li>Form validation</li>
+<li>Animation</li>
+<li>Special effects</li>
+</ul>
+<h2 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3schools.com/jquery/jquery_examples.asp">jquery examples</a></li>
+<li><a target="_blank" rel="noopener" href="https://htmlcheatsheet.com/jquery/">jquery cheatsheet</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/jquery/" rel="tag"># jquery</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/07/20/html-dom/" rel="prev" title="html_dom">
+                  <i class="fa fa-chevron-left"></i> html_dom
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/22/javascript-basic/" rel="next" title="javascript_basic">
+                  javascript_basic <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

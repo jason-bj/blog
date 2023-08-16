@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="dpkg command and debug it if fails">
+<meta property="og:type" content="article">
+<meta property="og:title" content="apt-dpkg-command">
+<meta property="og:url" content="http://cyun.tech/2019/11/25/apt-dpkg-command/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="dpkg command and debug it if fails">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-11-25T01:30:03.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.130Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="dpkg">
+<meta property="article:tag" content="apt">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2019/11/25/apt-dpkg-command/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2019/11/25/apt-dpkg-command/","path":"2019/11/25/apt-dpkg-command/","title":"apt-dpkg-command"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>apt-dpkg-command | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#dpkg-vs-apt"><span class="nav-number">1.</span> <span class="nav-text">dpkg vs apt</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dpkg-commands"><span class="nav-number">1.1.</span> <span class="nav-text">dpkg commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apt-commands"><span class="nav-number">1.2.</span> <span class="nav-text">apt commands</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2019/11/25/apt-dpkg-command/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="apt-dpkg-command | CYun">
+      <meta itemprop="description" content="dpkg command and debug it if fails">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          apt-dpkg-command
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-11-25 09:30:03" itemprop="dateCreated datePublished" datetime="2019-11-25T09:30:03+08:00">2019-11-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux/dpkg/" itemprop="url" rel="index"><span itemprop="name">dpkg</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">dpkg command and debug it if fails</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="dpkg-vs-apt"><a href="#dpkg-vs-apt" class="headerlink" title="dpkg vs apt"></a>dpkg vs apt</h1><p>dpkg only installs a package from local which apt-get installs it from local cache which is got from remote repo configure by <code>/etc/apt/source.list</code>, so when you run apt related commands better to run <code>$ apt-get update</code> first to sync local cache with remote repo.</p>
+<p>dpkg only installs a package provided it does not solve dependency for the package, let’s say if a package depends on A, while A is not installed, install this package will fail, that’s the big difference for these two tools, so always use <code>apt-get for published package</code> while use <code>dpkg for your own package</code>.</p>
+<span id="more"></span>
+
+<h2 id="dpkg-commands"><a href="#dpkg-commands" class="headerlink" title="dpkg commands"></a>dpkg commands</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install the package</span></span><br><span class="line">$ sudo dpkg -i package.deb</span><br><span class="line"></span><br><span class="line"><span class="comment"># if same file(path) in two debs, the later package can&#x27;t be installed successfully if no overwrite</span></span><br><span class="line">$ sudo dpkg -i --force-overwrite package.deb</span><br><span class="line"></span><br><span class="line"><span class="comment"># show all installed packages</span></span><br><span class="line">$ dpkg --get-selections | grep green</span><br><span class="line">$ dpkg -l | grep green</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">root@dev:~/build<span class="comment"># dpkg -l | grep dhcp</span></span><br><span class="line">rc  dhcp                      2.5.1                            amd64        dhcp backend</span><br><span class="line"></span><br><span class="line">ii: any package is installed without any error</span><br><span class="line">rc: residual package(removed but config kept)</span><br><span class="line">iU: broken</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># show then content of it</span></span><br><span class="line">$ dpkg -c package.deb</span><br><span class="line"></span><br><span class="line"><span class="comment"># show control file of it</span></span><br><span class="line">$ dpkg -I package.deb</span><br><span class="line"></span><br><span class="line"><span class="comment"># show where the package is installed</span></span><br><span class="line">$ dpkg -L  ibus-gtk</span><br><span class="line"></span><br><span class="line"><span class="comment"># remove deb package</span></span><br><span class="line">$ sudo dpkg -r ibus-gtk</span><br><span class="line"><span class="comment"># Remove/Delete an installed package except configuration files</span></span><br><span class="line"></span><br><span class="line">$ sudo dpkg -P ibus-gtk</span><br><span class="line"><span class="comment"># Remove/Delete everything including configuration files</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># repack---create debian package from installed files</span></span><br><span class="line">$ sudo apt-get install dpkg-repack</span><br><span class="line">$ dpkg-repack ibus-gtk</span><br><span class="line"></span><br><span class="line"><span class="comment"># extract files from deb to outputdir</span></span><br><span class="line">$ dpkg-deb -x xxx.deb outputdir</span><br><span class="line"></span><br><span class="line"><span class="comment"># extract control files like control/preinst/postinst</span></span><br><span class="line">$ dpkg -e xx.deb</span><br><span class="line"></span><br><span class="line"><span class="comment"># show tar files in deb</span></span><br><span class="line">$ ar tv hello.deb</span><br><span class="line">rw-r--r-- 0/0      4 Mar 28 23:17 2017 debian-binary</span><br><span class="line">rw-r--r-- 0/0    270 Mar 28 23:17 2017 control.tar.gz</span><br><span class="line">rw-r--r-- 0/0   2176 Mar 28 23:17 2017 data.tar.xz</span><br><span class="line"></span><br><span class="line"><span class="comment"># extract a debian</span></span><br><span class="line">$ ar xv hello.deb</span><br><span class="line">debian-binary  control.tar.gz data.tar.xz</span><br><span class="line"></span><br><span class="line"><span class="comment"># only extract data file and extract data.tar.xz as well</span></span><br><span class="line">$ dpkg-deb -x hello.deb</span><br><span class="line"></span><br><span class="line"><span class="comment"># check if deb package missed something</span></span><br><span class="line">$ lintian xx.deb</span><br><span class="line"></span><br><span class="line"><span class="comment"># if a file is installed by apt/dpkg, check which package it belongs</span></span><br><span class="line">$ dpkg -S /bin/cat</span><br></pre></td></tr></table></figure>
+
+<p><strong>what happens when you install a deb package from apt&#x2F;dpkg</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">-i, --install package-file...</span><br><span class="line">       Install the package. If --recursive or -R option is specified, package-file must refer to a directory instead.</span><br><span class="line"></span><br><span class="line">       Installation consists of the following steps:</span><br><span class="line"></span><br><span class="line">       1. Extract the control files of the new package.</span><br><span class="line"></span><br><span class="line">       2. If another version of the same package was installed before the new installation, execute prerm script of the old package.</span><br><span class="line"></span><br><span class="line">       3. Run preinst script, <span class="keyword">if</span> provided by the package.</span><br><span class="line"></span><br><span class="line">       4. Unpack the new files, and at the same time back up the old files, so that <span class="keyword">if</span> something goes wrong, they can be restored.</span><br><span class="line"></span><br><span class="line">       5.  If another version of the same package was installed before the new installation, execute the postrm script of the old package. Note that this script is executed after the preinst script of the new package, because new files are written at the same time old files are removed.</span><br><span class="line"></span><br><span class="line">       6. Configure the package. See --configure <span class="keyword">for</span> detailed information about how this is <span class="keyword">done</span>.</span><br><span class="line"></span><br><span class="line">--unpack package-file...</span><br><span class="line">       Unpack the package, but don not configure it. If --recursive or -R option is specified, package-file must refer to a directory instead.</span><br><span class="line"></span><br><span class="line">--configure package...|-a|--pending</span><br><span class="line">       Configure a package <span class="built_in">which</span> has been unpacked but not yet configured.  If -a or --pending is given instead of package, all unpacked but unconfigured packages are configured.</span><br><span class="line"></span><br><span class="line">       To reconfigure a package <span class="built_in">which</span> has already been configured, try the dpkg-reconfigure(8) <span class="built_in">command</span> instead.</span><br><span class="line"></span><br><span class="line">       Configuring consists of the following steps:</span><br><span class="line"></span><br><span class="line">       1. Unpack the conf files, and at the same time back up the old conf files, so that they can be restored <span class="keyword">if</span> something goes wrong.</span><br><span class="line"></span><br><span class="line">       2. Run postinst script, <span class="keyword">if</span> provided by the package.</span><br></pre></td></tr></table></figure>
+
+<p>The control files(post install, preinstall etc)  are at <code>/var/lib/dpkg/info</code></p>
+<p><strong>debug dpkg when install fails</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Setting up gconf2 (2.28.1-6) ...</span><br><span class="line">dpkg: error processing gconf2 (--configure):</span><br><span class="line">subprocess installed post-installation script returned error <span class="built_in">exit</span> status 247</span><br><span class="line"></span><br><span class="line">check why</span><br><span class="line">$ dpkg -i --debug=7337 xx.deb</span><br><span class="line"></span><br><span class="line">$ dpkg --configure -D 777 gconf2</span><br><span class="line"><span class="comment"># OR run the post script with shell debug</span></span><br><span class="line">$ sh -x /var/lib/dpkg/info/gconf2.postinstpostinst configure 2.28.1-6</span><br><span class="line"></span><br><span class="line"><span class="comment"># if there is no script at /var/lib/dpkg/info, extract it</span></span><br><span class="line">$ dpkg -e  xx.deb</span><br><span class="line">$ sh -x DEBIAN/postinst configure 2.28.1-6</span><br></pre></td></tr></table></figure>
+
+<h2 id="apt-commands"><a href="#apt-commands" class="headerlink" title="apt commands"></a>apt commands</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># update local cache for apt</span></span><br><span class="line">$ sudo apt-get update</span><br><span class="line"></span><br><span class="line">$ sudo apt-get remove/install packageName</span><br><span class="line"><span class="comment"># remove not delete cfg file, but purge did</span></span><br><span class="line">$ sudo apt-get purge packageName</span><br><span class="line"></span><br><span class="line"><span class="comment"># remove files with pattern matches</span></span><br><span class="line">$ sudo apt-get remove <span class="string">&quot;green-*&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># only download package to /var/cache/apt/archives</span></span><br><span class="line">$ sudo apt-get install -d packageName</span><br><span class="line"></span><br><span class="line"><span class="comment"># search package from local cache</span></span><br><span class="line">$ sudo apt-cache search *</span><br><span class="line"></span><br><span class="line"><span class="comment"># show runtime depends directly</span></span><br><span class="line">$ sudo apt-cache depends common-dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># show runtime depends recursively</span></span><br><span class="line">$ sudo apt install apt-rdepends</span><br><span class="line">$ sudo apt-rdepends  common-dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># show who depends on me</span></span><br><span class="line">$ sudo apt-rdepends -r  xxx</span><br><span class="line"></span><br><span class="line"><span class="comment"># fix pending issue that apt-get knows with -f option</span></span><br><span class="line">$ sudo apt-get install -f</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/dpkg/" rel="tag"># dpkg</a>
+              <a href="/tags/apt/" rel="tag"># apt</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/11/21/pip-deep/" rel="prev" title="pip-deep">
+                  <i class="fa fa-chevron-left"></i> pip-deep
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/11/25/gdb-commands/" rel="next" title="gdb-commands">
+                  gdb-commands <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Overviewcryptography is about constructing and analyzing protocols that prevent third parties or the public from reading private messages; various aspects in information security such as data confiden">
+<meta property="og:type" content="article">
+<meta property="og:title" content="authentication_encryption">
+<meta property="og:url" content="http://cyun.tech/2020/11/10/protocol-security-authentication-encryption/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="Overviewcryptography is about constructing and analyzing protocols that prevent third parties or the public from reading private messages; various aspects in information security such as data confiden">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cyun.tech/images/ssl/security.png">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/MAC.svg/1322px-MAC.svg.png">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/2/27/Symmetric_key_encryption.svg">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/f/f9/Public_key_encryption.svg">
+<meta property="article:published_time" content="2020-11-10T07:09:25.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.170Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="authentication">
+<meta property="article:tag" content="encryption">
+<meta property="article:tag" content="public-key">
+<meta property="article:tag" content="symmetric-key">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cyun.tech/images/ssl/security.png">
+
+
+<link rel="canonical" href="http://cyun.tech/2020/11/10/protocol-security-authentication-encryption/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2020/11/10/protocol-security-authentication-encryption/","path":"2020/11/10/protocol-security-authentication-encryption/","title":"authentication_encryption"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>authentication_encryption | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Integrity"><span class="nav-number">1.1.</span> <span class="nav-text">Data Integrity</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MD5"><span class="nav-number">1.1.1.</span> <span class="nav-text">MD5</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Authentication"><span class="nav-number">1.2.</span> <span class="nav-text">Authentication</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MAC-message-authentication-code"><span class="nav-number">1.2.1.</span> <span class="nav-text">MAC(message authentication code)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HMAC"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">HMAC</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modern-cryptography"><span class="nav-number">1.3.</span> <span class="nav-text">Modern cryptography</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Symmetric-key-cryptography"><span class="nav-number">1.3.1.</span> <span class="nav-text">Symmetric-key cryptography</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Public-key-cryptography-asymmetric-key"><span class="nav-number">1.3.2.</span> <span class="nav-text">Public-key cryptography(asymmetric key)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REF"><span class="nav-number">2.</span> <span class="nav-text">REF</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2020/11/10/protocol-security-authentication-encryption/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="authentication_encryption | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          authentication_encryption
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-11-10 15:09:25" itemprop="dateCreated datePublished" datetime="2020-11-10T15:09:25+08:00">2020-11-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/security/" itemprop="url" rel="index"><span itemprop="name">security</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>cryptography is about constructing and analyzing protocols that prevent third parties or the public from reading private messages; various aspects in information security such as data confidentiality, data integrity, authentication, and non-repudiation are central to modern cryptography.<br><img src="https://cyun.tech/images/ssl/security.png" alt="data security"></p>
+<span id="more"></span>
+<h2 id="Data-Integrity"><a href="#Data-Integrity" class="headerlink" title="Data Integrity"></a>Data Integrity</h2><p>In real world, something is sent along with message, make sure it’s not modified by the third party.</p>
+<h3 id="MD5"><a href="#MD5" class="headerlink" title="MD5"></a>MD5</h3><p>The MD5 <code>message-digest algorithm</code> is a widely used hash function producing a 128-bit hash value, this hash value sent out with message to protects a message’s <code>data integrity</code>, receiver uses MD5(algorithm) to calculate the hash value again, if it’s same with the one sent by sender, the data is not modified by someone else.</p>
+<h2 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h2><h3 id="MAC-message-authentication-code"><a href="#MAC-message-authentication-code" class="headerlink" title="MAC(message authentication code)"></a>MAC(message authentication code)</h3><p>A message authentication code (often called MAC) is a block of a few bytes that is used to authenticate a message.</p>
+<p>The MAC value protects a message’s <code>data integrity,as well as its authenticity(because it uses private key as MAC input)</code>, by allowing verifiers (who also possess the <code>secret key</code>) to detect any changes to the message content.</p>
+<p>here is workflow of MAC</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/MAC.svg/1322px-MAC.svg.png" alt="mac workflow"></p>
+<p>The term <code>message integrity code (MIC)</code> is frequently substituted for the term MAC,especially in communications, to distinguish it from the use of MAC meaning MAC address (for media access control address).</p>
+<p>MAC is the abstract part defined by RFC, In implementation, there are ways(algorithms) to calculate the code, that’s what you mostly see like HMAC, PMAC, OMAC, CMA, UMAC etc, HMAC is the most popular one.</p>
+<h4 id="HMAC"><a href="#HMAC" class="headerlink" title="HMAC"></a>HMAC</h4><p>HMAC stands for <strong>hash-based message authentication code</strong>(the generated authentication code also called Digest). It is a specific type of MAC. It contains cryptographic hash functions and a secret cryptographic key. HMAC is capable of verifying data integrity and authentication of a message at the same time.</p>
+<p>HAC(in implementation) has several algorithms to generate digest, here is a summary of that.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">hash</span> algorithm     digest length(bit)</span><br><span class="line">HmacMD5                 128</span><br><span class="line">HmacSHA1                160</span><br><span class="line">HmacSHA256              256</span><br><span class="line">HmacSHA384              384</span><br><span class="line">HmacSHA512              512</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Python <span class="number">3.5</span><span class="number">.2</span> (default, Sep <span class="number">10</span> <span class="number">2016</span>, 08:<span class="number">21</span>:<span class="number">44</span>) </span><br><span class="line">[GCC <span class="number">5.4</span><span class="number">.0</span> <span class="number">20160609</span>] on linux</span><br><span class="line"><span class="type">Type</span> <span class="string">&quot;help&quot;</span>, <span class="string">&quot;copyright&quot;</span>, <span class="string">&quot;credits&quot;</span> <span class="keyword">or</span> <span class="string">&quot;license&quot;</span> <span class="keyword">for</span> more information.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> hmac</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>message = <span class="string">b&#x27;Hello, world!&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>key = <span class="string">b&#x27;secret&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>h = hmac.new(key, message, digestmod=<span class="string">&#x27;MD5&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>h.hexdigest()</span><br><span class="line"><span class="string">&#x27;fa4ee7d173f2d97ee79022d1a7355bcf&#x27;</span>  ------&gt;<span class="number">128</span> bits</span><br></pre></td></tr></table></figure>
+
+<h2 id="Modern-cryptography"><a href="#Modern-cryptography" class="headerlink" title="Modern cryptography"></a>Modern cryptography</h2><h3 id="Symmetric-key-cryptography"><a href="#Symmetric-key-cryptography" class="headerlink" title="Symmetric-key cryptography"></a>Symmetric-key cryptography</h3><p>Symmetric-key cryptography refers to encryption methods in which both <strong>the sender and receiver share the same key.</strong></p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Symmetric_key_encryption.svg" alt="symmetric-key"></p>
+<p><strong>Implementation</strong></p>
+<ul>
+<li>Twofish</li>
+<li><strong>AES(Advanced Encryption Standard) original name: Rijndael</strong></li>
+<li>Blowfish</li>
+<li>RC4</li>
+<li>DES</li>
+<li>3DES</li>
+</ul>
+<h3 id="Public-key-cryptography-asymmetric-key"><a href="#Public-key-cryptography-asymmetric-key" class="headerlink" title="Public-key cryptography(asymmetric key)"></a>Public-key cryptography(asymmetric key)</h3><p>A public key system is so constructed that calculation of one key (the ‘private key’) is computationally infeasible from the other (the ‘public key’), even though they are necessarily related. Instead, both keys are generated secretly, as an interrelated pair.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Public_key_encryption.svg" alt="public-key system"></p>
+<ul>
+<li>Diffie–Hellman key exchange protocol</li>
+<li>DSS (Digital Signature Standard), which incorporates the Digital Signature Algorithm</li>
+<li><strong>RSA encryption algorithm</strong></li>
+<li>YAK authenticated key agreement protocol</li>
+</ul>
+<h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cryptography">Cryptography wiki</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/authentication/" rel="tag"># authentication</a>
+              <a href="/tags/encryption/" rel="tag"># encryption</a>
+              <a href="/tags/public-key/" rel="tag"># public-key</a>
+              <a href="/tags/symmetric-key/" rel="tag"># symmetric-key</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/09/oauth-basic/" rel="prev" title="oauth-basic">
+                  <i class="fa fa-chevron-left"></i> oauth-basic
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/11/10/linux-iptables-inside/" rel="next" title="linux_iptables_inside">
+                  linux_iptables_inside <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

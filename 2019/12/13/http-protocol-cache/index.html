@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OverviewThe performance of web sites and applications can be significantly improved by reusing previously fetched resources. Web caches reduce latency and network traffic and thus lessen the time need">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http-protocol-cache">
+<meta property="og:url" content="http://cyun.tech/2019/12/13/http-protocol-cache/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="OverviewThe performance of web sites and applications can be significantly improved by reusing previously fetched resources. Web caches reduce latency and network traffic and thus lessen the time need">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://mdn.mozillademos.org/files/13777/HTTPCachtType.png">
+<meta property="og:image" content="https://mdn.mozillademos.org/files/13771/HTTPStaleness.png">
+<meta property="og:image" content="https://mdn.mozillademos.org/files/13769/HTTPVary.png/">
+<meta property="article:published_time" content="2019-12-13T00:59:05.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.150Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="http">
+<meta property="article:tag" content="cache-control">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mdn.mozillademos.org/files/13777/HTTPCachtType.png">
+
+
+<link rel="canonical" href="http://cyun.tech/2019/12/13/http-protocol-cache/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2019/12/13/http-protocol-cache/","path":"2019/12/13/http-protocol-cache/","title":"http-protocol-cache"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>http-protocol-cache | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cache-what"><span class="nav-number">1.1.</span> <span class="nav-text">Cache what</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cache-Control-header"><span class="nav-number">1.2.</span> <span class="nav-text">Cache-Control header</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Freshness"><span class="nav-number">1.3.</span> <span class="nav-text">Freshness</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cache-with-Vary-header"><span class="nav-number">1.4.</span> <span class="nav-text">cache with Vary header</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2019/12/13/http-protocol-cache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="http-protocol-cache | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          http-protocol-cache
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-12-13 08:59:05" itemprop="dateCreated datePublished" datetime="2019-12-13T08:59:05+08:00">2019-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/http-protocol/" itemprop="url" rel="index"><span itemprop="name">http-protocol</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/http-protocol/cache/" itemprop="url" rel="index"><span itemprop="name">cache</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>The performance of web sites and applications can be <code>significantly improved by reusing previously fetched resources</code>. Web caches reduce latency and network traffic and thus lessen the time needed to display a representation of a resource. By making use of HTTP caching, Web sites become more responsive.</p>
+<p>There are several kinds of caches: these can be grouped into two main categories: <code>private or shared caches</code>. <code>A shared cache is a cache that stores responses for reuse by more than one user</code>. A private cache is dedicated to a single user.</p>
+<img src='https://mdn.mozillademos.org/files/13777/HTTPCachtType.png' style="background-color: white" />
+
+<span id="more"></span>
+
+<h2 id="Cache-what"><a href="#Cache-what" class="headerlink" title="Cache what"></a>Cache what</h2><p>HTTP caching is optional, but reusing a cached resource is usually desirable. However, <code>common HTTP caches are typically limited to caching responses to GET</code> and may decline other methods. The <code>primary cache key(may have secondary key like Vary header etc) consists of the request method and target URI</code> (oftentimes only the URI is used as only GET requests are caching targets). Common forms of caching entries are:</p>
+<ul>
+<li><code>Successful results of a retrieval request: a 200 (OK) response to a GET request containing a resource like HTML documents, images or files</code>.</li>
+<li>Permanent redirects: a 301 (Moved Permanently) response.</li>
+<li>Error responses: a 404 (Not Found) result page.</li>
+<li>Incomplete results: a 206 (Partial Content) response.</li>
+<li>Responses other than GET if something suitable for use as a cache key is defined.</li>
+</ul>
+<p>A cache entry might also <code>consist of multiple stored responses differentiated by a secondary key</code>, if the request is target of content negotiation.</p>
+<h2 id="Cache-Control-header"><a href="#Cache-Control-header" class="headerlink" title="Cache-Control header"></a>Cache-Control header</h2><p>The Cache-Control HTTP&#x2F;1.1 general-header field is used to specify directives for caching mechanisms <code>in both requests and responses</code>.</p>
+<p><strong>No caching</strong></p>
+<p><code>Cache-Control: no-store</code></p>
+<p><strong>Cache but revalidate</strong></p>
+<p><code>Cache-Control: no-cache</code></p>
+<p><strong>Validation</strong></p>
+<p>When using the “must-revalidate” directive, the cache must verify the status of the stale resources before using it and expired ones should not be used</p>
+<p><code>Cache-Control: must-revalidate</code></p>
+<p><strong>Expiration</strong><br>The most important directive here is “<code>max-age=&lt;seconds&gt;</code>“ which is the maximum amount of time a resource will be considered fresh. Contrary to Expires, this directive is <code>relative to the time of the request</code>.</p>
+<p><code>Cache-Control: max-age=600</code></p>
+<h2 id="Freshness"><a href="#Freshness" class="headerlink" title="Freshness"></a>Freshness</h2><p>cache should <code>only be updated when client requests the uri</code>(server never notifies client when resource changes), <code>Before this expiration time, the resource is fresh; after the expiration time, the resource is stale</code>. Eviction algorithms often privilege fresh resources over stale resources. Note that <code>a stale resource is ignored</code> ; when the cache receives <strong><code>a request for a stale resource, it forwards this request with a If-None-Match to check if it is in fact still fresh</code></strong>. If so, the server returns a 304 (Not Modified) header without sending the body of the requested resource, saving some bandwidth.</p>
+<img style="background-color:white" src="https://mdn.mozillademos.org/files/13771/HTTPStaleness.png"/>
+
+<h2 id="cache-with-Vary-header"><a href="#cache-with-Vary-header" class="headerlink" title="cache with Vary header"></a>cache with Vary header</h2><p>The Vary HTTP response header determines how to match future request headers to decide whether a cached response can be used rather than requesting a fresh one from the origin server. without vary header, you can think key as just domain + uri, with vary header, cache key: domain + uri + Vary header.</p>
+<p>When a cache receives a request that can be satisfied by a cached response that has a Vary header field, it must not use that cached response <code>unless all header fields as nominated by the Vary header match in both the original (cached) request and the new request</code>.</p>
+<img style="background-color:white" src="https://mdn.mozillademos.org/files/13769/HTTPVary.png/">
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/http/" rel="tag"># http</a>
+              <a href="/tags/cache-control/" rel="tag"># cache-control</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/12/13/http-protocol-headers/" rel="prev" title="http-protocol-headers">
+                  <i class="fa fa-chevron-left"></i> http-protocol-headers
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/12/13/http-protocol-response-code/" rel="next" title="http-protocol-response-code">
+                  http-protocol-response-code <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

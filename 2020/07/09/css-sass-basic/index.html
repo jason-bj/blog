@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="SASS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css_sass_basic">
+<meta property="og:url" content="http://cyun.tech/2020/07/09/css-sass-basic/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="SASS">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://cyun.tech/images/web/css/less_sass_css.png">
+<meta property="article:published_time" content="2020-07-09T09:55:12.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.133Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="scss">
+<meta property="article:tag" content="sass">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cyun.tech/images/web/css/less_sass_css.png">
+
+
+<link rel="canonical" href="http://cyun.tech/2020/07/09/css-sass-basic/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2020/07/09/css-sass-basic/","path":"2020/07/09/css-sass-basic/","title":"css_sass_basic"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>css_sass_basic | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SASS"><span class="nav-number">1.</span> <span class="nav-text">SASS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#convert-sass-scss-less-to-css"><span class="nav-number">1.1.</span> <span class="nav-text">convert sass scss less to css</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sass-syntax"><span class="nav-number">1.2.</span> <span class="nav-text">sass syntax</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#variable"><span class="nav-number">1.2.1.</span> <span class="nav-text">variable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mixins"><span class="nav-number">1.2.2.</span> <span class="nav-text">mixins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#selector-nesting"><span class="nav-number">1.2.3.</span> <span class="nav-text">selector nesting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inheritance"><span class="nav-number">1.2.4.</span> <span class="nav-text">Inheritance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Operations"><span class="nav-number">1.2.5.</span> <span class="nav-text">Operations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#color-function"><span class="nav-number">1.2.6.</span> <span class="nav-text">color function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#import"><span class="nav-number">1.2.7.</span> <span class="nav-text">import</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if-x2F-else"><span class="nav-number">1.2.8.</span> <span class="nav-text">if&#x2F;else</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loop"><span class="nav-number">1.2.9.</span> <span class="nav-text">loop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-x2F-map-built-in"><span class="nav-number">1.2.10.</span> <span class="nav-text">list&#x2F;map built-in</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#placeholder"><span class="nav-number">1.2.11.</span> <span class="nav-text">placeholder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#function"><span class="nav-number">1.2.12.</span> <span class="nav-text">function</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ref"><span class="nav-number">1.3.</span> <span class="nav-text">ref</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2020/07/09/css-sass-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="css_sass_basic | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          css_sass_basic
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-07-09 17:55:12" itemprop="dateCreated datePublished" datetime="2020-07-09T17:55:12+08:00">2020-07-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="SASS"><a href="#SASS" class="headerlink" title="SASS"></a>SASS</h1><p><img src="/images/web/css/less_sass_css.png" alt="CSS precompiler"></p>
+<span id="more"></span>
+
+<h2 id="convert-sass-scss-less-to-css"><a href="#convert-sass-scss-less-to-css" class="headerlink" title="convert sass scss less to css"></a>convert sass scss less to css</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$npm</span> install -g less</span><br><span class="line"><span class="variable">$lessc</span> xx.less &gt; xx.css</span><br><span class="line"></span><br><span class="line"><span class="variable">$npm</span> install -g sass</span><br><span class="line"><span class="variable">$sass</span> xx.scss xx.css</span><br><span class="line"><span class="variable">$sass</span> xx.sass xx.css</span><br><span class="line"></span><br><span class="line">watch mode <span class="keyword">for</span> s single scss</span><br><span class="line"><span class="variable">$sass</span> --watch xx.scss:xx.css</span><br><span class="line"></span><br><span class="line">watch mode <span class="keyword">for</span> a <span class="built_in">dir</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$sass</span> --watch a/scss:b/css</span><br></pre></td></tr></table></figure>
+<h2 id="sass-syntax"><a href="#sass-syntax" class="headerlink" title="sass syntax"></a>sass syntax</h2><p>There are keywords and special characters in scss<br><strong>each keyword use <code>@keyword</code> like</strong></p>
+<ul>
+<li>@mixin: define mixin</li>
+<li>@use: import module</li>
+<li>@extend: inheritance</li>
+<li>@inlcude: call mixin</li>
+<li>@function: define a function</li>
+<li>@if&#x2F;@else&#x2F;@for&#x2F;@while&#x2F;@each&#x2F;@return control</li>
+</ul>
+<p><strong>special character</strong></p>
+<ul>
+<li>% placeholder</li>
+<li>&amp; access ancestors selector</li>
+<li>$ variable</li>
+<li># link string and variable if varialbe not used as the value of another property<h3 id="variable"><a href="#variable" class="headerlink" title="variable"></a>variable</h3>variable can be color, number, text.</li>
+</ul>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* global variable definition, var must start with $ as prefix */</span></span><br><span class="line"><span class="variable">$mainColor</span>: <span class="number">#963</span>;</span><br><span class="line"><span class="variable">$siteWidth</span>: <span class="number">1024px</span>;</span><br><span class="line"><span class="variable">$borderStyle</span>: dotted;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="comment">/* local vairable */</span></span><br><span class="line">  <span class="variable">$mainColor</span>: <span class="number">#100</span>;</span><br><span class="line">  <span class="comment">/* use variable, local var wins */</span></span><br><span class="line">  <span class="attribute">color</span>: <span class="variable">$mainColor</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="variable">$siteWidth</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">head &#123;</span><br><span class="line">  <span class="comment">/* use global one */</span></span><br><span class="line">  <span class="attribute">color</span>: <span class="variable">$mainColor</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="mixins"><a href="#mixins" class="headerlink" title="mixins"></a>mixins</h3><p>mixin is used to replace several properites, not one for variable, use @include to contain the mixin</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@mixin</span> error(<span class="variable">$bW</span>: <span class="number">2px</span>) &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="variable">$bW</span>;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.login-error</span> &#123;</span><br><span class="line">  <span class="comment">//@include error() is ok also;</span></span><br><span class="line">  <span class="keyword">@include</span> error;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.logout-error</span> &#123;</span><br><span class="line">  <span class="keyword">@include</span> error(<span class="number">10px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="selector-nesting"><a href="#selector-nesting" class="headerlink" title="selector nesting"></a>selector nesting</h3><p>nested selector is child of parent, when converted to css, <code>a space is added between parent and child</code> but for pesudo class and pesudo element they must no space, hence in these two case, we should use <code>&amp;</code> to refer its parent directly.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">section</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">nav</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">25px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">section</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="selector-tag">nav</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">25px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//converted to css</span></span><br><span class="line"><span class="selector-tag">section</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//a space between section and nav selector</span></span><br><span class="line"><span class="selector-tag">section</span> <span class="selector-tag">nav</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">25px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">section</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="selector-tag">nav</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">25px</span>;</span><br><span class="line">    <span class="selector-tag">a</span> &#123;</span><br><span class="line">      <span class="attribute">color</span>: <span class="number">#0982c1</span>;</span><br><span class="line">      <span class="comment">/* &amp; 引用父选择器  section nav a</span></span><br><span class="line"><span class="comment">       with   &amp;: section nav a:hover</span></span><br><span class="line"><span class="comment">       without&amp;: section nav a :hover   --&gt;not working for hover due to extra space.</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">      &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">        <span class="attribute">text-decoration</span>: underline;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a>Inheritance</h3><p>extend to inherits all properties from its parent</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">%block_base &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">10px</span> <span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="comment">//extend base class</span></span><br><span class="line">  <span class="keyword">@extend</span> %block_base</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#eee</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Operations"><a href="#Operations" class="headerlink" title="Operations"></a>Operations</h3><p>must add space before and after operation</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$bW</span>: <span class="number">2px</span>;</span><br><span class="line"><span class="variable">$double_bW</span>: <span class="variable">$bW</span> * <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="color-function"><a href="#color-function" class="headerlink" title="color function"></a>color function</h3><p>built-in color functions</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">lighten(<span class="variable">$color</span>, 10%); /* 返回的颜色在<span class="variable">$color</span>基础上变亮10% */</span><br><span class="line">darken(<span class="variable">$color</span>, 10%); /* 返回的颜色在<span class="variable">$color</span>基础上变暗10% */</span><br><span class="line">saturate(<span class="variable">$color</span>, 10%); /* 返回的颜色在<span class="variable">$color</span>基础上饱和度增加10% */</span><br><span class="line">desaturate(<span class="variable">$color</span>, 10%); /* 返回的颜色在<span class="variable">$color</span>基础上饱和度减少10% */</span><br><span class="line">grayscale(<span class="variable">$color</span>); /* 返回<span class="variable">$color</span>的灰度色*/</span><br><span class="line">complement(<span class="variable">$color</span>); /* 返回<span class="variable">$color</span>的补色 */</span><br><span class="line">invert(<span class="variable">$color</span>); /* 返回<span class="variable">$color</span>的反相色 */</span><br><span class="line">mix(<span class="variable">$color1</span>, <span class="variable">$color2</span>, 50%); /* <span class="variable">$color1</span> 和 <span class="variable">$color2</span> 的 50% 混合色*/</span><br></pre></td></tr></table></figure>
+<p>Except color functions, scss also has other built-in functions for number, string, list, map etc, refer to <a target="_blank" rel="noopener" href="https://sass-lang.com/documentation/modules">built-in function</a>.</p>
+<h3 id="import"><a href="#import" class="headerlink" title="import"></a>import</h3><p>Import another scss file at compile time, at last(after generate css) you only see one csss</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//old way</span></span><br><span class="line"><span class="keyword">@import</span> <span class="string">&#x27;base&#x27;</span></span><br><span class="line">// find base.scss at current folder</span><br><span class="line"><span class="keyword">@use</span> <span class="string">&#x27;base&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="if-x2F-else"><a href="#if-x2F-else" class="headerlink" title="if&#x2F;else"></a>if&#x2F;else</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="keyword">@if</span> <span class="number">1</span> + <span class="number">1</span> == <span class="number">2</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">@if</span> <span class="number">5</span> &lt; <span class="number">3</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">2px</span> dotted;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">@if</span> null &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">3px</span> double;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$type</span>: monster;</span><br><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="keyword">@if</span> <span class="variable">$type</span> == ocean &#123;</span><br><span class="line">    <span class="attribute">color</span>: blue;</span><br><span class="line">  &#125; <span class="keyword">@else</span> if <span class="variable">$type</span> == matador &#123;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">  &#125; <span class="keyword">@else</span> if <span class="variable">$type</span> == monster &#123;</span><br><span class="line">    <span class="attribute">color</span>: green;</span><br><span class="line">  &#125; <span class="keyword">@else</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: black;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//<span class="doctag">note:</span> number and string use same operator &quot;==&quot; and no () for condition;</span></span><br></pre></td></tr></table></figure>
+<h3 id="loop"><a href="#loop" class="headerlink" title="loop"></a>loop</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* include 3, 1, 2, 3 */</span></span><br><span class="line"><span class="comment">/* @for..from..through to iterate a range of number */</span></span><br><span class="line"><span class="keyword">@for</span> <span class="variable">$i</span> from <span class="number">1</span> through <span class="number">2</span> &#123;</span><br><span class="line"><span class="selector-class">.item-</span>#&#123;<span class="variable">$i</span>&#125; &#123; <span class="attribute">width</span>: <span class="number">2em</span> * <span class="variable">$i</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//converted to css as you can see #&#123;$i&#125; used to link string and variable!!!</span></span><br><span class="line"><span class="selector-class">.item-1</span> &#123;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">2em</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.item-2</span> &#123;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">4em</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//@each ...in bot work for list and map</span></span><br><span class="line"><span class="keyword">@each</span> <span class="variable">$var</span> in &lt;list&gt;&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@each</span> <span class="variable">$animal</span> in puma, sea-slug, egret, salamander &#123;</span><br><span class="line">    .#&#123;<span class="variable">$animal</span>&#125;-<span class="attribute">icon</span> &#123;</span><br><span class="line">        <span class="attribute">background-image</span>: url(<span class="string">&#x27;/images/#&#123;$animal&#125;.png&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$i</span>: <span class="number">6</span>;</span><br><span class="line"><span class="keyword">@while</span> <span class="variable">$i</span> &gt; <span class="number">0</span> &#123;</span><br><span class="line">    <span class="selector-class">.item-</span>#&#123;<span class="variable">$i</span>&#125; &#123; <span class="attribute">width</span>: <span class="number">2em</span> * <span class="variable">$i</span>; &#125;</span><br><span class="line">    <span class="variable">$i</span>: <span class="variable">$i</span> - <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="list-x2F-map-built-in"><a href="#list-x2F-map-built-in" class="headerlink" title="list&#x2F;map built-in"></a>list&#x2F;map built-in</h3><p>list items can be seperated by space, comma<br><strong>list functions</strong></p>
+<ul>
+<li>length($list)</li>
+<li>join($list1,$list2,[$separator]) return a new list, the orignal unchanged</li>
+<li>append($list,$value,[$separator]), return a new list, the orignal unchanged</li>
+</ul>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//define a list with different separators(can only be comma or space!!!)</span></span><br><span class="line"><span class="variable">$linkColor</span>: <span class="number">#08c</span> <span class="number">#333</span>; <span class="comment">//第一个值为默认值，第二个鼠标滑过值</span></span><br><span class="line"><span class="variable">$linkColor</span>: <span class="number">#08c</span>,<span class="number">#333</span>; <span class="comment">//第一个值为默认值，第二个鼠标滑过值</span></span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: nth(<span class="variable">$linkColor</span>, <span class="number">1</span>);</span><br><span class="line">  &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: nth(<span class="variable">$linkColor</span>, <span class="number">2</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//append a new element and assign to itself, no quote for green</span></span><br><span class="line">  <span class="variable">$linkColor</span>: append(<span class="variable">$linkColor</span>, green);</span><br><span class="line">  <span class="selector-tag">button</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: nth(<span class="variable">$linkColor</span>, <span class="number">3</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>map functions</strong></p>
+<ul>
+<li>map-get($map, $key)</li>
+<li>map-keys($map)</li>
+<li>map-values($map)<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//define a map</span></span><br><span class="line"><span class="variable">$headings</span>: (</span><br><span class="line">  h1: <span class="number">2em</span>,</span><br><span class="line">  h2: <span class="number">1.5em</span>,</span><br><span class="line">  h3: <span class="number">1.2em</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">@each</span> <span class="variable">$header</span>, <span class="variable">$size</span> in <span class="variable">$headings</span> &#123;</span><br><span class="line">  #&#123;<span class="variable">$header</span>&#125; &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="variable">$size</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">button</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: map-get(<span class="variable">$headings</span>, h1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="placeholder"><a href="#placeholder" class="headerlink" title="placeholder"></a>placeholder</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">%base &#123;</span><br><span class="line">    <span class="comment">// if %base is not used, this part will be not converted to css file!!</span></span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="function"><a href="#function" class="headerlink" title="function"></a>function</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@function</span> size() &#123;</span><br><span class="line">  <span class="keyword">@return</span> <span class="number">12px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.body</span> &#123;</span><br><span class="line">  <span class="comment">//() is a must to call a function</span></span><br><span class="line">  <span class="attribute">font-size</span>: size();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://caibaojian.com/sass-less-stylus.html">sass less stylus</a></li>
+<li><a target="_blank" rel="noopener" href="https://sass-lang.com/guide">sass basic</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3schools.com/sass/sass_intro.asp">sass tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://sass-lang.com/documentation">scss document</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/css/" rel="tag"># css</a>
+              <a href="/tags/scss/" rel="tag"># scss</a>
+              <a href="/tags/sass/" rel="tag"># sass</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/07/09/css-faq/" rel="prev" title="css_faq">
+                  <i class="fa fa-chevron-left"></i> css_faq
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/16/html-basic/" rel="next" title="html_basic">
+                  html_basic <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

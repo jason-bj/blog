@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="YamlYAML is a human friendly data serialization standard for all programming languages, it’s superset of JSON.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="encode_yaml">
+<meta property="og:url" content="http://cyun.tech/2021/03/26/encode-yaml/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="YamlYAML is a human friendly data serialization standard for all programming languages, it’s superset of JSON.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-26T00:25:41.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.141Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="encode">
+<meta property="article:tag" content="yaml">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2021/03/26/encode-yaml/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2021/03/26/encode-yaml/","path":"2021/03/26/encode-yaml/","title":"encode_yaml"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>encode_yaml | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Yaml"><span class="nav-number">1.</span> <span class="nav-text">Yaml</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic"><span class="nav-number">1.1.</span> <span class="nav-text">Basic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extra-Features"><span class="nav-number">1.2.</span> <span class="nav-text">Extra Features</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REF"><span class="nav-number">2.</span> <span class="nav-text">REF</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/03/26/encode-yaml/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="encode_yaml | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          encode_yaml
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-03-26 08:25:41" itemprop="dateCreated datePublished" datetime="2021-03-26T08:25:41+08:00">2021-03-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/encode/" itemprop="url" rel="index"><span itemprop="name">encode</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/encode/yaml/" itemprop="url" rel="index"><span itemprop="name">yaml</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Yaml"><a href="#Yaml" class="headerlink" title="Yaml"></a>Yaml</h1><p>YAML is a human friendly data serialization standard for all programming languages, it’s superset of JSON.</p>
+<span id="more"></span>
+
+<h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">################</span></span><br><span class="line"><span class="comment"># SCALAR TYPES #</span></span><br><span class="line"><span class="comment">################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Our root object (which continues for the entire document) will be a map,</span></span><br><span class="line"><span class="comment"># which is equivalent to a dictionary, hash or object in other languages.</span></span><br><span class="line"><span class="attr">key:</span> <span class="string">value</span></span><br><span class="line"><span class="attr">another_key:</span> <span class="string">Another</span> <span class="string">value</span> <span class="string">goes</span> <span class="string">here.</span></span><br><span class="line"><span class="attr">a_number_value:</span> <span class="number">100</span></span><br><span class="line"><span class="attr">scientific_notation:</span> <span class="number">1e+12</span></span><br><span class="line"><span class="comment"># The number 1 will be interpreted as a number, not a boolean. if you want</span></span><br><span class="line"><span class="comment"># it to be interpreted as a boolean, use true</span></span><br><span class="line"><span class="attr">boolean:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">null_value:</span> <span class="literal">null</span></span><br><span class="line"><span class="attr">key with spaces:</span> <span class="string">value</span></span><br><span class="line"><span class="comment">############################################################################</span></span><br><span class="line"><span class="comment">#   Notice that strings don&#x27;t need to be quoted. However, they can be      #</span></span><br><span class="line"><span class="comment">############################################################################</span></span><br><span class="line"><span class="attr">however:</span> <span class="string">&#x27;A string, enclosed in quotes.&#x27;</span></span><br><span class="line"><span class="attr">&#x27;Keys can be quoted too.&#x27;:</span> <span class="string">&quot;Useful if you want to put a &#x27;:&#x27; in your key.&quot;</span></span><br><span class="line"><span class="attr">single quotes:</span> <span class="string">&#x27;have &#x27;</span><span class="string">&#x27;one&#x27;</span><span class="string">&#x27; escape pattern&#x27;</span></span><br><span class="line"><span class="attr">double quotes:</span> <span class="string">&quot;have many: \&quot;, \0, \t, \u263A, \x0d\x0a == \r\n, and more.&quot;</span></span><br><span class="line"><span class="comment"># UTF-8/16/32 characters need to be encoded</span></span><br><span class="line"><span class="attr">Superscript two:</span> <span class="string">\u00B2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"><span class="comment"># Multiple-line strings can be written either as a &#x27;literal block&#x27; (using |)   #</span></span><br><span class="line"><span class="comment"># or a &#x27;folded block&#x27; (using &#x27;&gt;&#x27;).</span></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"><span class="attr">literal_block:</span> <span class="string">|</span></span><br><span class="line"><span class="string">    This entire block of text will be the value of the &#x27;literal_block&#x27; key,</span></span><br><span class="line"><span class="string">    with line breaks being preserved.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">    <span class="string">The</span> <span class="string">literal</span> <span class="string">continues</span> <span class="string">until</span> <span class="string">de-dented,</span> <span class="string">and</span> <span class="string">the</span> <span class="string">leading</span> <span class="string">indentation</span> <span class="string">is</span></span><br><span class="line">    <span class="string">stripped.</span></span><br><span class="line"></span><br><span class="line">        <span class="string">Any</span> <span class="string">lines</span> <span class="string">that</span> <span class="string">are</span> <span class="string">&#x27;more-indented&#x27;</span> <span class="string">keep</span> <span class="string">the</span> <span class="string">rest</span> <span class="string">of</span> <span class="string">their</span> <span class="string">indentation</span> <span class="bullet">-</span></span><br><span class="line">        <span class="string">these</span> <span class="string">lines</span> <span class="string">will</span> <span class="string">be</span> <span class="string">indented</span> <span class="string">by</span> <span class="number">4</span> <span class="string">spaces.</span></span><br><span class="line"><span class="attr">folded_style:</span> <span class="string">&gt;</span></span><br><span class="line"><span class="string">    This entire block of text will be the value of &#x27;folded_style&#x27;, but this</span></span><br><span class="line"><span class="string">    time, all newlines will be replaced with a single space.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">    <span class="string">Blank</span> <span class="string">lines,</span> <span class="string">like</span> <span class="string">above,</span> <span class="string">are</span> <span class="string">converted</span> <span class="string">to</span> <span class="string">a</span> <span class="string">newline</span> <span class="string">character.</span></span><br><span class="line"></span><br><span class="line">        <span class="string">&#x27;More-indented&#x27;</span> <span class="string">lines</span> <span class="string">keep</span> <span class="string">their</span> <span class="string">newlines,</span> <span class="string">too</span> <span class="bullet">-</span></span><br><span class="line">        <span class="string">this</span> <span class="string">text</span> <span class="string">will</span> <span class="string">appear</span> <span class="string">over</span> <span class="string">two</span> <span class="string">lines.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">####################</span></span><br><span class="line"><span class="comment"># COLLECTION TYPES #</span></span><br><span class="line"><span class="comment">####################</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##########################################################################</span></span><br><span class="line"><span class="comment"># Nesting uses indentation. 2 space indent is preferred (but not required!!!)</span></span><br><span class="line"><span class="comment">##########################################################################</span></span><br><span class="line"><span class="attr">a_nested_map:</span></span><br><span class="line">  <span class="attr">key:</span> <span class="string">value</span></span><br><span class="line">  <span class="attr">another_key:</span> <span class="string">Another</span> <span class="string">Value</span></span><br><span class="line">  <span class="attr">another_nested_map:</span></span><br><span class="line">    <span class="attr">hello:</span> <span class="string">hello</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Maps don&#x27;t have to have string keys.</span></span><br><span class="line"><span class="attr">0.25:</span> <span class="string">a</span> <span class="string">float</span> <span class="string">key</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Keys can also be complex, like multi-line objects</span></span><br><span class="line"><span class="comment">#######################################################################</span></span><br><span class="line"><span class="comment"># We use ? followed by a space to indicate the start of a complex key.</span></span><br><span class="line"><span class="comment">#######################################################################</span></span><br><span class="line"><span class="string">?</span> <span class="string">|</span></span><br><span class="line"><span class="string">  This is a key</span></span><br><span class="line"><span class="string">  that has multiple lines</span></span><br><span class="line"><span class="string"></span><span class="string">:</span> <span class="string">and</span> <span class="string">this</span> <span class="string">is</span> <span class="string">its</span> <span class="string">value</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># YAML also allows mapping between sequences with the complex key syntax</span></span><br><span class="line"><span class="comment"># Some language parsers might complain</span></span><br><span class="line"><span class="comment"># An example</span></span><br><span class="line"><span class="string">?</span> <span class="bullet">-</span> <span class="string">Manchester</span> <span class="string">United</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Real</span> <span class="string">Madrid</span></span><br><span class="line"><span class="string">:</span> [<span class="number">2001-01-01</span>, <span class="number">2002-02-02</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Sequences (equivalent to lists or arrays) look like this</span></span><br><span class="line"><span class="comment"># (note that the &#x27;-&#x27; counts as indentation):</span></span><br><span class="line"><span class="attr">a_sequence:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Item</span> <span class="number">1</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Item</span> <span class="number">2</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">0.5</span>  <span class="comment"># sequences can contain disparate types.</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Item</span> <span class="number">4</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">value</span></span><br><span class="line">    <span class="attr">another_key:</span> <span class="string">another_value</span></span><br><span class="line">  <span class="bullet">-</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">This</span> <span class="string">is</span> <span class="string">a</span> <span class="string">sequence</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">inside</span> <span class="string">another</span> <span class="string">sequence</span></span><br><span class="line">  <span class="bullet">-</span> <span class="bullet">-</span> <span class="bullet">-</span> <span class="string">Nested</span> <span class="string">sequence</span> <span class="string">indicators</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">can</span> <span class="string">be</span> <span class="string">collapsed</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Since YAML is a superset of JSON, you can also write JSON-style maps and</span></span><br><span class="line"><span class="comment"># sequences:</span></span><br><span class="line"><span class="attr">json_map:</span> &#123;<span class="attr">&quot;key&quot;:</span> <span class="string">&quot;value&quot;</span>&#125;</span><br><span class="line"><span class="attr">json_seq:</span> [<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="string">&quot;takeoff&quot;</span>]</span><br><span class="line"><span class="attr">and quotes are optional:</span> &#123;<span class="attr">key:</span> [<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="string">takeoff</span>]&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Extra-Features"><a href="#Extra-Features" class="headerlink" title="Extra Features"></a>Extra Features</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#######################</span></span><br><span class="line"><span class="comment"># EXTRA YAML FEATURES #</span></span><br><span class="line"><span class="comment">#######################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># YAML also has a handy feature called &#x27;anchors&#x27;, which let you easily duplicate</span></span><br><span class="line"><span class="comment"># content across your document. Both of these keys will have the same value:</span></span><br><span class="line"><span class="attr">anchored_content:</span> <span class="string">&amp;anchor_name</span> <span class="string">This</span> <span class="string">string</span> <span class="string">will</span> <span class="string">appear</span> <span class="string">as</span> <span class="string">the</span> <span class="string">value</span> <span class="string">of</span> <span class="string">two</span> <span class="string">keys.</span></span><br><span class="line"><span class="attr">other_anchor:</span> <span class="meta">*anchor_name</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Anchors can be used to duplicate/inherit properties</span></span><br><span class="line"><span class="attr">base:</span> <span class="meta">&amp;base</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">Everyone</span> <span class="string">has</span> <span class="string">same</span> <span class="string">name</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The regexp &lt;&lt; is called Merge Key Language-Independent Type. It is used to</span></span><br><span class="line"><span class="comment"># indicate that all the keys of one or more specified maps should be inserted</span></span><br><span class="line"><span class="comment"># into the current map.</span></span><br><span class="line"></span><br><span class="line"><span class="attr">foo:</span></span><br><span class="line">  <span class="string">&lt;&lt;:</span> <span class="meta">*base</span></span><br><span class="line">  <span class="attr">age:</span> <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="attr">bar:</span></span><br><span class="line">  <span class="string">&lt;&lt;:</span> <span class="meta">*base</span></span><br><span class="line">  <span class="attr">age:</span> <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># foo and bar would also have name: Everyone has same name</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># YAML also has tags, which you can use to explicitly declare types.</span></span><br><span class="line"><span class="attr">explicit_string:</span> <span class="type">!!str</span> <span class="number">0.5</span></span><br><span class="line"><span class="comment"># Some parsers implement language specific tags, like this one for Python&#x27;s</span></span><br><span class="line"><span class="comment"># complex number type.</span></span><br><span class="line"><span class="attr">python_complex_number:</span> <span class="type">!!python/complex</span> <span class="number">1</span><span class="string">+2j</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># We can also use yaml complex keys with language specific tags</span></span><br><span class="line"><span class="string">?</span> <span class="type">!!python/tuple</span> [<span class="number">5</span>, <span class="number">7</span>]</span><br><span class="line"><span class="string">:</span> <span class="string">Fifty</span> <span class="string">Seven</span></span><br><span class="line"><span class="comment"># Would be &#123;(5, 7): &#x27;Fifty Seven&#x27;&#125; in Python</span></span><br><span class="line"></span><br><span class="line"><span class="comment">####################</span></span><br><span class="line"><span class="comment"># EXTRA YAML TYPES #</span></span><br><span class="line"><span class="comment">####################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Strings and numbers aren&#x27;t the only scalars that YAML can understand.</span></span><br><span class="line"><span class="comment"># ISO-formatted date and datetime literals are also parsed.</span></span><br><span class="line"><span class="attr">datetime:</span> <span class="number">2001-12-15T02:59:43.1Z</span></span><br><span class="line"><span class="attr">datetime_with_spaces:</span> <span class="number">2001-12-14 21:59:43.10 -5</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2002-12-14</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The !!binary tag indicates that a string is actually a base64-encoded</span></span><br><span class="line"><span class="comment"># representation of a binary blob.</span></span><br><span class="line"><span class="attr">gif_file:</span> <span class="type">!!binary</span> <span class="string">|</span></span><br><span class="line"><span class="string">  R0lGODlhDAAMAIQAAP//9/X17unp5WZmZgAAAOfn515eXvPz7Y6OjuDg4J+fn5</span></span><br><span class="line"><span class="string">  OTk6enp56enmlpaWNjY6Ojo4SEhP/++f/++f/++f/++f/++f/++f/++f/++f/+</span></span><br><span class="line"><span class="string">  +f/++f/++f/++f/++f/++SH+Dk1hZGUgd2l0aCBHSU1QACwAAAAADAAMAAAFLC</span></span><br><span class="line"><span class="string">  AgjoEwnuNAFOhpEMTRiggcz4BNJHrv/zCFcLiwMWYNG84BwwEeECcgggoBADs=</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="comment"># YAML also has a set type, which looks like this:</span></span><br><span class="line"><span class="attr">set:</span></span><br><span class="line">  <span class="string">?</span> <span class="string">item1</span></span><br><span class="line">  <span class="string">?</span> <span class="string">item2</span></span><br><span class="line">  <span class="string">?</span> <span class="string">item3</span></span><br><span class="line"><span class="attr">or:</span> &#123;<span class="string">item1</span>, <span class="string">item2</span>, <span class="string">item3</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Sets are just maps with null values; the above is equivalent to:</span></span><br><span class="line"><span class="attr">set2:</span></span><br><span class="line">  <span class="attr">item1:</span> <span class="literal">null</span></span><br><span class="line">  <span class="attr">item2:</span> <span class="literal">null</span></span><br><span class="line">  <span class="attr">item3:</span> <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://yaml.org/">YAML official website</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.yamllint.com/">Online YAML Validator</a></li>
+<li><a target="_blank" rel="noopener" href="https://learnxinyminutes.com/">Learn YAML Minutes</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/encode/" rel="tag"># encode</a>
+              <a href="/tags/yaml/" rel="tag"># yaml</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/24/k8s-minikube/" rel="prev" title="k8s_minikube">
+                  <i class="fa fa-chevron-left"></i> k8s_minikube
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/11/protocol-ip/" rel="next" title="protocol_ip">
+                  protocol_ip <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

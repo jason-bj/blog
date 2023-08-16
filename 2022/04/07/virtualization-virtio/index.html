@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OverviewVirtual I&#x2F;O devices, or virtio for short, are virtualized devices that are known to be virtualized devices. Usually, a virtual machine will emulate real hardware, so the registers and set">
+<meta property="og:type" content="article">
+<meta property="og:title" content="virtualization-virtio">
+<meta property="og:url" content="http://cyun.tech/2022/04/07/virtualization-virtio/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="OverviewVirtual I&#x2F;O devices, or virtio for short, are virtualized devices that are known to be virtualized devices. Usually, a virtual machine will emulate real hardware, so the registers and set">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-07T02:29:33.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.180Z">
+<meta property="article:author" content="Jason">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2022/04/07/virtualization-virtio/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2022/04/07/virtualization-virtio/","path":"2022/04/07/virtualization-virtio/","title":"virtualization-virtio"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>virtualization-virtio | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Debug"><span class="nav-number">2.</span> <span class="nav-text">Debug</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2022/04/07/virtualization-virtio/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="virtualization-virtio | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          virtualization-virtio
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-04-07 10:29:33" itemprop="dateCreated datePublished" datetime="2022-04-07T10:29:33+08:00">2022-04-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>Virtual I&#x2F;O devices, or virtio for short, are virtualized devices that are known to be virtualized devices. Usually, a virtual machine will emulate real hardware, so the registers and setup are the same for actual hardware versus emulated hardware. </p>
+<p>The virtio architecture has three layers: <code>(1) the backend or transport layer, like PCI express, (2) the virtio layer, and (3) the device layer</code>. The transport layer in our case will be PCI express. So, the backend tells us the vendor specific capabilities that the virtio system understands and what they mean. The data layer consists of several circular rings that are used to read or write data from and to the virtio device. Finally, the device layer tells us how we should read or write data.</p>
+<p>This means we will have three sections in our kernel: <code>(1) PCIe and associated functions, (2) Virtio and associated functions, and (3) device specific(block, networ, scsi) functions</code>. Each one layer should be agnostic of the other layers.</p>
+<span id="more"></span>
+
+<h1 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list loaded virtio drivers.</span></span><br><span class="line">$ lsmode | grep virtio</span><br><span class="line">virtio_balloon         18015  0 </span><br><span class="line">virtio_net             28063  0 </span><br><span class="line">virtio_console         28075  1 </span><br><span class="line">virtio_blk             18222  2 </span><br><span class="line">virtio_pci             22985  0 </span><br><span class="line">virtio_ring            22746  5 virtio_blk,virtio_net,virtio_pci,virtio_balloon,virtio_console</span><br><span class="line">virtio                 14959  5 virtio_blk,virtio_net,virtio_pci,virtio_balloon,virtio_console</span><br><span class="line"></span><br><span class="line"><span class="comment"># check virtio mode info</span></span><br><span class="line">$ modinfo virtio_net</span><br><span class="line">filename:       /lib/modules/3.10.0-957.el7.x86_64/kernel/drivers/net/virtio_net.ko.xz</span><br><span class="line">license:        GPL</span><br><span class="line">description:    Virtio network driver</span><br><span class="line">retpoline:      Y</span><br><span class="line">rhelversion:    7.6</span><br><span class="line">srcversion:     5E7651CC01452FC98F9E3F4</span><br><span class="line"><span class="built_in">alias</span>:          virtio:d00000001v*</span><br><span class="line">depends:        virtio,virtio_ring</span><br><span class="line">intree:         Y</span><br><span class="line">vermagic:       3.10.0-957.el7.x86_64 SMP mod_unload modversions </span><br><span class="line">signer:         CentOS Linux kernel signing key</span><br><span class="line">sig_key:        B7:0D:CF:0D:F2:D9:B7:F2:91:59:24:82:49:FD:6F:E8:7B:78:14:27</span><br><span class="line">sig_hashalgo:   sha256</span><br><span class="line">parm:           napi_weight:int</span><br><span class="line">parm:           csum:bool</span><br><span class="line">parm:           gso:bool</span><br><span class="line"></span><br><span class="line"><span class="comment"># more info about this mode</span></span><br><span class="line">$ <span class="built_in">ls</span>  /sys/module/virtio_net</span><br><span class="line">coresize  drivers  holders  initsize  initstate  notes  parameters  refcnt  rhelversion  sections  srcversion  taint  uevent</span><br><span class="line"></span><br><span class="line"><span class="comment"># more about mode driver</span></span><br><span class="line">$ <span class="built_in">ls</span> /sys/module/virtio_net/drivers/</span><br><span class="line">lrwxrwxrwx 1 root root 0 Apr  7 10:44 virtio:virtio_net -&gt; ../../../bus/virtio/drivers/virtio_net</span><br><span class="line"></span><br><span class="line"><span class="comment"># Under virtio_net driver, you can bind and unbind devices to this driver, and check devices uses this driver.</span></span><br><span class="line">$ <span class="built_in">ls</span> -al  /sys/module/virtio_net/drivers/virtio\:virtio_net/</span><br><span class="line">--w------- 1 root root 4096 Apr  7 10:44 <span class="built_in">bind</span></span><br><span class="line">lrwxrwxrwx 1 root root    0 Apr  7 10:44 module -&gt; ../../../../module/virtio_net</span><br><span class="line">--w------- 1 root root 4096 Apr  7 10:44 uevent</span><br><span class="line">--w------- 1 root root 4096 Apr  7 10:44 unbind</span><br><span class="line">lrwxrwxrwx 1 root root    0 Apr  7 10:44 virtio0 -&gt; ../../../../devices/pci0000:00/0000:00:03.0/virtio0</span><br><span class="line"></span><br><span class="line"><span class="comment"># check devices that use virtio_net driver</span></span><br><span class="line">$ <span class="built_in">ls</span> /sys/module/virtio_net/drivers/virtio\:virtio_net/virtio0</span><br><span class="line">device  driver  features  modalias  net  power  status  subsystem  uevent  vendor</span><br><span class="line"></span><br><span class="line"><span class="comment"># get all virtio devices</span></span><br><span class="line">$ lspci  | grep virt</span><br><span class="line">00:03.0 Ethernet controller: Red Hat, Inc. Virtio network device</span><br><span class="line">00:04.0 Communication controller: Red Hat, Inc. Virtio console</span><br><span class="line">00:05.0 SCSI storage controller: Red Hat, Inc. Virtio block device</span><br><span class="line">00:06.0 Unclassified device [00ff]: Red Hat, Inc. Virtio memory balloon</span><br><span class="line"></span><br><span class="line"><span class="comment"># more info about virtio device</span></span><br><span class="line">$ lspci -kvv -s 00:03.0</span><br><span class="line">00:03.0 Ethernet controller: Red Hat, Inc. Virtio network device</span><br><span class="line">        Subsystem: Red Hat, Inc. Device 0001</span><br><span class="line">        Physical Slot: 3</span><br><span class="line">        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx+</span><br><span class="line">        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast &gt;TAbort- &lt;TAbort- &lt;MAbort- &gt;SERR- &lt;PERR- INTx-</span><br><span class="line">        Latency: 0</span><br><span class="line">        Interrupt: pin A routed to IRQ 10</span><br><span class="line">        Region 0: I/O ports at c000 [size=64]</span><br><span class="line">        Region 1: Memory at febf1000 (32-bit, non-prefetchable) [size=4K]</span><br><span class="line">        Region 4: Memory at fe000000 (64-bit, prefetchable) [size=16K]</span><br><span class="line">        Expansion ROM at febe0000 [disabled] [size=64K]</span><br><span class="line">        Capabilities: [98] MSI-X: Enable+ Count=10 Masked-</span><br><span class="line">                Vector table: BAR=1 offset=00000000</span><br><span class="line">                PBA: BAR=1 offset=00000800</span><br><span class="line">        Capabilities: [84] Vendor Specific Information: VirtIO: &lt;unknown&gt;</span><br><span class="line">                BAR=0 offset=00000000 size=00000000</span><br><span class="line">        Capabilities: [70] Vendor Specific Information: VirtIO: Notify</span><br><span class="line">                BAR=4 offset=00003000 size=00001000 multiplier=00000004</span><br><span class="line">        Capabilities: [60] Vendor Specific Information: VirtIO: DeviceCfg</span><br><span class="line">                BAR=4 offset=00002000 size=00001000</span><br><span class="line">        Capabilities: [50] Vendor Specific Information: VirtIO: ISR</span><br><span class="line">                BAR=4 offset=00001000 size=00001000</span><br><span class="line">        Capabilities: [40] Vendor Specific Information: VirtIO: CommonCfg</span><br><span class="line">                BAR=4 offset=00000000 size=00001000</span><br><span class="line">        Kernel driver <span class="keyword">in</span> use: virtio-pci</span><br><span class="line">        Kernel modules: virtio_pci</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cat</span> /proc/iomem </span><br><span class="line">00000000-00000fff : reserved</span><br><span class="line">00001000-0009fbff : System RAM</span><br><span class="line">0009fc00-0009ffff : reserved</span><br><span class="line">000a0000-000bffff : PCI Bus 0000:00</span><br><span class="line">000c0000-000c97ff : Video ROM</span><br><span class="line">000c9800-000ca1ff : Adapter ROM</span><br><span class="line">000ca800-000ccbff : Adapter ROM</span><br><span class="line">000f0000-000fffff : reserved</span><br><span class="line">  000f0000-000fffff : System ROM</span><br><span class="line">00100000-bffd8fff : System RAM</span><br><span class="line">  2b000000-350fffff : Crash kernel</span><br><span class="line">  9c200000-9c97c25e : Kernel code</span><br><span class="line">  9c97c25f-9cf661ff : Kernel data</span><br><span class="line">  9d145000-9d450fff : Kernel bss</span><br><span class="line">bffd9000-bfffffff : reserved</span><br><span class="line">c0000000-febfffff : PCI Bus 0000:00</span><br><span class="line">  fd000000-fdffffff : 0000:00:02.0</span><br><span class="line">    fd000000-fdffffff : bochs-drm</span><br><span class="line">  fe000000-fe003fff : 0000:00:03.0    -----&gt; here <span class="keyword">for</span> 00.03.0 iomem region 4: 16K</span><br><span class="line">    fe000000-fe003fff : virtio-pci-modern   </span><br><span class="line">  fe004000-fe007fff : 0000:00:04.0</span><br><span class="line">    fe004000-fe007fff : virtio-pci-modern</span><br><span class="line">  fe008000-fe00bfff : 0000:00:05.0</span><br><span class="line">    fe008000-fe00bfff : virtio-pci-modern</span><br><span class="line">  fe00c000-fe00ffff : 0000:00:06.0</span><br><span class="line">    fe00c000-fe00ffff : virtio-pci-modern</span><br><span class="line">  febd0000-febdffff : 0000:00:02.0</span><br><span class="line">  febe0000-febeffff : 0000:00:03.0    -----&gt; here <span class="keyword">for</span> 00.03.0 <span class="keyword">for</span> expension ram: 64K</span><br><span class="line">  febf0000-febf0fff : 0000:00:02.0</span><br><span class="line">    febf0000-febf0fff : bochs-drm</span><br><span class="line">  febf1000-febf1fff : 0000:00:03.0    -----&gt; here <span class="keyword">for</span> 00.03.0 <span class="keyword">for</span> region 1: 4K</span><br><span class="line">  febf2000-febf2fff : 0000:00:04.0</span><br><span class="line">  febf3000-febf3fff : 0000:00:05.0</span><br><span class="line">fec00000-fec003ff : IOAPIC 0</span><br><span class="line">fee00000-fee00fff : Local APIC</span><br><span class="line">feffc000-feffffff : reserved</span><br><span class="line">fffc0000-ffffffff : reserved</span><br><span class="line">100000000-23fffffff : System RAM</span><br></pre></td></tr></table></figure>
+
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://marz.utk.edu/my-courses/cosc562/virtio/">virto overview</a></li>
+<li><a target="_blank" rel="noopener" href="https://projectacrn.github.io/latest/developer-guides/hld/hld-virtio-devices.html">virtio inside</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/04/libvirt-performance/" rel="prev" title="libvirt-performance">
+                  <i class="fa fa-chevron-left"></i> libvirt-performance
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/04/07/virtualization-mem-balloon/" rel="next" title="virtualization-mem-balloon">
+                  virtualization-mem-balloon <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

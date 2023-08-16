@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OverviewSingle Packet Authorization (SPA) is defined as the communication of authentication information over spa server port, together with the dynamic reconfiguration of a default-drop firewall polic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Single_Packet_Authorization">
+<meta property="og:url" content="http://cyun.tech/2020/11/12/single-packet-authorization/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="OverviewSingle Packet Authorization (SPA) is defined as the communication of authentication information over spa server port, together with the dynamic reconfiguration of a default-drop firewall polic">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.cipherdyne.org/images/fwknop_tutorial_network_diagram.png">
+<meta property="og:image" content="https://cipherdyne.org/images/SPA_DNAT.png">
+<meta property="article:published_time" content="2020-11-12T01:56:16.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.176Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="SPA">
+<meta property="article:tag" content="Authentication">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.cipherdyne.org/images/fwknop_tutorial_network_diagram.png">
+
+
+<link rel="canonical" href="http://cyun.tech/2020/11/12/single-packet-authorization/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2020/11/12/single-packet-authorization/","path":"2020/11/12/single-packet-authorization/","title":"Single_Packet_Authorization"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Single_Packet_Authorization | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Workflow"><span class="nav-number">1.1.</span> <span class="nav-text">Workflow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install"><span class="nav-number">1.2.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Examples"><span class="nav-number">1.3.</span> <span class="nav-text">Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Network-topology-no-NAT-same-network-or-public-ip-SPA-server-and-service-on-same-machine"><span class="nav-number">1.3.1.</span> <span class="nav-text">Network topology no NAT(same network or public ip), SPA server and service on same machine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Network-topology-with-NAT-service-private-address-behind-SPA-server-on-different-machines"><span class="nav-number">1.3.2.</span> <span class="nav-text">Network topology with NAT, service(private address) behind SPA server on different machines</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Network-topology-with-SNAT-at-spa-server-service-behind-SPA-server-on-different-machines"><span class="nav-number">1.3.3.</span> <span class="nav-text">Network topology with SNAT(at spa server), service behind SPA server on different machines</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Network-topology-with-DNAT-port-only"><span class="nav-number">1.3.4.</span> <span class="nav-text">Network topology with DNAT(port only)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Grant-access-with-limit-scope-source-ip-user-port"><span class="nav-number">1.3.5.</span> <span class="nav-text">Grant access with limit scope(source ip, user, port)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#troubleshooting"><span class="nav-number">1.4.</span> <span class="nav-text">troubleshooting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FAQ"><span class="nav-number">1.4.1.</span> <span class="nav-text">FAQ</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#if-client-behinds-NAT-what-special-setting-needed"><span class="nav-number">2.</span> <span class="nav-text">if client behinds NAT what special setting needed</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#REF"><span class="nav-number">2.1.</span> <span class="nav-text">REF</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2020/11/12/single-packet-authorization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Single_Packet_Authorization | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Single_Packet_Authorization
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-11-12 09:56:16" itemprop="dateCreated datePublished" datetime="2020-11-12T09:56:16+08:00">2020-11-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/security/" itemprop="url" rel="index"><span itemprop="name">security</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>Single Packet Authorization (SPA) is defined as the communication of authentication information over spa server port, together with the dynamic reconfiguration of a default-drop firewall policy to allow access to services that would otherwise be blocked, SPA <code>communicates authentication information within the payload</code> portion of a single packet. Because packet payloads are used, SPA offers many enhancements over PK such as stronger usage of cryptography, protection from replay attacks, minimal network footprint (in terms of what IDS’s may alert on - PK sequences look like port scans after all), the ability to transmit full commands and complex access requests, and better performance.</p>
+<p><code>For simple, access service is blocked by firewall, SPA client requests to open that service for itself, SPA server authenticates the request, adds proper firewall rules to that client, after that client can access server as normal.</code></p>
+<span id="more"></span>
+
+<h2 id="Workflow"><a href="#Workflow" class="headerlink" title="Workflow"></a>Workflow</h2><p>A basic outline for using fwknop to conceal an SSH daemon(or any service) with Single Packet Authorization (SPA) involves the following steps. This assumes an SPA client system (hostname: spaclient), and an SPA server system spaserver.domain.com where fwknopd is installed and the SSH daemon listens:</p>
+<ol>
+<li>Generate encryption and HMAC keys with fwknop –key-gen.</li>
+<li>Transfer the keys you just generated fwknopd to the server (this is where SSHD is listening too).</li>
+<li>Start fwknopd and deploy a default-drop firewall policy against all inbound SSH connections.</li>
+<li>From anywhere on the Internet, use the fwknop client to send an SPA packets and have fwknopd open the firewall.</li>
+<li>Use your SSH client as usual now that you have access. No one else can even see that SSHD is listening.</li>
+</ol>
+<p><img src="https://www.cipherdyne.org/images/fwknop_tutorial_network_diagram.png" alt="Network"></p>
+<p><strong>NOTE</strong></p>
+<ul>
+<li>SPA sends request in payload to grant access(add firewall rule at spa server) for IP in the payload.</li>
+<li>Firewall(iptables) checks protocol headers for access.</li>
+</ul>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><p>Here are the steps to install fwknop from source code, first make sure you have dev machine and env to compile from source, install from package is available for ubuntu as well, but here I want to share how to install from source.</p>
+<p><strong>install from package</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ubuntu18</span></span><br><span class="line">$ apt-get install -y fwknop-server</span><br><span class="line">$ apt-get install -y fwknop-client</span><br><span class="line"><span class="comment"># Centos7</span></span><br><span class="line">yum install -y fwknop</span><br></pre></td></tr></table></figure>
+
+<p><strong>install from source</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install dependencies</span></span><br><span class="line">$ apt-get update</span><br><span class="line">$ apt-get install -y build-essential autoconf autotools-dev libtool textinfo git</span><br></pre></td></tr></table></figure>
+<p><strong>install server</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">yes</span> <span class="built_in">yes</span> | git <span class="built_in">clone</span> https://github.com/mrash/fwknop.git</span><br><span class="line">$ <span class="built_in">cd</span> fwknop/</span><br><span class="line">$ ./autogen.sh</span><br><span class="line">$ ./configure --disable-client --prefix=/usr</span><br><span class="line">$ make</span><br><span class="line">$ make install</span><br><span class="line"></span><br><span class="line"><span class="comment"># make sure install correctly</span></span><br><span class="line">$ fwknopd -V</span><br><span class="line"><span class="comment"># enable systemd service, then you can check fwknopd by `service fwknopd status`</span></span><br><span class="line">$ <span class="built_in">cp</span> extras/systemd/fwknopd.service  /lib/systemd/system/</span><br><span class="line"></span><br><span class="line"><span class="comment"># config location</span></span><br><span class="line"><span class="comment"># /usr/sbin/fwknopd</span></span><br><span class="line"><span class="comment"># /usr/etc/fwknop/fwknopd.conf</span></span><br><span class="line"><span class="comment"># /usr/etc/fwknop/access.conf</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>install client</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">yes</span> <span class="built_in">yes</span> | git <span class="built_in">clone</span> https://github.com/mrash/fwknop.git</span><br><span class="line">$ <span class="built_in">cd</span> fwknop/</span><br><span class="line">$ ./autogen.sh</span><br><span class="line">$ ./configure --disable-server --prefix=/usr</span><br><span class="line">$ make</span><br><span class="line">$ make install</span><br><span class="line"><span class="comment"># make sure install correctly</span></span><br><span class="line">$ fwknop -V</span><br><span class="line"><span class="comment"># /usr/bin/fwknop</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><p>After installation, you need to config both client and server together to make them work, but the config depends on network topology you’re using, here are some typical use cases.</p>
+<h3 id="Network-topology-no-NAT-same-network-or-public-ip-SPA-server-and-service-on-same-machine"><a href="#Network-topology-no-NAT-same-network-or-public-ip-SPA-server-and-service-on-same-machine" class="headerlink" title="Network topology no NAT(same network or public ip), SPA server and service on same machine"></a>Network topology no NAT(same network or public ip), SPA server and service on same machine</h3><p><strong>server side</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create key for hmac and aes</span></span><br><span class="line">$ fwknopd --key-gen</span><br><span class="line">KEY_BASE64: +RCO0Gi2oTWbmBaylY4mVsDXzggQKDKwYU2FaLBL0Jo=</span><br><span class="line">HMAC_KEY_BASE64: 729XvADuHzSs6I9vz9tVIOFITF/ckAAIZGWVU4Hy4c82kbAbsFzkZRfddNZPr10AJlUCVdtx9D6vNN2XQ6ribQ==</span><br><span class="line"></span><br><span class="line"><span class="comment"># edit /usr/etc/fwknop/access.conf</span></span><br><span class="line">SOURCE                      ANY</span><br><span class="line">KEY_BASE64                  WO3yTj1oMCoFr3l8WlCLSJAGikvej2BqYgwEcFPwiHg=</span><br><span class="line">HMAC_KEY_BASE64             06EL9sbYsYUm396U/H44BnEm/qIOi1iiWVPILv8jWJg3NMm52I4Whu/AyL0v4CnR1IcHV27QUjFJ8NFNllTatA==</span><br><span class="line"></span><br><span class="line"><span class="comment"># edit /usr/etc/fwknopd/fwknopd.conf</span></span><br><span class="line">FWKNOP_RUN_DIR              /var/run/fwknop;</span><br><span class="line">FWKNOP_PID_FILE             <span class="variable">$FWKNOP_RUN_DIR</span>/fwknopd.pid;</span><br><span class="line">PCAP_INTF ens160</span><br><span class="line"></span><br><span class="line"><span class="comment"># start fwknopd service</span></span><br><span class="line">$ service fwknopd start</span><br><span class="line">$ service fwknopd status</span><br><span class="line"></span><br><span class="line"><span class="comment"># insert two rules at header, the second one before the first one in iptables</span></span><br><span class="line"><span class="comment"># hence for established tcp connection, keep it, others default to drop</span></span><br><span class="line">$ iptables -I INPUT 1 -i ens160  -p tcp --dport 22 -j DROP</span><br><span class="line">$ iptables -I INPUT 1  -i ens160  -p tcp --dport 22 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+<p><strong>client side</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># we use named config, the config file is at /user/.fwknoprc, create it if no</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># edit /user/.fwknoprc</span></span><br><span class="line">[default]</span><br><span class="line">USE_HMAC                    Y</span><br><span class="line"></span><br><span class="line">[spaserver-ssl]</span><br><span class="line">ALLOW_IP                    10.10.10.10</span><br><span class="line">ACCESS                      tcp/22</span><br><span class="line">SPA_SERVER                  10.10.10.1</span><br><span class="line">KEY_BASE64                  WO3yTj1oMCoFr3l8WlCLSJAGikvej2BqYgwEcFPwiHg=</span><br><span class="line">HMAC_KEY_BASE64             06EL9sbYsYUm396U/H44BnEm/qIOi1iiWVPILv8jWJg3NMm52I4Whu/AyL0v4CnR1IcHV27QUjFJ8NFNllTatA==</span><br><span class="line"></span><br><span class="line"><span class="comment"># default section is global setting</span></span><br><span class="line"><span class="comment"># each named section can has it own setting</span></span><br><span class="line"><span class="comment"># ALLOW_IP, ACCESS, request access for this IP and port</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># request access for info in spaserver-ssl</span></span><br><span class="line">$ fwknop -n spaserver-ssl</span><br><span class="line"></span><br><span class="line"><span class="comment"># then normal ssh</span></span><br><span class="line">ssh root@10.10.10.1</span><br></pre></td></tr></table></figure>
+<h3 id="Network-topology-with-NAT-service-private-address-behind-SPA-server-on-different-machines"><a href="#Network-topology-with-NAT-service-private-address-behind-SPA-server-on-different-machines" class="headerlink" title="Network topology with NAT, service(private address) behind SPA server on different machines"></a>Network topology with NAT, service(private address) behind SPA server on different machines</h3><p><img src="https://cipherdyne.org/images/SPA_DNAT.png" alt="network topology"></p>
+<ul>
+<li>client ip: 192.168.1.2</li>
+<li>SPA server ip: 10.10.10.3(public)</li>
+<li>SSH server ip: 192.168.100.10</li>
+</ul>
+<p><strong>server side</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># edit /usr/etc/fwknopd/fwknopd.conf</span></span><br><span class="line">ENABLE_IPT_FORWARDING      Y;</span><br><span class="line"></span><br><span class="line"><span class="comment"># after client sent SPA request, check iptables rules</span></span><br><span class="line">$ fwknopd --fw-list</span><br><span class="line">Listing rules <span class="keyword">in</span> fwknopd iptables chains...</span><br><span class="line"></span><br><span class="line">Chain FWKNOP_INPUT (1 references)</span><br><span class="line">num  target     prot opt <span class="built_in">source</span>               destination</span><br><span class="line"></span><br><span class="line">Chain FWKNOP_FORWARD (1 references)</span><br><span class="line">num  target     prot opt <span class="built_in">source</span>               destination</span><br><span class="line">1    ACCEPT     tcp  --  2.2.2.2              0.0.0.0/0            tcp dpt:2 /* _exp_1605161576 */</span><br><span class="line"></span><br><span class="line">Chain FWKNOP_PREROUTING (1 references)</span><br><span class="line">num  target     prot opt <span class="built_in">source</span>               destination</span><br><span class="line">1    DNAT       tcp  --  2.2.2.2              0.0.0.0/0            tcp dpt:22 /* _exp_1605161576 */ to:192.168.100.10:2</span><br></pre></td></tr></table></figure>
+
+<p><strong>client side</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> /user/.fwknoprc</span><br><span class="line">[default]</span><br><span class="line">USE_HMAC                    Y</span><br><span class="line"></span><br><span class="line">[spaserver-ssl]</span><br><span class="line">ACCESS                      tcp/22</span><br><span class="line">SPA_SERVER                  10.10.10.3</span><br><span class="line">KEY_BASE64                  WO3yTj1oMCoFr3l8WlCLSJAGikvej2BqYgwEcFPwiHg=</span><br><span class="line">HMAC_KEY_BASE64             06EL9sbYsYUm396U/H44BnEm/qIOi1iiWVPILv8jWJg3NMm52I4Whu/AyL0v4CnR1IcHV27QUjFJ8NFNllTatA==</span><br><span class="line">RESOLVE_IP_HTTPS            Y</span><br><span class="line">NAT_ACCESS                  192.168.100.10:22</span><br><span class="line"></span><br><span class="line"><span class="comment"># with RESOLVE_IP_HTTPS, the real ip in SPA packet, is the external ip, get by fwknop atomically.</span></span><br><span class="line"><span class="comment"># but if you know the external ip. use &#x27;ALLOW_IP&#x27; remove &#x27;RESOLVE_IP_HTTPS&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># the external ip for client is 2.2.2.2</span></span><br><span class="line">$ fwknop -n spaserver-ssl</span><br><span class="line">$ ssh root@10.10.10.3</span><br></pre></td></tr></table></figure>
+
+<h3 id="Network-topology-with-SNAT-at-spa-server-service-behind-SPA-server-on-different-machines"><a href="#Network-topology-with-SNAT-at-spa-server-service-behind-SPA-server-on-different-machines" class="headerlink" title="Network topology with SNAT(at spa server), service behind SPA server on different machines"></a>Network topology with SNAT(at spa server), service behind SPA server on different machines</h3><p>As you know SNAT is after POSTROUTING, that means when SPA server forwards packet, the SRC must be replaced, otherwise packet can not be routed to service server, it’s total SPA server config, client even not care!</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># edit /usr/etc/fwknopd/fwknopd.conf</span></span><br><span class="line">ENABLE_IPT_FORWARDING Y;</span><br><span class="line">ENABLE_IPT_SNAT Y;</span><br><span class="line">$ service fwknopd restart</span><br></pre></td></tr></table></figure>
+
+<h3 id="Network-topology-with-DNAT-port-only"><a href="#Network-topology-with-DNAT-port-only" class="headerlink" title="Network topology with DNAT(port only)"></a>Network topology with DNAT(port only)</h3><p>DNAT is needed when spa server does NOT want to grant access to well-known port like ssh(22), but instead grants access to a temporary port which is only known to SPA client who triggers the request for safe.</p>
+<p><strong>server</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># edit /usr/etc/fwknopd/fwknopd.conf</span></span><br><span class="line">ENABLE_IPT_LOCAL_NAT        Y;</span><br><span class="line"></span><br><span class="line">$ service fwknopd restart</span><br><span class="line"><span class="comment"># after client sent SPA packet</span></span><br><span class="line">$ fwknopd --fw-list</span><br><span class="line">Listing rules <span class="keyword">in</span> fwknopd iptables chains...</span><br><span class="line"></span><br><span class="line">Chain FWKNOP_INPUT (1 references)</span><br><span class="line">num  target     prot opt <span class="built_in">source</span>               destination</span><br><span class="line">1    ACCEPT     tcp  --  10.10.10.1           0.0.0.0/0            tcp dpt:22 /* _exp_1605156202 */</span><br><span class="line"></span><br><span class="line">Chain FWKNOP_FORWARD (1 references)</span><br><span class="line">num  target     prot opt <span class="built_in">source</span>               destination</span><br><span class="line"></span><br><span class="line"><span class="comment"># this the new added rule for DNAT</span></span><br><span class="line">Chain FWKNOP_PREROUTING (1 references)</span><br><span class="line">num  target     prot opt <span class="built_in">source</span>               destination</span><br><span class="line">1    DNAT       tcp  --  10.10.10.1           0.0.0.0/0            tcp dpt:29935 /* _exp_1605156202 */ to:10.10.10.3:22</span><br></pre></td></tr></table></figure>
+
+<p><strong>client</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> /user/.fwknoprc</span><br><span class="line">[default]</span><br><span class="line">USE_HMAC                    Y</span><br><span class="line"></span><br><span class="line">[spaserver-ssl]</span><br><span class="line">ALLOW_IP                    10.10.10.1</span><br><span class="line">ACCESS                      tcp/22</span><br><span class="line">SPA_SERVER                  10.10.10,3</span><br><span class="line">KEY_BASE64                  WO3yTj1oMCoFr3l8WlCLSJAGikvej2BqYgwEcFPwiHg=</span><br><span class="line">HMAC_KEY_BASE64             06EL9sbYsYUm396U/H44BnEm/qIOi1iiWVPILv8jWJg3NMm52I4Whu/AyL0v4CnR1IcHV27QUjFJ8NFNllTatA==</span><br><span class="line">NAT_LOCAL                   Y</span><br><span class="line">NAT_RAND_PORT               Y</span><br><span class="line"></span><br><span class="line">$ fwknop -n spaserver-ssl</span><br><span class="line">[+] Randomly assigned port <span class="string">&#x27;29935&#x27;</span> on: <span class="string">&#x27;10.10.10.1,tcp/29935&#x27;</span> will grant access to: <span class="string">&#x27;10.10.10.3,22&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># access by 29935, not port 22</span></span><br><span class="line">$ ssh root@10.10.10.3 -p 29935</span><br></pre></td></tr></table></figure>
+
+<h3 id="Grant-access-with-limit-scope-source-ip-user-port"><a href="#Grant-access-with-limit-scope-source-ip-user-port" class="headerlink" title="Grant access with limit scope(source ip, user, port)"></a>Grant access with limit scope(source ip, user, port)</h3><p>By default, spa server allows ANY address with ANY user to request ANY port(on server) access, but we can limit the scope by several variables<br><strong>server</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># edit /usr/etc/fwknop/access.conf</span></span><br><span class="line">SOURCE                      1.1.1.0/24, 2.2.2.2</span><br><span class="line">OPEN_PORTS                  tcp/22, tcp/993</span><br><span class="line">REQUIRE_USERNAME            bob</span><br><span class="line">REQUIRE_SOURCE_ADDRESS      Y</span><br><span class="line">KEY_BASE64                  WO3yTj1oMCoFr3l8WlCLSJAGikvej2BqYgwEcFPwiHg=</span><br><span class="line">HMAC_KEY_BASE64             06EL9sbYsYUm396U/H44BnEm/qIOi1iiWVPILv8jWJg3NMm52I4Whu/AyL0v4CnR1IcHV27QUjFJ8NFNllTatA==</span><br></pre></td></tr></table></figure>
+
+<p><strong>client with user name</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> /user/.fwknoprc</span><br><span class="line">[default]</span><br><span class="line">USE_HMAC                    Y</span><br><span class="line"></span><br><span class="line">[spaserver-ssl]</span><br><span class="line">ALLOW_IP                    10.10.10.1</span><br><span class="line">ACCESS                      tcp/22</span><br><span class="line">SPA_SERVER                  10.10.10.3</span><br><span class="line">KEY_BASE64                  WO3yTj1oMCoFr3l8WlCLSJAGikvej2BqYgwEcFPwiHg=</span><br><span class="line">HMAC_KEY_BASE64             06EL9sbYsYUm396U/H44BnEm/qIOi1iiWVPILv8jWJg3NMm52I4Whu/AyL0v4CnR1IcHV27QUjFJ8NFNllTatA==</span><br><span class="line">SPOOF_USER                  bob</span><br></pre></td></tr></table></figure>
+
+<h2 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># check service status</span></span><br><span class="line">$ service fwknopd status</span><br><span class="line"><span class="comment"># check log if not working</span></span><br><span class="line">$ grep fwknopd /var/log/syslog</span><br><span class="line"></span><br><span class="line"><span class="comment"># dump the config</span></span><br><span class="line">$ fwknopd -D</span><br><span class="line"></span><br><span class="line"><span class="comment"># Listing rules in fwknopd iptables chains...</span></span><br><span class="line">$ fwknopd --fw-list</span><br><span class="line"></span><br><span class="line"><span class="comment"># Flush all firewall rules created by fwknop.</span></span><br><span class="line">$ fwknopd --fw-flush</span><br><span class="line"></span><br><span class="line"><span class="comment"># show more info for SPA packet when sending</span></span><br><span class="line">$ fwknop -n spaserver-ssl -v</span><br></pre></td></tr></table></figure>
+<h3 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h3><h1 id="if-client-behinds-NAT-what-special-setting-needed"><a href="#if-client-behinds-NAT-what-special-setting-needed" class="headerlink" title="if client behinds NAT what special setting needed"></a>if client behinds NAT what special setting needed</h1><p>As SPA server uses iptables which only see external IP used by client after SNAT, hence we should sent this ip in SPA packet.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># edit /user/.fwknoprc at spa client, but never set ALLOW_IP which is the real ip in SPA message</span></span><br><span class="line">RESOLVE_IP_HTTPS   Y</span><br></pre></td></tr></table></figure>
+
+<h2 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cipherdyne.org/fwknop/docs/fwknop-tutorial.html#quick-start">SPA tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cipherdyne.org/fwknop/docs/manpages/fwknop.html">SPA client man</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cipherdyne.org/fwknop/docs/manpages/fwknopd.html">SPA server man</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cipherdyne.org/fwknop/docs/">SPA founder page</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/SPA/" rel="tag"># SPA</a>
+              <a href="/tags/Authentication/" rel="tag"># Authentication</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/11/10/linux-iptables-inside/" rel="prev" title="linux_iptables_inside">
+                  <i class="fa fa-chevron-left"></i> linux_iptables_inside
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/11/17/linux-tproxy/" rel="next" title="linux-tproxy">
+                  linux-tproxy <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

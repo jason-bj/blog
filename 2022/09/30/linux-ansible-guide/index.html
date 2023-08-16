@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OverviewAnsible is an open source IT automation engine that automates provisioning, configuration management, application deployment, orchestration, and many other IT processes.  Ansible works by conn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux-ansible-guide">
+<meta property="og:url" content="http://cyun.tech/2022/09/30/linux-ansible-guide/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="OverviewAnsible is an open source IT automation engine that automates provisioning, configuration management, application deployment, orchestration, and many other IT processes.  Ansible works by conn">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://docs.ansible.com/ansible/latest/_images/ansible_basic.svg">
+<meta property="og:image" content="http://cyun.tech/images/linux/ansible_arch.png">
+<meta property="article:published_time" content="2022-09-30T07:26:11.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.159Z">
+<meta property="article:author" content="Jason">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://docs.ansible.com/ansible/latest/_images/ansible_basic.svg">
+
+
+<link rel="canonical" href="http://cyun.tech/2022/09/30/linux-ansible-guide/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2022/09/30/linux-ansible-guide/","path":"2022/09/30/linux-ansible-guide/","title":"linux-ansible-guide"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>linux-ansible-guide | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Concepts"><span class="nav-number">2.</span> <span class="nav-text">Concepts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#conf"><span class="nav-number">2.1.</span> <span class="nav-text">conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inventory"><span class="nav-number">2.2.</span> <span class="nav-text">inventory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#modules"><span class="nav-number">2.3.</span> <span class="nav-text">modules</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ad-Hoc"><span class="nav-number">2.4.</span> <span class="nav-text">Ad-Hoc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PlayBook-suggested-way"><span class="nav-number">2.5.</span> <span class="nav-text">PlayBook(suggested way)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Error-Handling-In-Playbooks"><span class="nav-number">2.5.1.</span> <span class="nav-text">Error Handling In Playbooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Asynchronous-Actions-and-Polling-task-level"><span class="nav-number">2.5.2.</span> <span class="nav-text">Asynchronous Actions and Polling(task level)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Strategy"><span class="nav-number">2.5.3.</span> <span class="nav-text">Strategy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-API-not-frequently-used"><span class="nav-number">2.6.</span> <span class="nav-text">Python API(not frequently used)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FQA"><span class="nav-number">3.</span> <span class="nav-text">FQA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ansible-playbook-hangs-during-execution"><span class="nav-number">3.1.</span> <span class="nav-text">Ansible playbook hangs during execution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#speed-up-playbook"><span class="nav-number">3.2.</span> <span class="nav-text">speed up playbook</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NameError-name-%E2%80%98temp-path%E2%80%99-is-not-defined"><span class="nav-number">3.3.</span> <span class="nav-text">NameError: name ‘temp_path’ is not defined</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#change-remote-tmp"><span class="nav-number">3.4.</span> <span class="nav-text">change remote_tmp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get-verbose-output"><span class="nav-number">3.5.</span> <span class="nav-text">get verbose output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set-python-interpreter-at-remote-node"><span class="nav-number">3.6.</span> <span class="nav-text">set python interpreter at remote node</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cannot-handle-SSH-host-authenticity-prompts-for-multiple-hosts"><span class="nav-number">3.7.</span> <span class="nav-text">Cannot handle SSH host authenticity prompts for multiple hosts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forks-vs-serial-vs-async"><span class="nav-number">3.8.</span> <span class="nav-text">forks vs serial vs async</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#serial-example"><span class="nav-number">3.8.1.</span> <span class="nav-text">serial example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#without-serial"><span class="nav-number">3.8.2.</span> <span class="nav-text">without serial</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#with-large-hosts-forks-are-decreasing-after-a-while"><span class="nav-number">3.9.</span> <span class="nav-text">with large hosts, forks are decreasing after a while</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#compare-stdout-with-number"><span class="nav-number">3.10.</span> <span class="nav-text">compare stdout with number</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2022/09/30/linux-ansible-guide/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="linux-ansible-guide | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux-ansible-guide
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-09-30 15:26:11" itemprop="dateCreated datePublished" datetime="2022-09-30T15:26:11+08:00">2022-09-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>Ansible is an open source IT automation engine that automates provisioning, configuration management, application deployment, orchestration, and many other IT processes.</p>
+<p><img src="https://docs.ansible.com/ansible/latest/_images/ansible_basic.svg" alt="basic arch"></p>
+<p>Ansible works by connecting to your nodes and pushing out small programs—called modules—to these nodes. Modules are used to accomplish automation tasks in Ansible. These programs are written to be resource models of the desired state of the system. Ansible then executes these modules and removes them when finished.</p>
+<span id="more"></span>
+
+<p><img src="/../images/linux/ansible_arch.png"></p>
+<p><strong>terminology:</strong></p>
+<ul>
+<li>Control node: the host on which you use Ansible to execute tasks on the managed nodes</li>
+<li>Managed node: a host that is configured by the control node</li>
+<li>Host inventory: a list of managed nodes</li>
+<li>Ad-hoc command: a simple one-off task</li>
+<li>Playbook: a set of repeatable tasks for more complex configurations</li>
+<li>Module: code that performs a particular common task such as adding a user, installing a package, etc.</li>
+</ul>
+<h1 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ansible</span> --version</span><br><span class="line">ansible 2.9.27</span><br><span class="line">  config file = /etc/ansible/ansible.cfg ------&gt; the cfg used</span><br><span class="line">  configured module search path = [u<span class="string">&#x27;/root/.ansible/plugins/modules&#x27;</span>, u<span class="string">&#x27;/usr/share/ansible/plugins/modules&#x27;</span>]</span><br><span class="line">  ansible python module location = /usr/lib/python2.7/site-packages/ansible</span><br><span class="line">  executable location = /usr/bin/ansible</span><br><span class="line">  python version = 2.7.5 (default, Jun 28 2022, 15:30:04) [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># get available modules</span></span><br><span class="line"><span class="variable">$ansible</span>-doc -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># list all hosts</span></span><br><span class="line"><span class="variable">$ansible</span> all --list-hosts</span><br><span class="line"><span class="comment"># list hosts in web group</span></span><br><span class="line"><span class="variable">$ansible</span> web --list-hosts</span><br><span class="line"></span><br><span class="line"><span class="comment"># get help and example for each module</span></span><br><span class="line"><span class="variable">$ansible</span>-doc copy</span><br><span class="line"><span class="variable">$ansible</span>-doc shell</span><br><span class="line"></span><br><span class="line"><span class="comment"># show inventory graph(higher ansible)</span></span><br><span class="line"><span class="variable">$ansible</span>-inventory -i host --graph</span><br><span class="line">@all:</span><br><span class="line">  |--@ungrouped:</span><br><span class="line">  |  |--172.17.0.3</span><br><span class="line"></span><br><span class="line"><span class="comment"># show in json format</span></span><br><span class="line"><span class="variable">$ansible</span>-inventory -i host --list</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;_meta&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;hostvars&quot;</span>: &#123;&#125;</span><br><span class="line">    &#125;, </span><br><span class="line">    <span class="string">&quot;all&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;children&quot;</span>: [</span><br><span class="line">            <span class="string">&quot;ungrouped&quot;</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;, </span><br><span class="line">    <span class="string">&quot;ungrouped&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;hosts&quot;</span>: [</span><br><span class="line">            <span class="string">&quot;172.17.0.3&quot;</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="conf"><a href="#conf" class="headerlink" title="conf"></a>conf</h2><p>default configuration file is <code>/etc/ansible/ansible.cfg</code></p>
+<p>The <code>order in which a configuration file is located</code> is as follow.</p>
+<ul>
+<li>ANSIBLE_CONFIG (environment variable)</li>
+<li>ansible.cfg (per directory)</li>
+<li>~&#x2F;.ansible.cfg (home directory)</li>
+<li>&#x2F;etc&#x2F;ansible&#x2F;ansible.cfg (global)</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/reference_appendices/config.html">All parameters of conf</a> and <a target="_blank" rel="noopener" href="https://github.com/ansible/ansible/blob/stable-2.9/examples/ansible.cfg">conf example</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dump the current setting</span></span><br><span class="line"><span class="variable">$ansible</span>-config dump</span><br><span class="line"></span><br><span class="line"><span class="comment"># Only show configurations that have changed from the default</span></span><br><span class="line"><span class="variable">$ansible</span>-config dump --only-changed</span><br><span class="line"></span><br><span class="line"><span class="variable">$cat</span> ansible.cfg</span><br><span class="line">[defaults]</span><br><span class="line"><span class="comment"># thirdpart to speed up ansible, see ref below</span></span><br><span class="line">strategy_plugins = /xxx/mitogen-0.3.3/ansible_mitogen/plugins/strategy</span><br><span class="line">strategy = mitogen_linear</span><br><span class="line"></span><br><span class="line"><span class="comment"># the actual number may be less than this(max value) due to cpu and memory used for each fork</span></span><br><span class="line"><span class="comment"># suggest: 30-50 for server and less than total cpu number</span></span><br><span class="line">forks          = 50</span><br><span class="line"><span class="comment"># do not gather by default, must say gather_facts: True</span></span><br><span class="line">gathering      = explicit</span><br><span class="line"><span class="comment"># SSH timeout</span></span><br><span class="line"><span class="built_in">timeout</span> = 60</span><br><span class="line">log_path = ./log/ansible.log</span><br><span class="line"></span><br><span class="line">[ssh_connection]</span><br><span class="line"><span class="comment"># It can result in a very significant performance improvement when enabled. However this conflicts with privilege escalation (become). For example, when using ‘sudo:’ operations you must first disable ‘requiretty’ in /etc/sudoers on all managed hosts, which is why it is disabled by default</span></span><br><span class="line">pipelining = True</span><br></pre></td></tr></table></figure>
+
+<h2 id="inventory"><a href="#inventory" class="headerlink" title="inventory"></a>inventory</h2><p>The inventory file contains the <code>IP address or DNS information</code> about the list of managed hosts we want to work with.</p>
+<p>Inventory file has a concept called grouping where you will be grouping your resources and run tasks against that group. You can create the inventory file without using groups. In this case, Ansible will use two <code>default groups &quot;all&quot; and &quot;ungrouped&quot;.</code></p>
+<ul>
+<li>ALL GROUP - All resources that are available in the inventory file by default will be assigned to all group.</li>
+<li>UNGROUPED - Resources that are not part of any user-defined groups will be automatically assigned to the ungrouped group</li>
+</ul>
+<p><strong>inventory path</strong><br>default: <code>/etc/ansible/hosts</code> can be changed in the <code>ansible.cfg</code> Or  by using the <code>-i option</code> on the ansible command</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cat</span> ansible.cfg</span><br><span class="line">[defaults]</span><br><span class="line">inventory = <span class="variable">$HOME</span>/hosts</span><br><span class="line"></span><br><span class="line"><span class="variable">$ansible</span> -i xxx/hosts</span><br></pre></td></tr></table></figure>
+
+<p><strong>inventory file example</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># must /etc/hosts for vm1, vm2, vm3 and vm4</span></span><br><span class="line">web1</span><br><span class="line">[web]</span><br><span class="line">vm2</span><br><span class="line">vm3</span><br><span class="line"></span><br><span class="line">[db]</span><br><span class="line">192.168.1.2</span><br><span class="line"></span><br><span class="line">[<span class="built_in">log</span>]</span><br><span class="line">192.168.1.100</span><br><span class="line"><span class="comment"># use inventory from default</span></span><br><span class="line"><span class="variable">$ansible</span> web -m ping</span><br><span class="line"></span><br><span class="line"><span class="comment"># use explicit inventory from a host</span></span><br><span class="line"><span class="variable">$ansible</span> web -m ping -i ./hosts</span><br><span class="line"></span><br><span class="line"><span class="comment"># use explicit inventory from command line</span></span><br><span class="line"><span class="variable">$ansible</span> all  -i 172.17.0.2,172.17.0.3 -m ping</span><br><span class="line"><span class="comment"># NOTE the , is needed for one host</span></span><br><span class="line"><span class="variable">$ansible</span> all  -i 172.17.0.2, -m ping</span><br></pre></td></tr></table></figure>
+<h2 id="modules"><a href="#modules" class="headerlink" title="modules"></a>modules</h2><p>Modules (also referred to as “task plugins” or “library plugins”) are discrete units of code that can be used from the command line or in a playbook task. Ansible executes each module, usually on the remote managed node, and collects return values.</p>
+<p>Each module supports taking arguments. <code>Nearly all modules take key=value arguments, space delimited</code>. Some modules take no arguments, and the <code>command/shell modules simply take the string of the command you want to run.</code></p>
+<p>Modules should be idempotent, and should avoid making any changes if they detect that the current state matches the desired final state. When used in an Ansible playbook, <code>modules can trigger ‘change events’ in the form of notifying handlers to run additional tasks</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># module from command line</span></span><br><span class="line"><span class="variable">$ansible</span> webservers -m service -a <span class="string">&quot;name=httpd state=started&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># fork 100 process to run</span></span><br><span class="line"><span class="variable">$ansible</span> webservers -m ping -f 100</span><br><span class="line"><span class="variable">$ansible</span> webservers -m <span class="built_in">command</span> -a <span class="string">&quot;/sbin/reboot -t now&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># module from playbook</span></span><br><span class="line"><span class="variable">$cat</span> play.yml</span><br><span class="line">- name: restart webserver</span><br><span class="line">  service:  <span class="comment"># module</span></span><br><span class="line">    name: httpd  <span class="comment"># parameter</span></span><br><span class="line">    state: restarted <span class="comment"># parameter</span></span><br></pre></td></tr></table></figure>
+
+<p>Top modules ares <code>file, include, template, command, service, shell, lineinfile, copy, yum, user, systemd, cron</code> etc.</p>
+<ul>
+<li><p><code>file</code>:  Creating different new files is a common task in the server scripts. In Ansible tools, you will find various methods for creating a new file. You can even set different group permission, assign an owner to the file; create a file with content, and more. It sets attributes of directories, symlinks, and files. Besides, it removes symlinks, directories, and file.</p>
+<ul>
+<li><code>ansible test-servers -m file -a &#39;path=/tmp/test state=directory mode=0755&#39;</code></li>
+</ul>
+</li>
+<li><p><code>ping</code> is used when we want to check whether the connection with our hosts defined in the inventory file is established or not.</p>
+<ul>
+<li><code>ansible test-servers -m ping</code></li>
+</ul>
+</li>
+<li><p><code>copy</code>: The copy module is often used in writing playbooks when we want to copy a file(support directory as well) from a remote server to destination nodes.</p>
+<ul>
+<li><code>ansible test-servers -m copy -a &#39;src=/home/knoldus/Personal/blogs/blog3.txt dest=/tmp&#39;</code></li>
+<li><code>ansible test-servers -m copy -a &#39;src=/home/knoldus/Personal/blogs dest=/tmp&#39;</code></li>
+</ul>
+</li>
+<li><p><code>fetch</code>: Ansible’s fetch module transfers files(not support directory) from a remote host to the local host. This is the reverse of the copy module.</p>
+<ul>
+<li><code>ansible test-servers -m fetch -a &#39;src=/var/log/nginx/access.log dest=fetched&#39;</code></li>
+</ul>
+</li>
+<li><p><code>synchronize</code>: Ansible’s fetch module to push&#x2F;pull directory</p>
+<ul>
+<li><code>ansible all -m synchronize -a &#39;mode=pull src=/export/Data/xcgroup/persistence dest=fetched&#39;</code> pull src to local fetched&#x2F;</li>
+<li><code>ansible all -m synchronize -a &#39;mode=push src=/export/Data/xcgroup/persistence dest=fetched&#39;</code> push src to remote fetched&#x2F;</li>
+</ul>
+</li>
+<li><p><code>yum</code>: We use the Yum module to install a service.</p>
+<ul>
+<li><code>ansible test-servers -m yum -a &#39;name=httpd,postfix state=present&#39;</code></li>
+</ul>
+</li>
+<li><p><code>shell</code>: When we want to run UNIX commands then we use shell module</p>
+<ul>
+<li><code>ansible test-servers -m shell -a &#39;ls -la&#39;</code></li>
+</ul>
+</li>
+<li><p><code>script</code>: When we want to run a bunch of commands use script module</p>
+<ul>
+<li><code>ansible test-servers -m script -a &#39;./test.sh&#39;</code></li>
+</ul>
+</li>
+<li><p><code>service</code>: When we want to ensure the state of a service that is service is running we use the service module</p>
+<ul>
+<li><code>ansible test-servers -m service -a &#39;name=httpd state=started&#39;</code></li>
+</ul>
+</li>
+<li><p><code>tempalte</code>: The Template module is used to copy a configuration file from the local system to the host server. It is the same as the copy module, but it dynamically binds group variables defined by us.</p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">a</span> <span class="string">play</span></span><br><span class="line">  <span class="attr">hosts:</span> <span class="string">all</span></span><br><span class="line">  <span class="attr">gather_facts:</span> <span class="literal">no</span></span><br><span class="line">  <span class="attr">vars:</span></span><br><span class="line">    <span class="attr">variable_to_be_replaced:</span> <span class="string">&#x27;Hello world&#x27;</span></span><br><span class="line">    <span class="attr">inline_variable:</span> <span class="string">&#x27;hello again.&#x27;</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Ansible</span> <span class="string">Template</span> <span class="string">Example</span></span><br><span class="line">    <span class="attr">template:</span></span><br><span class="line">      <span class="attr">src:</span> <span class="string">hello_world.j2</span> <span class="comment"># in template, we can use var defined here</span></span><br><span class="line">      <span class="attr">dest:</span> <span class="string">/Users/mdtutorials2/Documents/Ansible/hello_world.txt</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>lineinfile</code>: this is generally used to <code>alter or remove the existing line, insert line, and to replace the lines</code>. Let’s know about the process to insert a line. You can set the file’s path to modify using the path&#x2F; dest parameter. You can insert lines through the line parameter. The line enters to the EOF. However, if the line is already there in the system, it won’t be added.</p>
+<ul>
+<li><code>ansible test-servers -m lineinfile -a &#39;path=/etc/selinux/config regexp=^SELINUX= line=SELINUX=enforcing&#39;</code></li>
+</ul>
+</li>
+<li><p><code>replace</code>: The replace module replaces all instances of a defined string within a file.</p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Ansible</span> <span class="string">replace</span> <span class="string">string</span> <span class="string">example</span></span><br><span class="line">    <span class="attr">replace:</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/etc/ansible/sample.txt</span></span><br><span class="line">      <span class="attr">regexp:</span> <span class="string">&#x27;Unix&#x27;</span></span><br><span class="line">      <span class="attr">replace:</span> <span class="string">&quot;Linux&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Ansible</span> <span class="string">replace</span> <span class="string">string</span> <span class="string">example</span></span><br><span class="line">    <span class="attr">replace:</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/etc/hosts</span></span><br><span class="line">      <span class="attr">regexp:</span>  <span class="string">&#x27;(\s+)server\.myubuntu\.com(\s+.*)?$&#x27;</span></span><br><span class="line">      <span class="attr">replace:</span> <span class="string">&#x27;\1server.linuxtechi.info\2&#x27;</span> <span class="comment"># use captured tokens</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>include</code>: When we want to include another playbook in our playbook, then we use the Include module</p>
+</li>
+<li><p><code>user</code>: To add a particular user to our module we can use User module</p>
+</li>
+</ul>
+<h2 id="Ad-Hoc"><a href="#Ad-Hoc" class="headerlink" title="Ad-Hoc"></a>Ad-Hoc</h2><p>You can also use Ansible to run ad-hoc commands. To do this, you will need to run a command or call a module directly from the command line. No playbook is used. This is fine for a one time task.</p>
+<p><a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/user_guide/intro_patterns.html#intro-patterns">host pattern</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># command format</span></span><br><span class="line"><span class="comment"># without -m, default module is &#x27;command&#x27; similar like `shell`</span></span><br><span class="line"><span class="variable">$ansible</span> [host-pattern] -m [module] -a “[module options]”</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable">$ansible</span> all -m copy -a <span class="string">&#x27;src=dvd.repo dest=/etc/yum.repos.d owner=root group=root mode=0644&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Each node reports SUCCESS and &quot;changed&quot; : `true meaning the module execution was successful </span></span><br><span class="line"><span class="comment"># and the file was created/changed`. If we run the command again, </span></span><br><span class="line"><span class="comment"># the output will include &quot;changed&quot; : false meaning the file is already present </span></span><br><span class="line"><span class="comment"># and configured as required. In other words, </span></span><br><span class="line"><span class="comment"># Ansible will only make the required changes if they do not already exist. </span></span><br><span class="line"><span class="comment"># This is what is known as &quot;idempotence&quot;.</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$ansible</span> all -m ansible.builtin.service -a <span class="string">&quot;name=libvirtd state=started&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="PlayBook-suggested-way"><a href="#PlayBook-suggested-way" class="headerlink" title="PlayBook(suggested way)"></a>PlayBook(suggested way)</h2><p>A playbook <code>runs in order from top to bottom. Within each play, tasks also run in order from top to bottom</code>. Playbooks with multiple ‘plays’ can orchestrate multi-machine deployments, running one play on your webservers, then another play on your database servers, then a third play on your network infrastructure, and so on.</p>
+<p>Plays consist of an <code>ordered set of task</code>s to execute against host selections from your Ansible inventory file. Tasks are the pieces that make up a play and call Ansible modules. <code>In a play, tasks are executed in the order in which they are written</code>.  </p>
+<p>Ansible includes a “check mode” which allows you to validate playbooks and ad-hoc commands before making any state changes on a system. This shows you what Ansible would do, without actually making any changes. <code>Handlers</code> in Ansible are used to run a specific task only after a change has been made to the system. <code>They are triggered by tasks and run once, at the end of all of the other plays in the playbook</code></p>
+<p><strong>playbook handlers</strong></p>
+<p>By default, <code>handlers run after all the tasks in a particular play have been completed</code>. Notified handlers are executed automatically after each of the following sections, in the following order: <code>pre_tasks, roles/tasks and post_tasks</code>. This approach is efficient, because the <code>handler only runs once</code>, regardless of how many tasks notify it. For example, if multiple tasks update a configuration file and notify a handler to restart Apache, Ansible only bounces Apache once to avoid unnecessary restarts.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># basic playbook</span></span><br><span class="line"><span class="variable">$cat</span> play.yml</span><br><span class="line">- name: Variables playbook                                                      </span><br><span class="line">  hosts: all                                                                    </span><br><span class="line"></span><br><span class="line">  tasks:                                                                        </span><br><span class="line">  - name: Install the installed of package <span class="string">&quot;postfix&quot;</span>                          </span><br><span class="line">    yum:                                                                        </span><br><span class="line">      name: <span class="string">&quot;postfix&quot;</span>                                                           </span><br><span class="line">      state: installed</span><br><span class="line"></span><br><span class="line"><span class="comment"># with variable</span></span><br><span class="line"><span class="variable">$cat</span> play.yml</span><br><span class="line">- name: Variables playbook                                                      </span><br><span class="line">  hosts: all                                                                    </span><br><span class="line">  vars:                                                                         </span><br><span class="line">      state: installed                                                          </span><br><span class="line">      user: bob                                                                 </span><br><span class="line">  tasks:                                                                        </span><br><span class="line">  - name: Add the user &#123;&#123; user &#125;&#125;                                               </span><br><span class="line">    ansible.builtin.user:                                                       </span><br><span class="line">      name: <span class="string">&quot;&#123;&#123; user &#125;&#125;&quot;</span>                                                        </span><br><span class="line">  - name: Install the &#123;&#123; state &#125;&#125; of package <span class="string">&quot;postfix&quot;</span>                          </span><br><span class="line">    yum:                                                                        </span><br><span class="line">      name: <span class="string">&quot;postfix&quot;</span>                                                           </span><br><span class="line">      state: <span class="string">&quot;&#123;&#123; state &#125;&#125;&quot;</span>    </span><br><span class="line"></span><br><span class="line"><span class="comment"># with handler</span></span><br><span class="line"><span class="variable">$cat</span> play.yml</span><br><span class="line">- name: Verify apache installation</span><br><span class="line">  hosts: webservers</span><br><span class="line">  vars:</span><br><span class="line">    http_port: 80</span><br><span class="line">    max_clients: 200</span><br><span class="line">  remote_user: root</span><br><span class="line">  tasks:</span><br><span class="line">    - name: Ensure apache is at the latest version</span><br><span class="line">      ansible.builtin.yum:</span><br><span class="line">        name: httpd</span><br><span class="line">        state: latest</span><br><span class="line"></span><br><span class="line">    - name: Write the apache config file</span><br><span class="line">      ansible.builtin.template:</span><br><span class="line">        src: /srv/httpd.j2</span><br><span class="line">        dest: /etc/httpd.conf</span><br><span class="line">      notify:</span><br><span class="line">      - Restart apache <span class="comment"># handler</span></span><br><span class="line"></span><br><span class="line">    - name: Ensure apache is running</span><br><span class="line">      ansible.builtin.service:</span><br><span class="line">        name: httpd</span><br><span class="line">        state: started</span><br><span class="line"></span><br><span class="line">  handlers:</span><br><span class="line">    - name: Restart apache <span class="comment"># defined handler</span></span><br><span class="line">      ansible.builtin.service:</span><br><span class="line">        name: httpd</span><br><span class="line">        state: restarted</span><br><span class="line"></span><br><span class="line"><span class="comment"># -v verbose -vv, -vvv, -vvvv</span></span><br><span class="line"><span class="variable">$ansible</span>-playbook -i host play.yml  -v</span><br><span class="line"></span><br><span class="line"><span class="comment">################### retry for the failed nodes########</span></span><br><span class="line"><span class="comment"># play.retry is auto generated of failed nodes</span></span><br><span class="line"><span class="variable">$ansible</span>-playbook -i host --<span class="built_in">limit</span> @play.retry play.yml</span><br></pre></td></tr></table></figure>
+
+<p><strong>conditional task</strong><br>Run a task only when condition is matched, <code>condition can be custom variable, ansible built-in variable, or result of another task.</code></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">webservers</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Host</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.101</span> <span class="string">run</span> <span class="string">this</span> <span class="string">task</span></span><br><span class="line">    <span class="attr">debug:</span> <span class="string">&#x27;msg=&quot; <span class="template-variable">&#123;&#123; ansible_default_ipv4.address &#125;&#125;</span>&quot;&#x27;</span></span><br><span class="line">    <span class="attr">when:</span> <span class="string">ansible_default_ipv4.address</span> <span class="string">==</span> <span class="string">&quot;192.168.2.101&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">memtotal</span> <span class="string">&lt;</span> <span class="string">500M</span> <span class="string">and</span> <span class="string">processor_cores</span> <span class="string">==</span> <span class="number">2</span> <span class="string">run</span> <span class="string">this</span> <span class="string">task</span></span><br><span class="line">    <span class="attr">debug:</span> <span class="string">&#x27;msg=&quot;<span class="template-variable">&#123;&#123; ansible_fqdn &#125;&#125;</span>&quot;&#x27;</span></span><br><span class="line">    <span class="attr">when:</span> <span class="string">ansible_memtotal_mb</span> <span class="string">&lt;</span> <span class="number">500</span> <span class="string">and</span> <span class="string">ansible_processor_cores</span> <span class="string">==</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">all</span> <span class="string">host</span> <span class="string">run</span> <span class="string">this</span> <span class="string">task</span></span><br><span class="line">    <span class="attr">shell:</span> <span class="string">hostname</span></span><br><span class="line">    <span class="attr">register:</span> <span class="string">info</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Hostname</span> <span class="string">is</span> <span class="string">lamp1</span> <span class="string">Machie</span> <span class="string">run</span> <span class="string">this</span> <span class="string">task</span></span><br><span class="line">    <span class="attr">debug:</span> <span class="string">&#x27;msg=&quot;<span class="template-variable">&#123;&#123; ansible_fqdn &#125;&#125;</span>&quot;&#x27;</span></span><br><span class="line">    <span class="attr">when:</span> <span class="string">info[&#x27;stdout&#x27;]</span> <span class="string">==</span> <span class="string">&quot;lamp1&quot;</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Hostname</span> <span class="string">is</span> <span class="string">startswith</span> <span class="string">l</span> <span class="string">run</span> <span class="string">this</span> <span class="string">task</span></span><br><span class="line">    <span class="attr">debug:</span> <span class="string">&#x27;msg=&quot;<span class="template-variable">&#123;&#123; ansible_fqdn &#125;&#125;</span>&quot;&#x27;</span></span><br><span class="line">    <span class="attr">when:</span> <span class="string">info[&#x27;stdout&#x27;].startswith(&#x27;l&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+<p>For more keyword that’s available in playbook, refer to <a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/reference_appendices/playbooks_keywords.html">playbook keywords</a></p>
+<h3 id="Error-Handling-In-Playbooks"><a href="#Error-Handling-In-Playbooks" class="headerlink" title="Error Handling In Playbooks"></a>Error Handling In Playbooks</h3><p><strong>Ignoring Failed Commands</strong></p>
+<p>Generally playbooks will <code>stop executing any more steps on a host that has a task fail</code>. Sometimes, though, you want to continue on. To do so, write a task that looks like this. This feature only works when the task must be able to run and return a value of ‘failed’, ignore_errors still print error output but continue to run next one. but as even fails, it continues to run next task if next task depends on <code>result</code> of the failed task, the <code>result</code> may not be the object descripted in module doc. as the command may be not run on the node at all. but if no ignore error, the result used in next task is always the one expected as otherwise it does not run if the previous one fails.</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">this</span> <span class="string">will</span> <span class="string">not</span> <span class="string">be</span> <span class="string">counted</span> <span class="string">as</span> <span class="string">a</span> <span class="string">failure</span></span><br><span class="line">  <span class="attr">command:</span> <span class="string">/bin/false</span></span><br><span class="line">  <span class="attr">register:</span> <span class="string">result</span></span><br><span class="line">  <span class="attr">ignore_errors:</span> <span class="literal">yes</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># output like this</span></span><br><span class="line">  <span class="attr">fatal:</span> [<span class="number">10.229</span><span class="number">.225</span><span class="number">.6</span>]<span class="string">:</span> <span class="string">FAILED!</span> <span class="string">=&gt;</span> &#123;<span class="attr">&quot;censored&quot;:</span> <span class="string">&quot;the output has been hidden due to the fact that &#x27;no_log: true&#x27; was specified for this result&quot;</span>&#125;</span><br><span class="line"><span class="string">...ignoring</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Handlers and Failure</strong></p>
+<p>When <code>a task fails on a host, handlers which were previously notified will not be run on that host</code>. This can lead to cases where an unrelated failure can leave a host in an unexpected state. For example, a task could update a configuration file and notify a handler to restart some service. If a task later on in the same play fails, the service will not be restarted despite the configuration change.</p>
+<p>You can change this behavior with the <code>--force-handlers command-line</code> option, or by including <code>force_handlers</code>: True in a play, or <code>force_handlers = True</code> in <code>ansible.cfg</code>. When handlers are forced, they will run when notified even if a task fails on that host.</p>
+<p><strong>Controlling What Defines Failure</strong></p>
+<p>Ansible lets you define what “failure” means in each task using the <code>failed_when</code> conditional. As with all conditionals in Ansible, lists of multiple <code>failed_when</code> conditions are joined with an implicit and, meaning the task only fails when all conditions are met. If you want to trigger a failure when any of the conditions is met, you must define the conditions in a string with an explicit or operator.</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Fail</span> <span class="string">task</span> <span class="string">when</span> <span class="string">the</span> <span class="string">command</span> <span class="string">error</span> <span class="string">output</span> <span class="string">prints</span> <span class="string">FAILED</span></span><br><span class="line">  <span class="attr">command:</span> <span class="string">/usr/bin/example-command</span> <span class="string">-x</span> <span class="string">-y</span> <span class="string">-z</span></span><br><span class="line">  <span class="attr">register:</span> <span class="string">command_result</span></span><br><span class="line">  <span class="attr">no_log:</span> <span class="literal">true</span>       <span class="comment"># never print result of this task.</span></span><br><span class="line">  <span class="attr">failed_when:</span> <span class="literal">false</span> <span class="comment"># never fail this task, but use command_result in another task</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Fail</span> <span class="string">task</span> <span class="string">when</span> <span class="string">the</span> <span class="string">command</span> <span class="string">error</span> <span class="string">output</span> <span class="string">prints</span> <span class="string">FAILED</span></span><br><span class="line">  <span class="attr">command:</span> <span class="string">/usr/bin/example-command</span> <span class="string">-x</span> <span class="string">-y</span> <span class="string">-z</span></span><br><span class="line">  <span class="attr">register:</span> <span class="string">command_result</span></span><br><span class="line">  <span class="attr">failed_when:</span> <span class="string">&quot;&#x27;FAILED&#x27; in command_result.stderr&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Fail</span> <span class="string">task</span> <span class="string">when</span> <span class="string">both</span> <span class="string">files</span> <span class="string">are</span> <span class="string">identical</span></span><br><span class="line">  <span class="attr">raw:</span> <span class="string">diff</span> <span class="string">foo/file1</span> <span class="string">bar/file2</span></span><br><span class="line">  <span class="attr">register:</span> <span class="string">diff_cmd</span></span><br><span class="line">  <span class="attr">failed_when:</span> <span class="string">diff_cmd.rc</span> <span class="string">==</span> <span class="number">0</span> <span class="string">or</span> <span class="string">diff_cmd.rc</span> <span class="string">&gt;=</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Check</span> <span class="string">if</span> <span class="string">a</span> <span class="string">file</span> <span class="string">exists</span> <span class="string">in</span> <span class="string">temp</span> <span class="string">and</span> <span class="string">fail</span> <span class="string">task</span> <span class="string">if</span> <span class="string">it</span> <span class="string">does</span></span><br><span class="line">  <span class="attr">command:</span> <span class="string">ls</span> <span class="string">/tmp/this_should_not_be_here</span></span><br><span class="line">  <span class="attr">register:</span> <span class="string">result</span></span><br><span class="line">  <span class="attr">failed_when:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">result.rc</span> <span class="string">==</span> <span class="number">0</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;&quot;No such&quot; not in result.stdout&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Overriding The Changed Result</strong></p>
+<p>When a shell&#x2F;command or other module runs it will typically report “changed” status based on whether it thinks it affected machine state.</p>
+<p>Sometimes you will know, based on the return code or output that it did not make any changes, and wish to override the “changed” result such that it does not appear in report output or does not cause handlers to fire:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tasks:</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">shell:</span> <span class="string">/usr/bin/billybass</span> <span class="string">--mode=&quot;take</span> <span class="string">me</span> <span class="string">to</span> <span class="string">the</span> <span class="string">river&quot;</span></span><br><span class="line">    <span class="attr">register:</span> <span class="string">bass_result</span></span><br><span class="line">    <span class="attr">changed_when:</span> <span class="string">&quot;bass_result.rc != 2&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">command:</span> <span class="string">/bin/fake_command</span></span><br><span class="line">    <span class="attr">register:</span> <span class="string">result</span></span><br><span class="line">    <span class="attr">ignore_errors:</span> <span class="literal">True</span></span><br><span class="line">    <span class="attr">changed_when:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;&quot;ERROR&quot; in result.stderr&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">result.rc</span> <span class="string">==</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>debug module</strong><br>This module prints statements during execution and can be useful for debugging variables or expressions without necessarily halting the playbook.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>msg： The customized message that is printed. If omitted, prints a generic message.</li>
+<li>var: A variable name to debug. <code>Mutually exclusive with the msg</code> option. Be aware that this option already runs in Jinja2 context and has an implicit <code>&#123;&#123; &#125;&#125;</code> wrapping, so you should not be using Jinja2 delimiters unless you are looking for double interpolation.</li>
+<li>verbosity: A number that controls when the debug is run, if you set to <code>3 it will only run debug when -vvv or above</code>. Default: 0</li>
+</ul>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Get</span> <span class="string">uptime</span> <span class="string">information</span></span><br><span class="line">  <span class="attr">ansible.builtin.shell:</span> <span class="string">/usr/bin/uptime</span></span><br><span class="line">  <span class="attr">register:</span> <span class="string">result</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Print</span> <span class="string">return</span> <span class="string">information</span> <span class="string">from</span> <span class="string">the</span> <span class="string">previous</span> <span class="string">task</span></span><br><span class="line">  <span class="attr">ansible.builtin.debug:</span></span><br><span class="line">    <span class="attr">var:</span> <span class="string">result</span></span><br><span class="line">    <span class="attr">verbosity:</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#########################################</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Task</span> <span class="string">name</span></span><br><span class="line">  <span class="attr">stat:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/etc/lt.conf</span></span><br><span class="line">  <span class="attr">register:</span> <span class="string">register_name</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Task</span> <span class="string">name</span></span><br><span class="line">  <span class="attr">debug:</span></span><br><span class="line">    <span class="attr">msg:</span> <span class="string">&quot;The file or directory exists&quot;</span></span><br><span class="line">  <span class="attr">when:</span> <span class="string">register_name.stat.exists</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Asynchronous-Actions-and-Polling-task-level"><a href="#Asynchronous-Actions-and-Polling-task-level" class="headerlink" title="Asynchronous Actions and Polling(task level)"></a>Asynchronous Actions and Polling(task level)</h3><p>Ansible <code>runs tasks synchronously by default, if one task fails, the others does not run anymore</code>. It keeps the connection to the remote node open until the task is completed. This means <code>within a playbook, each task blocks the subsequent tasks until the current task completes</code>. </p>
+<p><code>Some of the long-running tasks could be</code></p>
+<ul>
+<li>Downloading a Big File from URL</li>
+<li>Running a Script known to run for a long time</li>
+<li>Rebooting the remote server and waiting for it to comeback</li>
+</ul>
+<p><strong>This may cause issue.</strong> Suppose you have a task in your playbook which takes more than say 10 minutes to execute. This means that the ssh connection between Ansible controller and the target machine should be stable for more than 10 minutes. It may take longer to complete than the SSH session allows for, causing a timeout. One can run the long-running process to execute in the background to perform other tasks concurrently.</p>
+<p>To <code>avoid blocking or timeout issues</code>, you can use <code>asynchronous mode</code> to run all of your tasks at once and then poll until they are done.</p>
+<p>To enable Asynchronous mode within Ansible playbook we need to use few parameters such as <code>async, poll</code>.</p>
+<ul>
+<li><p><code>async</code> - async keyword’s value indicates the <code>total time allowed to complete the task</code>.<strong>Once that time is over the task will be marked as completed irrespective of the end result</strong>. Along with this async also sends the task in the background which can be verified later on its final execution status.</p>
+</li>
+<li><p><code>poll</code> - poll keyword allows us to track the status of the job which was invoked by async and running in the background. Its value decides how frequent it would check if the background task is completed or not.</p>
+<ul>
+<li><p>The Poll keyword is <code>auto-enabled whenever you use async and it has a default value as 10 seconds</code>.</p>
+</li>
+<li><p>When you use poll parameter’s value set to <code>positive Ansible will avoid connection timeouts but will still block the next task in your playbook</code>, waiting until the async task either completes, fails or times out.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>NOTE</strong></p>
+<ul>
+<li>async without poll, default poll is 10s, set timeout for the task</li>
+<li>async with postive poll, same as above, it just sets timeout for the task</li>
+<li>async with poll &#x3D;&#x3D; 0, really async, <code>the task marked finished immediately without waiting for it result!!</code>, <strong>but if second task depends on first one(in a node), NOT use async!!!</strong></li>
+</ul>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##############--- set time out for a task ###########################</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">async</span> <span class="string">and</span> <span class="string">poll</span> <span class="string">example</span> <span class="string">playbook</span></span><br><span class="line">  <span class="attr">hosts:</span> <span class="string">workers</span></span><br><span class="line">  <span class="attr">become:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">ansible_user</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">update</span> <span class="string">the</span> <span class="string">system</span> <span class="string">packages</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">yum</span> <span class="string">update</span> <span class="string">-y</span></span><br><span class="line">      <span class="attr">async:</span> <span class="number">180</span> <span class="comment"># the total time allowed to complete the package update task</span></span><br><span class="line">      <span class="attr">poll:</span> <span class="number">10</span> <span class="comment"># Polling Interval in Seconds</span></span><br><span class="line">      <span class="attr">register:</span> <span class="string">package_update</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">task-2</span> <span class="string">to</span> <span class="string">create</span> <span class="string">a</span> <span class="string">test</span> <span class="string">user</span> <span class="comment"># will be blocked until first task finished or timedout!!!</span></span><br><span class="line">      <span class="attr">user:</span> <span class="string">name=async_test</span> <span class="string">state=present</span> <span class="string">shell=/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##############--- set time out and async job for a task ###########################</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">async</span> <span class="string">and</span> <span class="string">poll</span> <span class="string">example</span> <span class="string">playbook</span></span><br><span class="line">  <span class="attr">hosts:</span> <span class="string">workers</span></span><br><span class="line">  <span class="attr">become:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">ansible_user</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">sleep</span> <span class="string">for</span> <span class="number">60</span> <span class="string">seconds</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">/bin/sleep</span> <span class="number">60</span></span><br><span class="line">      <span class="attr">async:</span> <span class="number">80</span> <span class="comment"># the total time allowed to complete the sleep task</span></span><br><span class="line">      <span class="attr">poll:</span> <span class="number">0</span> <span class="comment"># No need to poll just fire and forget the sleep command</span></span><br><span class="line">      <span class="attr">register:</span> <span class="string">sleeping_node</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">task-2</span> <span class="string">to</span> <span class="string">create</span> <span class="string">a</span> <span class="string">test</span> <span class="string">user</span> <span class="comment"># will run even the first task is in progress</span></span><br><span class="line">      <span class="attr">user:</span> <span class="string">name=async_test-2</span> <span class="string">state=present</span> <span class="string">shell=/bin/bash</span>      </span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">async</span> <span class="string">and</span> <span class="string">poll</span> <span class="string">example</span> <span class="string">playbook</span></span><br><span class="line">  <span class="attr">hosts:</span> <span class="string">workers</span></span><br><span class="line">  <span class="attr">become:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">ansible_user</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">sleep</span> <span class="string">for</span> <span class="number">20</span> <span class="string">seconds</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">/bin/sleep</span> <span class="number">20</span></span><br><span class="line">      <span class="attr">async:</span> <span class="number">30</span> <span class="comment"># the total time allowed to complete the sleep task</span></span><br><span class="line">      <span class="attr">poll:</span> <span class="number">0</span> <span class="comment"># No need to poll just fire and forget the sleep command</span></span><br><span class="line">      <span class="attr">register:</span> <span class="string">sleeping_node</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">task-2</span> <span class="string">to</span> <span class="string">create</span> <span class="string">a</span> <span class="string">test</span> <span class="string">user</span></span><br><span class="line">      <span class="attr">user:</span> <span class="string">name=async_test-2</span> <span class="string">state=present</span> <span class="string">shell=/bin/bash</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># check the async job status</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checking</span> <span class="string">the</span> <span class="string">Job</span> <span class="string">Status</span> <span class="string">running</span> <span class="string">in</span> <span class="string">background</span></span><br><span class="line">      <span class="attr">async_status:</span></span><br><span class="line">        <span class="attr">jid:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; sleeping_node.ansible_job_id &#125;&#125;</span>&quot;</span></span><br><span class="line">      <span class="attr">register:</span> <span class="string">job_result</span></span><br><span class="line">      <span class="attr">until:</span> <span class="string">job_result.finished</span> <span class="comment"># Retry within limit until the job status changed to &quot;finished&quot;: 1</span></span><br><span class="line">      <span class="attr">retries:</span> <span class="number">30</span> <span class="comment"># Maximum number of retries to check job status</span></span><br></pre></td></tr></table></figure>
+<h3 id="Strategy"><a href="#Strategy" class="headerlink" title="Strategy"></a>Strategy</h3><p>When running Ansible playbooks, you might have noticed that the Ansible runs every task on each node one by one, it will not move to another task until a particular task is completed on each node, which will take a lot of time, in some cases. By default, the strategy is set to “linear”, we can set it to free.</p>
+<ul>
+<li><code>linear</code>: run the first task of play on all nodes(forks), when the first task finished on all nodes, run the second tasks on all nodes</li>
+<li><code>free</code>:   The nodes who finished the first task, can run the second task without waiting for host who is still running first task. <code>a host that is slow or stuck on a specific task won’t hold up the rest of the hosts and tasks</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># play level</span></span><br><span class="line"><span class="variable">$cat</span> play.yml</span><br><span class="line">- name: free strategy demo</span><br><span class="line">  hosts: workers</span><br><span class="line">  strategy: free</span><br><span class="line"></span><br><span class="line"><span class="comment"># global setting</span></span><br><span class="line"><span class="variable">$cat</span> /etc/ansible/ansible.cfg</span><br><span class="line">[defaults]</span><br><span class="line">strategy = free</span><br></pre></td></tr></table></figure>
+
+<p><strong>NOTE</strong></p>
+<ul>
+<li>if nodes has dependency, use linear, otherwise use free</li>
+<li><code>free</code> only speed up process for play with more than on tasks.</li>
+</ul>
+<h2 id="Python-API-not-frequently-used"><a href="#Python-API-not-frequently-used" class="headerlink" title="Python API(not frequently used)"></a>Python API(not frequently used)</h2><p><a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/dev_guide/developing_api.html#python-api-example">python api</a></p>
+<h1 id="FQA"><a href="#FQA" class="headerlink" title="FQA"></a>FQA</h1><h2 id="Ansible-playbook-hangs-during-execution"><a href="#Ansible-playbook-hangs-during-execution" class="headerlink" title="Ansible playbook hangs during execution"></a>Ansible playbook hangs during execution</h2><p>Refer to <a target="_blank" rel="noopener" href="https://newbetuts.com/20798774-how-to-detect-why-ansible-playbook-hangs-during-execution">why ansible hangs</a></p>
+<ul>
+<li>SSH timeout</li>
+<li>command hangs in remote node</li>
+</ul>
+<h2 id="speed-up-playbook"><a href="#speed-up-playbook" class="headerlink" title="speed up playbook"></a>speed up playbook</h2><p><a target="_blank" rel="noopener" href="https://www.redhat.com/sysadmin/faster-ansible-playbook-execution">tunning ansible</a></p>
+<h2 id="NameError-name-‘temp-path’-is-not-defined"><a href="#NameError-name-‘temp-path’-is-not-defined" class="headerlink" title="NameError: name ‘temp_path’ is not defined"></a>NameError: name ‘temp_path’ is not defined</h2><p>In such case, task does not run at all, this is probably there is no disk space on remote node as ansible need to copy module to remote host at <code>/root/.ansible/tmp</code></p>
+<h2 id="change-remote-tmp"><a href="#change-remote-tmp" class="headerlink" title="change remote_tmp"></a>change remote_tmp</h2><p><code>remote_tmp</code> is set by ansible.cfg</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cat</span> /etc/ansible/ansible.cfg</span><br><span class="line">...</span><br><span class="line">remote_tmp     = ~/.ansible/tmp</span><br><span class="line"></span><br><span class="line"><span class="comment"># or change it from env</span></span><br><span class="line"><span class="variable">$ANSIBLE_REMOTE_TEMP</span>=/cedar/.tmp ansible-playbook play.yml -i ./hosts</span><br></pre></td></tr></table></figure>
+<h2 id="get-verbose-output"><a href="#get-verbose-output" class="headerlink" title="get verbose output"></a>get verbose output</h2><p>Something if gathering is false, it’s hard to see why it fails, in this case, turn it on and run your playbook with <code>-vvv</code> or <code>-vvvv</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cat</span> ansible.cfg</span><br><span class="line">[defaults]</span><br><span class="line">gathering      = True</span><br><span class="line"></span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$cat</span> play.yml</span><br><span class="line">- name: perf check</span><br><span class="line">  hosts: all</span><br><span class="line">  gather_facts: <span class="literal">true</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># rerun</span></span><br><span class="line"><span class="variable">$ansible</span>-playbook -i 10.211.98.106, playbook/check_file.yml -vvv</span><br></pre></td></tr></table></figure>
+
+<h2 id="set-python-interpreter-at-remote-node"><a href="#set-python-interpreter-at-remote-node" class="headerlink" title="set python interpreter at remote node"></a>set python interpreter at remote node</h2><p>As ansible copies <code>python module</code> to remote and runs it at remote node, so that the remote <code>python interpreter</code> should be compatible with the module copied from control node.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># check python on control node where you run ansible to see what python script that is for module</span></span><br><span class="line"><span class="variable">$ansible</span> --version</span><br><span class="line">ansible [core 2.13.4]</span><br><span class="line">  config file = /etc/ansible/ansible.cfg</span><br><span class="line">  configured module search path = [<span class="string">&#x27;/root/.ansible/plugins/modules&#x27;</span>, <span class="string">&#x27;/usr/share/ansible/plugins/modules&#x27;</span>]</span><br><span class="line">  ansible python module location = /home/data/Anaconda3/envs/py3.9/lib/python3.9/site-packages/ansible -----&gt;ansible modules</span><br><span class="line">  ansible collection location = /root/.ansible/collections:/usr/share/ansible/collections</span><br><span class="line">  executable location = /home/data/Anaconda3/envs/py3.9/bin/ansible</span><br><span class="line">  python version = 3.9.0 (default, Nov 15 2020, 14:28:56) [GCC 7.3.0] -----&gt;ansbile module version</span><br><span class="line">  jinja version = 3.1.2</span><br><span class="line">  libyaml = True</span><br><span class="line"></span><br><span class="line"><span class="comment"># by default ansible select the remote python interpreter automatically based on its rule</span></span><br><span class="line"><span class="comment"># hence it may select a python which is not compatiable, here we can set remote python interpreter explicitly</span></span><br><span class="line"><span class="variable">$cat</span> ansible.cfg</span><br><span class="line">[defaults]</span><br><span class="line">interpreter_python = /usr/bin/python3</span><br><span class="line"></span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$cat</span> play.yml</span><br><span class="line">- name: a play</span><br><span class="line">  hosts: all</span><br><span class="line">  gather_facts: no</span><br><span class="line">  vars:</span><br><span class="line">    ansible_python_interpreter: <span class="string">&#x27;/usr/bin/python3&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Cannot-handle-SSH-host-authenticity-prompts-for-multiple-hosts"><a href="#Cannot-handle-SSH-host-authenticity-prompts-for-multiple-hosts" class="headerlink" title="Cannot handle SSH host authenticity prompts for multiple hosts"></a>Cannot handle SSH host authenticity prompts for multiple hosts</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ansible-playbook -i conf/app/south.host ./playbook/app/check_file.yml</span><br><span class="line">The authenticity of host &#x27;10.0.0.4 (10.0.0.4)&#x27; can&#x27;t be established.</span><br><span class="line">ECDSA key fingerprint is SHA256:WkPeJUhNdz/MX3zAy536BHZRC/9INGEQWGhsmAPzkEo.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)? The authenticity of host &#x27;10.0.0.5 (10.0.0.5)&#x27; can&#x27;t be established.</span><br><span class="line">ECDSA key fingerprint is SHA256:UJCEM05W15HZuzOLRpxNli+Qnwei7j84u2lbpVFBqkI.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)? </span><br></pre></td></tr></table></figure>
+
+<p><strong>Solution</strong><br>edit ansible.cfg with <code>host_key_checking = false</code></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">defaults</span>]</span><br><span class="line"><span class="string">host_key_checking</span> <span class="string">=</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="forks-vs-serial-vs-async"><a href="#forks-vs-serial-vs-async" class="headerlink" title="forks vs serial vs async"></a>forks vs serial vs async</h2><ul>
+<li>Serial sets a number, a percentage, or a list of numbers of hosts you want to manage at a time.</li>
+<li>Async triggers Ansible to run the task in the background which can be checked (or) followed up later, and <code>its value will be the maximum time that Ansible will wait for that particular Job (or) task to complete before it eventually times out or complete.</code></li>
+<li>Ansible works by spinning off forks of itself and talking to many remote systems independently. The forks parameter controls how many hosts are configured by Ansible in parallel.</li>
+</ul>
+<p><strong>Suggestion</strong>  </p>
+<ul>
+<li><p>SERIAL : Decides the number of nodes process in each tasks in a single run.</p>
+<blockquote>
+<p>Use: When you need to provide changes as batches&#x2F; rolling changes.</p>
+</blockquote>
+</li>
+<li><p>FORKS : Maximum number of simultaneous connections Ansible made on each Task.</p>
+<blockquote>
+<p>Use: When you need to manage how many nodes should get affected simultaneously.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="serial-example"><a href="#serial-example" class="headerlink" title="serial example"></a>serial example</h3><p>By default, with serial set, failing all servers(max fail percentage 100%) from one batch(<code>serial value</code>) will stop whole playbook to run even if there are some servers left in inventory, but this can be tunned with <code>max_fail_percentage</code>.</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test</span> <span class="string">play</span></span><br><span class="line">  <span class="attr">hosts:</span> <span class="string">webservers</span></span><br><span class="line">  <span class="comment"># serial: 10% or mix these two format</span></span><br><span class="line">  <span class="comment"># serial:</span></span><br><span class="line">  <span class="comment">#   - 3</span></span><br><span class="line">  <span class="comment">#   - 50%</span></span><br><span class="line">  <span class="attr">serial:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">gather_facts:</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">first</span> <span class="string">task</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">hostname</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">second</span> <span class="string">task</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">hostname</span></span><br></pre></td></tr></table></figure>
+
+<p>In the above example, if we had 6 hosts in the group ‘webservers’, Ansible would execute the play completely (both tasks) on 3 of the hosts before moving on to the next 3 hosts:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">PLAY [webservers] ****************************************</span><br><span class="line"></span><br><span class="line">TASK [first task] ****************************************</span><br><span class="line">changed: [web3]</span><br><span class="line">changed: [web2]</span><br><span class="line">changed: [web1]</span><br><span class="line"></span><br><span class="line">TASK [second task] ***************************************</span><br><span class="line">changed: [web1]</span><br><span class="line">changed: [web2]</span><br><span class="line">changed: [web3]</span><br><span class="line"></span><br><span class="line">PLAY [webservers] ****************************************</span><br><span class="line"></span><br><span class="line">TASK [first task] ****************************************</span><br><span class="line">changed: [web4]</span><br><span class="line">changed: [web5]</span><br><span class="line">changed: [web6]</span><br><span class="line"></span><br><span class="line">TASK [second task] ***************************************</span><br><span class="line">changed: [web4]</span><br><span class="line">changed: [web5]</span><br><span class="line">changed: [web6]</span><br><span class="line"></span><br><span class="line">PLAY RECAP ***********************************************</span><br><span class="line">web1      : ok=2    changed=2    unreachable=0    failed=0</span><br><span class="line">web2      : ok=2    changed=2    unreachable=0    failed=0</span><br><span class="line">web3      : ok=2    changed=2    unreachable=0    failed=0</span><br><span class="line">web4      : ok=2    changed=2    unreachable=0    failed=0</span><br><span class="line">web5      : ok=2    changed=2    unreachable=0    failed=0</span><br><span class="line">web6      : ok=2    changed=2    unreachable=0    failed=0</span><br></pre></td></tr></table></figure>
+
+<h3 id="without-serial"><a href="#without-serial" class="headerlink" title="without serial"></a>without serial</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test</span> <span class="string">play</span></span><br><span class="line">  <span class="attr">hosts:</span> <span class="string">webservers</span></span><br><span class="line">  <span class="attr">gather_facts:</span> <span class="literal">False</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">first</span> <span class="string">task</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">hostname</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">second</span> <span class="string">task</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">hostname</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">PLAY [webservers] ****************************************</span><br><span class="line"></span><br><span class="line">TASK [first task] ****************************************</span><br><span class="line">changed: [web3]</span><br><span class="line">changed: [web2]</span><br><span class="line">changed: [web1]</span><br><span class="line">changed: [web4]</span><br><span class="line">changed: [web5]</span><br><span class="line">changed: [web6]</span><br><span class="line"></span><br><span class="line">TASK [second task] ***************************************</span><br><span class="line">changed: [web1]</span><br><span class="line">changed: [web2]</span><br><span class="line">changed: [web3]</span><br><span class="line">changed: [web4]</span><br><span class="line">changed: [web5]</span><br><span class="line">changed: [web6]</span><br><span class="line"></span><br><span class="line">PLAY RECAP ***********************************************</span><br><span class="line">web1      : ok=2    changed=2    unreachable=0    failed=0</span><br><span class="line">web2      : ok=2    changed=2    unreachable=0    failed=0</span><br><span class="line">web3      : ok=2    changed=2    unreachable=0    failed=0</span><br><span class="line">web4      : ok=2    changed=2    unreachable=0    failed=0</span><br><span class="line">web5      : ok=2    changed=2    unreachable=0    failed=0</span><br><span class="line">web6      : ok=2    changed=2    unreachable=0    failed=0</span><br></pre></td></tr></table></figure>
+
+<h2 id="with-large-hosts-forks-are-decreasing-after-a-while"><a href="#with-large-hosts-forks-are-decreasing-after-a-while" class="headerlink" title="with large hosts, forks are decreasing after a while"></a>with large hosts, forks are decreasing after a while</h2><p>With large hosts say 10000+, even set forks with larger number say 64, the ansible creates almost that number, but after a while if you check with <code>ps -ef | grep ansible</code>, the number becomes smaller and smaller with time to solve this </p>
+<ul>
+<li>use <code>serial</code>(in playbook) to split hosts into small batches.</li>
+<li>split hosts into several files outside</li>
+</ul>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test</span> <span class="string">play</span></span><br><span class="line">  <span class="attr">hosts:</span> <span class="string">webservers</span></span><br><span class="line">  <span class="comment"># serial: 10% or mix these two format</span></span><br><span class="line">  <span class="comment"># serial:</span></span><br><span class="line">  <span class="comment">#   - 3</span></span><br><span class="line">  <span class="comment">#   - 50%</span></span><br><span class="line">  <span class="attr">serial:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">gather_facts:</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">first</span> <span class="string">task</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">hostname</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">second</span> <span class="string">task</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">hostname</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ ansible-playbook -i large_host ./playbook/with_serial_enabled.yml</span><br><span class="line"></span><br><span class="line"><span class="comment"># split large host into small ones</span></span><br><span class="line"><span class="comment"># 100 lines per small file</span></span><br><span class="line"><span class="comment"># -d use number as suffix</span></span><br><span class="line"><span class="comment"># host. used as prefix</span></span><br><span class="line">$ <span class="built_in">split</span> --lines=100 -d large_host host.</span><br><span class="line">host.00 host.01</span><br><span class="line"></span><br><span class="line">$ ansible-playbook -i host.00 ./playbook/without_serial.yml</span><br><span class="line">$ ansible-playbook -i host.01 ./playbook/without_serial.yml</span><br></pre></td></tr></table></figure>
+
+<h2 id="compare-stdout-with-number"><a href="#compare-stdout-with-number" class="headerlink" title="compare stdout with number"></a>compare stdout with number</h2><p>As stdout is a string, like <code>&quot;45&quot;</code>, you have to convert it to int to compare it with nubmer</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">check</span> <span class="string">process</span> <span class="string">fd</span></span><br><span class="line">  <span class="attr">hosts:</span> <span class="string">all</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">get</span> <span class="string">fd</span> <span class="string">count</span> <span class="string">of</span> <span class="string">agent</span></span><br><span class="line">      <span class="attr">shell:</span> <span class="string">lsof</span> <span class="string">-p</span> <span class="string">$(pidof</span> <span class="string">agent)</span> <span class="string">|</span> <span class="string">wc</span> <span class="string">-l</span></span><br><span class="line">      <span class="attr">register:</span> <span class="string">ret</span></span><br><span class="line">      <span class="comment"># | to convert string to int</span></span><br><span class="line">      <span class="attr">failed_when:</span> <span class="string">ret.stdout</span> <span class="string">|</span> <span class="string">int</span> <span class="string">&gt;</span> <span class="number">100</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://spacelift.io/blog/ansible-tutorial">ansible tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/blog/system-administrators-guide-getting-started-ansible-fast">ansible quick start</a></li>
+<li><a target="_blank" rel="noopener" href="https://ostechnix.com/ansible-inventory-and-configuration-files/">inventory examples</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/reference_appendices/config.html#ansible-configuration-settings">ansible configuration</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/user_guide/playbooks.html">advanced playbook jinjia template</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/2.9/modules/modules_by_category.html">All Modules Index</a></li>
+<li><a target="_blank" rel="noopener" href="https://mike42.me/blog/2019-01-the-top-100-ansible-modules">top 100 modules</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html">handler examples</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloudaffaire.com/operators-in-ansible/">operator in ansible</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html#">conditionals</a></li>
+<li><a target="_blank" rel="noopener" href="https://elatov.github.io/2022/02/improving-ansible-execution-time/">mitogen to speedup ansible</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/reference_appendices/playbooks_keywords.html#playbook-keywords">playbook keywords</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible">install and upgrade ansible</a></li>
+<li><a target="_blank" rel="noopener" href="https://mitogen.networkgenomics.com/ansible_detailed.html">mitogen for ansible</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/21/systemd-resource-control/" rel="prev" title="systemd_resource_control">
+                  <i class="fa fa-chevron-left"></i> systemd_resource_control
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/10/19/linux-performance-faq/" rel="next" title="linux-performance-faq">
+                  linux-performance-faq <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

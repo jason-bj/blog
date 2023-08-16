@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OverviewApache ZooKeeper is basically a distributed(cluster) coordination service for managing a large set of hosts. Coordinating and managing the service in the distributed environment is really a ve">
+<meta property="og:type" content="article">
+<meta property="og:title" content="distribute_zookeeper">
+<meta property="og:url" content="http://cyun.tech/2021/04/23/distribute-zookeeper/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="OverviewApache ZooKeeper is basically a distributed(cluster) coordination service for managing a large set of hosts. Coordinating and managing the service in the distributed environment is really a ve">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://techvidvan.com/tutorials/wp-content/uploads/sites/2/2020/08/Zookeeper-Architecture-TV.jpg">
+<meta property="og:image" content="https://techvidvan.com/tutorials/wp-content/uploads/sites/2/2020/08/Zookeeper-Data-Model-TV.jpg">
+<meta property="og:image" content="https://www.guru99.com/images/1/011019_1316_ApacheZooKe3.png">
+<meta property="article:published_time" content="2021-04-23T02:32:04.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.135Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="distribute">
+<meta property="article:tag" content="zookeeper">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://techvidvan.com/tutorials/wp-content/uploads/sites/2/2020/08/Zookeeper-Architecture-TV.jpg">
+
+
+<link rel="canonical" href="http://cyun.tech/2021/04/23/distribute-zookeeper/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2021/04/23/distribute-zookeeper/","path":"2021/04/23/distribute-zookeeper/","title":"distribute_zookeeper"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>distribute_zookeeper | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Distributed-Application"><span class="nav-number">2.</span> <span class="nav-text">Distributed Application</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Zookeeper"><span class="nav-number">3.</span> <span class="nav-text">Zookeeper</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Architecture"><span class="nav-number">3.1.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writes-in-Zookeeper"><span class="nav-number">3.2.</span> <span class="nav-text">Writes in Zookeeper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reads-in-Zookeeper"><span class="nav-number">3.3.</span> <span class="nav-text">Reads in Zookeeper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Model"><span class="nav-number">3.4.</span> <span class="nav-text">Data Model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-Types-in-Zookeeper"><span class="nav-number">3.4.1.</span> <span class="nav-text">Node Types in Zookeeper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Watches"><span class="nav-number">3.4.2.</span> <span class="nav-text">Watches</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZNode-ACL"><span class="nav-number">3.4.3.</span> <span class="nav-text">ZNode ACL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">3.5.</span> <span class="nav-text">Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Leader-Selection"><span class="nav-number">3.6.</span> <span class="nav-text">Leader Selection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributed-Locks"><span class="nav-number">3.7.</span> <span class="nav-text">Distributed Locks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Use-cases"><span class="nav-number">3.8.</span> <span class="nav-text">Use cases</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#deploy"><span class="nav-number">4.</span> <span class="nav-text">deploy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#client-CLI-command"><span class="nav-number">4.1.</span> <span class="nav-text">client CLI command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Three-nodes-cluster"><span class="nav-number">4.2.</span> <span class="nav-text">Three nodes cluster</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FAQ"><span class="nav-number">5.</span> <span class="nav-text">FAQ</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REF"><span class="nav-number">6.</span> <span class="nav-text">REF</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/04/23/distribute-zookeeper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="distribute_zookeeper | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          distribute_zookeeper
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-04-23 10:32:04" itemprop="dateCreated datePublished" datetime="2021-04-23T10:32:04+08:00">2021-04-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/distribute/" itemprop="url" rel="index"><span itemprop="name">distribute</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/distribute/zookeeper/" itemprop="url" rel="index"><span itemprop="name">zookeeper</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>Apache ZooKeeper is basically a <code>distributed(cluster) coordination service for managing a large set of hosts</code>. Coordinating and managing the service in the distributed environment is really a very complicated process. Apache ZooKeeper, with its simple architecture and API, solves this issue. <code>ZooKeeper allows the developer to focus on the core application logic without being worried about the distributed nature of the application</code>.</p>
+<p>Apache ZooKeeper <code>is basically a service that is used by the cluster to coordinate between themselves</code> and maintain the shared data with the robust synchronization techniques.</p>
+<p>Apache ZooKeeper is <code>itself a distributed application</code> providing services for writing the distributed application.</p>
+<span id="more"></span>
+<h1 id="Distributed-Application"><a href="#Distributed-Application" class="headerlink" title="Distributed Application"></a>Distributed Application</h1><p>A distributed application is the application that can run on the multiple systems in a network simultaneously by coordinating among themselves in order to complete the specific task in an efficient manner. The distributed application can complete the complex and the time-consuming tasks in minutes as compared to the non-distributed application that will take hours to complete the task.</p>
+<p>The distributed application uses the computing capabilities of all the machines involved. We can further reduce the time to complete the task by configuring the distributed application to run on more nodes in the cluster.</p>
+<p><code>A distributed application consists of two parts</code>, that is, Server and Client application. The server applications are actually distributed and they have a common interface so that the clients can connect to any server in a cluster and get the same result. The client applications were the tools for interacting with the distributed application.</p>
+<p><strong>Benefits of Distributed Applications</strong></p>
+<ul>
+<li>Reliability − If the single node or the few systems fails, then it doesn’t make the whole system fail.</li>
+<li>Scalability − We can easily increase the performance when needed by adding more machines with the minor changes in the application configuration without any downtime.</li>
+<li>Transparency − It hides the complexity of the entire system and depicts itself as a single entity or application.</li>
+</ul>
+<h1 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h1><p><strong>The various services provided by Apache ZooKeeper are as follows</strong></p>
+<ul>
+<li>Naming service − This service is for identifying the nodes in the cluster by the name. This service is similar to DNS, but for nodes.</li>
+<li>Configuration management − This service provides the latest and up-to-date configuration information of a system for the joining node.</li>
+<li>Cluster management − This service keeps the status of the Joining or leaving of a node in the cluster and the node status in real-time.</li>
+<li>Leader election − This service elects a node as a leader for the coordination purpose.</li>
+<li>Locking and synchronization service − This service locks the data while modifying it. It helps in automatic fail recovery while connecting the other distributed applications such as Apache HBase.</li>
+<li>Highly reliable data registry − It offers data availability even when one or a few nodes goes down.</li>
+</ul>
+<h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><p><img src="https://techvidvan.com/tutorials/wp-content/uploads/sites/2/2020/08/Zookeeper-Architecture-TV.jpg" alt="Architecture "></p>
+<ul>
+<li><p>Server: The server sends an acknowledge when any client connects. In the case when there is no response from the connected server, the <code>client automatically redirects</code> the message to another server.</p>
+</li>
+<li><p>Client: Client is one of the nodes in the distributed application cluster. It helps you to accesses information from the server. Every client sends a message to the server at regular intervals that helps the server to know that the client is alive.</p>
+</li>
+<li><p>Leader: One of the servers is designated a Leader. It gives all the information to the clients as well as an acknowledgment that the server is alive. It would performs <code>automatic recovery if any of the connected nodes failed</code>.</p>
+</li>
+<li><p>Follower: Server node which follows leader instruction is called a follower.</p>
+<ul>
+<li>Client <code>read requests are handled by the correspondingly connected Zookeeper server</code></li>
+<li>The client <code>writes requests are handled by the Zookeeper leader</code>.</li>
+</ul>
+</li>
+<li><p>Ensemble&#x2F;Cluster: Group of Zookeeper servers which is called ensemble or a Cluster. You can use ZooKeeper infrastructure in the cluster mode to have the system at the optimal value when you are running the Apache.</p>
+</li>
+</ul>
+<h2 id="Writes-in-Zookeeper"><a href="#Writes-in-Zookeeper" class="headerlink" title="Writes in Zookeeper"></a>Writes in Zookeeper</h2><p>In Zookeeper, all the writes go through the Master(leader) node. <code>Due to this all the writes are sequential</code>. While performing the write operation in Zookeeper, each of the servers which are attached to that client persists data along with the master. <code>This updates all the servers(follower, leader etc) about the data</code>. This also means that we cannot make concurrent writes. The guarantee for linear writes can be problematic if we use Zookeeper for writing dominant workload.</p>
+<h2 id="Reads-in-Zookeeper"><a href="#Reads-in-Zookeeper" class="headerlink" title="Reads in Zookeeper"></a>Reads in Zookeeper</h2><p><code>Zookeeper is best at reads. Reads can be concurrent</code>. In Zookeeper, <code>concurrent reads are performed as each client is attached to a different server and all the clients can read data from the servers simultaneously</code>. It may sometimes happen that the <code>client may have an outdated view</code>. This gets updated within a little time.</p>
+<h2 id="Data-Model"><a href="#Data-Model" class="headerlink" title="Data Model"></a>Data Model</h2><p><img src="https://techvidvan.com/tutorials/wp-content/uploads/sites/2/2020/08/Zookeeper-Data-Model-TV.jpg" alt="data model"></p>
+<ul>
+<li>The zookeeper data model follows a Hierarchal namespace where each node is called a ZNode. A node is a system where the cluster runs.</li>
+</ul>
+<p><strong>Key Znode features you need to know:</strong></p>
+<ul>
+<li>Znodes can store data and have children Znode at same time</li>
+<li>It can store information like the current version of data changes in Znode, transaction Id of the latest transaction performed on the Znode.</li>
+<li>Each znode can have its access control list(ACL), like the permissions in Unix file systems. Zookeeper supports: create, read, write, delete, admin(set&#x2F;edit permissions) permissions.</li>
+<li>Znodes ACL supports username&#x2F;password-based authentication on individual znodes too.</li>
+<li>Clients can set a watch on these Znodes and get notified if any changes occur in these znodes.</li>
+<li>These change&#x2F;events could be a change in znodes data, change in any of znodes children, new child Znode creation or if any child Znode is deleted under the znode on which watch is set.</li>
+</ul>
+<p><strong>The main purpose of the Zookeeper data model is:</strong></p>
+<ul>
+<li>To maintain the <code>synchronization in a zookeeper cluster</code></li>
+<li>To explain the <code>metadata of each Znode</code>.</li>
+</ul>
+<h3 id="Node-Types-in-Zookeeper"><a href="#Node-Types-in-Zookeeper" class="headerlink" title="Node Types in Zookeeper"></a>Node Types in Zookeeper</h3><ul>
+<li><p>Persistence Znode<br>Persistence Znode are the nodes that <code>stay alive even when the client who created the node is disconnected</code>. All the server nodes in the ensemble assume themselves to be the Persistence Znodes, To remove these Znodes, you need to delete them manually(use delete operation)</p>
+</li>
+<li><p>Ephemeral Znode<br>The Ephemeral Znode are the nodes that stay alive until the client is alive or connected to them. <code>They die when the client gets disconnected</code>. <strong>Ephemeral Znode are not allowed to have children</strong>. They play an important role in the leader elections.<br>Zookeeper clients keep sending the ping request to keep the session alive. If Zookeeper does not see any ping request from the client for a period of configured session timeout, Zookeeper considers the client as dead and deletes the client session and the Znode created by the client.</p>
+</li>
+<li><p>Sequential Znode<br>Sequential Znode can be either the Persistence Znode or the Ephemeral Znode. While creating a new Sequential Znode, the ZooKeeper <code>sets the path of the Znode by attaching the 10 digit sequence number to the original name</code>. This znode plays an important role in the Locking and Synchronization</p>
+</li>
+</ul>
+<h3 id="Watches"><a href="#Watches" class="headerlink" title="Watches"></a>Watches</h3><p>Zookeeper, a watch event is a one-time trigger which is <code>sent to the client that set watch</code>. It occurred when data from that watch changes. <code>watch allows clients to get notifications when znode changes</code>. read operations like getData(), getChidleren(), exist have the option of setting a watch.</p>
+<p>Watches are ordered, the order of watch events corresponds to the order of the updates. A client will able to see a watch event for znode before seeing the new data which corresponds to that znode.<br>Access Control list</p>
+<h3 id="ZNode-ACL"><a href="#ZNode-ACL" class="headerlink" title="ZNode ACL"></a>ZNode ACL</h3><p>Zookeeper uses ACLs to control access to its znodes. ACL is made up of a pair of (Scheme: id, permission)</p>
+<p><strong>Build in ACL schemes:</strong></p>
+<ul>
+<li>world: has a single id, anyone</li>
+<li>auth: Not use any id, It represents any authenticated user</li>
+<li>digest: use a username: password</li>
+<li>host: Allows you to use client’s hostname as ACL id identity</li>
+<li>IP: use the client host IP address as ACL id identity</li>
+</ul>
+<p><strong>ACL Permissions:</strong></p>
+<ul>
+<li>CREATE</li>
+<li>READ</li>
+<li>WRITE</li>
+<li>DELETE</li>
+<li>ADMIN</li>
+</ul>
+<p><code>E.x. (IP: 192.168.0.0/16, READ)</code></p>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p><img src="https://www.guru99.com/images/1/011019_1316_ApacheZooKe3.png"></p>
+<ul>
+<li>Before executing any request, it is important that the client must establish a session with service</li>
+<li>All operations clients are sent to service are automatically associated with a session</li>
+<li>The client may connect to any server in the cluster. But it will <code>connect to only a single server</code></li>
+<li>The session provides “order guarantees”. <code>The requests in the session are executed in FIFO order</code></li>
+<li>The main states for a session are 1) Connecting, 2) Connected 3) Closed 4) Not Connected.<h2 id="Leader-Selection"><a href="#Leader-Selection" class="headerlink" title="Leader Selection"></a>Leader Selection</h2>We will discuss three algorithms for the leader election.</li>
+</ul>
+<p><strong>Approach 1:</strong></p>
+<pre><code>A client(any server belonging to the cluster) creates a persistent znode /election in Zookeeper.
+All clients add a watch to /election znode and listen to any children znode deletion or addition under /election znode.
+Now each server joining the cluster will try to create an ephemeral znode /leader under node /election with data as hostname, ex: node1.domain.com
+Since multiple servers in the cluster will try to create znode with the same name(/leader), only one will succeed, and that server will be considered as a leader.
+Once all servers in the cluster completes above step, they will call getChildren(“/election”) and get the data(hostname) associated with child znode “/leader”, which will give the leader’s hostname.
+At any point, if the leader server goes down, Zookeeper will kill the session for that server after the specified session timeout. In the process, it will delete the node /leader as it was created by leader server and is an ephemeral node and then Zookeeper will notify all the servers that have set the watch on /election znode, as one of the children has been deleted.
+Once all server gets notified that the leader is dead or leader’s znode(/leader) is deleted, they will retry creating “/leader” znode and again only one server will succeed, making it a new leader.
+Once the /leader node is created with the hostname as the data part of the znode, zookeeper will again notify all servers (as we have set the watch in step 2).
+All servers will call getChildren() on “/election” and update the new leader in their memory.
+</code></pre>
+<p>The problem with the above approach is, each time &#x2F;leader node is deleted,<br>Zookeeper will send the notification to all servers and all servers will try to write to zookeeper to become a new leader at the same time creating a herd effect. If we have a large number of servers, this approach would not be the right idea.<br>Ways to avoid, herd effect could be:<br>(i) by restricting the number of servers that take part in the election and allow only a few servers to update &#x2F;election znode<br>OR<br>(ii) by using sequential znode, which I will explain in the next approach.</p>
+<p><strong>Approach 2: Using Ephemeral Sequential Znode</strong></p>
+<pre><code>A client(any server belonging to the cluster) creates a persistent znode /election.
+All clients add a watch to /election znode and listen to any children znode deletion or addition under /election znode.
+Now each server joining the cluster will try to create an ephemeral sequential znode /leader-&lt;sequential number&gt; under node /election with data as hostname, ex: node1.domain.com
+Let’s say three servers in a cluster created znodes under /election, then the znode names would be:
+/election/leader-00000001
+/election/leader-00000002
+/election/leader-00000003
+Znode with least sequence number will be automatically considered as the leader.
+Once all server completes the creation of znode under /election, they will perform getChildren(“/election”) and get the data(hostname) associated with least sequenced child node “/election/leader-00000001”, which will give the leader hostname.
+At any point, if the current leader server goes down, Zookeeper will kill the session for that server after the specified session timeout. In the process, it will delete the node “/election/leader-00000001” as it was created by the leader server and is an ephemeral node and then Zookeeper will send a notification to all the server that was watching znode /election.
+Once all server gets the leader’s znode-delete notification, they again fetch all children under /election znode and get the data associated with the child znode that has the least sequence number(/election/leader-00000002) and store that as the new leader in its own memory.
+</code></pre>
+<p>In this approach, we saw, if an existing leader dies, the servers are not sending an extra write request to the zookeeper to become the leader, leading to reduce network traffic.<br>But, even with this approach, we will face some degree of herd effect we talked about in the previous approach. When the leader server dies, notification is sent to all servers in the cluster, creating a herd effect.<br>But, this is a design call that you need to take. Use approach 1 or 2, if you need all servers in your cluster to store the current leader’s hostname for its purpose.<br>If you do not want to store current leader information in each server&#x2F;follower and only the leader needs to know if he is the current leader to do leader specific tasks. You can further simplify the leader election process, which we will discuss in approach 3.</p>
+<p><strong>Approach 3: Using Ephemeral Sequential Znode but notify only one server in the event of a leader going down.</strong></p>
+<pre><code>Create a persistent znode /election.
+Now each server joining the cluster will try to create an ephemeral sequential znode /leader-&lt;sequential number&gt; under node /election with data as hostname, ex: node1.domain.com
+Let’s say three servers in a cluster created znodes under /election, then the znode names would be:
+/election/leader-00000001
+/election/leader-00000002
+/election/leader-00000003
+Znode with least sequence number will be automatically considered as a leader.
+Here we will not set the watch on whole/election znode for any children change(add/delete child znode), instead, each server in the cluster will set watch on child znode with one less sequence.
+The idea is if a leader goes down only the next candidate who would become a leader should get the notification.
+So, in our example:
+- The server that created the znode /election/leader-00000001 will have no watch set.
+-The server that created the znode /election/leader-00000002 will watch for deletion of znode /election/leader-00000001
+-The server that created the znode /election/leader-00000003 will watch for deletion of znode /election/leader-00000002
+Then, if the current leader goes down, zookeeper will delete the node /election/leader-00000001 and send the notification to only the next leader i.e. the server that created node /election/leader-00000002
+</code></pre>
+<p>That’s all on leader election logic. These are simple algorithms. There could be a situation when you want only those servers to take part in a leader election which has the latest data if you are creating a distributed database.<br>In that case, you might want to create one more node that keeps this information, and in the event of the leader going down, only those servers that have the latest data can take part in an election.</p>
+<h2 id="Distributed-Locks"><a href="#Distributed-Locks" class="headerlink" title="Distributed Locks"></a>Distributed Locks</h2><p>Suppose we have <code>“n” servers trying to update a shared resource simultaneously</code>, say a shared file. If we do not write these files in a mutually exclusive way, it may lead to data inconsistencies in the shared file.</p>
+<p>We will manipulate operations on znode to implement a distributed lock, so that, different servers can acquire this lock and perform a task.</p>
+<p>The algorithm for managing distributed locks is the same as the leader election with a slight change.</p>
+<pre><code>Instead of the /election parent node, we will use /lock as the parent node.
+The rest of the steps will remain the same as in the leader election algorithm. Any server which is considered a leader is analogous to server acquiring the lock.
+The only difference is, once the server acquires the lock, the server will perform its task and then call the delete operation on the child znode it has created so that the next server can acquire lock upon delete notification from zookeeper and perform the task.
+</code></pre>
+<h2 id="Use-cases"><a href="#Use-cases" class="headerlink" title="Use cases"></a>Use cases</h2><p><strong>Group Membership&#x2F;Managing Cluster state</strong></p>
+<p>In Zookeeper it is pretty simple to maintain group membership info using persistent and ephemeral znodes. I will talk about a simple case where you want to <code>maintain information about all servers in a cluster and what servers are currently alive</code>.</p>
+<p>We will use a <code>persistent znode to keep track of all the servers that join the cluster</code> and zookeeper’s ability to delete an ephemeral znodes upon client session termination will come handy in maintaining the list of active&#x2F;live servers.</p>
+<pre><code>Create a parent znode /all_nodes, this znode will be used to store any server that connects to the cluster.
+
+Create a parent znode /live_nodes, this znode will be used to store only the live nodes in the cluster and will &lt;store ephemeral child znodes&gt;. If any server crashes or goes down, respective child ephemeral znode will be deleted.
+
+Any server connecting to the cluster will create &lt;a new persistent znode&gt; under /all_nodes say /node1.domain.com. Let’s say another two node joins the cluster. Then the znode structure will look like:
+/all_nodes/node1.domain.com
+/all_nodes/node2.domain.com
+/all_nodes/node3.domain.com
+
+You can store any information specific to the node in znode’s data
+Any server connecting to the cluster will create &lt;a new ephemeral znode&gt; under /live_nodes say /node1.domain.com. Let’s say another two-node joins the cluster. Then the znode structure will look like:
+/live_nodes/node1.domain.com
+/live_nodes/node2.domain.com
+/live_nodes/node3.domain.com
+
+Add a watch for any change in children of /all_nodes. If any server is added or deleted to/from the cluster, all server in the cluster needs to be notified.
+
+Add a watch for any change in children of /live_nodes. This way all servers will be notified if any server in the cluster goes down or comes alive.
+</code></pre>
+<h1 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h1><p>As for demo only, we start only one zookeeper instance(standalone mode), in production env, it’s better start a zookeeper cluster which may have 3, 5, odd nodes for performance and HA.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ubuntu18</span></span><br><span class="line">$ sudo apt install openjdk-8-jdk-headless</span><br><span class="line"><span class="comment"># Centos7</span></span><br><span class="line">$ yum install -y java-11-openjdk-headless</span><br><span class="line"></span><br><span class="line">$ wget https://apachemirror.wuchna.com/zookeeper/zookeeper-3.6.3/apache-zookeeper-3.6.3-bin.tar.gz</span><br><span class="line">$ tar xvf apache-zookeeper-3.6.3-bin.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> apache-zookeeper-3.6.3-bin</span><br><span class="line">$ <span class="built_in">cp</span> conf/zoo_sample.cfg conf/zoo.cfg</span><br><span class="line">$ bin/zkServer.sh start</span><br><span class="line"></span><br><span class="line"><span class="comment"># check info</span></span><br><span class="line">$ bin/zkServer.sh status</span><br><span class="line">$ bin/zkServer.sh</span><br><span class="line">/usr/bin/java</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /home/ubuntu/zookeeper/apache-zookeeper-3.6.3-bin/bin/../conf/zoo.cfg</span><br><span class="line">Client port found: 2181. Client address: localhost. Client SSL: <span class="literal">false</span>.</span><br><span class="line">Mode: standalone</span><br></pre></td></tr></table></figure>
+<h2 id="client-CLI-command"><a href="#client-CLI-command" class="headerlink" title="client CLI command"></a>client CLI command</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">$ bin/zkCli.sh</span><br><span class="line">....</span><br><span class="line"><span class="comment"># create persistence znode</span></span><br><span class="line">[zk: localhost:2181(CONNECTED) 0] create /jason</span><br><span class="line">create /jason <span class="string">&#x27;hello&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># create Sequential znode</span></span><br><span class="line">[zk: localhost:2181(CONNECTED) 0] create -s /node <span class="string">&#x27;hi node1&#x27;</span></span><br><span class="line">Created /node0000000005</span><br><span class="line"></span><br><span class="line"><span class="comment"># create Ephemeral znode</span></span><br><span class="line">[zk: localhost:2181(CONNECTED) 0] create -e /node <span class="string">&#x27;tmp&#x27;</span></span><br><span class="line">Created /node</span><br><span class="line"></span><br><span class="line"><span class="comment"># update a znode</span></span><br><span class="line">[zk: localhost:2181(CONNECTED) 0] <span class="built_in">set</span> /node <span class="string">&#x27;update tmp&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># create a child znode</span></span><br><span class="line">[zk: localhost:2181(CONNECTED) 0]  create /node/server1 <span class="string">&#x27;s1&#x27;</span></span><br><span class="line">Ephemerals cannot have children: /node/server1</span><br><span class="line"></span><br><span class="line">[zk: localhost:2181(CONNECTED) 0]  create /jason/server1 <span class="string">&#x27;s1&#x27;</span></span><br><span class="line">Created /jason/server1</span><br><span class="line"></span><br><span class="line"><span class="comment"># list child znode</span></span><br><span class="line">[zk: localhost:2181(CONNECTED) 0] <span class="built_in">ls</span> /jason</span><br><span class="line">[server1]</span><br><span class="line"></span><br><span class="line"><span class="comment"># stats of znode</span></span><br><span class="line">[zk: localhost:2181(CONNECTED) 0] get /jason</span><br><span class="line">hello</span><br><span class="line"></span><br><span class="line">[zk: localhost:2181(CONNECTED) 31] get -s  /jason</span><br><span class="line">hello</span><br><span class="line">cZxid = 0x15</span><br><span class="line">ctime = Fri Apr 23 06:10:35 UTC 2021</span><br><span class="line">mZxid = 0x15</span><br><span class="line">mtime = Fri Apr 23 06:10:35 UTC 2021</span><br><span class="line">pZxid = 0x1d</span><br><span class="line">cversion = 1</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 5</span><br><span class="line">numChildren = 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># remove a specified znode and recursively all its children.</span></span><br><span class="line">[zk: localhost:2181(CONNECTED) 0] deleteall /jason</span><br><span class="line"></span><br><span class="line"><span class="comment"># add a watcher and get its value</span></span><br><span class="line">[zk: localhost:2181(CONNECTED) 0] get -w /jason\</span><br><span class="line">[zk: localhost:2181(CONNECTED) 0] removewatches  /jason</span><br><span class="line"></span><br><span class="line"><span class="comment"># set ACL</span></span><br><span class="line">[zk: localhost:2181(CONNECTED) 63] setAcl /jason world:anyone:rw</span><br><span class="line">[zk: localhost:2181(CONNECTED) 64] getAcl /jason</span><br><span class="line"><span class="string">&#x27;world,&#x27;</span>anyone</span><br><span class="line">: rw</span><br></pre></td></tr></table></figure>
+
+<h2 id="Three-nodes-cluster"><a href="#Three-nodes-cluster" class="headerlink" title="Three nodes cluster"></a>Three nodes cluster</h2><p>each node must install zookeeper with cfg</p>
+<p><strong>node1  zoo.cfg</strong>  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">tickTime=2000</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">dataDir=/zookeeper/data</span><br><span class="line">clientPort=2181</span><br><span class="line"></span><br><span class="line">server.1=11.117.4.56:2888:3888</span><br><span class="line">server.2=11.117.4.57:2888:3888</span><br><span class="line">server.3=11.117.4.58:2888:3888</span><br><span class="line">$ mkdir /zookeeper/data</span><br><span class="line">$ echo 1 &gt; /zookeeper/data/myid</span><br></pre></td></tr></table></figure>
+
+<p><strong>node2 zoo.cfg</strong>  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">zoo.cfg:</span><br><span class="line"></span><br><span class="line">tickTime=2000</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">dataDir=/zookeeper/data</span><br><span class="line">clientPort=2181</span><br><span class="line"></span><br><span class="line">server.1=11.117.4.56:2888:3888</span><br><span class="line">server.2=11.117.4.57:2888:3888</span><br><span class="line">server.3=11.117.4.58:2888:3888</span><br><span class="line">$ mkdir /zookeeper/data</span><br><span class="line">$ echo 2 &gt; /zookeeper/data/myid</span><br></pre></td></tr></table></figure>
+
+<p><strong>node3 zoo.cfg</strong>  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">zoo.cfg:</span><br><span class="line"></span><br><span class="line">tickTime=2000</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">dataDir=/zookeeper/data</span><br><span class="line">clientPort=2181</span><br><span class="line"></span><br><span class="line">server.1=11.117.4.56:2888:3888</span><br><span class="line">server.2=11.117.4.57:2888:3888</span><br><span class="line">server.3=11.117.4.58:2888:3888</span><br><span class="line"></span><br><span class="line">$ mkdir /zookeeper/data</span><br><span class="line">$ echo 3 &gt; /zookeeper/data/myid</span><br></pre></td></tr></table></figure>
+
+<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><ul>
+<li><p>why we need more than one zookeeper servers?</p>
+<blockquote>
+<p>Two main reason: high availability and performance</p>
+</blockquote>
+</li>
+<li><p>why is zookeeper server nubmer odd?</p>
+<blockquote>
+<p>because even and odd have the same high availability.</p>
+</blockquote>
+</li>
+<li><p>how does zookeeper handle inconsistence?</p>
+<blockquote>
+<p>it handles the inconsistency of data by atomicity, using <a target="_blank" rel="noopener" href="https://distributedalgorithm.wordpress.com/2015/06/20/architecture-of-zab-zookeeper-atomic-broadcast-protocol/">ZAB protocol</a></p>
+</blockquote>
+</li>
+</ul>
+<h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.guru99.com/zookeeper-tutorial.html">tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://bikas-katwal.medium.com/zookeeper-introduction-designing-a-distributed-system-using-zookeeper-and-java-7f1b108e236e">zk design</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.chaozh.com/blog/2015/11/15/whats-good-in-zookeeper-design/">use cases</a></li>
+<li><a target="_blank" rel="noopener" href="https://izualzhy.cn/zookeeper-c-api-introduction#7-%E5%AE%9E%E6%88%98">C bindings</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/distribute/" rel="tag"># distribute</a>
+              <a href="/tags/zookeeper/" rel="tag"># zookeeper</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/22/protocol-vxlan-nvgre-geneve/" rel="prev" title="protocol_vxlan_nvgre_geneve">
+                  <i class="fa fa-chevron-left"></i> protocol_vxlan_nvgre_geneve
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/06/07/k8s-pkg-manager/" rel="next" title="k8s_pkg_manager">
+                  k8s_pkg_manager <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

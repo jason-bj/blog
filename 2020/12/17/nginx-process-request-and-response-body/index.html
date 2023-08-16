@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Overviewnginx provides flexible way when processing header and body to meet different network env to achieve better performance, say nginx can send the request immediately after get the whole request">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx_process_request_and_response_body">
+<meta property="og:url" content="http://cyun.tech/2020/12/17/nginx-process-request-and-response-body/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="Overviewnginx provides flexible way when processing header and body to meet different network env to achieve better performance, say nginx can send the request immediately after get the whole request">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-17T02:56:13.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.167Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="nginx">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2020/12/17/nginx-process-request-and-response-body/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2020/12/17/nginx-process-request-and-response-body/","path":"2020/12/17/nginx-process-request-and-response-body/","title":"nginx_process_request_and_response_body"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>nginx_process_request_and_response_body | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Body-processing"><span class="nav-number">2.</span> <span class="nav-text">Body processing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#request"><span class="nav-number">2.1.</span> <span class="nav-text">request</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#response"><span class="nav-number">2.2.</span> <span class="nav-text">response</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API-related"><span class="nav-number">2.3.</span> <span class="nav-text">API related</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Header"><span class="nav-number">2.3.1.</span> <span class="nav-text">Header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Body"><span class="nav-number">2.3.2.</span> <span class="nav-text">Body</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2020/12/17/nginx-process-request-and-response-body/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="nginx_process_request_and_response_body | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          nginx_process_request_and_response_body
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-12-17 10:56:13" itemprop="dateCreated datePublished" datetime="2020-12-17T10:56:13+08:00">2020-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/nginx/body/" itemprop="url" rel="index"><span itemprop="name">body</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>nginx provides flexible way when processing header and body to meet different network env to achieve better performance, say nginx can send the request immediately after get the whole request headers, or send the request to upstream after get the entire body, when <strong>cache request body</strong>, we can cache it in memory if memory is large enough or cache it to a file.<br>Also we can <strong>cache the response body</strong> to a file or send it immediately to client, all are configurable!!!</p>
+<span id="more"></span>
+<h1 id="Body-processing"><a href="#Body-processing" class="headerlink" title="Body processing"></a>Body processing</h1><h2 id="request"><a href="#request" class="headerlink" title="request"></a>request</h2><p><strong>request header buffer</strong></p>
+<p>Before talking about request body, let’s say process header buffer first, here are directives related to request header</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	<span class="attribute">client_header_buffer_size</span> size;</span><br><span class="line">Default: <span class="attribute">client_header_buffer_size</span> <span class="number">1k</span>;</span><br><span class="line">Context: http, server</span><br></pre></td></tr></table></figure>
+<p>Sets buffer size for reading client request header. For most requests, a buffer of 1K bytes is enough. However, if a request includes long cookies, or comes from a WAP client, it may not fit into 1K. If a request line or a request header field does not fit into this buffer then larger buffers, configured by the large_client_header_buffers directive, are allocated.</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	<span class="attribute">large_client_header_buffers</span> number size;</span><br><span class="line">Default: <span class="attribute">large_client_header_buffers</span> <span class="number">4</span> <span class="number">8k</span>;</span><br><span class="line">Context: http, server</span><br></pre></td></tr></table></figure>
+<p>Sets the maximum number and size of buffers used for reading large client request header. <code>A request line cannot exceed the size of one buffer</code>, or the 414 (Request-URI Too Large) error is returned to the client. <strong><code>A request header field(one header) cannot exceed the size of one buffer as well</code></strong>, or the 400 (Bad Request) error is returned to the client. <strong><code>Buffers are allocated only on demand that means it&#39;s allocated only when 1K is not enough to hold request headers or request line</code></strong>.</p>
+<p><strong>request body</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># It&#x27;s clear to call client_request_buffering_on to align with others.</span></span><br><span class="line">Syntax:	<span class="attribute">proxy_request_buffering</span> <span class="literal">on</span> | <span class="literal">off</span>;</span><br><span class="line">Default: <span class="attribute">proxy_request_buffering</span> <span class="literal">on</span>;</span><br><span class="line">Context: http, server, <span class="section">location</span></span><br></pre></td></tr></table></figure>
+<p>When buffering is enabled, the<code> entire request body is read from the client before sending the request to a proxied server</code>, send request(headers, then body) happens only when we receive the entire request body.</p>
+<p>When buffering is disabled, the request body is sent to the proxied server immediately as it is received(request headers). <code>In this case, the request cannot be passed to the next server if nginx already started sending the request body</code>.</p>
+<p>As mentioned above when buffering is enabled, in some case request body is large, how can we cache it?  nginx first uses memory, then disk for body caching, <strong>but if CPS is high and with large request body, it’s not a good way to buffer them all as it could use up disk or memory</strong>.</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	<span class="attribute">client_body_buffer_size</span> size;</span><br><span class="line">Default: <span class="attribute">client_body_buffer_size</span> <span class="number">8k</span>|<span class="number">16k</span>;</span><br><span class="line">Context: http, server, <span class="section">location</span></span><br></pre></td></tr></table></figure>
+<p>Sets buffer size for reading client request body. <code>In case the request body is larger than the buffer(part of unused header buffer + this buffer), the whole body or only its part is written to a temporary file(each request has only one temporary file)</code>, By default, buffer size is equal to two memory pages. This is 8K on x86, other 32-bit platforms, and x86-64. It is usually 16K on other 64-bit platforms.</p>
+<p><code>Note: temporary file is unlink() after nginx open it, that means you CAN NOT see it even worker is writing data to it</code>, <strong>temporary file is deleted after get response header from upstream that means we send out entire request body</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># show fd of temporary file</span></span><br><span class="line"><span class="variable">$lsof</span> -p worker_pid | grep <span class="string">&#x27;deleted&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># from error.log file</span></span><br><span class="line">2020/12/17 15:06:40 [warn] 3856<span class="comment">#0: *1 a client request body is buffered to a temporary file /usr/local/nginx/client_body_temp/0000000001</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># temporary is removed automatically from disk get response header from upstream.</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	<span class="attribute">client_body_temp_path</span> path [level1 [level2 [level3]]];</span><br><span class="line">Default: <span class="attribute">client_body_temp_path</span> client_body_temp;</span><br><span class="line">Context: http, server, <span class="section">location</span></span><br></pre></td></tr></table></figure>
+<p>Defines a directory for storing temporary files holding client request bodies. Up to three-level subdirectory hierarchy can be used under the specified directory. For example, in the following configuration</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">client_body_temp_path</span> /spool/nginx/client_temp <span class="number">1</span> <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>a path to a temporary file might look like this:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/spool/nginx/client_temp/7/45/00000123457</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	<span class="attribute">client_body_in_file_only</span> <span class="literal">on</span> | clean | <span class="literal">off</span>;</span><br><span class="line">Default: <span class="attribute">client_body_in_file_only</span> <span class="literal">off</span>;</span><br><span class="line">Context: http, server, <span class="section">location</span></span><br></pre></td></tr></table></figure>
+<p>Determines whether nginx should save the entire client request body(<code>no matter what size it is</code>) into a file, <code>it&#39;s same file with proxy_request_buffering</code> directive. This directive can be used during debugging, or when using the $request_body_file variable.</p>
+<p><code>When set to the value on, temporary files are not removed after request processing.</code></p>
+<p><code>The value clean will cause the temporary files left after request processing to be removed.</code></p>
+<p><strong>no buffering request body conf</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">proxy_request_buffering</span> <span class="literal">off</span>;</span><br><span class="line"><span class="attribute">proxy_pass_request_body</span> <span class="literal">on</span>;</span><br><span class="line"><span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>; <span class="comment"># reason for this http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_request_buffering</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	<span class="attribute">client_max_body_size</span> size;</span><br><span class="line">Default: <span class="attribute">client_max_body_size</span> <span class="number">1m</span>;</span><br><span class="line">Context: http, server, <span class="section">location</span></span><br></pre></td></tr></table></figure>
+<p>Sets the maximum allowed size of the client request body, specified in the “Content-Length” request header field. If the size in a request exceeds the configured value, the 413 (Request Entity Too Large) error is returned to the client. Please be aware that browsers cannot correctly display this error. <code>Setting size to 0 disables checking of client request body size</code>.</p>
+<h2 id="response"><a href="#response" class="headerlink" title="response"></a>response</h2><p>There are several directives used for control response, should we buffer it when necessary.</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># write to temporary file only when client is slow than upstream</span></span><br><span class="line">Syntax:	<span class="attribute">proxy_buffering</span> <span class="literal">on</span> | <span class="literal">off</span>;</span><br><span class="line">Default: <span class="attribute">proxy_buffering</span> <span class="literal">on</span>;</span><br><span class="line">Context: http, server, <span class="section">location</span></span><br></pre></td></tr></table></figure>
+<p>When buffering is enabled, nginx receives a response from the proxied server as soon as possible, saving it into the buffers set by the <code>proxy_buffer_size and proxy_buffers directives</code>. If the whole response does not fit into memory, <code>a part of it can be saved to a temporary file on the disk</code>.  <strong><code>when buffering is enabled, nginx tries to receive enough body as much as possible, but if client is ready to write, we still send body to it during receiving, that means temporary file may be not used if client is faster than upstream</code></strong>.  buffering NOT mean sending to client only when receive entire response, it’s different with buffering for request.</p>
+<p>When buffering is disabled, the response is passed to a client synchronously, immediately as it is received. nginx will not try to read the whole response from the proxied server.<code>The maximum size of the data that nginx can receive from the server at a time </code>is set by the <code>proxy_buffer_size</code> directive.</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	<span class="attribute">proxy_buffers</span> number size;</span><br><span class="line">Default: <span class="attribute">proxy_buffers</span> <span class="number">8</span> <span class="number">4k</span>|<span class="number">8k</span>;</span><br><span class="line">Context: http, server, <span class="section">location</span></span><br></pre></td></tr></table></figure>
+<p>Sets the number and size of the buffers used for reading a response from the proxied server, for a single connection. By default, the buffer size is equal to one memory page. This is either 4K or 8K, depending on a platform.</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	<span class="attribute">proxy_max_temp_file_size</span> size;</span><br><span class="line">Default: <span class="attribute">proxy_max_temp_file_size</span> <span class="number">1024m</span>;</span><br><span class="line">Context: http, server, <span class="section">location</span></span><br></pre></td></tr></table></figure>
+<p>When buffering of responses from the proxied server is enabled, and the whole response does not fit into the buffers set by the proxy_buffer_size and proxy_buffers directives, a part of the response can be saved to a temporary file. <code>This directive sets the maximum size of the temporary file</code>. <strong>the temporary file is deleted automatically when request is finalize in <code>ngx_http_upstream_finalize_request()</code></strong>.</p>
+<p><code>The zero value disables buffering of responses to temporary files.</code></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	<span class="attribute">proxy_temp_path</span> path [level1 [level2 [level3]]];</span><br><span class="line">Default: <span class="attribute">proxy_temp_path</span> proxy_temp;</span><br><span class="line">Context: http, server, <span class="section">location</span></span><br></pre></td></tr></table></figure>
+<p>Defines a directory for storing temporary files with data received from proxied servers. Up to three-level subdirectory hierarchy can be used underneath the specified directory. For example, in the following configuration</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">proxy_temp_path</span> /spool/nginx/proxy_temp <span class="number">1</span> <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>a temporary file might look like this:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/spool/nginx/proxy_temp/7/45/00000123457</span><br></pre></td></tr></table></figure>
+
+<p><strong>non buffering response</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">proxy_buffering</span> <span class="literal">off</span></span><br><span class="line"><span class="comment"># receive buffer used for header and body at a time recv(fd, size)</span></span><br><span class="line">proxy_buffer_size size;</span><br></pre></td></tr></table></figure>
+
+<p><strong>buffering response</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">proxy_buffering</span> <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># below two used for saving response in memory</span></span><br><span class="line"><span class="attribute">proxy_buffer_size</span> size;</span><br><span class="line"><span class="attribute">proxy_buffers</span> number size;</span><br><span class="line"></span><br><span class="line"><span class="comment"># if memory is used up, save it to disk</span></span><br><span class="line"><span class="attribute">proxy_temp_path</span> path;</span><br><span class="line"><span class="attribute">proxy_max_temp_file_size</span> size;</span><br></pre></td></tr></table></figure>
+
+<h2 id="API-related"><a href="#API-related" class="headerlink" title="API related"></a>API related</h2><h3 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h3><p><strong>request header</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// build r-&gt;headers_in from request header</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">ngx_http_process_request_headers</span><span class="params">(<span class="type">ngx_event_t</span> *rev)</span>;</span><br><span class="line"><span class="comment">//build header sent to upstream(backend), create a temp buffer to hold all header copied from r-&gt;headers_in</span></span><br><span class="line"><span class="type">static</span> <span class="type">ngx_int_t</span> <span class="title function_">ngx_http_proxy_create_request</span><span class="params">(<span class="type">ngx_http_request_t</span> *r)</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>response header</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// build header sent to client(set r-&gt;header_out) when parsed all response headers</span></span><br><span class="line"><span class="type">static</span> <span class="type">ngx_int_t</span> <span class="title function_">ngx_http_upstream_process_headers</span><span class="params">(<span class="type">ngx_http_request_t</span> *r, <span class="type">ngx_http_upstream_t</span> *u)</span>;</span><br><span class="line"><span class="comment">// send response header to client and cleanup request body temp file(it will call header filter later on)</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">ngx_http_upstream_send_response</span><span class="params">(<span class="type">ngx_http_request_t</span> *r, <span class="type">ngx_http_upstream_t</span> *u)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// header filter to add/update/remove(manipulate r-&gt;header_out) response header</span></span><br><span class="line"><span class="type">static</span> <span class="type">ngx_int_t</span> <span class="title function_">ngx_http_headers_filter</span><span class="params">(<span class="type">ngx_http_request_t</span> *r)</span>;</span><br><span class="line"><span class="comment">// last header filter based on r-&gt;header_out create a temp buffer to hold all header copied from r-&gt;header_out, then send it out</span></span><br><span class="line"><span class="type">static</span> <span class="type">ngx_int_t</span> <span class="title function_">ngx_http_header_filter</span><span class="params">(<span class="type">ngx_http_request_t</span> *r)</span></span><br></pre></td></tr></table></figure>
+<h3 id="Body"><a href="#Body" class="headerlink" title="Body"></a>Body</h3><p><strong>request body</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// client is ready to read, read request and send it to upstream</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">ngx_http_read_client_request_body_handler</span><span class="params">(<span class="type">ngx_http_request_t</span> *r)</span>;</span><br><span class="line"><span class="comment">// upstream is ready to write, read request body and send it to upstream</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">ngx_http_upstream_send_request_handler</span><span class="params">(<span class="type">ngx_http_request_t</span> *r, <span class="type">ngx_http_upstream_t</span> *u)</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>response Body</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// downstream is ready to write</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">ngx_http_upstream_process_downstream</span><span class="params">(<span class="type">ngx_http_request_t</span> *r)</span>;</span><br><span class="line"><span class="comment">// upstream is ready to read</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">ngx_http_upstream_process_upstream</span><span class="params">(<span class="type">ngx_http_request_t</span> *r, <span class="type">ngx_http_upstream_t</span> *u)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// sending response(non buffered mode)</span></span><br><span class="line"><span class="comment">// downstream is ready to write(read response and send it to client)</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">ngx_http_upstream_process_non_buffered_downstream</span><span class="params">(<span class="type">ngx_http_request_t</span> *r)</span>;</span><br><span class="line"><span class="comment">// upstream is ready to read(read response and send it to client)</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">ngx_http_upstream_process_non_buffered_upstream</span><span class="params">(<span class="type">ngx_http_request_t</span> *r, <span class="type">ngx_http_upstream_t</span> *u)</span>;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/nginx/" rel="tag"># nginx</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/16/nginx-usage-sample/" rel="prev" title="nginx-usage-sample">
+                  <i class="fa fa-chevron-left"></i> nginx-usage-sample
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/01/07/nginx-log/" rel="next" title="nginx-log">
+                  nginx-log <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

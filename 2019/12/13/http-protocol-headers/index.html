@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OverviewHTTP headers let the client and the server pass additional information with an HTTP request or response. An HTTP header consists of its case-insensitive name followed by a colon (:), then by i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http-protocol-headers">
+<meta property="og:url" content="http://cyun.tech/2019/12/13/http-protocol-headers/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="OverviewHTTP headers let the client and the server pass additional information with an HTTP request or response. An HTTP header consists of its case-insensitive name followed by a colon (:), then by i">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-12-13T00:58:50.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.151Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="http">
+<meta property="article:tag" content="header">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2019/12/13/http-protocol-headers/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2019/12/13/http-protocol-headers/","path":"2019/12/13/http-protocol-headers/","title":"http-protocol-headers"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>http-protocol-headers | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Common-General-Header"><span class="nav-number">1.1.</span> <span class="nav-text">Common General Header</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Common-Request-Header"><span class="nav-number">1.2.</span> <span class="nav-text">Common Request Header</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Common-Response-Header"><span class="nav-number">1.3.</span> <span class="nav-text">Common Response Header</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Common-Entity-Headers"><span class="nav-number">1.4.</span> <span class="nav-text">Common Entity Headers</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">2.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2019/12/13/http-protocol-headers/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="http-protocol-headers | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          http-protocol-headers
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-12-13 08:58:50" itemprop="dateCreated datePublished" datetime="2019-12-13T08:58:50+08:00">2019-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/http-protocol/" itemprop="url" rel="index"><span itemprop="name">http-protocol</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/http-protocol/header/" itemprop="url" rel="index"><span itemprop="name">header</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>HTTP headers let the client and the server pass additional information with an HTTP request or response. <code>An HTTP header consists of its case-insensitive name</code> followed by a colon (:), then by its value. <code>Whitespace before the value is ignored</code></p>
+<span id="more"></span>
+
+<p>Headers can be grouped according to their contexts:</p>
+<ul>
+<li>General headers <code>apply to both requests and responses</code>, but with <code>no relation to the data transmitted in the body</code>. like <code>Date, Cache-Control or Connection.</code></li>
+<li>Request headers contain more information about the resource to be fetched, or about the client requesting the resource.</li>
+<li>Response headers hold additional information about the response, like its location or about the server providing it.</li>
+<li>Entity headers contain information about the <code>body of the resource</code>, like its content length or MIME type. like <code>Content-Length, Content-Language, Content-Encoding</code>.</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">GET /home.html HTTP/1.1</span><br><span class="line">Host: developer.mozilla.org</span><br><span class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:50.0) Gecko/20100101 Firefox/50.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: en-US,en;q=0.5</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Referer: https://developer.mozilla.org/testpage.html</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">If-Modified-Since: Mon, 18 Jul 2016 02:36:04 GMT</span><br><span class="line">If-None-Match: &quot;c561c68d0ba92bbeb8b0fff2a9199f722e3a621a&quot;</span><br><span class="line">Cache-Control: max-age=0</span><br></pre></td></tr></table></figure>
+
+<p><strong>End-to-end headers</strong></p>
+<p>These headers must be <code>transmitted to the final recipient of the message</code>: the server for a request, or the client for a response. Intermediate <code>proxies must retransmit these headers unmodified</code> and caches must store them. like <code>Content-Encoding</code>.</p>
+<p><strong>Hop-by-hop headers</strong><br>These headers are meaningful only for a single transport-level connection, and <code>must not be retransmitted by proxies or cached</code>. like <code>Transfer-Encoding</code>.</p>
+<h2 id="Common-General-Header"><a href="#Common-General-Header" class="headerlink" title="Common General Header"></a>Common General Header</h2><p><strong>Date</strong></p>
+<p>The Date general HTTP header contains the date and time at which the message was originated.<br><code>Date: Wed, 21 Oct 2015 07:28:00 GMT</code></p>
+<p><strong>Connection</strong></p>
+<p>The Connection general header controls whether or not the network connection stays open after the current transaction finishes.</p>
+<p><code>Connection: keep-alive</code></p>
+<p><strong>Cache-Control</strong></p>
+<p>The Cache-Control general-header field is used to specify directives for caching mechanisms in both requests and responses. Caching directives are unidirectional, meaning that a given directive in a request is not implying that the same directive is to be given in the response</p>
+<p><code>Cache-Control: public, max-age=31536000</code></p>
+<h2 id="Common-Request-Header"><a href="#Common-Request-Header" class="headerlink" title="Common Request Header"></a>Common Request Header</h2><p><strong>HOST</strong></p>
+<p>The Host header is mandatory in HTTP&#x2F;1.1 requests, domain of the server with&#x2F;without port, if no port provided, for http, it’s 80, https, 443.</p>
+<p><code>Host: gethttp.info</code></p>
+<p><strong>Referer</strong></p>
+<p>tells the server where the requested URL came from. It will almost always be another URL, or else empty for a direct request, the Referer is the URL to the original page, let’s one web page depends on css&#x2F;js, when you get css&#x2F;js, the referer points to the web page.</p>
+<p><code>Referer: https://www.quora.com/profile/Lee-Dowthwaite</code></p>
+<p><strong>User-Agent</strong></p>
+<p>User-Agent identifies the requesting system</p>
+<p><code>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36</code></p>
+<p><strong>Accept</strong></p>
+<p>The <strong>Accept header(server side: Content-type)</strong> is how a client (browser or application) tells the server what kind of content it can accept in the HTTP response. The content types are comma-separated, and take the form type&#x2F;subtype such as text&#x2F;html, application&#x2F;json or audio&#x2F;mpeg.</p>
+<p><code>Accept: text/html, text/plain; q=0.6, */*; q=0.1</code><br><code>Accept: application/graphql, application/json; q=0.8, application/xml; q=0.7</code></p>
+<p><strong>Accept-Encoding</strong></p>
+<p><strong>Accept-Encoding(server side: Content-Encoding)</strong> defines what type of content encoding (usually a compression algorithm) the client can accept in the response body, Note(<code>server should use the suggested if it can do</code>)</p>
+<p>Client can also explicitly prohibits this encoding by specifying <code>identity;q=0</code>, in this server must not use this encoding.</p>
+<p><code>Accept-Encoding: br, gzip;q=0.9, deflate;q=0.8, *;q=0.1</code></p>
+<p><strong>Accept-Language</strong></p>
+<p>The HTTP Accept-Language header tells the server the client’s preferred natural language</p>
+<p><code>Accept-Language: en-GB, en-US, en;q=0.9</code></p>
+<p><strong>Authorization</strong></p>
+<p>The HTTP Authorization header specifies the authorization scheme and any associated data or token, and carries that data as a header payload.</p>
+<p><code>Authorization: Basic ZmFsa2VuOmpvc2h1YTU=</code> # encode64(user:password)</p>
+<p>JWT or OAuth 2.0 token</p>
+<p><code>Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzY290Y2guaW8iLCJleH</code></p>
+<p>a digest (or hash) value is created from a predetermined combination of the username, password, and some information from the server, including random (or “nonce”) values</p>
+<p><code>Authorization: Digest adfsa23f31fsa32f2f</code> # hash(user, password, extra_info)</p>
+<p><strong>Cookie</strong></p>
+<p>The Cookie request-header field value contains a name&#x2F;value pair of information stored for that URL.<br><code>Cookie: name1=value1;name2=value2</code></p>
+<h2 id="Common-Response-Header"><a href="#Common-Response-Header" class="headerlink" title="Common Response Header"></a>Common Response Header</h2><p><strong>Age</strong></p>
+<p>The Age response-header field conveys the sender’s estimate of the amount of time since the response (or its revalidation) was generated at the origin server</p>
+<p><code>Age: 100</code> # 100s</p>
+<p><strong>Location</strong></p>
+<p>The Location response-header field is used to redirect the recipient to a location other than the Request-URI for completion</p>
+<p><code>Location: http://www.tutorialspoint.org/http/index.htm</code></p>
+<p><strong>Retry-After</strong></p>
+<p>The Retry-After response-header field can be used with a 503 (Service Unavailable) response to indicate how long the service is expected to be unavailable to the requesting client</p>
+<p><code>Retry-After: 120</code></p>
+<p><strong>Server</strong></p>
+<p>The Server response-header field contains information about the software used by the origin server to handle the request</p>
+<p><code>Server: Apache/2.2.14 (Win32)</code></p>
+<p><strong>Set-Cookie</strong></p>
+<p>The Set-Cookie response-header field contains a name&#x2F;value pair of information to retain for this URL.</p>
+<p><code>Set-Cookie: name1=value1,name2=value2; Expires=Wed, 09 Jun 2021 10:18:14 GMT; Domain=xx.com; Path=/doc</code></p>
+<p><strong>WWW-Authenticate</strong></p>
+<p>The WWW-Authenticate response-header field must be included in 401 (Unauthorized) response messages</p>
+<h2 id="Common-Entity-Headers"><a href="#Common-Entity-Headers" class="headerlink" title="Common Entity Headers"></a>Common Entity Headers</h2><p><strong>Allow</strong></p>
+<p>The Allow entity-header field lists the set of methods supported by the resource identified by the Request-URI.</p>
+<p><code>Allow: GET, HEAD, PUT</code></p>
+<p><strong>Content-Encoding</strong></p>
+<p>The Content-Encoding entity-header field is used as a modifier to the media-type.</p>
+<p><code>Content-Encoding: gzip</code></p>
+<p><strong>Content-Language</strong></p>
+<p>The Content-Language entity-header field describes the natural language(s) of the intended audience for the enclosed entity</p>
+<p><code>Content-Language: en</code></p>
+<p><strong>Content-Length</strong></p>
+<p><code>Content-Length: 3495</code></p>
+<p><strong>Content-MD5</strong></p>
+<p>The Content-MD5 entity-header field may be used to supply an MD5 digest of the entity for checking the integrity of the message upon receipt.</p>
+<p><code>Content-MD5  : 8c2d46911f3f5a326455f0ed7a8ed3b3</code></p>
+<p><strong>Content-Type</strong></p>
+<p>The Content-Type entity-header field indicates the media type of the entity-body sent to the recipient or, in the case of the HEAD method, the media type that would have been sent, had the request been a GET.</p>
+<p><code>Content-Type: text/html; charset=ISO-8859-4</code></p>
+<p><strong>Expires</strong><br>The Expires entity-header field gives the date&#x2F;time after which the response is considered stale</p>
+<p><code>Expires: Thu, 01 Dec 1994 16:00:00 GMT</code></p>
+<p><strong>Last-Modified</strong><br>The Last-Modified entity-header field indicates the date and time at which the origin server believes the variant was last modified.</p>
+<p><code>Last-Modified: Tue, 15 Nov 1994 12:45:26 GMT</code></p>
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
+<li><a href="/2019/12/13/http-protocol-faq/" title="http-protocol-faq">header faq</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tutorialspoint.com/http/http_header_fields.htm">common headers</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">all headers wiki </a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers">all headers mdn</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/http-headers-content-type/">all content-type</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/http/" rel="tag"># http</a>
+              <a href="/tags/header/" rel="tag"># header</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/12/13/http-protocol-overview/" rel="prev" title="http-protocol-overview">
+                  <i class="fa fa-chevron-left"></i> http-protocol-overview
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/12/13/http-protocol-cache/" rel="next" title="http-protocol-cache">
+                  http-protocol-cache <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

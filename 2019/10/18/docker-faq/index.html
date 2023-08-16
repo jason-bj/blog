@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="FAQFrequently asked questions about Docker.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker-faq">
+<meta property="og:url" content="http://cyun.tech/2019/10/18/docker-faq/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="FAQFrequently asked questions about Docker.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://cyun.tech/images/docker/docker-daemons.JPG">
+<meta property="article:published_time" content="2019-10-18T01:58:15.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.137Z">
+<meta property="article:author" content="Jason">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cyun.tech/images/docker/docker-daemons.JPG">
+
+
+<link rel="canonical" href="http://cyun.tech/2019/10/18/docker-faq/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2019/10/18/docker-faq/","path":"2019/10/18/docker-faq/","title":"docker-faq"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>docker-faq | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FAQ"><span class="nav-number">1.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-capture-packet-for-a-container"><span class="nav-number">1.1.</span> <span class="nav-text">how to capture packet for a container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-deploy-docker-env-on-lots-of-machine"><span class="nav-number">1.2.</span> <span class="nav-text">how to deploy docker env on lots of machine?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#whats-dockerd-docker-containerd-docker-containerd-shim-docker-runc"><span class="nav-number">1.3.</span> <span class="nav-text">whats dockerd, docker-containerd,docker-containerd-shim, docker-runc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-daemon-uses-registry-mirror-and-open-tcp-socket"><span class="nav-number">1.4.</span> <span class="nav-text">docker daemon uses registry mirror and open tcp socket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#push-local-image-to-docker-hub-for-users-use"><span class="nav-number">1.5.</span> <span class="nav-text">push local image to docker hub for users use</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what%E2%80%99s-the-most-used-repo-for-docker"><span class="nav-number">1.6.</span> <span class="nav-text">what’s the most used repo for docker.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-get-a-particular-attribute-of-a-container"><span class="nav-number">1.7.</span> <span class="nav-text">how to get a particular attribute of a container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-map-a-host-block-device-to-container"><span class="nav-number">1.8.</span> <span class="nav-text">how to map a host block device to container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-IO-limit-of-a-container"><span class="nav-number">1.9.</span> <span class="nav-text">how to IO limit of a container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#limit-cpu-of-a-container"><span class="nav-number">1.10.</span> <span class="nav-text">limit cpu of a container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#expose-Nvidia-GPU-to-a-container"><span class="nav-number">1.11.</span> <span class="nav-text">expose Nvidia GPU to a container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#limit-memory-used-by-a-container"><span class="nav-number">1.12.</span> <span class="nav-text">limit memory used by a container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#check-stats-for-container"><span class="nav-number">1.13.</span> <span class="nav-text">check stats for container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#run-container-automatically-when-dockerd-start"><span class="nav-number">1.14.</span> <span class="nav-text">run container automatically when dockerd start</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#expose-a-port-from-container"><span class="nav-number">1.15.</span> <span class="nav-text">expose a port from container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#start-a-container-with-given-ip-and-hostname"><span class="nav-number">1.16.</span> <span class="nav-text">start a container with given ip and hostname</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#change-docker-store-x2F-var-x2F-lib-x2F-docker-to-other-dir"><span class="nav-number">1.17.</span> <span class="nav-text">change docker store &#x2F;var&#x2F;lib&#x2F;docker to other dir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inside-docker-permission-denied-to-run-some-command"><span class="nav-number">1.18.</span> <span class="nav-text">inside docker permission denied to run some command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#retireve-docker-run-command-from-container"><span class="nav-number">1.19.</span> <span class="nav-text">retireve docker run command from container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#run-df-x2F-free-x2F-cpu-inside-container"><span class="nav-number">1.20.</span> <span class="nav-text">run df&#x2F;free&#x2F;cpu inside container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#limit-rootfs-size-per-container"><span class="nav-number">1.21.</span> <span class="nav-text">limit rootfs size per container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#change-storage-driver"><span class="nav-number">1.22.</span> <span class="nav-text">change storage driver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get-Pid-of-container"><span class="nav-number">1.23.</span> <span class="nav-text">Get Pid of container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enter-docker-namespace-without-docker-exec"><span class="nav-number">1.24.</span> <span class="nav-text">enter docker namespace without docker exec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#keep-container-running-when-docker-service-restarting"><span class="nav-number">1.25.</span> <span class="nav-text">keep container running when docker service restarting</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#run-dockerd-in-forground-with-profiling"><span class="nav-number">1.26.</span> <span class="nav-text">run dockerd in forground with profiling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#update-docker-config-after-created-it"><span class="nav-number">1.27.</span> <span class="nav-text">update docker config after created it</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">2.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2019/10/18/docker-faq/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="docker-faq | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          docker-faq
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-10-18 09:58:15" itemprop="dateCreated datePublished" datetime="2019-10-18T09:58:15+08:00">2019-10-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><p>Frequently asked questions about Docker.</p>
+<span id="more"></span>
+
+<h2 id="how-to-capture-packet-for-a-container"><a href="#how-to-capture-packet-for-a-container" class="headerlink" title="how to capture packet for a container"></a>how to capture packet for a container</h2><p>There are two ways to capture packet for a given container</p>
+<p><strong>way1: capture in the given container</strong></p>
+<p>go to that container, use tcpdump(install it first if not available) in it.</p>
+<p>required:</p>
+<ul>
+<li>container has tcpdump</li>
+<li>container no tcpdump but can install tcpdump on it from local or internet(change the container)</li>
+</ul>
+<p><strong>way2: capture in another container which shares the same net with the given container</strong></p>
+<p>In some case, you can’t change the given container or it’s complex to install tcpdump on the given container, so create a template container which has tcpdump installed and shared the same network with given container.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ docker build -t tcpdump - &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string">FROM ubuntu</span></span><br><span class="line"><span class="string">RUN apt-get update &amp;&amp; apt-get install -y tcpdump &amp;&amp; \</span></span><br><span class="line"><span class="string">apt-get install -y net-tools &amp;&amp; \</span></span><br><span class="line"><span class="string">rm -rf /var/lib/apt/lists/* &amp;&amp; apt-get clean</span></span><br><span class="line"><span class="string">CMD /bin/bash</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># create an image called tcpdump with tcpdump installed</span></span><br><span class="line"><span class="comment"># then create a container with this image shares network with another container</span></span><br><span class="line"><span class="comment"># rm means container will be destroy when exit.</span></span><br><span class="line">$ docker run --<span class="built_in">rm</span> -it --net=container:99c1bd6b342c tcpdump</span><br><span class="line"><span class="comment"># this will create unnamed container from image tcpdump and shared network with the container that you want to capture packet.</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="how-to-deploy-docker-env-on-lots-of-machine"><a href="#how-to-deploy-docker-env-on-lots-of-machine" class="headerlink" title="how to deploy docker env on lots of machine?"></a>how to deploy docker env on lots of machine?</h2><p>Use <code>Docker Machine</code>, docker machine provides a client to deploy docker env on lots machine(windows, mac, linux).</p>
+<h2 id="whats-dockerd-docker-containerd-docker-containerd-shim-docker-runc"><a href="#whats-dockerd-docker-containerd-docker-containerd-shim-docker-runc" class="headerlink" title="whats dockerd, docker-containerd,docker-containerd-shim, docker-runc"></a>whats dockerd, docker-containerd,docker-containerd-shim, docker-runc</h2><p><img src="/images/docker/docker-daemons.JPG" alt="docker daemon"></p>
+<p><mark>docker-container-shim runs in host, not in container, while, entrypoint is the first process runs in container</mark></p>
+<p>docker 公司将 <strong>libcontainer 捐出并改名为 runC 项目</strong>，交由一个完全中立的基金会管理，然后以 runC 为依据，大家共同<strong>制定一套容器和镜像的标准和规范 OCI</strong></p>
+<p>2016 年 4 月，docker 1.11 版本之后开始引入了 containerd 和 runC，Docker 开始依赖于 containerd 和 runC 来管理容器，<strong>containerd 也可以操作满足 OCI 标准规范的其他容器工具，之后只要是按照 OCI 标准规范开发的容器工具，都可以被 containerd 使用</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker</span><br><span class="line">docker                  docker-containerd-ctr   dockerd</span><br><span class="line">docker-containerd       docker-containerd-shim  docker-runc</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>docker<br>docker 的命令行工具，是给用户和 docker daemon 建立通信的客户端。</p>
+</li>
+<li><p>dockerd<br>dockerd 是 docker 架构中一个常驻在后台的系统进程，称为 docker daemon，dockerd 实际调用的还是 containerd 的 api 接口（<strong>rpc</strong> 方式实现）,docker daemon 的作用主要有以下两方面：</p>
+<ul>
+<li>接收并处理 docker client 发送的请求</li>
+<li>管理所有的 docker 容器<br>有了 containerd 之后，dockerd 可以独立升级，以此避免之前 dockerd 升级会导致所有容器不可用的问题。</li>
+</ul>
+</li>
+<li><p>containerd<br>containerd 是 dockerd 和 runc 之间的一个中间交流组件，<strong>docker 对容器的管理和操作基本都是通过 containerd 完成的</strong>.</p>
+</li>
+</ul>
+<p>containerd 的主要功能有：<br>    - 容器生命周期管理<br>    - 镜像管理<br>    - 存储管理<br>    - 容器网络接口及网络管理<br>    - 日志管理</p>
+<ul>
+<li><p>containerd-shim<br>containerd-shim 是一个真实运行容器的载体，每启动一个容器都会起一个新的containerd-shim的一个进程， 它直接通过指定的三个参数：容器id，boundle目录（containerd 对应某个容器生成的目录，一般位于：&#x2F;var&#x2F;run&#x2F;docker&#x2F;libcontainerd&#x2F;containerID，其中包括了容器配置和标准输入、标准输出、标准错误三个管道文件），运行时二进制（默认为runC）来调用 runc 的 api 创建一个容器，上面的 docker 进程图中可以直观的显示。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ps -ef</span><br><span class="line">...</span><br><span class="line">docker-containerd-shim 0d55f781ae78a903e68fe6b7941e78c82ca4362b550ca5e7dfc522c113d29226 /var/run/docker/libcontainerd/0d55f781ae78a903e68fe6b7941e78c82ca4362b550ca5e7dfc522c113d29226 docker-runc</span><br></pre></td></tr></table></figure>
+<p>  其主要作用是：<br>  它允许容器运行时(即 runC)在启动容器之后退出，简单说就是不必为每个容器一直运行一个容器运行时(runC)<br>  即使在 containerd 和 dockerd 都挂掉的情况下，容器的标准 IO 和其它的文件描述符也都是可用的<br>  向 containerd 报告容器的退出状态<br>  有了它就可以在不中断容器运行的情况下升级或重启 dockerd，对于生产环境来说意义重大。</p>
+</li>
+<li><p>runC<br>runC 是 Docker 公司按照 OCI 标准规范编写的一个操作容器的命令行工具，其前身是 libcontainer 项目演化而来，runC 实际上就是 libcontainer 配上了一个轻型的客户端，是一个命令行工具端，根据 OCI（开放容器组织）的标准来创建和运行容器，实现了容器启停、资源隔离等功能。</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># even without docker, dockerd, docker-containerd, we still can run a container using runC, here is an example to run busybox:</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">mkdir</span> /container</span><br><span class="line">$ <span class="built_in">cd</span> /container/</span><br><span class="line">$ <span class="built_in">mkdir</span> rootfs</span><br><span class="line"></span><br><span class="line"><span class="comment"># 准备容器镜像的文件系统,从 busybox 镜像中提取</span></span><br><span class="line">$ docker <span class="built_in">export</span> $(docker create busybox) | tar -C rootfs -xvf -</span><br><span class="line">$ <span class="built_in">ls</span> rootfs/</span><br><span class="line">bin  dev  etc  home  proc  root  sys  tmp  usr  var</span><br><span class="line"></span><br><span class="line"><span class="comment"># 有了rootfs之后，我们还要按照 OCI 标准有一个配置文件 config.json 说明如何运行容器，</span></span><br><span class="line"><span class="comment"># 包括要运行的命令、权限、环境变量等等内容，runc 提供了一个命令可以自动帮我们生成</span></span><br><span class="line">$ docker-runc spec</span><br><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">config.json  rootfs</span><br><span class="line"></span><br><span class="line">$ docker-runc run simplebusybox    <span class="comment">#启动容器</span></span><br><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">bin   dev   etc   home  proc  root  sys   tmp   usr   var</span><br></pre></td></tr></table></figure>
+<p><mark>rootfs之后，我们还要按照 OCI 标准有一个配置文件 config.json 说明如何运行容器，</mark></p>
+<h2 id="docker-daemon-uses-registry-mirror-and-open-tcp-socket"><a href="#docker-daemon-uses-registry-mirror-and-open-tcp-socket" class="headerlink" title="docker daemon uses registry mirror and open tcp socket"></a>docker daemon uses registry mirror and open tcp socket</h2><p>create file &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;docker.service.d&#x2F;override.conf then restart service with <code>systemctl restart docker</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">ExecStart=</span><br><span class="line">ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2375 \</span><br><span class="line">          --registry-mirror https://registry.docker-cn.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="push-local-image-to-docker-hub-for-users-use"><a href="#push-local-image-to-docker-hub-for-users-use" class="headerlink" title="push local image to docker hub for users use"></a>push local image to docker hub for users use</h2><p>First you must have a docker hub account like xxx, and tag your image with this format.</p>
+<p><code>xxx/yyy, xxx is you account id, yyy can be any string</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ docker tag yourapp xxx/yyy</span><br><span class="line">$ docker tag local_image xxx/yyy</span><br><span class="line">$ docker tag local_image xxx/yyy:new_tag</span><br><span class="line">$ docker login</span><br><span class="line">$ docker push xxx/yyy</span><br><span class="line"></span><br><span class="line"><span class="comment"># other people can download from docker hub</span></span><br><span class="line">$ docker pull xxx/yyy</span><br></pre></td></tr></table></figure>
+
+<h2 id="what’s-the-most-used-repo-for-docker"><a href="#what’s-the-most-used-repo-for-docker" class="headerlink" title="what’s the most used repo for docker."></a>what’s the most used repo for docker.</h2><ul>
+<li>docker hub:   <a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a></li>
+<li>google hub:   <a target="_blank" rel="noopener" href="https://console.cloud.google.com/gcr/images/google-containers/GLOBAL">https://console.cloud.google.com/gcr/images/google-containers/GLOBAL</a></li>
+</ul>
+<h2 id="how-to-get-a-particular-attribute-of-a-container"><a href="#how-to-get-a-particular-attribute-of-a-container" class="headerlink" title="how to get a particular attribute of a container"></a>how to get a particular attribute of a container</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker inspect --format=<span class="string">&#x27;&#123;&#123;.HostConfig.CpuQuota&#125;&#125;&#x27;</span> <span class="variable">$container_id</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="how-to-map-a-host-block-device-to-container"><a href="#how-to-map-a-host-block-device-to-container" class="headerlink" title="how to map a host block device to container"></a>how to map a host block device to container</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --device=/dev/sdb:/dev/xvda -it ubuntu /bin/bash</span><br><span class="line"><span class="comment"># /dev/sdb is host device</span></span><br><span class="line"><span class="comment"># /dev/xvda is device in container</span></span><br><span class="line"><span class="comment"># default permission: rwm(read, write, create)</span></span><br><span class="line">$ docker run --device=/dev/sdb:/dev/xvda:r -it ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="how-to-IO-limit-of-a-container"><a href="#how-to-IO-limit-of-a-container" class="headerlink" title="how to IO limit of a container"></a>how to IO limit of a container</h2><p>Refer to <a target="_blank" rel="noopener" href="https://jimmysong.io/docker-handbook/docs/io_resource_limit.html">docker io throttle</a>, <strong>only supports DirectIO due to blkio cgroup limitation.</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># these two policies can work together, not it only supports DirectIO, not buffer io</span></span><br><span class="line">--blkio-weight=0                Block IO weight (relative weight) accepts a weight value between 10 and 1000, default weight <span class="keyword">for</span> each device</span><br><span class="line">--blkio-weight-device=<span class="string">&quot;&quot;</span>        Block IO weight (relative device weight, format: DEVICE_NAME:WEIGHT), override default weight, example: --blkio-weight-device <span class="string">&quot;/dev/sda:100&quot;</span></span><br><span class="line"></span><br><span class="line">--device-read-bps=[]            Limit <span class="built_in">read</span> rate (bytes per second) from a device</span><br><span class="line">--device-read-iops=[]           Limit <span class="built_in">read</span> rate (IO count per second) from a device</span><br><span class="line">--device-write-bps=[]           Limit write rate (bytes per second) to a device</span><br><span class="line">--device-write-iops=[]          Limit write rate (IO count per second) to a device</span><br><span class="line"></span><br><span class="line">$ docker run -it --<span class="built_in">rm</span> --device-write-bps /dev/sda:1mb ubuntu /bin/bash</span><br><span class="line"><span class="comment"># /dev/sda is host device, it limits the rate of this container if it accesses /dev/sda</span></span><br><span class="line"></span><br><span class="line">$ docker run -it --<span class="built_in">rm</span> --device-write-iops /dev/sda:10 ubuntu /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># blkio-weight is relative weight, that means if only one processA(docker process or other) with weight 100 access /dev/sda, it uses the 100% IO bandwidth,</span></span><br><span class="line"><span class="comment"># if another processB access /dev/sda at same time who belongs to another blkio group with weight 200, 1/3 bandwidth for processA, 2/3 IO bandwith for processB</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># test inside each container with directIO</span></span><br><span class="line">124343<span class="comment"># time dd if=/dev/zero of=test.out bs=1M count=1024 oflag=direct</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="limit-cpu-of-a-container"><a href="#limit-cpu-of-a-container" class="headerlink" title="limit cpu of a container"></a>limit cpu of a container</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">--cpu-shares , -c</span><br><span class="line">Set this flag to a value greater or less than the default of 1024 to increase or reduce the container’s weight, and give it access to a greater or lesser proportion of the host machine’s CPU cycles. This is only enforced when CPU cycles are constrained. When plenty of CPU cycles are available, all containers use as much CPU as they need. In that way, this is a soft <span class="built_in">limit</span>. It prioritizes container CPU resources <span class="keyword">for</span> the available CPU cycles. </span><br><span class="line"></span><br><span class="line"><span class="comment"># !!!It does not guarantee or reserve any specific CPU access.!!!</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># let&#x27;s say there are four CPUS on host, if all containers are running CPU intensive workload</span></span><br><span class="line"><span class="comment"># first container takes one CPU</span></span><br><span class="line"><span class="comment"># second container takes one CPU</span></span><br><span class="line"><span class="comment"># third container takes two CPU</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># but if third container quits or sleep, the other two both take two CPUS !!!</span></span><br><span class="line"></span><br><span class="line">$ docker run -it --<span class="built_in">rm</span>  --cpu-shares 1024 ubuntu /bin/bash</span><br><span class="line">$ docker run -it --<span class="built_in">rm</span>  --cpu-shares 1024 ubuntu /bin/bash</span><br><span class="line">$ docker run -it --<span class="built_in">rm</span>  --cpu-shares 2048 ubuntu /bin/bash</span><br><span class="line"></span><br><span class="line">--cpu-period &amp; --cpu-quota</span><br><span class="line">CPU quota (cpu_qota) is a feature of Linux Control Groups (cgroup). CPU quota control `how much CPU time a container can use`, `cpu_quota is the number of microseconds of CPU time` a container can use `per cpu_period`. For example configuring:</span><br><span class="line"></span><br><span class="line">cpu_quota to 50,000</span><br><span class="line">cpu_period to 100,000</span><br><span class="line"></span><br><span class="line">The container will be allocated 50,000 microseconds per 100,000 microsecond period. `A bit like (see below) the use of 0.5 CPUs`. Quota can be greater than the period. For example:</span><br><span class="line"></span><br><span class="line">    cpu_quota to 200,000</span><br><span class="line">    cpu_period to 100,000</span><br><span class="line"></span><br><span class="line">Now the container can use `200,000 microseconds of CPU time every 100,000 microseconds`. To use the CPU time there will either need to be multiple processes <span class="keyword">in</span> the container, or a multi-threaded process. `This configuration is a bit like (see below) having 2 CPUs`.</span><br><span class="line"></span><br><span class="line">cpu_quota allows setting an `upper bound on the amount of CPU time a container gets`. Linux enforces the <span class="built_in">limit</span> even <span class="keyword">if</span> CPU time is available. Quotas can hinder utilisation <span class="keyword">while</span> `providing a predictable upper bounds on CPU time.`</span><br><span class="line"></span><br><span class="line">--cpuset-cpus</span><br><span class="line">Limit the specific CPUs or cores a container can use. A comma-separated list or hyphen-separated range of CPUs a container can use, <span class="keyword">if</span> you have more than one CPU. The first CPU is numbered 0. A valid value might be 0-3 (to use the first, second, third, and fourth CPU) or 1,3 (to use the second and fourth CPU).</span><br><span class="line"></span><br><span class="line">--cpus=&lt;value&gt; 	Specify how much of the available CPU resources a container can use. For instance, <span class="keyword">if</span> the host machine has two CPUs and you <span class="built_in">set</span> --cpus=<span class="string">&quot;1.5&quot;</span>, the container is guaranteed at most one and a half of the CPUs. This is the equivalent of setting --cpu-period=<span class="string">&quot;100000&quot;</span> and --cpu-quota=<span class="string">&quot;150000&quot;</span>. shortway <span class="keyword">for</span> cpu-period and cpu-quota</span><br><span class="line"></span><br><span class="line"><span class="comment"># In order to set cpu_quota correctly, you need to know how many cpu can be used by container, then set cpu_quota and cpu_period correctly.</span></span><br><span class="line">$ docker run -it --<span class="built_in">rm</span>  --cpuset-cpus 0-1 --cpus=1.5 ubuntu /bin/bash</span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ docker run -it --<span class="built_in">rm</span>  --cpuset-cpus 0-1 --cpu-period=100000 --cpu-quota=150000 ubuntu /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># only alow cpu0 and cpu1 to run this container</span></span><br><span class="line">$ docker run -it --<span class="built_in">rm</span>  --cpuset-cpus 0-1 ubuntu /bin/bash</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="expose-Nvidia-GPU-to-a-container"><a href="#expose-Nvidia-GPU-to-a-container" class="headerlink" title="expose Nvidia GPU to a container"></a>expose Nvidia GPU to a container</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># must install nvidia runtime first on host</span></span><br><span class="line">$ apt-get install nvidia-container-runtime</span><br><span class="line"><span class="comment"># run from image ubuntu with nvidia-smi command as entrypoint</span></span><br><span class="line">$ docker run -it --<span class="built_in">rm</span> --gpus device=GPU-3a23c669-1f69-c64e-cf85-44e9b07e7a2a ubuntu nvidia-smi</span><br></pre></td></tr></table></figure>
+
+<h2 id="limit-memory-used-by-a-container"><a href="#limit-memory-used-by-a-container" class="headerlink" title="limit memory used by a container"></a>limit memory used by a container</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># options followed by a suffix of b, k, m, g, to indicate bytes, kilobytes, megabytes, or gigabytes</span></span><br><span class="line">-m or --memory= The maximum amount of memory the container can use. If you <span class="built_in">set</span> this option, the minimum allowed value is 6m (6 megabyte).</span><br><span class="line"></span><br><span class="line"><span class="comment"># !!!it&#x27;s just cgroup limitation, it does not reserved such memory for a container!!!</span></span><br><span class="line">$ docker run -it --<span class="built_in">rm</span>  -m 100M ubuntu /bin/bash</span><br><span class="line">$ docker run -it --<span class="built_in">rm</span>  -m 10G ubuntu /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># update docker memory or cpu when it&#x27;s running</span></span><br><span class="line"><span class="variable">$docker</span> update --memory 123289600 --memory-swap 123289600 ubuntu</span><br><span class="line"><span class="variable">$docker</span> update --cpus 1 ubuntu</span><br></pre></td></tr></table></figure>
+
+<h2 id="check-stats-for-container"><a href="#check-stats-for-container" class="headerlink" title="check stats for container"></a>check stats for container</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># it will show container memory limit and how much it&#x27;s used now</span></span><br><span class="line">$ docker stats <span class="variable">$container_id</span></span><br><span class="line">CONTAINER           CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O</span><br><span class="line">5ed                 12.44%              104.8 MB / 104.9 MB   99.92%              4.861 kB / 648 B    9.138 GB / 10.16 GB</span><br></pre></td></tr></table></figure>
+
+<h2 id="run-container-automatically-when-dockerd-start"><a href="#run-container-automatically-when-dockerd-start" class="headerlink" title="run container automatically when dockerd start"></a>run container automatically when dockerd start</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># run your ccontainer with  --restart=always</span></span><br><span class="line">$ docker run --restart=always -it ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="expose-a-port-from-container"><a href="#expose-a-port-from-container" class="headerlink" title="expose a port from container"></a>expose a port from container</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># in this way you when you access host port, it redirect to contianer port</span></span><br><span class="line"><span class="comment"># host port: 6000</span></span><br><span class="line"><span class="comment"># container port: 22</span></span><br><span class="line">$ docker run --restart=always -p 6000:22 -it ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="start-a-container-with-given-ip-and-hostname"><a href="#start-a-container-with-given-ip-and-hostname" class="headerlink" title="start a container with given ip and hostname"></a>start a container with given ip and hostname</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># check subnet of bridge that container uses</span></span><br><span class="line">$ docker network <span class="built_in">ls</span></span><br><span class="line">$ docker network inspect bridge</span><br><span class="line"><span class="comment"># set with hostname and ip</span></span><br><span class="line">$ docker run --restart=always -p 6000:22 --hostname <span class="built_in">test</span> --ip 172.16.0.2 -it ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="change-docker-store-x2F-var-x2F-lib-x2F-docker-to-other-dir"><a href="#change-docker-store-x2F-var-x2F-lib-x2F-docker-to-other-dir" class="headerlink" title="change docker store &#x2F;var&#x2F;lib&#x2F;docker to other dir"></a>change docker store &#x2F;var&#x2F;lib&#x2F;docker to other dir</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">1. Modify /lib/systemd/system/docker.service to tell docker to use our own directory </span><br><span class="line">   instead of default /var/lib/docker. In this example, I am using /p/var/lib/docker</span><br><span class="line">   </span><br><span class="line">   Apply below patch.</span><br><span class="line"></span><br><span class="line">   $ diff -uP -N /lib/systemd/system/docker.service.orig /lib/systemd/system/docker.service</span><br><span class="line">   --- /lib/systemd/system/docker.service.orig	2018-12-05 21:24:20.544852391 -0800</span><br><span class="line">   +++ /lib/systemd/system/docker.service	2018-12-05 21:25:57.909455275 -0800</span><br><span class="line">   @@ -10,7 +10,7 @@</span><br><span class="line">    <span class="comment"># the default is not to use systemd for cgroups because the delegate issues still</span></span><br><span class="line">    <span class="comment"># exists and systemd currently does not support the cgroup feature set required</span></span><br><span class="line">    <span class="comment"># for containers run by docker</span></span><br><span class="line">  -ExecStart=/usr/bin/dockerd -H unix://</span><br><span class="line">  +ExecStart=/usr/bin/dockerd -g /p/var/lib/docker -H unix://</span><br><span class="line">   ExecReload=/bin/kill -s HUP <span class="variable">$MAINPID</span></span><br><span class="line">   TimeoutSec=0</span><br><span class="line">   RestartSec=2</span><br><span class="line"></span><br><span class="line">2. Stop docker service</span><br><span class="line">   $ systemctl stop docker</span><br><span class="line">3. Do daemon-reload as we changed docker.service file   </span><br><span class="line">   $ systemctl daemon-reload</span><br><span class="line">4. rsync existing docker data to our new location   </span><br><span class="line">   $ rsync -aqxP /var/lib/docker/ /p/var/lib/docker/</span><br><span class="line">5. Start docker service   </span><br><span class="line">   $ systemctl start docker</span><br></pre></td></tr></table></figure>
+
+<h2 id="inside-docker-permission-denied-to-run-some-command"><a href="#inside-docker-permission-denied-to-run-some-command" class="headerlink" title="inside docker permission denied to run some command"></a>inside docker permission denied to run some command</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># run docker with --privileged=true and must run with /usr/sbin/init</span></span><br><span class="line">$ docker run --restart=always -p 6000:22 --hostname <span class="built_in">test</span> --ip 172.16.0.2 --privileged=<span class="literal">true</span> -it ubuntu /usr/sbin/init</span><br></pre></td></tr></table></figure>
+
+<h2 id="retireve-docker-run-command-from-container"><a href="#retireve-docker-run-command-from-container" class="headerlink" title="retireve docker run command from container"></a>retireve docker run command from container</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># use docker inspect to get all parameter of run</span></span><br><span class="line">$ pip install runlike</span><br><span class="line"></span><br><span class="line">$ runlike -p  centos7_org</span><br><span class="line">docker run \</span><br><span class="line">        --name=centos7_org \</span><br><span class="line">        --hostname=1cde10a63a09 \</span><br><span class="line">        --mac-address=02:42:ac:11:00:02 \</span><br><span class="line">        --<span class="built_in">env</span>=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \</span><br><span class="line">        --restart=always \</span><br><span class="line">        --label=<span class="string">&#x27;org.label-schema.license=GPLv2&#x27;</span> \</span><br><span class="line">        --label=<span class="string">&#x27;org.label-schema.build-date=20201113&#x27;</span> \</span><br><span class="line">        --label=<span class="string">&#x27;org.label-schema.schema-version=1.0&#x27;</span> \</span><br><span class="line">        --label=<span class="string">&#x27;org.label-schema.vendor=CentOS&#x27;</span> \</span><br><span class="line">        --label=<span class="string">&#x27;org.opencontainers.image.created=2020-11-13 00:00:00+00:00&#x27;</span> \</span><br><span class="line">        --label=<span class="string">&#x27;org.opencontainers.image.title=CentOS Base Image&#x27;</span> \</span><br><span class="line">        --label=<span class="string">&#x27;org.opencontainers.image.licenses=GPL-2.0-only&#x27;</span> \</span><br><span class="line">        --label=<span class="string">&#x27;org.label-schema.name=CentOS Base Image&#x27;</span> \</span><br><span class="line">        --label=<span class="string">&#x27;org.opencontainers.image.vendor=CentOS&#x27;</span> \</span><br><span class="line">        --runtime=runc \</span><br><span class="line">        -t \</span><br><span class="line">        centos:7 \</span><br><span class="line">        /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="run-df-x2F-free-x2F-cpu-inside-container"><a href="#run-df-x2F-free-x2F-cpu-inside-container" class="headerlink" title="run df&#x2F;free&#x2F;cpu inside container"></a>run df&#x2F;free&#x2F;cpu inside container</h2><p>As there is no namespace for memory, cpu, block, hence when you run <code>free</code>, <code>fdisk -l</code>, <code>cat /proc/cpuinfo</code>, it shows infomation about the host!!!, it’s not one that container can use, what you see is not <code>true</code>, it’s not what container can use, it’s also <code>true</code>, it’s true for host.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">exec</span> -it centos bash</span><br><span class="line"><span class="comment"># it&#x27;s host memory</span></span><br><span class="line">[root@423eb7c3e9a5] <span class="comment"># free -h</span></span><br><span class="line">              total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:          7.8Gi       538Mi       6.9Gi       8.0Mi       390Mi       7.0Gi</span><br><span class="line">Swap:         7.9Gi          0B       7.9Gi</span><br><span class="line"></span><br><span class="line"><span class="comment"># it&#x27;s host fs</span></span><br><span class="line">[root@423eb7c3e9a5 opt]<span class="comment"># df -h</span></span><br><span class="line">Filesystem               Size  Used Avail Use% Mounted on</span><br><span class="line">overlay                   50G   23G   28G  46% /</span><br><span class="line">tmpfs                     64M     0   64M   0% /dev</span><br><span class="line">tmpfs                    3.9G     0  3.9G   0% /sys/fs/cgroup</span><br><span class="line">shm                       64M     0   64M   0% /dev/shm</span><br><span class="line">/dev/vg1/lv1              89M  4.9M   84M   6% /opt</span><br><span class="line">/dev/mapper/centos-root   50G   23G   28G  46% /etc/hosts</span><br><span class="line">tmpfs                    3.9G     0  3.9G   0% /proc/asound</span><br><span class="line">tmpfs                    3.9G     0  3.9G   0% /proc/acpi</span><br><span class="line">tmpfs                    3.9G     0  3.9G   0% /proc/scsi</span><br><span class="line">tmpfs                    3.9G     0  3.9G   0% /sys/firmware</span><br><span class="line"></span><br><span class="line"><span class="comment"># it&#x27;s host cpu info</span></span><br><span class="line">[root@423eb7c3e9a5 opt]<span class="comment"># cat /proc/cpuinfo </span></span><br><span class="line">processor       : 0</span><br><span class="line">vendor_id       : GenuineIntel</span><br><span class="line">cpu family      : 6</span><br><span class="line">model           : 165</span><br><span class="line">model name      : Intel(R) Core(TM) i7-10700T CPU @ 2.00GHz</span><br><span class="line">stepping        : 5</span><br><span class="line">cpu MHz         : 1992.000</span><br><span class="line">cache size      : 16384 KB</span><br><span class="line">physical <span class="built_in">id</span>     : 0</span><br><span class="line">siblings        : 8</span><br><span class="line">core <span class="built_in">id</span>         : 0</span><br><span class="line">cpu cores       : 8</span><br><span class="line">apicid          : 0</span><br><span class="line">initial apicid  : 0</span><br><span class="line">fpu             : <span class="built_in">yes</span></span><br><span class="line">fpu_exception   : <span class="built_in">yes</span></span><br><span class="line">cpuid level     : 22</span><br><span class="line">wp              : <span class="built_in">yes</span></span><br><span class="line">flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc eagerfpu pni pclmulqdq ssse3 cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single fsgsbase avx2 invpcid rdseed clflushopt md_clear flush_l1d arch_capabilities</span><br><span class="line">bogomips        : 3984.00</span><br><span class="line">clflush size    : 64</span><br><span class="line">cache_alignment : 64</span><br><span class="line">address sizes   : 39 bits physical, 48 bits virtual</span><br><span class="line">power management:</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># check disk size that can be used by container, please check https://cyun.tech/docker-persist-data</span></span><br><span class="line"><span class="comment"># all limits you have with containers using something like the overlay2 filesystem are inherited from the parent filesystem. </span></span><br><span class="line"><span class="comment"># Since docker does everything under /var/lib/docker, your available disk space on that filesystem are the same as the limits you&#x27;ll see inside of a container.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># check cpu and memory can be used for this container, run docker inspec</span></span><br><span class="line">$ docker inspect centos | grep Cpuset</span><br><span class="line">89:            <span class="string">&quot;CpusetCpus&quot;</span>: <span class="string">&quot;0-1&quot;</span>,</span><br><span class="line">90:            <span class="string">&quot;CpusetMems&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line"></span><br><span class="line">$ docker inspect centos | grep Memory</span><br><span class="line">76:            <span class="string">&quot;Memory&quot;</span>: 2147483648,</span><br></pre></td></tr></table></figure>
+
+<h2 id="limit-rootfs-size-per-container"><a href="#limit-rootfs-size-per-container" class="headerlink" title="limit rootfs size per container"></a>limit rootfs size per container</h2><p>By default, docker sees the same disk size as host and can use it as well, but in some case we want to limit storage size used by container, <code>--storage-opt size=xxx</code> can do this, but limit to some storage driver <code>devicemapper, btrfs, overlay2, windowsfilter and zfs</code>  For the <code>devicemapper, btrfs, windowsfilter and zfs</code> drivers, user cannot pass a size less than the <code>Default BaseFS Size</code>. For the <code>overlay2</code> storage driver, the size option is only available if the backing fs is <code>xfs and mounted with the pquota mount option</code>. Under these conditions, user can pass any size less than the backing fs size.</p>
+<p>XFS supports <a target="_blank" rel="noopener" href="https://www.thegeekdiary.com/how-to-enable-disk-quotas-on-an-xfs-file-system/">disk quotas</a> <code>by user, by group, and by project</code>. Project disk quotas allow you to limit the amount of disk space on individual directory hierarchies. You can configure both hard and soft limits on the number of disk blocks (or disk space), and the number of inodes, which limit the number of files a user can create. Quotas do not apply to the root user.</p>
+<p>You must first <code>enable quotas for users, groups, and/or projects by using a mount option when mounting for the XFS file system</code>. After enabling quotas, use the <code>xfs_quota command to set limits</code> to view quota information.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># enable disk project quotas on /var</span></span><br><span class="line">$ <span class="built_in">cat</span> /etc/fstab</span><br><span class="line">...</span><br><span class="line">/dev/mapper/centos_dev-var /var                     xfs     rw,pquota        0 0 </span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># report the overall quota state information:</span></span><br><span class="line">$ xfs_quota -x -c state</span><br><span class="line">User quota state on /var (/dev/mapper/centos_dev-var)</span><br><span class="line">  Accounting: OFF</span><br><span class="line">  Enforcement: OFF</span><br><span class="line">  Inode: <span class="comment">#20328 (5 blocks, 5 extents)</span></span><br><span class="line">Group quota state on /var (/dev/mapper/centos_dev-var)</span><br><span class="line">  Accounting: OFF</span><br><span class="line">  Enforcement: OFF</span><br><span class="line">  Inode: <span class="comment">#227342 (1 blocks, 1 extents)</span></span><br><span class="line">Project quota state on /var (/dev/mapper/centos_dev-var)</span><br><span class="line">  Accounting: ON</span><br><span class="line">  Enforcement: ON</span><br><span class="line">  Inode: <span class="comment">#227342 (1 blocks, 1 extents)</span></span><br><span class="line">Blocks grace time: [7 days]</span><br><span class="line">Inodes grace time: [7 days]</span><br><span class="line">Realtime Blocks grace time: [7 days]</span><br><span class="line"></span><br><span class="line"><span class="comment"># show quota</span></span><br><span class="line">$ xfs_quota -x -c <span class="string">&#x27;report -h&#x27;</span> /var</span><br><span class="line">Project quota on /var (/dev/mapper/centos_dev-var)</span><br><span class="line">                        Blocks              </span><br><span class="line">Project ID   Used   Soft   Hard Warn/Grace   </span><br><span class="line">---------- --------------------------------- </span><br><span class="line"><span class="comment">#0           2.2G      0      0  00 [------]</span></span><br><span class="line"></span><br><span class="line">$ docker run -it --storage-opt size=10G fedora /bin/bash</span><br><span class="line"></span><br><span class="line">$ xfs_quota -x -c <span class="string">&#x27;report -h&#x27;</span> /var</span><br><span class="line">Project quota on /var (/dev/mapper/centos_dev-var)</span><br><span class="line">                        Blocks              </span><br><span class="line">Project ID   Used   Soft   Hard Warn/Grace   </span><br><span class="line">---------- --------------------------------- </span><br><span class="line"><span class="comment">#0           2.2G      0      0  00 [------]</span></span><br><span class="line"><span class="comment">#2             8K    10G    10G  00 [------]</span></span><br><span class="line"><span class="comment">#3             8K    10G    10G  00 [------]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># what quota does</span></span><br><span class="line"><span class="comment"># initialize project with ID: 100</span></span><br><span class="line">$ <span class="built_in">mkdir</span> -p /data/volumes/xfs32m/5m</span><br><span class="line">$ xfs_quota -x -c <span class="string">&#x27;project -s -p /data/volumes/xfs32m/5m 100&#x27;</span> /data/volumes/xfs32m</span><br><span class="line"></span><br><span class="line"><span class="comment"># set a 5M quota on project, id=100</span></span><br><span class="line">$ xfs_quota -x -c <span class="string">&#x27;limit -p bsoft=5m bhard=5m 100&#x27;</span> /data/volumes/xfs32m</span><br></pre></td></tr></table></figure>
+
+<h2 id="change-storage-driver"><a href="#change-storage-driver" class="headerlink" title="change storage driver"></a>change storage driver</h2><p>Refer to <a target="_blank" rel="noopener" href="https://docs.docker.com/storage/storagedriver/overlayfs-driver/#prerequisites">storagedriver</a></p>
+<h2 id="Get-Pid-of-container"><a href="#Get-Pid-of-container" class="headerlink" title="Get Pid of container"></a>Get Pid of container</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Pid we see from host, inside container, it&#x27;s Pid 1!!!</span></span><br><span class="line"><span class="variable">$docker</span> inspect --format &#123;&#123;.State.Pid&#125;&#125; <span class="variable">$container_id</span></span><br><span class="line"><span class="variable">$docker</span> inspect --format &#123;&#123;.State.Pid&#125;&#125; <span class="variable">$container_name</span></span><br><span class="line">16755</span><br></pre></td></tr></table></figure>
+
+<h2 id="enter-docker-namespace-without-docker-exec"><a href="#enter-docker-namespace-without-docker-exec" class="headerlink" title="enter docker namespace without docker exec"></a>enter docker namespace without docker exec</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$docker</span> inspect --format &#123;&#123;.State.Pid&#125;&#125; <span class="variable">$container_name</span></span><br><span class="line">16755</span><br><span class="line"></span><br><span class="line">              /proc/pid/ns/mnt    the mount namespace</span><br><span class="line">              /proc/pid/ns/uts    the UTS namespace</span><br><span class="line">              /proc/pid/ns/ipc    the IPC namespace</span><br><span class="line">              /proc/pid/ns/net    the network namespace</span><br><span class="line">              /proc/pid/ns/pid    the PID namespace</span><br><span class="line">              /proc/pid/ns/user   the user namespace</span><br><span class="line">              /proc/pid/root      the root directory</span><br><span class="line"></span><br><span class="line"><span class="comment"># mount, uts, ipc, net, pid, user namespace</span></span><br><span class="line"><span class="variable">$nsenter</span> -t 16755 --mount --net --uts --ipc --pid --user --root /bin/bash</span><br><span class="line"><span class="comment"># same as</span></span><br><span class="line"><span class="variable">$docker</span> <span class="built_in">exec</span> -it <span class="variable">$container_name</span> /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="keep-container-running-when-docker-service-restarting"><a href="#keep-container-running-when-docker-service-restarting" class="headerlink" title="keep container running when docker service restarting"></a>keep container running when docker service restarting</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/docker/daemon.json </span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;live-restore&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="run-dockerd-in-forground-with-profiling"><a href="#run-dockerd-in-forground-with-profiling" class="headerlink" title="run dockerd in forground with profiling"></a>run dockerd in forground with profiling</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /usr/bin/docker-containerd-current -l unix:///var/run/docker/libcontainerd/docker-containerd.sock --shim docker-containerd-shim --metrics-interval=0 --start-timeout 2m --state-dir /var/run/docker/libcontainerd/containerd --runtime docker-runc --pprof-address 127.0.0.1:5151 --debug</span><br></pre></td></tr></table></figure>
+
+<h2 id="update-docker-config-after-created-it"><a href="#update-docker-config-after-created-it" class="headerlink" title="update docker config after created it"></a>update docker config after created it</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># build-dev is container&#x27;s name</span></span><br><span class="line"><span class="variable">$docker</span> inspect --format=<span class="string">&quot;&#123;&#123;.Id&#125;&#125;&quot;</span> build-dev</span><br><span class="line">6b667579c2a963767bb97b5ed35e4d56ca9a428da8b9fd067fac14b25712048a</span><br><span class="line"></span><br><span class="line"><span class="comment"># stop docker service, otherwise, edit config.v2.json will be lost as docker will rewrite this file if edited outside!!!</span></span><br><span class="line"><span class="variable">$service</span> stop docker</span><br><span class="line"><span class="variable">$vim</span> /var/lib/docker/containers/6b667579c2a963767bb97b5ed35e4d56ca9a428da8b9fd067fac14b25712048a/config.v2.json</span><br><span class="line"><span class="variable">$service</span> start docker</span><br></pre></td></tr></table></figure>
+
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/run/">docker run parameter</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/resource_constraints/">docker cpu, memory, gpu parameter</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/run/#set-storage-driver-options-per-container">docker run options</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/10/14/docker-network/" rel="prev" title="docker-network">
+                  <i class="fa fa-chevron-left"></i> docker-network
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/11/15/python-basics/" rel="next" title="python-basics">
+                  python-basics <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="IntroductionVirtual GPU (vGPU) enables multiple virtual machines (VMs) to have simultaneous, direct access to a single physical GPU, using the same graphics drivers that are deployed on non-virtualize">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hardware-vgpu">
+<meta property="og:url" content="http://cyun.tech/2021/08/09/hardware-vgpu/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="IntroductionVirtual GPU (vGPU) enables multiple virtual machines (VMs) to have simultaneous, direct access to a single physical GPU, using the same graphics drivers that are deployed on non-virtualize">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://docs.nvidia.com/grid/latest/grid-vgpu-user-guide/graphics/architecture-grid-vgpu.png">
+<meta property="og:image" content="https://docs.nvidia.com/grid/latest/grid-vgpu-user-guide/graphics/architecture-grid-vgpu-internal.png">
+<meta property="og:image" content="https://docs.nvidia.com/grid/latest/grid-vgpu-user-guide/graphics/architecture-grid-vgpu-mig-backed-internal.png">
+<meta property="article:published_time" content="2021-08-09T02:01:45.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.147Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="vgpu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://docs.nvidia.com/grid/latest/grid-vgpu-user-guide/graphics/architecture-grid-vgpu.png">
+
+
+<link rel="canonical" href="http://cyun.tech/2021/08/09/hardware-vgpu/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2021/08/09/hardware-vgpu/","path":"2021/08/09/hardware-vgpu/","title":"hardware-vgpu"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>hardware-vgpu | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nvidia-VGPU"><span class="nav-number">2.</span> <span class="nav-text">Nvidia VGPU</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#VGPU-type"><span class="nav-number">2.1.</span> <span class="nav-text">VGPU type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARCH"><span class="nav-number">2.2.</span> <span class="nav-text">ARCH</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Time-Sliced-NVIDIA-vGPU-Internal-Architecture"><span class="nav-number">2.2.1.</span> <span class="nav-text">Time-Sliced NVIDIA vGPU Internal Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MIG-Backed-NVIDIA-vGPU-Internal-Architecture"><span class="nav-number">2.2.2.</span> <span class="nav-text">MIG-Backed NVIDIA vGPU Internal Architecture</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPU-Product"><span class="nav-number">2.3.</span> <span class="nav-text">GPU Product</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Debug"><span class="nav-number">2.4.</span> <span class="nav-text">Debug</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REF"><span class="nav-number">3.</span> <span class="nav-text">REF</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/08/09/hardware-vgpu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="hardware-vgpu | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          hardware-vgpu
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-08-09 10:01:45" itemprop="dateCreated datePublished" datetime="2021-08-09T10:01:45+08:00">2021-08-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/hardware/" itemprop="url" rel="index"><span itemprop="name">hardware</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/hardware/vgpu/" itemprop="url" rel="index"><span itemprop="name">vgpu</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Virtual GPU (vGPU) <code>enables multiple virtual machines (VMs) to have simultaneous, direct access to a single physical GPU</code>, using the same graphics drivers that are deployed on non-virtualized operating systems. By doing this, vGPU provides VMs with unparalleled graphics performance, compute performance, and application compatibility, together with the cost-effectiveness and scalability brought about by sharing a GPU among multiple workloads. </p>
+<span id="more"></span>
+
+<h1 id="Nvidia-VGPU"><a href="#Nvidia-VGPU" class="headerlink" title="Nvidia VGPU"></a>Nvidia VGPU</h1><p>NVIDIA vGPU software supports GPU instances on GPUs that support the <strong>Multi-Instance GPU (MIG)</strong> feature in NVIDIA vGPU and GPU pass through deployments. MIG enables a physical GPU to be securely partitioned into multiple separate GPU instances, providing multiple users with separate GPU resources to accelerate their applications. With MIG, <code>A GPU that can be split into several GPU instances of different sizes</code>, <strong>with each instance mapped to one vGPU</strong>. <strong>MIG needs GPU with Ampere GPU architecture</strong>, but not GPU card supports it.</p>
+<h2 id="VGPU-type"><a href="#VGPU-type" class="headerlink" title="VGPU type"></a>VGPU type</h2><p>The <code>number of physical GPUs that a board has depends on the board</code>. <code>Each physical GPU can support several different types of virtual GPU (vGPU)</code>. vGPU types have a fixed amount of frame buffer, number of supported display heads, and maximum resolutions. They are grouped into different series according to the different classes of workload for which they are optimized. Each series is identified by the last letter of the vGPU type name.</p>
+<table>
+<thead>
+<tr>
+<th>Series</th>
+<th>Optimal Workload</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Q-series</td>
+<td>Virtual workstations for creative and technical professionals who require the performance and features of Quadro technology, 3D rendering</td>
+</tr>
+<tr>
+<td>C-series</td>
+<td>Compute-intensive server workloads, such as artificial intelligence (AI), deep learning, or high-performance computing (HPC)</td>
+</tr>
+<tr>
+<td>B-series</td>
+<td>Virtual desktops for business professionals and knowledge workers</td>
+</tr>
+<tr>
+<td>A-series</td>
+<td>App streaming or session-based solutions for virtual applications users</td>
+</tr>
+</tbody></table>
+<p>vGPU types determines</p>
+<ul>
+<li>frame buffer</li>
+<li>display heads(virtual display outputs)</li>
+<li>maximum resolution</li>
+<li>number of VGPU</li>
+</ul>
+<p><strong>Example</strong><br>M60-2Q is allocated 2048 Mbytes of frame buffer on a Tesla M60 board. </p>
+<p>NVIDIA vGPU is a licensed product on all supported GPU boards.</p>
+<ul>
+<li>Q-series vGPU types require a vWS license.</li>
+<li>C-series vGPU types require an NVIDIA Virtual Compute Server (vCS) license but can also be used with a vWS license.</li>
+<li>B-series vGPU types require a vPC license but can also be used with a vWS license.</li>
+<li>A-series vGPU types require a vApps license.</li>
+</ul>
+<h2 id="ARCH"><a href="#ARCH" class="headerlink" title="ARCH"></a>ARCH</h2><p><strong>High-level architecture of NVIDIA vGPU</strong>, Under the control of the NVIDIA Virtual GPU Manager running under the hypervisor, NVIDIA physical GPUs are capable of supporting multiple virtual GPU devices (vGPUs) that can be assigned directly to guest VMs.</p>
+<p><img src="https://docs.nvidia.com/grid/latest/grid-vgpu-user-guide/graphics/architecture-grid-vgpu.png" alt="NVIDIA vGPU System Architecture"></p>
+<h3 id="Time-Sliced-NVIDIA-vGPU-Internal-Architecture"><a href="#Time-Sliced-NVIDIA-vGPU-Internal-Architecture" class="headerlink" title="Time-Sliced NVIDIA vGPU Internal Architecture"></a>Time-Sliced NVIDIA vGPU Internal Architecture</h3><p>A time-sliced vGPU is a vGPU that resides on a physical GPU that is not partitioned into multiple GPU instances. All time-sliced vGPUs resident on a GPU <code>share access to the GPU’s engines</code> including the graphics (3D), video decode, and video encode engines</p>
+<p><img src="https://docs.nvidia.com/grid/latest/grid-vgpu-user-guide/graphics/architecture-grid-vgpu-internal.png"></p>
+<p>This is VGPU Arch for traditional GPU ARCH that most of GPU card support it.</p>
+<p>In a time-sliced vGPU, processes that run on the vGPU are scheduled to run in series. <strong>Each vGPU waits while other processes run on other vGPUs</strong>. While processes are running on a vGPU, the vGPU has exclusive use of the GPU’s engine.</p>
+<p>For time-Sliced VGPU, the vgpu type must be same for a single GPU.</p>
+<h3 id="MIG-Backed-NVIDIA-vGPU-Internal-Architecture"><a href="#MIG-Backed-NVIDIA-vGPU-Internal-Architecture" class="headerlink" title="MIG-Backed NVIDIA vGPU Internal Architecture"></a>MIG-Backed NVIDIA vGPU Internal Architecture</h3><p>A MIG-backed vGPU is a vGPU that resides on a GPU instance in a MIG-capable physical GPU. Each MIG-backed vGPU resident on a GPU has exclusive access to the GPU instance’s engines, including the graphics (3D), and video decode engines.</p>
+<p>In a MIG-backed vGPU, processes that run on the vGPU run in parallel with processes running on other vGPUs on the GPU. Process run on all vGPUs resident on a physical GPU simultaneously. </p>
+<p><img src="https://docs.nvidia.com/grid/latest/grid-vgpu-user-guide/graphics/architecture-grid-vgpu-mig-backed-internal.png"></p>
+<p>For MIG-Backed vgpu, the vgpu type can be different for a single GPU.</p>
+<h2 id="GPU-Product"><a href="#GPU-Product" class="headerlink" title="GPU Product"></a>GPU Product</h2><p>Two many GPU series</p>
+<ul>
+<li>Quadro - This is the workstation version. Higher priced. This is meant for corporate customers, so it is better tested, more memory, etc. This is the highest quality chips. And since they are higher priced, NVIDIA offers better support, easier exchanges etc.</li>
+<li>Tesla - This is the range that is focused on HPC. some may not have video output. This is intended for people using CUDA.</li>
+</ul>
+<p><strong>Note</strong></p>
+<ul>
+<li>Some products are only for graphics while others are only for compute</li>
+<li>Tesla M60 and M6 GPUs support compute mode and graphics mode, can switch between them</li>
+</ul>
+<h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><p><strong>GPU</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Centos</span></span><br><span class="line"><span class="comment"># install vgpu driver</span></span><br><span class="line">$ rpm -iv NVIDIA-vGPU-rhel-7.5-460.73.02.x86_64.rpm</span><br><span class="line">$ reboot</span><br><span class="line"></span><br><span class="line"><span class="comment"># verify vgpu driver is loaded correctly</span></span><br><span class="line">$ lsmod | grep vfio</span><br><span class="line">nvidia_vgpu_vfio       27099  0</span><br><span class="line">nvidia              12316924  1 nvidia_vgpu_vfio</span><br><span class="line">vfio_mdev              12841  0</span><br><span class="line">mdev                   20414  2 vfio_mdev,nvidia_vgpu_vfio</span><br><span class="line">vfio_iommu_type1       22342  0</span><br><span class="line">vfio                   32331  3 vfio_mdev,nvidia_vgpu_vfio,vfio_iommu_type1</span><br><span class="line"></span><br><span class="line"><span class="comment"># show GPU</span></span><br><span class="line">$ nvidia-smi</span><br><span class="line">Mon Aug  9 11:24:19 2021       </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 430.46       Driver Version: 430.46       CUDA Version: N/A      |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|===============================+======================+======================|</span><br><span class="line">|   0  Tesla P40           On   | 00000000:03:00.0 Off |                    0 |</span><br><span class="line">| N/A   27C    P8    19W / 250W |     41MiB / 23039MiB |      0%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">|   1  Tesla P40           On   | 00000000:04:00.0 Off |                    0 |</span><br><span class="line">| N/A   27C    P8    19W / 250W |     41MiB / 23039MiB |      0%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">|   2  Tesla P40           On   | 00000000:84:00.0 Off |                    0 |</span><br><span class="line">| N/A   26C    P8    19W / 250W |     50MiB / 23039MiB |      0%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">|   3  Tesla P40           On   | 00000000:85:00.0 Off |                    0 |</span><br><span class="line">| N/A   31C    P8    18W / 250W |     41MiB / 23039MiB |      0%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">                                                                               </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                       GPU Memory |</span><br><span class="line">|  GPU       PID   Type   Process name                             Usage      |</span><br><span class="line">|=============================================================================|</span><br><span class="line">|  No running processes found                                                 |</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line"></span><br><span class="line"><span class="comment"># Compute M. means Compute mode enabled</span></span><br><span class="line"><span class="comment"># Disp.A: GPU uses for display</span></span><br><span class="line"><span class="comment"># Processes: show processes running on each GPU</span></span><br><span class="line"><span class="comment"># For GPU supported MIG, there is label MIG M. along with COmpute M.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># check BDF of each GPU</span></span><br><span class="line">$ lspci | grep NVIDIA</span><br><span class="line">03:00.0 3D controller: NVIDIA Corporation GP102GL [Tesla P40] (rev a1)</span><br><span class="line">04:00.0 3D controller: NVIDIA Corporation GP102GL [Tesla P40] (rev a1)</span><br><span class="line">84:00.0 3D controller: NVIDIA Corporation GP102GL [Tesla P40] (rev a1)</span><br><span class="line">85:00.0 3D controller: NVIDIA Corporation GP102GL [Tesla P40] (rev a1)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Create VPUG</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># when VGPU is enabled for a GPU, there is a link created at /sys/class/mdev_bus/ pointing to GPU device(PCI bus number)</span></span><br><span class="line"><span class="comment"># ls /sys/class/mdev_bus/</span></span><br><span class="line">0000:03:00.0  0000:04:00.0  0000:84:00.0  0000:85:00.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># checkout all supported vgpu type of the given GPU</span></span><br><span class="line"><span class="comment"># nvidia-156  is mdev identifier, the vgpu type is at mdev_supported_types/nvidia-156/name </span></span><br><span class="line">$ <span class="built_in">cd</span> /sys/class/mdev_bus/0000:03:00.0</span><br><span class="line">$ <span class="built_in">ls</span> mdev_supported_types/</span><br><span class="line">nvidia-156  nvidia-241  nvidia-284  nvidia-286  nvidia-46  nvidia-48  nvidia-50  nvidia-52  nvidia-54  nvidia-56  nvidia-58  nvidia-60  nvidia-62</span><br><span class="line">nvidia-215  nvidia-283  nvidia-285  nvidia-287  nvidia-47  nvidia-49  nvidia-51  nvidia-53  nvidia-55  nvidia-57  nvidia-59  nvidia-61</span><br><span class="line"></span><br><span class="line"><span class="comment"># P40-2B， P40 is GPU type, while 2B is vgpu-type</span></span><br><span class="line">$ <span class="built_in">cat</span> mdev_supported_types/nvidia-156/name </span><br><span class="line">GRID P40-2B</span><br><span class="line"></span><br><span class="line"><span class="comment"># check how many VGPU(depends on type) can be created for a given GPU</span></span><br><span class="line">$ <span class="built_in">cat</span> mdev_supported_types/nvidia-156/available_instances </span><br><span class="line">12</span><br><span class="line"></span><br><span class="line"><span class="comment"># create a VGPU</span></span><br><span class="line">$ uuidgen</span><br><span class="line">2794ee88-7932-4c37-9927-97ef3a5e76c4</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&quot;2794ee88-7932-4c37-9927-97ef3a5e76c4&quot;</span>&gt; mdev_supported_types/nvidia-156/create</span><br><span class="line"></span><br><span class="line"><span class="comment"># after this a mdev device(VGPU device) is created</span></span><br><span class="line">$ <span class="built_in">ls</span> /sys/bus/mdev/devices/2794ee88-7932-4c37-9927-97ef3a5e76c4</span><br><span class="line">driver  iommu_group  mdev_type  nvidia  power  remove  subsystem  uevent</span><br><span class="line"></span><br><span class="line"><span class="comment"># assign vgpu to VM </span></span><br><span class="line"><span class="comment"># VM must</span></span><br><span class="line"><span class="comment"># 1. The VM to which you want to add the vGPUs is shut down. </span></span><br><span class="line"></span><br><span class="line">$ virsh edit <span class="variable">$vm</span>-name</span><br><span class="line"></span><br><span class="line"><span class="comment"># uuid is the vgpu uuid</span></span><br><span class="line">&lt;device&gt;</span><br><span class="line">...</span><br><span class="line">  &lt;hostdev mode=<span class="string">&#x27;subsystem&#x27;</span> <span class="built_in">type</span>=<span class="string">&#x27;mdev&#x27;</span> model=<span class="string">&#x27;vfio-pci&#x27;</span>&gt;</span><br><span class="line">    &lt;<span class="built_in">source</span>&gt;</span><br><span class="line">      &lt;address uuid=<span class="string">&#x27;2794ee88-7932-4c37-9927-97ef3a5e76c4&#x27;</span>/&gt;</span><br><span class="line">    &lt;/source&gt;</span><br><span class="line">  &lt;/hostdev&gt;</span><br><span class="line">&lt;/device&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># check vm who is using this vgpu</span></span><br><span class="line">$ <span class="built_in">cat</span> /sys/bus/mdev/devices/2794ee88-7932-4c37-9927-97ef3a5e76c4/nvidia/vm_name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># remove a vgpu must know the uuid of vgpu</span></span><br><span class="line"><span class="comment"># VM must</span></span><br><span class="line"><span class="comment"># 1. The VM to which the vGPU is assigned is shut down</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&quot;1&quot;</span>&gt; /sys/bus/mdev/devices/2794ee88-7932-4c37-9927-97ef3a5e76c4/remove</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>Monitoring GPU performance</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># get GPU INFO</span></span><br><span class="line">$ nvidia-smi</span><br><span class="line"></span><br><span class="line"><span class="comment"># get VGPU INFO</span></span><br><span class="line">$ nvidia-smi vgpu</span><br><span class="line">Mon Aug  9 12:14:14 2021       </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 430.46                 Driver Version: 430.46                    |</span><br><span class="line">|---------------------------------+------------------------------+------------+</span><br><span class="line">| GPU  Name                       | Bus-Id                       | GPU-Util   |</span><br><span class="line">|      vGPU ID     Name           | VM ID     VM Name            | vGPU-Util  |</span><br><span class="line">|=================================+==============================+============|</span><br><span class="line">|   0  Tesla P40                  | 00000000:03:00.0             |   0%       |</span><br><span class="line">+---------------------------------+------------------------------+------------+</span><br><span class="line">|   1  Tesla P40                  | 00000000:04:00.0             |   0%       |</span><br><span class="line">|      3251639763  GRID P40-6Q    | 9750...  i-y7i5cxa4x4        |      0%    |</span><br><span class="line">+---------------------------------+------------------------------+------------+</span><br><span class="line">|   2  Tesla P40                  | 00000000:84:00.0             |   0%       |</span><br><span class="line">+---------------------------------+------------------------------+------------+</span><br><span class="line">|   3  Tesla P40                  | 00000000:85:00.0             |   0%       |</span><br><span class="line">+---------------------------------+------------------------------+------------+</span><br><span class="line"></span><br><span class="line"><span class="comment"># get VGPU Details</span></span><br><span class="line">$ nvidia-smi vgpu -q</span><br><span class="line">GPU 00000000:03:00.0</span><br><span class="line">    Active vGPUs                    : 0</span><br><span class="line"></span><br><span class="line">GPU 00000000:04:00.0</span><br><span class="line">    Active vGPUs                    : 1</span><br><span class="line">    vGPU ID                         : 3251639763</span><br><span class="line">        VM UUID                     : 97502756-1798-4014-9979-8595f909eeb3</span><br><span class="line">        VM Name                     : i-y7i5cxa4x4</span><br><span class="line">        vGPU Name                   : GRID P40-6Q</span><br><span class="line">        vGPU Type                   : 50</span><br><span class="line">        vGPU UUID                   : 0c4b9906-7a2e-2e4e-133d-ca368087e5ab</span><br><span class="line">        Guest Driver Version        : Not Available</span><br><span class="line">        License Status              : Unlicensed</span><br><span class="line">        Accounting Mode             : Disabled</span><br><span class="line">        ECC Mode                    : Disabled</span><br><span class="line">        Accounting Buffer Size      : 4000</span><br><span class="line">        Frame Rate Limit            : N/A</span><br><span class="line">        FB Memory Usage</span><br><span class="line">            Total                   : 6144 MiB</span><br><span class="line">            Used                    : 0 MiB</span><br><span class="line">            Free                    : 6144 MiB</span><br><span class="line">        Utilization</span><br><span class="line">            Gpu                     : 0 %</span><br><span class="line">            Memory                  : 0 %</span><br><span class="line">            Encoder                 : 0 %</span><br><span class="line">            Decoder                 : 0 %</span><br><span class="line">        Encoder Stats</span><br><span class="line">            Active Sessions         : 0</span><br><span class="line">            Average FPS             : 0</span><br><span class="line">            Average Latency         : 0</span><br><span class="line">        FBC Stats</span><br><span class="line">            Active Sessions         : 0</span><br><span class="line">            Average FPS             : 0</span><br><span class="line">            Average Latency         : 0</span><br><span class="line"></span><br><span class="line">GPU 00000000:84:00.0</span><br><span class="line">    Active vGPUs                    : 0</span><br><span class="line"></span><br><span class="line">GPU 00000000:85:00.0</span><br><span class="line">    Active vGPUs                    : 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># To monitor vGPU engine usage across multiple vGPUs</span></span><br><span class="line"></span><br><span class="line">$ nvidia-smi vgpu -u</span><br><span class="line"><span class="comment"># GPU       vGPU    sm   mem   enc   dec</span></span><br><span class="line"><span class="comment"># Idx         Id     %     %     %     %</span></span><br><span class="line">    0          -     -     -     -     -</span><br><span class="line">    1 3251639763     0     0     0     0</span><br><span class="line">    2          -     -     -     -     -</span><br><span class="line">    3          -     -     -     -     -</span><br><span class="line">    0          -     -     -     -     -</span><br><span class="line"></span><br><span class="line"><span class="comment"># To monitor vGPU engine usage by applications across multiple vGPUs</span></span><br><span class="line">$ nvidia-smi vgpu -p</span><br><span class="line"><span class="comment"># GPU       vGPU    process    sm   mem   enc   dec   process         </span></span><br><span class="line"><span class="comment"># Idx         Id         Id     %     %     %     %   name            </span></span><br><span class="line">    0          -          -     -     -     -     -   -               </span><br><span class="line">    1          -          -     -     -     -     -   -               </span><br><span class="line">    2          -          -     -     -     -     -   -               </span><br><span class="line">    3          -          -     -     -     -     -   -               </span><br><span class="line"></span><br><span class="line"><span class="comment"># If MIG mode is not enabled for the GPU, or if the GPU does not support MIG, this property reflects the number and type of vGPUs that are already running on the GPU.</span></span><br><span class="line"><span class="comment"># 1. If no vGPUs are running on the GPU, all vGPU types that the GPU supports are listed.</span></span><br><span class="line"><span class="comment"># 2. If one or more vGPUs are running on the GPU, but the GPU is not fully loaded, only the type of the vGPUs that are already running is listed.</span></span><br><span class="line"><span class="comment"># 3. If the GPU is fully loaded, no vGPU types are listed.</span></span><br><span class="line"></span><br><span class="line">$ nvidia-smi vgpu -c</span><br><span class="line">GPU 00000000:03:00.0</span><br><span class="line">    GRID P40-6Q    </span><br><span class="line"></span><br><span class="line">GPU 00000000:04:00.0</span><br><span class="line">    GRID P40-6Q    </span><br><span class="line"></span><br><span class="line">GPU 00000000:84:00.0</span><br><span class="line">    GRID P40-6Q    </span><br><span class="line"></span><br><span class="line">GPU 00000000:85:00.0</span><br><span class="line">    GRID P40-6Q    </span><br></pre></td></tr></table></figure>
+
+<p><strong>sysfs for NVIDIA GPU</strong><br><code>The sysfs directory for each physical GPU is at</code></p>
+<ul>
+<li>&#x2F;sys&#x2F;bus&#x2F;pci&#x2F;devices&#x2F;</li>
+<li>&#x2F;sys&#x2F;class&#x2F;mdev_bus&#x2F;</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/sys/class/mdev_bus/</span><br><span class="line">           |-parent-physical-device</span><br><span class="line">             |-mdev_supported_types</span><br><span class="line">               |-nvidia-vgputype-id</span><br><span class="line">                 |-available_instances</span><br><span class="line">                 |-create</span><br><span class="line">                 |-description</span><br><span class="line">                 |-device_api</span><br><span class="line">                 |-devices</span><br><span class="line">                 |-name</span><br></pre></td></tr></table></figure>
+
+<p><strong>The mdev device file that you create to represent the vGPU does not persist when the host is rebooted and must be re-created after the host is rebooted</strong></p>
+<h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.nvidia.com/grid/latest/grid-vgpu-user-guide/index.html">nvidia vgpu user guide</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/vgpu/" rel="tag"># vgpu</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/05/hardware-gpu/" rel="prev" title="hardware-gpu">
+                  <i class="fa fa-chevron-left"></i> hardware-gpu
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/18/virtualization-cpu/" rel="next" title="virtualization-cpu">
+                  virtualization-cpu <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

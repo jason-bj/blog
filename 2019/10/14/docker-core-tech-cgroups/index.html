@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="cgroups provides a mechanism for aggregating&#x2F;partitioning sets of tasks, and all their future children, into hierarchical groups with specialized behavior(under resource controller) like  Resource Lim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker-core-tech-cgroups">
+<meta property="og:url" content="http://cyun.tech/2019/10/14/docker-core-tech-cgroups/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="cgroups provides a mechanism for aggregating&#x2F;partitioning sets of tasks, and all their future children, into hierarchical groups with specialized behavior(under resource controller) like  Resource Lim">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://cyun.tech/images/docker/cgroup-user-view.jpg">
+<meta property="og:image" content="http://cyun.tech/images/docker/cgroup-kernel-view1.jpg">
+<meta property="og:image" content="http://cyun.tech/images/docker/cgroup-kernel-view2.jpg">
+<meta property="article:published_time" content="2019-10-14T09:00:58.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.135Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="cgroups">
+<meta property="article:tag" content="resource controller">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cyun.tech/images/docker/cgroup-user-view.jpg">
+
+
+<link rel="canonical" href="http://cyun.tech/2019/10/14/docker-core-tech-cgroups/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2019/10/14/docker-core-tech-cgroups/","path":"2019/10/14/docker-core-tech-cgroups/","title":"docker-core-tech-cgroups"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>docker-core-tech-cgroups | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cgroups"><span class="nav-number">1.</span> <span class="nav-text">cgroups</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cgroup-pseudo-filesystem"><span class="nav-number">1.1.</span> <span class="nav-text">cgroup pseudo filesystem</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cpu-subsystem"><span class="nav-number">1.1.1.</span> <span class="nav-text">cpu subsystem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memory-subsystem"><span class="nav-number">1.1.2.</span> <span class="nav-text">memory subsystem</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cgroup-subsystem-kernel"><span class="nav-number">1.2.</span> <span class="nav-text">cgroup subsystem kernel</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cgroupv2"><span class="nav-number">2.</span> <span class="nav-text">cgroupv2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ"><span class="nav-number">2.1.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#check-cgroups-of-a-given-process"><span class="nav-number">2.1.1.</span> <span class="nav-text">check cgroups of a given process</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#change-a-cgroup-of-a-given-process"><span class="nav-number">2.1.2.</span> <span class="nav-text">change a cgroup of a given process</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#check-root-node-of-particular-cgroup-subsystem"><span class="nav-number">2.1.3.</span> <span class="nav-text">check root node of particular cgroup(subsystem)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#create-cgroup-sub-group-of-a-given-cgroup-subsystem"><span class="nav-number">2.1.4.</span> <span class="nav-text">create cgroup(sub group of a given cgroup subsystem)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#run-a-program-in-a-given-cgroup"><span class="nav-number">2.1.5.</span> <span class="nav-text">run a program in a given cgroup</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2019/10/14/docker-core-tech-cgroups/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="docker-core-tech-cgroups | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          docker-core-tech-cgroups
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-10-14 17:00:58" itemprop="dateCreated datePublished" datetime="2019-10-14T17:00:58+08:00">2019-10-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/docker/core-tech/" itemprop="url" rel="index"><span itemprop="name">core-tech</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="cgroups"><a href="#cgroups" class="headerlink" title="cgroups"></a>cgroups</h1> provides a mechanism for aggregating/partitioning sets of tasks, and all their future children, into hierarchical groups with specialized behavior(under resource controller) like
+<ul>
+<li><strong>Resource Limiting (i.e. not to exceed a memory limit) mostly used</strong></li>
+<li>Prioritization (i.e. groups may have larger share of CPU)</li>
+<li>Isolation (i.e. isolate GPUs for particular processes)</li>
+<li><strong>Accounting (i.e. monitor resource usage for processes)</strong></li>
+<li>Control (i.e. suspending and resuming processes)<span id="more"></span></li>
+</ul>
+<p>Definitions:</p>
+<ul>
+<li><p>A <mark><em>cgroup</em></mark> associates a set of tasks with a set of parameters(control resource) for one<br>or more subsystems.</p>
+</li>
+<li><p>A <mark><em>subsystem</em></mark> is a module that makes use of the task grouping<br>facilities provided by cgroups to treat groups of tasks in<br>particular ways. A subsystem is typically a <strong>“resource controller”</strong> that<br>schedules a resource or applies per-cgroup limits, but it may be<br>anything that wants to act on a group of processes, e.g. a<br>virtualization subsystem.</p>
+</li>
+<li><p>A <mark><em>hierarchy</em></mark> is a set of cgroups arranged in a tree, such that<br><strong>every task in the system is in exactly one of the cgroups in the<br>hierarchy, and a set of subsystems(CPU, Memory)</strong>; each subsystem has system-specific<br>state attached to each cgroup in the hierarchy.  Each hierarchy has<br>an instance of the cgroup virtual filesystem associated with it.</p>
+</li>
+</ul>
+<!--more-->
+<h2 id="cgroup-pseudo-filesystem"><a href="#cgroup-pseudo-filesystem" class="headerlink" title="cgroup pseudo filesystem"></a>cgroup pseudo filesystem</h2><p><img src="/images/docker/cgroup-user-view.jpg" alt="cgroup uv"></p>
+<p><strong>Here are most cgroups(subsys) supported by linux</strong></p>
+<div class="note info"><ul>
+<li>cpuset – assigns tasks to individual CPUs and memory nodes in a cgroup</li>
+<li><strong>cpu – schedules CPU access to cgroups(how much cpu used and how long)</strong></li>
+<li>cpuacct – reports CPU resource usage of tasks of a cgroup</li>
+<li><strong>memory – set limits on memory use and reports memory usage for a cgroup, normal page memory not huge page</strong></li>
+<li><strong>hugetlb</strong> - allows to use virtual memory pages of large sizes and to enforce resource limits on these pages</li>
+<li>devices – allows or denies access to devices (i.e. gpus) for tasks of a cgroup</li>
+<li>freezer – suspends and resumes tasks in a cgroup</li>
+<li>net_cls – tags network packets in a cgroup to allow network traffic priorities</li>
+<li><a target="_blank" rel="noopener" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch-subsystems_and_tunable_parameters#blkio-weight">blkio</a> – tracks I&#x2F;O ownership, allowing control of access to block I&#x2F;O resources</li>
+</ul>
+</div>
+
+<p><mark>Rules for cgroup</mark></p>
+<ul>
+<li>Each <strong>subsystem</strong> (memory, CPU…) has <strong>a hierarchy</strong> (tree)</li>
+<li><strong>Hierarchies are independent</strong><ul>
+<li>(the trees for e.g. memory and CPU can be different)</li>
+</ul>
+</li>
+<li><strong>Each process belongs to exactly 1 node in each hierarchy</strong><ul>
+<li>(think of each hierarchy as a different dimension or axis)</li>
+</ul>
+</li>
+<li>Each hierarchy(subsystem) starts with 1 node (the root)</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># like for cpu subsystem  root node is at</span></span><br><span class="line"><span class="comment"># tasks # attach a task(thread) and show list of threads</span></span><br><span class="line"><span class="comment"># cgroup.procs # show list of processes</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$ls</span> /sys/fs/cgroup/cpu/</span><br><span class="line">cgroup.clone_children  cpuacct.stat       cpuacct.usage_percpu       cpuacct.usage_sys   cpu.cfs_quota_us  docker/            release_agent  user.slice/</span><br><span class="line">cgroup.procs           cpuacct.usage      cpuacct.usage_percpu_sys   cpuacct.usage_user  cpu.shares        init.scope/        system.slice/</span><br><span class="line">cgroup.sane_behavior   cpuacct.usage_all  cpuacct.usage_percpu_user  cpu.cfs_period_us   cpu.stat          notify_on_release  tasks</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>All processes initially belonged to the root of each hierarchy</strong></li>
+<li>Each node &#x3D; group of processes(sharing the same resources)</li>
+</ul>
+<p><strong>NOTE</strong></p>
+<ul>
+<li><code>All subdirs shared the setting of its parent</code>, total amount should not exceed its parent, even tasks in subdir not present in parent’s tasks, see example below.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># <span class="doctag">NOTE:</span> remove a cgroup dir using: rmdir not rm -rf</span></span><br><span class="line">$ <span class="built_in">mkdir</span> /sys/fs/cgroup/cpu/agent</span><br><span class="line"><span class="comment"># total two CPU</span></span><br><span class="line">$ <span class="built_in">echo</span> 100000 &gt;/sys/fs/cgroup/cpu/agent/cpu.cfs_period_us</span><br><span class="line">$ <span class="built_in">echo</span> 200000 &gt;/sys/fs/cgroup/cpu/agent/cpu.cfs_quota_us</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cat</span> /sys/fs/cgroup/cpu/agent/tasks</span><br><span class="line"><span class="comment"># no tasks here even each subdirs has its own task!!!</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">mkdir</span> /sys/fs/cgroup/cpu/agent/sub1</span><br><span class="line">$ <span class="built_in">cat</span> /sys/fs/cgroup/cpu/agent/sub1/cpu.cfs_period_us</span><br><span class="line">100000</span><br><span class="line">$ <span class="built_in">cat</span> /sys/fs/cgroup/cpu/agent/sub1/cpu.cfs_quota_us</span><br><span class="line">-1</span><br><span class="line">$ <span class="built_in">cat</span> /sys/fs/cgroup/cpu/agent/sub1/tasks</span><br><span class="line">9877</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">mkdir</span> /sys/fs/cgroup/cpu/agent/sub2</span><br><span class="line">$ <span class="built_in">cat</span> /sys/fs/cgroup/cpu/agent/sub2/cpu.cfs_period_us</span><br><span class="line">100000</span><br><span class="line">$ <span class="built_in">cat</span> /sys/fs/cgroup/cpu/agent/sub2/cpu.cfs_quota_us</span><br><span class="line">$ <span class="built_in">cat</span> /sys/fs/cgroup/cpu/agent/sub2/tasks</span><br><span class="line">9853</span><br></pre></td></tr></table></figure>
+
+<h3 id="cpu-subsystem"><a href="#cpu-subsystem" class="headerlink" title="cpu subsystem"></a>cpu subsystem</h3><p>sys path: <code>/sys/fs/cgroup/cpu</code>, it’s used for <strong>cpu state(usage), weight and limitation</strong> for tasks attached to this group, here are several key parameters of this subsystem.</p>
+<ul>
+<li><p>cpu.shares(relative weight to other cpu cgroups)</p>
+<blockquote>
+<p>it’s <strong>relative weight</strong> to other cgroups under cpu subsystem, when access to host CPU cycles, by default it’s 1024, it works only when other cgroups have tasks attached and competing for host CPU cycles, say cgroupA has task A with default cpu.shares, cgroupB has task B with cpu.shares 2048, if both taskA and taskB are running, taskB get host CPU cycles twice than taskA, while if taskB is slept or quits, taskA will get all host CPU cycles, as no others are competing with it.<br><font color='red'>As it’s relative weight, It does not guarantee or reserve any specific CPU access.!!!</font></p>
+</blockquote>
+</li>
+<li><p>cpu.cfs_period_us</p>
+<blockquote>
+<p>specifies a period of time in microseconds not millisecond(ms) (represented here as “us”) for how regularly a cgroup’s access to CPU resources should be reallocated. <code>If tasks in a cgroup should be able to access a single CPU for 0.2 seconds out of every 1 second, set cpu.cfs_quota_us to 200000 and cpu.cfs_period_us to 1000000</code>. The upper limit of the cpu.cfs_quota_us parameter is 1 second(1000 milliseconds) and the lower limit is 1000 microseconds(1 milliseconds)</p>
+</blockquote>
+</li>
+<li><p>cpu.cfs_quota_us and cpu.cfs_period_us(<code>hard limit for tasks in the group</code>)</p>
+<blockquote>
+<p>CPU quota control <code>how much CPU time tasks in cgroup can use during a period, cpu_quota is the number of microseconds of CPU time</code>, cpu period is counting unit for cpu quota, they should <strong>work together to limit the upper bound(max cpu) for that cgroup(tasks in it)</strong>. by default period is 100000 us, while quota is -1(no limit). if quota is 100000(&#x3D;&#x3D;cpu period), like tasks in this group can use one host CPU, but if quota is 200000 larger than period, like tasks in this groups can use two Host CPUs.</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>NOTE</strong></p>
+<ul>
+<li>cgroup controls resource to all tasks in the same group, say for cpu quota and cpu period, counting all tasks for the same cpu use, not per task</li>
+<li>child process forked from task in the cgroup, obey the same limitation with its parent(child task is added parent cgroup automatically)</li>
+<li><code>even quota is two CPU, but if only one task in the cgroup without multi-thread on, at most one CPU is used!!!!</code></li>
+</ul>
+<p><mark>cpu.shares and cpu.cfs_quota_us, cpu.cfs.period_us can work together!!! </mark></p>
+<p><strong>host has <code>two cpus</code>, both taskA and taskB are always running, no other task is running for ideal.</strong></p>
+<div class="note info"><ul>
+<li>taskA in groupA with share 1024, 1 cpu(cpu.cfs_period_us 100000 cfs_quota_us 100000)</li>
+<li>taskB in groupB with share 2048, 0.5cpu(cpu.cfs_period_us 100000 cfs_quota_us 50000)</li>
+<li>for each period, host provides 2*100000, taskB can get 0.67 due to share setting, but taskB has hard limit 0.5cpu, hence after task B get 0.5cpu, it’s paused, so that taskA continues to run, after one period, <code>taskA gets 1 cpu, taskB gets 0.5cpu(another 0.5cpu is idea), but taskB gets 0.5cpu before taskA gets its 0.5cpu</code></li>
+</ul>
+</div>
+
+<details class="note "><summary><p>warn</p>
+</summary>
+<ul>
+<li>taskA in groupA with share 1024, 1 cpu(cpu.cfs_period_us 100000 cfs_quota_us 100000)</li>
+<li>taskB in groupB with share 1024, 0.5cpu(cpu.cfs_period_us 100000 cfs_quota_us 50000)</li>
+<li>for each period, host provides 2*100000, taskA and taskB gets its 0.5cpu at the same, then taskB paused, taskA continues to run, after one period, <code>taskA gets 1 cpu, taskB gets 0.5cpu(another 0.5cpu is idea)</code>.</li>
+</ul>
+
+</details>
+
+<p><strong>docker parameters related</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># let&#x27;s say there are four CPUS on host, if all containers are running CPU intensive workload</span></span><br><span class="line"><span class="comment"># first container takes one CPU</span></span><br><span class="line"><span class="comment"># second container takes one CPU</span></span><br><span class="line"><span class="comment"># third container takes two CPU</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># but if third container quits or sleep, the other two both take two CPUS !!!</span></span><br><span class="line">$ docker run -it --<span class="built_in">rm</span>  --cpu-shares 1024 ubuntu /bin/bash</span><br><span class="line">$ docker run -it --<span class="built_in">rm</span>  --cpu-shares 1024 ubuntu /bin/bash</span><br><span class="line">$ docker run -it --<span class="built_in">rm</span>  --cpu-shares 2048 ubuntu /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># --cpu-period &amp; --cpu-quota</span></span><br><span class="line"><span class="comment"># CPU quota (cpu_quota) is a feature of Linux Control Groups (cgroup). CPU quota control `how much CPU time a container can use`, `cpu_quota is the number of microseconds of CPU time` a container can use `per cpu_period`.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># cpu_quota allows setting an `upper bound on the amount of CPU time a container gets`. Linux enforces the limit even if CPU time is available. Quotas can hinder utilization while `providing a predictable upper bounds on CPU time.`</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># one Host CPU for this docker</span></span><br><span class="line">$ docker run -it --<span class="built_in">rm</span>  --cpu-period 100000 --cpu-quota 100000 ubuntu /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># --cpus=&lt;value&gt;</span></span><br><span class="line"><span class="comment"># Specify how much of the available CPU resources a container can use. For instance, if the host machine has two CPUs and you set --cpus=&quot;1.5&quot;, the container is guaranteed at most one and a half of the CPUs. This is the equivalent of setting --cpu-period=&quot;100000&quot; and --cpu-quota=&quot;150000&quot;. short way for cpu-period and cpu-quota</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># In order to set cpu_quota correctly, you need to know how many cpu can be used by container, then set cpu_quota and cpu_period correctly.</span></span><br><span class="line">$ docker run -it --<span class="built_in">rm</span>  --cpus=1.5 ubuntu /bin/bash</span><br><span class="line"><span class="comment"># Same as below</span></span><br><span class="line">$ docker run -it --<span class="built_in">rm</span>  --cpu-period=100000 --cpu-quota=150000 ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h3 id="memory-subsystem"><a href="#memory-subsystem" class="headerlink" title="memory subsystem"></a>memory subsystem</h3><p>The memory subsystem generates automatic <code>reports on memory resources used by the tasks in a cgroup, and sets limits on memory use of those tasks.</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ls</span> /sys/fs/cgroup/memory/</span><br><span class="line">cgroup.clone_children  memory.force_empty              memory.kmem.tcp.limit_in_bytes      memory.memsw.failcnt             memory.oom_control          memory.use_hierarchy</span><br><span class="line">cgroup.event_control   memory.kmem.failcnt             memory.kmem.tcp.max_usage_in_bytes  memory.memsw.limit_in_bytes      memory.pressure_level       notify_on_release</span><br><span class="line">cgroup.procs           memory.kmem.limit_in_bytes      memory.kmem.tcp.usage_in_bytes      memory.memsw.max_usage_in_bytes  memory.soft_limit_in_bytes  release_agent</span><br><span class="line">cgroup.sane_behavior   memory.kmem.max_usage_in_bytes  memory.kmem.usage_in_bytes          memory.memsw.usage_in_bytes      memory.stat                 system.slice</span><br><span class="line">machine.slice          memory.kmem.slabinfo            memory.limit_in_bytes               memory.move_charge_at_immigrate  memory.swappiness           tasks</span><br><span class="line">memory.failcnt         memory.kmem.tcp.failcnt         memory.max_usage_in_bytes           memory.numa_stat                 memory.usage_in_bytes       user.slice</span><br></pre></td></tr></table></figure>
+
+<p>let’s focus on memory limitation parameters <code>memory.limit_in_bytes, memory.memsw.limit_in_bytes, memory.oom_control, memory.soft_limit_in_bytes, memory.swappiness</code></p>
+<ul>
+<li><p>memory.limit_in_bytes<br>  sets the maximum amount of user memory (including file cache). If no units are specified, the value is interpreted as bytes. However, it is possible to use suffixes to represent larger units(k&#x2F;K, m&#x2F;M, g&#x2F;G). <code>echo 1G &gt; /cgroup/memory/lab1/memory.limit_in_bytes</code></p>
+</li>
+<li><p>memory.memsw.limit_in_bytes<br>  sets the maximum amount for <code>the sum of memory and swap usage</code>. If no units are specified, the value is interpreted as bytes, However, it is possible to use suffixes to represent larger units(k&#x2F;K, m&#x2F;M, g&#x2F;G).</p>
+<p>  It is important to <code>set the memory.limit_in_bytes parameter before setting the memory.memsw.limit_in_bytes parameter</code>:, This is because memory.memsw.limit_in_bytes becomes available only after all memory limitations (previously set in memory.limit_in_bytes) are exhausted. <code>memory.limit_in_bytes = 2G and memory.memsw.limit_in_bytes = 4G</code> for a certain cgroup will allow processes in that cgroup to allocate 2 GB of memory and, once exhausted, allocate another 2 GB of swap only.</p>
+</li>
+<li><p>memory.soft_limit_in_bytes<br>  enables flexible sharing of memory. Under normal circumstances, control groups are allowed to use as much of the memory as needed, constrained only by their hard limits set with the memory.limit_in_bytes parameter. However, when the system detects memory contention or low memory, control groups are forced to restrict their consumption to their soft limits(reclaim memory).If lowering the memory usage to the soft limit does not solve the contention, cgroups are pushed back as much as possible to make sure that one control group does not starve the others of memory. <code>Note that soft limits take effect over a long period of time, since they involve reclaiming memory for balancing between memory cgroups</code>.</p>
+</li>
+<li><p>memory.oom_control<br>  contains a flag (0 or 1) that enables or disables the Out of Memory killer for a cgroup. <code>If enabled (0), tasks that attempt to consume more memory than they are allowed are immediately killed by the OOM killer</code>. The OOM killer is <code>enabled by default</code> in every cgroup using the memory subsystem; to disable it, write 1 to the memory.oom_control file.</p>
+<p>  When the OOM killer is disabled, tasks that attempt to use more memory than <code>they are allowed are paused until additional memory is freed</code>.</p>
+</li>
+<li><p>memory.swappiness<br>  sets the tendency of the kernel to swap out process memory used by tasks in this cgroup instead of reclaiming pages from the page cache. This is the same tendency, calculated the same way, as set in &#x2F;proc&#x2F;sys&#x2F;vm&#x2F;swappiness for the system as a whole. The default value is 60. <code>Values lower than 60 decrease the kernel&#39;s tendency to swap out process memory, values greater than 60 increase the kernel&#39;s tendency to swap out process memory</code>, and values <code>greater than 100 permit the kernel to swap out pages that are part of the address space of the processes in this cgroup</code>.</p>
+<p>  Note that a value of <code>0 does not prevent process memory being swapped out</code>; swap out might still happen when there is a shortage of system memory because the global virtual memory management logic does not read the cgroup value. To lock pages completely, use mlock() instead of cgroups. </p>
+<p>  <strong>NOTE:</strong><br>  Increasing this value will make the system more inclined to utilize swap space, <code>leaving more memory free for caches</code>.<br>  Decreasing this value will make the system less inclined to swap, and <code>may improve application responsiveness.</code></p>
+<p>  Tuning vm.swappiness incorrectly may hurt performance or may have a different impact between light and heavy workloads. <strong>Changes to this parameter should be made in small increments and should be tested under the same conditions that the system normally operates.</strong></p>
+</li>
+</ul>
+<p>&lt;font color&#x3D;’red’, size&#x3D;4&gt;NOTE</font></p>
+<p>if <code>soft_limit_in_bytes</code> is unlimited while <code>limit_in_bytes</code> is set, when processes in this group reach  <code>limit_in_bytes</code>, kernel will try to swap some memory of the processes to disk, so that it may be below the limit, but if there is no swap left of the system or it reaches <code>memsw.limit_in_bytes</code>, in these case, one of the process(high score) should be killed by OOM killer.</p>
+<h2 id="cgroup-subsystem-kernel"><a href="#cgroup-subsystem-kernel" class="headerlink" title="cgroup subsystem kernel"></a>cgroup subsystem kernel</h2><p>Here is the source code for each subsystem</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cpuset_subsys - defined <span class="keyword">in</span> kernel/cpuset.c.</span><br><span class="line">freezer_subsys - defined <span class="keyword">in</span> kernel/cgroup_freezer.c.</span><br><span class="line">mem_cgroup_subsys - defined <span class="keyword">in</span> mm/memcontrol.c; Aka memcg - memory control <span class="built_in">groups</span>.</span><br><span class="line">blkio_subsys - defined <span class="keyword">in</span> block/blk-cgroup.c.</span><br><span class="line">net_cls_subsys - defined <span class="keyword">in</span> net/sched/cls_cgroup.c ( can be built as a kernel module)</span><br><span class="line">net_prio_subsys - defined <span class="keyword">in</span> net/core/netprio_cgroup.c ( can be built as a kernel module)</span><br><span class="line">devices_subsys - defined <span class="keyword">in</span> security/device_cgroup.c.</span><br><span class="line">perf_subsys (perf_event) - defined <span class="keyword">in</span> kernel/events/core.c</span><br><span class="line">hugetlb_subsys - defined <span class="keyword">in</span> mm/hugetlb_cgroup.c.</span><br><span class="line">cpu_cgroup_subsys - defined <span class="keyword">in</span> kernel/sched/core.c</span><br><span class="line">cpuacct_subsys - defined <span class="keyword">in</span> kernel/sched/core.c</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker/cgroup-kernel-view1.jpg" alt="cgroup kernel part1"></p>
+<p><img src="/images/docker/cgroup-kernel-view2.jpg" alt="cgroup kernel part2"></p>
+<p><strong>css_set:(set of groups from different subsystems)</strong><br>When a process forks, the child will be in all the same cgroups that the parent is in. While either process could be moved around, they very often are not. This means that it is quite common for a collection of processes (and the threads within them) to all be in the same set of cgroups. To make use of this commonality, <mark>the struct css_set exists. It identifies a set of cgroups (css stands for “cgroup subsystem state”) and each thread is attached to precisely one css_set</mark>. All css_sets are linked together in a hash table so that when a process or thread is moved to a new cgroup, a pre-existing css_set can be reused, if one exists with the required set of cgroups</p>
+<h1 id="cgroupv2"><a href="#cgroupv2" class="headerlink" title="cgroupv2"></a>cgroupv2</h1><p><strong>Why cgroupv2(kernel&gt;&#x3D;4.5)?</strong><br>There was a lot of <a target="_blank" rel="noopener" href="https://lwn.net/Articles/484251/">criticism</a> and <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=PzpG40WiEfM">issues</a> about the implementation of cgroups, which seems to present <code>a number of inconsistencies and a lot of chaos</code>. For example, when creating subgroups (cgroups within cgroups), several cgroup controllers propagate parameters to their immediate subgroups, while other controllers do not. Or, for a different example, some controllers use interface files (such as the cpuset controller’s clone_children) that appear in all controllers even though they only affect one. also due to different subsystem(cpu, memory, blkio), limitation only affect within that subsystem, hence when buffer io is enabled(enabled by default), write&#x2F;read only happens at page cache, blkio who works at block layer, does not know it, hence can not limit disk io correctly! but with cgroupv2, as memory, blkio can be enabled at same group, so blkio with v2 can works as expected!!!</p>
+<p><strong>The biggest change to cgroups in v2 is a focus on simplicity to the hierarchy</strong>. Where v1 used independent trees for each controller (such as &#x2F;sys&#x2F;fs&#x2F;cgroup&#x2F;cpu&#x2F;GROUPNAME and &#x2F;sys&#x2F;fs&#x2F;cgroup&#x2F;memory&#x2F;GROUPNAME), v2 will unify those in &#x2F;sys&#x2F;fs&#x2F;cgroup&#x2F;GROUPNAME. In the same vein, <strong>if Process X joins &#x2F;sys&#x2F;fs&#x2F;cgroup&#x2F;test, every controller enabled for test will control Process X</strong></p>
+<p>For example, in cgroups v2, memory protection is configured in four files:</p>
+<ul>
+<li>memory.min: this memory will never be reclaimed.</li>
+<li>memory.low: memory below this threshold is reclaimed if there’s no other reclaimable memory in other cgroups.</li>
+<li>memory.high: the kernel will attempt to keep memory usage below this configuration.</li>
+<li>memory.max: if memory reaches this level the OOM killer (a system used to sacrifice one or more processes to free up memory for the system when all else fails) is invoked on the cgroup</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://chrisdown.name/talks/cgroupv2/cgroupv2-fosdem.pdf">cgroupv1 vs cgroupv2</a></p>
+<p><a target="_blank" rel="noopener" href="https://zorrozou.github.io/docs/%E8%AF%A6%E8%A7%A3Cgroup%20V2.html">cgroupv2 usage</a> and <a target="_blank" rel="noopener" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_monitoring_and_updating_the_kernel/using-cgroups-v2-to-control-distribution-of-cpu-time-for-applications_managing-monitoring-and-updating-the-kernel">redhat cgroupv2 guideline</a></p>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><h3 id="check-cgroups-of-a-given-process"><a href="#check-cgroups-of-a-given-process" class="headerlink" title="check cgroups of a given process"></a>check cgroups of a given process</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /proc/$pid/cgroup</span></span><br></pre></td></tr></table></figure>
+<h3 id="change-a-cgroup-of-a-given-process"><a href="#change-a-cgroup-of-a-given-process" class="headerlink" title="change a cgroup of a given process"></a>change a cgroup of a given process</h3><p>change cpu cgroup of given process</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># you can create a sub group under a subsystem or under another group</span></span><br><span class="line"><span class="comment"># tasks # attach a task(thread) and show list of threads</span></span><br><span class="line"><span class="comment"># cgroup.procs # show list of processes</span></span><br><span class="line"><span class="variable">$echo</span> <span class="variable">$pid</span> &gt; /sys/fs/cgroup/cpu/<span class="variable">$sub_group</span>/cgroup.procs</span><br></pre></td></tr></table></figure>
+<h3 id="check-root-node-of-particular-cgroup-subsystem"><a href="#check-root-node-of-particular-cgroup-subsystem" class="headerlink" title="check root node of particular cgroup(subsystem)"></a>check root node of particular cgroup(subsystem)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ls /sys/fs/cgroup/xx</span></span><br></pre></td></tr></table></figure>
+<h3 id="create-cgroup-sub-group-of-a-given-cgroup-subsystem"><a href="#create-cgroup-sub-group-of-a-given-cgroup-subsystem" class="headerlink" title="create cgroup(sub group of a given cgroup subsystem)"></a>create cgroup(sub group of a given cgroup subsystem)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create a cpu control group, you can create cgroup alone without process, later on add process to it</span><br><span class="line"><span class="comment"># cd /sys/fs/cgroup/cpu/</span></span><br><span class="line"><span class="comment"># mkdir test_cg</span></span><br><span class="line">after this system will add attributes files(control files) automatically, <span class="keyword">then</span> you can change</span><br><span class="line">parameters <span class="keyword">for</span> this group to control cpu etc</span><br></pre></td></tr></table></figure>
+<p><mark>the created cgroup will be deleted after reboot!!!, when created, there is no process in this group</mark></p>
+<p><strong>when you delete a cgroup, all its processes move to its parent group.</strong></p>
+<h3 id="run-a-program-in-a-given-cgroup"><a href="#run-a-program-in-a-given-cgroup" class="headerlink" title="run a program in a given cgroup"></a>run a program in a given cgroup</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cgexec</span> -g controllers:path_to_cgroup <span class="built_in">command</span> arguments </span><br><span class="line"><span class="comment"># must create cgroup before!!!</span></span><br><span class="line"><span class="comment"># path: -g memory:test/sub</span></span><br><span class="line"><span class="variable">$cgexec</span> -g memory:<span class="built_in">test</span> stress-ng -m 1 --vm-bytes 128M -t 10s --metrics-brief</span><br><span class="line"><span class="variable">$cgexec</span> -g memory:<span class="built_in">test</span> -g cpu:<span class="built_in">test</span> stress-ng -m 1 --vm-bytes 128M -t 10s --metrics-brief</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/cgroups/" rel="tag"># cgroups</a>
+              <a href="/tags/resource-controller/" rel="tag"># resource controller</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/10/14/docker-create-image/" rel="prev" title="docker-create-image">
+                  <i class="fa fa-chevron-left"></i> docker-create-image
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/10/14/docker-core-tech-ns/" rel="next" title="docker-core-tech-ns">
+                  docker-core-tech-ns <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

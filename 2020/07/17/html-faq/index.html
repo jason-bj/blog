@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Frequent HTML questions">
+<meta property="og:type" content="article">
+<meta property="og:title" content="html-faq">
+<meta property="og:url" content="http://cyun.tech/2020/07/17/html-faq/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="Frequent HTML questions">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/603c2b38-eaa7-4806-b5bc-cf7b3edbcd68/eventflow.png">
+<meta property="article:published_time" content="2020-07-17T07:49:04.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.148Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/603c2b38-eaa7-4806-b5bc-cf7b3edbcd68/eventflow.png">
+
+
+<link rel="canonical" href="http://cyun.tech/2020/07/17/html-faq/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2020/07/17/html-faq/","path":"2020/07/17/html-faq/","title":"html-faq"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>html-faq | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FAQ"><span class="nav-number">1.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Html-attribute-vs-CSS-property"><span class="nav-number">1.1.</span> <span class="nav-text">Html attribute vs CSS property</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#custom-tag"><span class="nav-number">1.2.</span> <span class="nav-text">custom tag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#custom-attribute-to-built-in-tag"><span class="nav-number">1.3.</span> <span class="nav-text">custom attribute to built-in tag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#object-vs-embed-vs-video-x2F-audio"><span class="nav-number">1.4.</span> <span class="nav-text">object vs embed vs video&#x2F;audio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select-vs-datalist"><span class="nav-number">1.5.</span> <span class="nav-text">select vs datalist</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AJAX-vs-SSE-vs-WebSocket"><span class="nav-number">1.6.</span> <span class="nav-text">AJAX vs SSE vs WebSocket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-dom-event-works"><span class="nav-number">1.7.</span> <span class="nav-text">how dom event works</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#why-is-not-defined-in-your-script"><span class="nav-number">1.8.</span> <span class="nav-text">why $ is not defined in your script</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#After-move-a-button-negative-margin-it-can-NOT-be-clicked"><span class="nav-number">1.9.</span> <span class="nav-text">After move a button(negative margin), it can NOT be clicked</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">2.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2020/07/17/html-faq/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="html-faq | CYun">
+      <meta itemprop="description" content="Frequent HTML questions">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          html-faq
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-07-17 15:49:04" itemprop="dateCreated datePublished" datetime="2020-07-17T15:49:04+08:00">2020-07-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/html/" itemprop="url" rel="index"><span itemprop="name">html</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">Frequent HTML questions</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><h2 id="Html-attribute-vs-CSS-property"><a href="#Html-attribute-vs-CSS-property" class="headerlink" title="Html attribute vs CSS property"></a>Html attribute vs CSS property</h2><p>HTML attribute defines the information about html, Tags are different, some are for img, some for text,so the attributes are grouped into two parts, one is global attributes, the other is tag related,<code>you can set global attributes for any tag, while tag related is only valid for that kind of tag</code>, let’s say you can’t set <code>href</code> attribute for a <code>h1</code>, browser thinks it’s invalid.</p>
+<p>CSS property is different thing, it’s defined by CSS, every html element can set any CSS property for itself, CSS property is inside <code>style</code> attribute of CSS tag for inline style, see below example</p>
+<p>CSS property’s value if not set could be</p>
+<ul>
+<li>default value</li>
+<li>inherited from its parent</li>
+</ul>
+<p><code>Tag attribute value is empty if not set</code>.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--style is tag attribute while color, text-algin are css properties--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&#x27;h1&#x27;</span> <span class="attr">style</span>=<span class="string">&quot;color:blue;text-align:center&quot;</span>&gt;</span>This is a header<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="custom-tag"><a href="#custom-tag" class="headerlink" title="custom tag"></a>custom tag</h2><p>There are two ways to create a custom tag, one is by js, the other is in html directly</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">s_tag<span class="selector-attr">[test_attr]</span>&#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">color</span>: green;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">display</span>: block;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;color:red&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">s_tag</span> <span class="attr">style</span>=<span class="string">&quot;color: blue&quot;</span>&gt;</span>hi1<span class="tag">&lt;/<span class="name">s_tag</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">s_tag</span>&gt;</span>hi2<span class="tag">&lt;/<span class="name">s_tag</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">s_tag</span> <span class="attr">test_attr</span>=<span class="string">&quot;cool&quot;</span>&gt;</span>h3<span class="tag">&lt;/<span class="name">s_tag</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>How browser renders a custom tag</strong><br>Browser first checks the global attributes as every element can set it and browser knows how to handle such attributes, for other custom attributes, browser does NOT know how to use it, it’s totally used by user, then browser checks the CSS style for the custom element, property value if not set use default value or inherited from its parent.</p>
+<p><strong>Note: custom tag with <code>display:inline</code> by default, it’s inline element</strong></p>
+<h2 id="custom-attribute-to-built-in-tag"><a href="#custom-attribute-to-built-in-tag" class="headerlink" title="custom attribute to built-in tag"></a>custom attribute to built-in tag</h2><p>The data-* attributes is used to store custom data private to the page or application, the data-* attributes gives us the ability to embed custom data attributes on all HTML elements.</p>
+<p>The stored (custom) data can then be used in the page’s JavaScript to create a more engaging user experience (without any Ajax calls or server-side database queries).<br><em><em>The data-</em> attributes consist of two parts:</em>*</p>
+<ul>
+<li>The attribute name should <code>not contain any uppercase letters</code>, and must be at least one character long <code>after the prefix &quot;data-&quot;</code></li>
+<li>The attribute value can be any string</li>
+</ul>
+<p>Note: Custom attributes <code>prefixed with &quot;data-&quot; will be completely ignored by the user agent</code>.</p>
+<h2 id="object-vs-embed-vs-video-x2F-audio"><a href="#object-vs-embed-vs-video-x2F-audio" class="headerlink" title="object vs embed vs video&#x2F;audio"></a>object vs embed vs video&#x2F;audio</h2><p>The HTML &lt;video&gt; element is used to show a video on a web page by <code>browser built-in player</code>, it’s new feature by HTML5, same thing for &lt;audio&gt; as well.</p>
+<p>But &lt;object&gt; and &lt;embed&gt; calls plugins to display them,  supported long time, hence for a video, we should write in this way</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">video</span> <span class="attr">width</span>=<span class="string">&quot;320&quot;</span> <span class="attr">height</span>=<span class="string">&quot;240&quot;</span> <span class="attr">controls</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;movie.mp4&quot;</span> <span class="attr">type</span>=<span class="string">&quot;video/mp4&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;movie.ogg&quot;</span> <span class="attr">type</span>=<span class="string">&quot;video/ogg&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--fallback to old way--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">embed</span> <span class="attr">type</span>=<span class="string">&quot;video/webm&quot;</span> <span class="attr">src</span>=<span class="string">&quot;movie.mp4&quot;</span>&gt;</span></span><br><span class="line">Your browser does not support the video tag.</span><br><span class="line"><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="select-vs-datalist"><a href="#select-vs-datalist" class="headerlink" title="select vs datalist"></a>select vs datalist</h2><p>The &lt;select&gt; element defines a drop-down list, used for selecting pre-defined data</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/action_page.php&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;cars&quot;</span>&gt;</span>Choose a car:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- data list for select element --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;cars&quot;</span> <span class="attr">name</span>=<span class="string">&quot;cars&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;volvo&quot;</span>&gt;</span>Volvo<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;saab&quot;</span>&gt;</span>Saab<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;fiat&quot;</span>&gt;</span>Fiat<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;audi&quot;</span>&gt;</span>Audi<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>The &lt;datalist&gt; element specifies a list of pre-defined options for an &lt;input&gt; element, used for show <code>search history</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/action_page.php&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--data list for input element with list attribute--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">list</span>=<span class="string">&quot;browsers&quot;</span> <span class="attr">name</span>=<span class="string">&quot;browser&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">datalist</span> <span class="attr">id</span>=<span class="string">&quot;browsers&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Internet Explorer&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Firefox&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Chrome&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Opera&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Safari&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">datalist</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="AJAX-vs-SSE-vs-WebSocket"><a href="#AJAX-vs-SSE-vs-WebSocket" class="headerlink" title="AJAX vs SSE vs WebSocket"></a>AJAX vs SSE vs WebSocket</h2><p><strong>AJAX</strong><br>An AJAX request is built around the typical HTTP model(HTTP request&#x2F;response Restful API). A request is made by a client and a response is generated by a server, it’s client driven, <code>Each request creates a new HTTP request in the background</code></p>
+<p>Data is transmitted o each HTTP connection based on HTTP protocol.</p>
+<p><strong>WebSocket</strong><br>WebSockets are based around an event model. The client and server can <code>emit events and send data to each other </code>whenever they need to, Bi-direction communication, lets say there are 3 users working on a project together; user A, B, and C. User A can update the project by emitting an event to the server. The server can in turn emit an event to user B, and C, informing them that a change has happened and at the same time sending them data about the change. Their browser can then use that data to update their web page.</p>
+<p>WebSockets have to establish a connection to a server for data to flow. WebSockets only <code>establish this connection once</code>, then all data is sent over this open <code>WS protocol connection</code>. This means each event being send takes very little resources from both the server and the client because a new connection never has to be established, and ws protocol is small.</p>
+<p>It uses HTTP protocol to setup the connection, then switch to WS protocol for data transmission. hence it’s faster.</p>
+<p><strong>Difference between Ajax and WebSocket</strong></p>
+<ul>
+<li><p>Web sockets are used to define full duplex communication between different servers and clients. It acts as a means of communication between both these sources and makes an exchange of data possible between them. Web sockets focus upon true concurrency and optimization of performance.</p>
+</li>
+<li><p>AJAX is an abbreviation for Asynchronous JavaScript and XML. Ajax can be considered as a technology which can be used to create better faster and more interactive applications using XML, HTML, CSS, and JavaScript. Ajax makes use of XHTML, CSS, Document Object Model and JavaScript for dynamic content display.</p>
+</li>
+<li><p>The distinguishing features of web sockets are as below:</p>
+<ul>
+<li>The protocol that is being used by web sockets is standardized which enables real-time communication between the different clients and servers.</li>
+<li>Web sockets help to transform the cross-platform standard for real-time communication between client and server.</li>
+<li>As there is a pre-defined standard it enables to create new kind of applications. Businesses for real-time web applications can be created speedily. The biggest advantage is that it provides a two-way communication between client and server over a single TCP connection</li>
+</ul>
+</li>
+<li><p>Ajax Features</p>
+<ul>
+<li>Ajax uses different technologies to create the best dynamic pages. It uses XHTML for content, CSS for making presentations look great, document object model and JavaScript for making pages dynamic.</li>
+<li>With Ajax, once you submit a form JavaScript makes a request to the server, finds the result and updates the screen. It is never known to the user that there was information transmitted to the server but there actually is information being transmitted.</li>
+<li>It also uses XML to format data from receiving server.</li>
+<li>It can also be called a web browser which is independent of the web server technology being used. Also, a user can work continuously when a client program is requesting information from the server in the background.</li>
+</ul>
+</li>
+<li><p>When it comes to Web Socket events there are mainly four events. They are:</p>
+<ul>
+<li>Open: acts as a handshake between client and server</li>
+<li>Message: happens when the server sends some data. Messages can be plain text messages or binary data</li>
+<li>Close: This marks the end of communication between server and client.</li>
+<li>Error: When an error occurs, when a communication channel is opened then the error event occurs</li>
+</ul>
+</li>
+<li><p>Ajax also supports events and actions. The steps that happen when an event occurs are as below:</p>
+<ul>
+<li>A XMLHttpRequest object is created.</li>
+<li>This object is then configured.</li>
+<li>The object then makes an asynchronous request to the webserver.</li>
+<li>The web server returns results which contain the XML document.</li>
+<li>The object calls the callback() function and processes the result.</li>
+<li>Once all this is done the HTML DOM is updated.</li>
+</ul>
+</li>
+<li><p>AJax is more secure than Websocket.</p>
+</li>
+</ul>
+<p>So if you need bi-direction, low latency, real-time, use WebSocket, otherwise Ajax, but Ajax is driven by client, so server wants to notify update to client like upgrade notification, stock price etc, Ajax can’t do, hence SSE comes into play.</p>
+<p><strong>SSE</strong><br>Server-Sent Events (SSE) allow a web page to get updates from a server. One-way Messaging<br>A server-sent event is when a web page automatically gets updates from a server.</p>
+<p>This was also possible before, but the web page would have to ask if any updates were available(ajax poll). With server-sent events, the updates come automatically.</p>
+<p><code>Suggestion: Traditional Way, AJAX + SSE, if need low latency, real-time, WebSocket which is new.</code></p>
+<h2 id="how-dom-event-works"><a href="#how-dom-event-works" class="headerlink" title="how dom event works"></a>how dom event works</h2><p>The event object is created when the event first happens; it travels with the event on its journey through the DOM. We can use this object to access a wealth of information about the event that has occurred:</p>
+<ul>
+<li>type (string) This is the name of the event.</li>
+<li>target (node) This is the DOM node where the event originated.</li>
+<li>currentTarget (node) This is the DOM node that the event callback is currently firing on.</li>
+<li>bubbles (boolean) This indicates whether this is a “bubbling” event.</li>
+<li>preventDefault (function) This prevents any default behavior from occurring that the user agent (i.e. browser) might carry out in relation to the event (for example, preventing a click event on an &lt;a&gt; element from loading a new page).</li>
+<li>stopPropagation (function) This prevents any callbacks from being fired on any nodes further along the event chain, but it does not prevent any additional callbacks of the same event name from being fired on the current node.</li>
+<li>stopImmediatePropagation (function) This prevents any callbacks from being fired on any nodes further along the event chain, including any additional callbacks of the same event name on the current node.</li>
+<li>cancelable (boolean) This indicates whether the default behavior of this event can be prevented by calling the event.preventDefault method.</li>
+<li>defaultPrevented (boolean) This states whether the preventDefault method has been called on the event object.</li>
+<li>isTrusted (boolean) An event is said to be “trusted” when it originates from the device itself, not synthesized from within JavaScript.</li>
+<li>eventPhase (number) This number represents the phase that the event is currently in: none (0), capture (1), target (2) or bubbling (3). We’ll go over event phases next.</li>
+<li>timestamp (number) This is the date on which the event occurred.</li>
+</ul>
+<p><strong>Event Phase</strong><br>the event flows from the document’s root to the target (i.e. capture phase), then fires on the event target (target phase), then flows back to the document’s root (bubbling phase)</p>
+<p><img src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/603c2b38-eaa7-4806-b5bc-cf7b3edbcd68/eventflow.png" alt="Event Phase"></p>
+<p><strong>Capture Phase</strong><br>The first phase is the capture phase. The event starts its journey at the root of the document, working its way down through each layer of the DOM, firing on each node until it reaches the event target. The job of the capture phase is to build the propagation path, which the event will travel back through in the bubbling phase.</p>
+<p><strong>Target Phase</strong><br>An event reaching the target is known as the target phase. The event fires on the target node, before reversing and retracing its steps, propagating back to the outermost document level.</p>
+<p>In the case of nested elements, mouse and pointer events are always targeted at the most deeply nested element. If you have listened for a click event on a &lt;div&gt; element, and the user actually clicks on a &lt;p&gt; element in the div, then the &lt;p&gt; element will become the event target.</p>
+<p><strong>Bubbling Phase</strong><br>After an event has fired on the target, it doesn’t stop there. It bubbles up (or propagates) through the DOM until it reaches the document’s root. This means that the same event is fired on the target’s parent node, followed by the parent’s parent, continuing until there is no parent to pass the event onto.</p>
+<p><strong>Note: Most of callback are at Bubbling Phase</strong></p>
+<h2 id="why-is-not-defined-in-your-script"><a href="#why-is-not-defined-in-your-script" class="headerlink" title="why $ is not defined in your script"></a>why $ is not defined in your script</h2><p>Make sure load your script after jquery.</p>
+<h2 id="After-move-a-button-negative-margin-it-can-NOT-be-clicked"><a href="#After-move-a-button-negative-margin-it-can-NOT-be-clicked" class="headerlink" title="After move a button(negative margin), it can NOT be clicked"></a>After move a button(negative margin), it can NOT be clicked</h2><p>This is because after move, button and other tag overlaps, while other tag at the top, in order to make it clickable, change its z-index to high value</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.button</span> &#123;</span><br><span class="line">    <span class="attribute">z-index</span>: <span class="number">100</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.smashingmagazine.com/2013/11/an-introduction-to-dom-events/">Inside Dom event</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/html/" rel="tag"># html</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/07/16/html-basic/" rel="prev" title="html_basic">
+                  <i class="fa fa-chevron-left"></i> html_basic
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/20/html-dom/" rel="next" title="html_dom">
+                  html_dom <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

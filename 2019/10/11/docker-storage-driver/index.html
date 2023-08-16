@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Storage driverOverviewDocker supports many storage drivers like below, but if you work on ubuntuuse AUFS if linux kernel version is less than 4.0 otherwise use overlay(overlay2) as it has better perfo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker-storage-driver">
+<meta property="og:url" content="http://cyun.tech/2019/10/11/docker-storage-driver/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="Storage driverOverviewDocker supports many storage drivers like below, but if you work on ubuntuuse AUFS if linux kernel version is less than 4.0 otherwise use overlay(overlay2) as it has better perfo">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cyun.tech/images/docker/storage-driver-history.png">
+<meta property="article:published_time" content="2019-10-11T07:35:19.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.139Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="docker storage">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cyun.tech/images/docker/storage-driver-history.png">
+
+
+<link rel="canonical" href="http://cyun.tech/2019/10/11/docker-storage-driver/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2019/10/11/docker-storage-driver/","path":"2019/10/11/docker-storage-driver/","title":"docker-storage-driver"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>docker-storage-driver | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Storage-driver"><span class="nav-number">1.</span> <span class="nav-text">Storage driver</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-docker-uses-AUFS"><span class="nav-number">1.2.</span> <span class="nav-text">how docker uses AUFS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#x2F-var-x2F-lib-x2F-docker-changes-when-created-container"><span class="nav-number">1.2.1.</span> <span class="nav-text">&#x2F;var&#x2F;lib&#x2F;docker changes when created container</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2019/10/11/docker-storage-driver/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="docker-storage-driver | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          docker-storage-driver
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-10-11 15:35:19" itemprop="dateCreated datePublished" datetime="2019-10-11T15:35:19+08:00">2019-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/docker/storage-driver/" itemprop="url" rel="index"><span itemprop="name">storage-driver</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Storage-driver"><a href="#Storage-driver" class="headerlink" title="Storage driver"></a>Storage driver</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>Docker supports many storage drivers like below, but if you work on ubuntu<br>use AUFS if linux kernel version is less than 4.0 otherwise use overlay(overlay2) as it has better performance.<br><img src="https://cyun.tech/images/docker/storage-driver-history.png" alt="storage driver"></p>
+<span id="more"></span>
+<p><strong>Note: AUFS is not accepted by linux kernel(not in main) but it&#39;s initially default  storage driver for docker.</strong></p>
+<h2 id="how-docker-uses-AUFS"><a href="#how-docker-uses-AUFS" class="headerlink" title="how docker uses AUFS"></a>how docker uses AUFS</h2><p>Aufs merges different dirs into single one, basic usage, refer to <a href="/2019/10/11/docker-core-tech-aufs/" title="docker-core-tech-aufs">Aufs-basic</a>, here let’s say how aufs works for docker.</p>
+<mark class="label success">Actually, Aufs($ mount -t aufs xx) only happens when you <mark>create</mark> a container(event it's not started), at that time docker creates a RW layer(called container layer), then mounts different layers[container layer + image layers] into single dir, when you start this container, chroot to this single dir as the root dir for it, that's it.</mark>
+
+<p><mark>Note: this mount point(single dir) and RW layer is deleted only when the container is removed.</mark></p>
+<h3 id="x2F-var-x2F-lib-x2F-docker-changes-when-created-container"><a href="#x2F-var-x2F-lib-x2F-docker-changes-when-created-container" class="headerlink" title="&#x2F;var&#x2F;lib&#x2F;docker changes when created container"></a>&#x2F;var&#x2F;lib&#x2F;docker changes when created container</h3><mark class="label danger">let's take a real example on ubuntu to see how it works</mark>, in order to understand it correctly, it's better read <a href="/2019/10/11/docker-image-container-on-disk/" title="docker-image-container-on-disk">how image stored on ubuntu</a> firstly.
+
+<p>Initially, we only have one image, ubuntu:latest which has four layers that’s where we begin</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line"></span><br><span class="line">$ docker images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">ubuntu              latest              2ca708c1c9cc        3 weeks ago         64.19 MB</span><br></pre></td></tr></table></figure>
+
+<p>later on we create a container with this image</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ docker create  --name myubuntu  ubuntu:latest</span><br><span class="line">ba2377cb603f8c5ef44619af1bb8734a870139939913777896438e34facd3a3e</span><br><span class="line"></span><br><span class="line">$ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS              PORTS               NAMES</span><br><span class="line">ba2377cb603f        ubuntu:latest       <span class="string">&quot;/bin/bash&quot;</span>         About a minute ago   Created                                 myubuntu</span><br></pre></td></tr></table></figure>
+
+<p>Let’s see what changes for each docker directory.</p>
+<p><strong><mark>aufs&#x2F;diff change </mark></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Before created</span><br><span class="line">$ <span class="built_in">ls</span> -l /var/lib/docker/aufs/diff</span><br><span class="line">total 16</span><br><span class="line">drwxr-xr-x  6 root root 4096 Oct 14 09:50 268f3ca66142b2b9791504df67c604a5f0bf331064f4e1f899fcdd33686b602d</span><br><span class="line">drwxr-xr-x 21 root root 4096 Oct 14 09:50 38fd587650e8a0befc2a177395a2afa380abcd32ac78316c6a38ea6b01bdadd7</span><br><span class="line">drwxr-xr-x  3 root root 4096 Oct 14 09:50 39d5b8fbe7446545c8e982bc3c2e0a0e955a81c99a88a85121252800406c88cf</span><br><span class="line">drwxr-xr-x  3 root root 4096 Oct 14 09:50 9bd9ca976269998def585a7848e180207f88cdec9e95b11e930532cfe84780e6</span><br><span class="line"></span><br><span class="line">After created</span><br><span class="line">$ <span class="built_in">ls</span> -l /var/lib/docker/aufs/diff</span><br><span class="line">total 24</span><br><span class="line">drwxr-xr-x  4 root root 4096 Oct 14 10:15 0d6eb9abafaca00679acf48400264dbb2704a996ae2781a615809ec672859a47</span><br><span class="line">drwxr-xr-x  6 root root 4096 Oct 14 10:15 0d6eb9abafaca00679acf48400264dbb2704a996ae2781a615809ec672859a47-init</span><br><span class="line"><span class="comment"># above are two new added layers(RW layer + init Layer) for this container</span></span><br><span class="line"><span class="comment"># RW layer is empty</span></span><br><span class="line"><span class="comment"># init layer is system related, some system required info</span></span><br><span class="line">aufs/diff/0d6eb9abafaca00679acf48400264dbb2704a996ae2781a615809ec672859a47-init/</span><br><span class="line">|-- dev</span><br><span class="line">|   |-- console</span><br><span class="line">|   |-- pts</span><br><span class="line">|   `-- shm</span><br><span class="line">`-- etc</span><br><span class="line">    |-- hostname</span><br><span class="line">    |-- hosts</span><br><span class="line">    |-- mtab -&gt; /proc/mounts</span><br><span class="line">    `-- resolv.conf</span><br><span class="line"></span><br><span class="line">drwxr-xr-x  6 root root 4096 Oct 14 09:50 268f3ca66142b2b9791504df67c604a5f0bf331064f4e1f899fcdd33686b602d</span><br><span class="line">drwxr-xr-x 21 root root 4096 Oct 14 09:50 38fd587650e8a0befc2a177395a2afa380abcd32ac78316c6a38ea6b01bdadd7</span><br><span class="line">drwxr-xr-x  3 root root 4096 Oct 14 09:50 39d5b8fbe7446545c8e982bc3c2e0a0e955a81c99a88a85121252800406c88cf</span><br><span class="line">drwxr-xr-x  3 root root 4096 Oct 14 09:50 9bd9ca976269998def585a7848e180207f88cdec9e95b11e930532cfe84780e6</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong><mark>aufs&#x2F;layer change </mark></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Before created</span><br><span class="line">$ <span class="built_in">ls</span> -l /var/lib/docker/aufs/layers/</span><br><span class="line">total 12</span><br><span class="line">-rw-r--r-- 1 root root 130 Oct 14 09:50 268f3ca66142b2b9791504df67c604a5f0bf331064f4e1f899fcdd33686b602d</span><br><span class="line">-rw-r--r-- 1 root root   0 Oct 14 09:50 38fd587650e8a0befc2a177395a2afa380abcd32ac78316c6a38ea6b01bdadd7</span><br><span class="line">-rw-r--r-- 1 root root 195 Oct 14 09:50 39d5b8fbe7446545c8e982bc3c2e0a0e955a81c99a88a85121252800406c88cf</span><br><span class="line">-rw-r--r-- 1 root root  65 Oct 14 09:50 9bd9ca976269998def585a7848e180207f88cdec9e95b11e930532cfe84780e6</span><br><span class="line"></span><br><span class="line"><span class="comment"># After created</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">ls</span> -l /var/lib/docker/aufs/layers/</span><br><span class="line">total 20</span><br><span class="line">-rw-r--r-- 1 root root 330 Oct 14 10:15 0d6eb9abafaca00679acf48400264dbb2704a996ae2781a615809ec672859a47</span><br><span class="line">-rw-r--r-- 1 root root 260 Oct 14 10:15 0d6eb9abafaca00679acf48400264dbb2704a996ae2781a615809ec672859a47-init</span><br><span class="line"></span><br><span class="line"><span class="comment"># Above are two new added layers relationship files</span></span><br><span class="line"></span><br><span class="line">-rw-r--r-- 1 root root 130 Oct 14 09:50 268f3ca66142b2b9791504df67c604a5f0bf331064f4e1f899fcdd33686b602d</span><br><span class="line">-rw-r--r-- 1 root root   0 Oct 14 09:50 38fd587650e8a0befc2a177395a2afa380abcd32ac78316c6a38ea6b01bdadd7</span><br><span class="line">-rw-r--r-- 1 root root 195 Oct 14 09:50 39d5b8fbe7446545c8e982bc3c2e0a0e955a81c99a88a85121252800406c88cf</span><br><span class="line">-rw-r--r-- 1 root root  65 Oct 14 09:50 9bd9ca976269998def585a7848e180207f88cdec9e95b11e930532cfe84780e6</span><br></pre></td></tr></table></figure>
+
+
+<p><strong><mark>aufs&#x2F;mnt change </mark></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Before created</span></span><br><span class="line">$ <span class="built_in">ls</span> -l /var/lib/docker/aufs/mnt/</span><br><span class="line">total 16</span><br><span class="line">drwxr-xr-x 2 root root 4096 Oct 14 09:50 268f3ca66142b2b9791504df67c604a5f0bf331064f4e1f899fcdd33686b602d</span><br><span class="line">drwxr-xr-x 2 root root 4096 Oct 14 09:50 38fd587650e8a0befc2a177395a2afa380abcd32ac78316c6a38ea6b01bdadd7</span><br><span class="line">drwxr-xr-x 2 root root 4096 Oct 14 09:50 39d5b8fbe7446545c8e982bc3c2e0a0e955a81c99a88a85121252800406c88cf</span><br><span class="line">drwxr-xr-x 2 root root 4096 Oct 14 09:50 9bd9ca976269998def585a7848e180207f88cdec9e95b11e930532cfe84780e6</span><br><span class="line"></span><br><span class="line"><span class="comment"># After created</span></span><br><span class="line">$ <span class="built_in">ls</span> -l /var/lib/docker/aufs/mnt/</span><br><span class="line">total 24</span><br><span class="line">drwxr-xr-x 2 root root 4096 Oct 14 10:15 0d6eb9abafaca00679acf48400264dbb2704a996ae2781a615809ec672859a47</span><br><span class="line">drwxr-xr-x 2 root root 4096 Oct 14 10:15 0d6eb9abafaca00679acf48400264dbb2704a996ae2781a615809ec672859a47-init</span><br><span class="line"></span><br><span class="line"><span class="comment"># Above is mount point for RW layer and init layer, it&#x27;s only mounted when docker runs here just create</span></span><br><span class="line"><span class="comment"># an empty directory!!!!</span></span><br><span class="line"></span><br><span class="line">drwxr-xr-x 2 root root 4096 Oct 14 09:50 268f3ca66142b2b9791504df67c604a5f0bf331064f4e1f899fcdd33686b602d</span><br><span class="line">drwxr-xr-x 2 root root 4096 Oct 14 09:50 38fd587650e8a0befc2a177395a2afa380abcd32ac78316c6a38ea6b01bdadd7</span><br><span class="line">drwxr-xr-x 2 root root 4096 Oct 14 09:50 39d5b8fbe7446545c8e982bc3c2e0a0e955a81c99a88a85121252800406c88cf</span><br><span class="line">drwxr-xr-x 2 root root 4096 Oct 14 09:50 9bd9ca976269998def585a7848e180207f88cdec9e95b11e930532cfe84780e6</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ mount -t aufs -o br=aufs/diff/0d6eb9abafaca00679acf48400264dbb2704a996ae2781a615809ec672859a47:aufs/diff/0d6eb9abafaca00679acf48400264dbb2704a996ae2781a615809ec672859a47-init xxx none aufs/mnt/0d6eb9abafaca00679acf48400264dbb2704a996ae2781a615809ec672859a47</span><br><span class="line"><span class="comment"># mount happens only container runs!!!!</span></span><br><span class="line"><span class="comment"># Before container run</span></span><br><span class="line">root@dev:/var/lib/docker<span class="comment"># tree aufs/mnt/0d6eb9abafaca00679acf48400264dbb2704a996ae2781a615809ec672859a47/</span></span><br><span class="line">aufs/mnt/0d6eb9abafaca00679acf48400264dbb2704a996ae2781a615809ec672859a47/</span><br><span class="line">0 directories, 0 files</span><br><span class="line"></span><br><span class="line"><span class="comment"># After container runs</span></span><br></pre></td></tr></table></figure>
+
+
+<p><strong><mark>containers&#x2F; change </mark></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Before created</span></span><br><span class="line">root@dev:/var/lib/docker<span class="comment"># ls -l containers/</span></span><br><span class="line">total 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># After created</span></span><br><span class="line">root@dev:/var/lib/docker<span class="comment"># ls -l containers/</span></span><br><span class="line">total 4</span><br><span class="line">drwx------ 2 root root 4096 Oct 14 10:15 ba2377cb603f8c5ef44619af1bb8734a870139939913777896438e34facd3a3e</span><br><span class="line"><span class="comment"># it stores conf and runtime info for this container</span></span><br></pre></td></tr></table></figure>
+
+<p><strong><mark>image&#x2F;aufs&#x2F;layerdb&#x2F;mounts change </mark></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Before created</span></span><br><span class="line">root@dev:/var/lib/docker<span class="comment"># ls -l image/aufs/layerdb/mounts/</span></span><br><span class="line">total 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># After created</span></span><br><span class="line"></span><br><span class="line">root@dev:/var/lib/docker<span class="comment"># ls -l image/aufs/layerdb/mounts/</span></span><br><span class="line">total 4</span><br><span class="line">drwxr-xr-x 2 root root 4096 Oct 14 10:15 ba2377cb603f8c5ef44619af1bb8734a870139939913777896438e34facd3a3e</span><br><span class="line"></span><br><span class="line">root@dev:/var/lib/docker<span class="comment"># tree image/aufs/layerdb/mounts/ba2377cb603f8c5ef44619af1bb8734a870139939913777896438e34facd3a3e/</span></span><br><span class="line">image/aufs/layerdb/mounts/ba2377cb603f8c5ef44619af1bb8734a870139939913777896438e34facd3a3e/</span><br><span class="line">|-- init-id</span><br><span class="line">|-- mount-id</span><br><span class="line">`-- parent</span><br><span class="line"></span><br><span class="line">root@dev:/var/lib/docker<span class="comment"># cat image/aufs/layerdb/mounts/ba2377cb603f8c5ef44619af1bb8734a870139939913777896438e34facd3a3e/mount-id</span></span><br><span class="line">0d6eb9abafaca00679acf48400264dbb2704a996ae2781a615809ec672859a47</span><br><span class="line"><span class="comment"># it stores the mount point(mount-id) for this container</span></span><br></pre></td></tr></table></figure>
+<p>That&#39;s almost the changes from storage view when you create a container.</p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/docker-storage/" rel="tag"># docker storage</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/10/11/docker-core-tech-aufs/" rel="prev" title="docker-core-tech-aufs">
+                  <i class="fa fa-chevron-left"></i> docker-core-tech-aufs
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/10/11/docker-image-container-on-disk/" rel="next" title="docker-image-container-on-disk">
+                  docker-image-container-on-disk <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

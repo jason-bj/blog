@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OverviewHTTP response status codes indicate whether a specific HTTP request has been successfully completed. Responses are grouped in five classes:  Informational responses (100–199) Successful respon">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http-protocol-response-code">
+<meta property="og:url" content="http://cyun.tech/2019/12/13/http-protocol-response-code/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="OverviewHTTP response status codes indicate whether a specific HTTP request has been successfully completed. Responses are grouped in five classes:  Informational responses (100–199) Successful respon">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-12-13T00:59:19.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.151Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="http">
+<meta property="article:tag" content="status-code">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2019/12/13/http-protocol-response-code/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2019/12/13/http-protocol-response-code/","path":"2019/12/13/http-protocol-response-code/","title":"http-protocol-response-code"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>http-protocol-response-code | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Informational-response"><span class="nav-number">1.1.</span> <span class="nav-text">Informational response</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Successful-response"><span class="nav-number">1.2.</span> <span class="nav-text">Successful response</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redirects"><span class="nav-number">1.3.</span> <span class="nav-text">Redirects</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-errors"><span class="nav-number">1.4.</span> <span class="nav-text">Client errors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-errors"><span class="nav-number">1.5.</span> <span class="nav-text">Server errors</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2019/12/13/http-protocol-response-code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="http-protocol-response-code | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          http-protocol-response-code
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-12-13 08:59:19" itemprop="dateCreated datePublished" datetime="2019-12-13T08:59:19+08:00">2019-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/http/" itemprop="url" rel="index"><span itemprop="name">http</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/http/status-code/" itemprop="url" rel="index"><span itemprop="name">status-code</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>HTTP response status codes indicate <code>whether a specific HTTP request has been successfully completed</code>. Responses are grouped in five classes:</p>
+<ul>
+<li>Informational responses (100–199)</li>
+<li><strong>Successful responses (200–299)</strong></li>
+<li>Redirects (300–399)</li>
+<li><strong>Client errors (400–499) detected by server</strong></li>
+<li><strong>Server errors (500–599)</strong></li>
+</ul>
+<span id="more"></span>
+<p>Let’s focus on some common status codes that’s used for each group.</p>
+<h2 id="Informational-response"><a href="#Informational-response" class="headerlink" title="Informational response"></a>Informational response</h2><p>Actually, you rarely see such response.</p>
+<h2 id="Successful-response"><a href="#Successful-response" class="headerlink" title="Successful response"></a>Successful response</h2><p><strong>200 OK</strong></p>
+<p>The HTTP 200 OK success status response code indicates that the request has succeeded. A 200 response is cacheable by default.</p>
+<p>The meaning of a success depends on the HTTP request method:</p>
+<ul>
+<li>GET: The resource has been fetched and is transmitted in the message body.</li>
+<li>HEAD: The entity headers are in the message body.</li>
+<li>POST: The resource describing the result of the action is transmitted in the message body.</li>
+</ul>
+<p>The successful result of a <code>PUT or a DELETE</code> is often <code>not a 200 OK</code> but a <code>204 No Content</code> (or a <code>201 Created</code> when the resource is uploaded for the first time).</p>
+<p><strong>201 Created</strong></p>
+<p>The HTTP 201 Created success status response code indicates that the request has succeeded and has led to the creation of a resource. The new resource is effectively created before this response is sent back and the new resource is returned in the body of the message, its location being either the URL of the request, or the content of the Location header.</p>
+<p><code>The common use case of this status code is as the result of a POST request.</code></p>
+<p><strong>202 Accepted</strong></p>
+<p>The HyperText Transfer Protocol (HTTP) 202 Accepted response status code indicates that the request has been <code>received but not yet acted upon</code>. It is <code>non-committal</code>, meaning that there is no way for the HTTP to later send an asynchronous response indicating the outcome of processing the request. It is intended for cases where <code>another process or server handles the request, or for batch processing.</code></p>
+<p><strong>203 Non-Authoritative Information</strong></p>
+<p>This response code means the returned <code>meta-information is not exactly the same as is available from the origin server, but is collected from a local or a third-party copy</code>. This is mostly <code>used for mirrors or backups</code> of another resource. Except for that specific case, the “200 OK” response is preferred to this status.</p>
+<p><strong>204 No Content</strong></p>
+<p>The HTTP 204 No Content success status response code indicates that the <code>request has succeeded</code>, but that the <code>client doesn&#39;t need to go away from its current page</code>. A 204 response is cacheable by default. An ETag header is included in such a response.</p>
+<p>The common use case is to return 204 as a result of a <code>PUT request, updating a resource, without changing the current content of the page displayed to the user</code>. If the resource is created, 201 Created is returned instead. If the page should be changed to the newly updated page, the 200 should be used instead</p>
+<p><strong>205 Reset Content</strong></p>
+<p>The HTTP 205 Reset Content response status tells the client to reset the document view, so for example to clear the content of a form, reset a canvas state, or to refresh the UI.</p>
+<p><strong>206 Partial Content</strong></p>
+<p>The HTTP 206 Partial Content success status response code indicates that the request has succeeded and has the body contains the requested ranges of data, as described in the Range header of the request.</p>
+<h2 id="Redirects"><a href="#Redirects" class="headerlink" title="Redirects"></a>Redirects</h2><p><strong>301 Moved Permanently</strong></p>
+<p>The URL of the requested resource has been changed permanently. The new URL is given in the response.</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 301 Moved Permanently</span><br><span class="line">Location: http://www.example.org/index.asp</span><br><span class="line"># new url</span><br></pre></td></tr></table></figure>
+<p><strong>302 Found</strong></p>
+<p>The HyperText Transfer Protocol (HTTP) 302 Found redirect status response code indicates that the resource requested has been <code>temporarily moved to the URL given by the Location header</code>. A browser redirects to this page but search engines don’t update their links to the resource as it’s temporarily.</p>
+<p><strong>304 Not Modified</strong></p>
+<p>The HTTP 304 Not Modified client redirection response code indicates that there is no need to retransmit the requested resources. It is an implicit redirection to a cached resource. This happens when the request method is safe, like a GET or a HEAD request, or when the request is conditional and uses a If-None-Match or a If-Modified-Since header.</p>
+<p>The equivalent 200 OK response would have included the headers Cache-Control, Content-Location, Date, ETag, Expires, and Vary.</p>
+<h2 id="Client-errors"><a href="#Client-errors" class="headerlink" title="Client errors"></a>Client errors</h2><p><strong>400 Bad Request</strong></p>
+<p>The server could <code>not understand the request due to invalid syntax.</code></p>
+<p><strong>401 Unauthorized</strong></p>
+<p>Although the HTTP standard specifies “unauthorized”, semantically this response means “unauthenticated”. That is, the client <code>must authenticate itself to get the requested response.</code></p>
+<p><strong>403 Forbidden</strong></p>
+<p>The client does <code>not have access rights to the content</code>; that is, it is unauthorized, so the server is refusing to give the requested resource. <code>Unlike 401, the client&#39;s identity is known to the server.</code></p>
+<p><strong>404 Not Found</strong></p>
+<p>The server can <code>not find requested resource</code>. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 to hide the existence of a resource from an unauthorized client. This response code is probably the most famous one due to its frequent occurrence on the web.</p>
+<p><strong>405 Method Not Allowed</strong></p>
+<p>The request method is known by the server but has been <code>disabled and cannot be used</code>. For example, an API may forbid DELETE-ing a resource. The two mandatory methods, GET and HEAD, must never be disabled and should not return this error code.</p>
+<p><strong>406 Not Acceptable</strong></p>
+<p>This response is sent when the web server, after performing server-driven content negotiation, <code>doesn&#39;t find any content that conforms to the criteria given by the user agent.</code></p>
+<p><strong>407 Proxy Authentication Required</strong></p>
+<p>This is similar to 401 but <code>authentication is needed to be done by a proxy.</code></p>
+<p><strong>408 Request Timeout</strong></p>
+<p>This response is sent on an idle connection by some servers, even without any previous request by the client. It means that the server would like to shut down this unused connection. This response is used much more since some browsers, like Chrome, Firefox 27+, or IE9, use HTTP pre-connection mechanisms to speed up surfing. Also note that some servers merely shut down the connection without sending this message.</p>
+<p><strong>410 Gone</strong></p>
+<p>This response is sent when the requested content has been <code>permanently deleted from server</code>, with no forwarding address. Clients are expected to remove their caches and links to the resource. The HTTP specification intends this status code to be used for “limited-time, promotional services”. APIs should not feel compelled to indicate resources that have been deleted with this status code.</p>
+<p><strong>411 Length Required</strong></p>
+<p>Server rejected the request because the Content-Length header field is not defined and the server requires it.</p>
+<p><strong>413 Payload Too Large</strong></p>
+<p>Request entity is larger than limits defined by server; the server might close the connection or return an Retry-After header field.</p>
+<p><strong>414 URI Too Long</strong></p>
+<p>The URI requested by the client is longer than the server is willing to interpret.</p>
+<p><strong>415 Unsupported Media Type</strong></p>
+<p>The media format of the requested data is not supported by the server, so the server is rejecting the request.</p>
+<p><strong>416 Requested Range Not Satisfiable</strong></p>
+<p>The range specified by the Range header field in the request can’t be fulfilled; it’s possible that the range is outside the size of the target URI’s data.</p>
+<p><strong>429 Too Many Requests</strong></p>
+<p>The user has sent too many requests in a given amount of time (“rate limiting”).</p>
+<p><strong>431 Request Header Fields Too Large</strong></p>
+<p>The server is unwilling to process the request because its header fields are too large. The request may be resubmitted after reducing the size of the request header fields.</p>
+<h2 id="Server-errors"><a href="#Server-errors" class="headerlink" title="Server errors"></a>Server errors</h2><p><strong>500 Internal Server Error</strong></p>
+<p>The server has encountered a situation it doesn’t know how to handle, <code>This error response is a generic &quot;catch-all&quot; response</code>. Usually, this indicates the server cannot find a better 5xx error code to response</p>
+<p><strong>501 Not Implemented</strong></p>
+<p>The request method is not supported by the server and cannot be handled. The only methods that servers are required to support (and therefore that must not return this code) are GET and HEAD.</p>
+<p><strong>502 Bad Gateway</strong></p>
+<p>The HyperText Transfer Protocol (HTTP) 502 Bad Gateway server error response code indicates that the server, while acting as a gateway or <code>proxy, received an invalid response from the upstream server</code>.</p>
+<p><strong>503 Service Unavailable</strong></p>
+<p>The server is <code>not ready to handle the request</code>. Common causes are a <code>server that is down for maintenance or that is overloaded</code>. Note that together with this response, a user-friendly page explaining the problem should be sent. This responses should be used for temporary conditions and the Retry-After: HTTP header should, if possible, contain the estimated time before the recovery of the service. The webmaster must also take care about the caching-related headers that are sent along with this response, as these temporary condition responses should usually not be cached.</p>
+<p><strong>504 Gateway Timeout</strong></p>
+<p>The HyperText Transfer Protocol (HTTP) 504 Gateway Timeout server error response code indicates that the server, while acting as a gateway or <code>proxy, did not get a response in time from the upstream server that it needed in order to complete the request.</code></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/http/" rel="tag"># http</a>
+              <a href="/tags/status-code/" rel="tag"># status-code</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/12/13/http-protocol-cache/" rel="prev" title="http-protocol-cache">
+                  <i class="fa fa-chevron-left"></i> http-protocol-cache
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/12/13/http-protocol-cookie/" rel="next" title="http-protocol-cookie">
+                  http-protocol-cookie <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

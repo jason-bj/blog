@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="KubernetesPodA pod is a group of one or more tightly related containers that will always run together on the same worker node and in the same Linux namespace(s). Each pod is like a separate logical ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s_components">
+<meta property="og:url" content="http://cyun.tech/2020/06/28/k8s-components/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="KubernetesPodA pod is a group of one or more tightly related containers that will always run together on the same worker node and in the same Linux namespace(s). Each pod is like a separate logical ma">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cyun.tech/images/k8s/k8s_pvc_pv_example.png">
+<meta property="og:image" content="https://cyun.tech/images/k8s/k8s_pv_pvc_relation.png">
+<meta property="og:image" content="https://cyun.tech/images/k8s/k8s_storage_class.png">
+<meta property="og:image" content="https://cyun.tech/images/k8s/k8s_replication_controller.png">
+<meta property="og:image" content="https://cyun.tech/images/k8s/k8s_node_port_service.png">
+<meta property="og:image" content="https://cyun.tech/images/k8s/k8s_loadbalancer_service.png">
+<meta property="og:image" content="https://cyun.tech/images/k8s/k8s_ingress.png">
+<meta property="og:image" content="https://cyun.tech/images/k8s/k8s_configMap.png">
+<meta property="og:image" content="http://cyun.tech/images/k8s/k8s_downWardAPI.png">
+<meta property="article:published_time" content="2020-06-28T00:36:36.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.153Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="k8s">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cyun.tech/images/k8s/k8s_pvc_pv_example.png">
+
+
+<link rel="canonical" href="http://cyun.tech/2020/06/28/k8s-components/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2020/06/28/k8s-components/","path":"2020/06/28/k8s-components/","title":"k8s_components"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>k8s_components | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kubernetes"><span class="nav-number">1.</span> <span class="nav-text">Kubernetes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pod"><span class="nav-number">1.1.</span> <span class="nav-text">Pod</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#labels"><span class="nav-number">1.1.1.</span> <span class="nav-text">labels</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Annotations"><span class="nav-number">1.1.2.</span> <span class="nav-text">Annotations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#liveness-probe-check-container-healthy"><span class="nav-number">1.1.3.</span> <span class="nav-text">liveness probe(check container healthy)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#readiness-probe-ready-to-handle-request"><span class="nav-number">1.1.4.</span> <span class="nav-text">readiness probe(ready to handle request)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volume"><span class="nav-number">1.1.5.</span> <span class="nav-text">volume</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Persistentvolume-and-PersistentVolumeClaim"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">Persistentvolume and PersistentVolumeClaim</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Namespaces"><span class="nav-number">1.2.</span> <span class="nav-text">Namespaces</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Replication"><span class="nav-number">1.3.</span> <span class="nav-text">Replication</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ReplicationController-deprecated"><span class="nav-number">1.3.1.</span> <span class="nav-text">ReplicationController(deprecated)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReplicaSet"><span class="nav-number">1.3.2.</span> <span class="nav-text">ReplicaSet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DaemonSet"><span class="nav-number">1.3.3.</span> <span class="nav-text">DaemonSet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Job"><span class="nav-number">1.3.4.</span> <span class="nav-text">Job</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CronJob"><span class="nav-number">1.3.5.</span> <span class="nav-text">CronJob</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service"><span class="nav-number">1.4.</span> <span class="nav-text">Service</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ingress"><span class="nav-number">1.5.</span> <span class="nav-text">Ingress</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#configMap-secret-and-downwardAPI"><span class="nav-number">1.6.</span> <span class="nav-text">configMap, secret and downwardAPI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#configMap"><span class="nav-number">1.6.1.</span> <span class="nav-text">configMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#secret"><span class="nav-number">1.6.2.</span> <span class="nav-text">secret</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#downwardAPI"><span class="nav-number">1.6.3.</span> <span class="nav-text">downwardAPI</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deployment"><span class="nav-number">1.7.</span> <span class="nav-text">Deployment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">1.8.</span> <span class="nav-text">Ref</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2020/06/28/k8s-components/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="k8s_components | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          k8s_components
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-06-28 08:36:36" itemprop="dateCreated datePublished" datetime="2020-06-28T08:36:36+08:00">2020-06-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/k8s/overview/" itemprop="url" rel="index"><span itemprop="name">overview</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h1><h2 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h2><p>A pod is a group of <strong>one or more</strong> <mark class="label danger">tightly related containers</mark> that will always <mark class="label info">run together on the same worker node and in the same Linux namespace(s)</mark>. Each pod is like a separate logical machine with its own IP, hostname, processes, and so on, running a single application.</p>
+<span id="more"></span>
+
+<p>when deciding whether to put two containers into a single pod or into two separate pods, you always need to ask yourself the following questions:<br><strong>Two container in a single pod?</strong></p>
+<ul>
+<li>Do they need to be run together or can they run on different hosts?</li>
+<li>Do they represent a single whole or are they independent components?</li>
+<li>Must they be scaled together or individually?</li>
+</ul>
+<p><strong>Static pod</strong><br>Static pod is a kind of pod created <strong>before scheduler&#x2F;api server starts by kubelet</strong>, kubelet scans &#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F; which is the place for static pod description.</p>
+<p><strong>Note: static pod which only runs on master node(s)</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> -al /etc/kubernetes/manifests/</span><br><span class="line">total 24</span><br><span class="line">drwxr-xr-x 2 root root 4096 Jun  2 13:36 .</span><br><span class="line">drwxr-xr-x 4 root root 4096 Jun  2 13:36 ..</span><br><span class="line">-rw------- 1 root root 2172 Jun  2 13:36 etcd.yaml</span><br><span class="line">-rw------- 1 root root 3714 Jun  2 13:36 kube-apiserver.yaml</span><br><span class="line">-rw------- 1 root root 3384 Jun  2 13:36 kube-controller-manager.yaml</span><br><span class="line">-rw------- 1 root root 1426 Jun  2 13:36 kube-scheduler.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># static pod which only runs on master node(s)!!!</span></span><br><span class="line">$ kubectl get pod -n kube-system</span><br><span class="line">NAME                                              READY   STATUS    RESTARTS   AGE</span><br><span class="line">etcd-linux-node1.example.com                      1/1     Running   0          114m</span><br><span class="line">kube-apiserver-linux-node1.example.com            1/1     Running   0          114m</span><br><span class="line">kube-controller-manager-linux-node1.example.com   1/1     Running   0          114m</span><br><span class="line">kube-scheduler-linux-node1.example.com            1/1     Running   0          114m</span><br></pre></td></tr></table></figure>
+
+<h3 id="labels"><a href="#labels" class="headerlink" title="labels"></a>labels</h3><p>Organizing pods and all other Kubernetes objects are done through labels, labels are a simple, yet incredibly powerful Kubernetes feature for <mark class="label danger">organizing not only pods, but all other Kubernetes resources</mark>. A label is an arbitrary <code>key-value pair you attach to a resource</code>, which is then utilized when <strong>selecting resources using label selectors</strong> (resources are filtered based on whether they include the label specified in the selector).</p>
+<p>A resource can have <code>more than one label</code>, as long as the keys of those labels are <code>unique within that resource</code>. You usually attach labels to resources when you create them, but you can also add additional labels or even modify the values of existing labels later without having to recreate the resource.</p>
+<p><strong>A label selector can select resources based on (key, value, equal, not equal) whether the resource</strong></p>
+<ul>
+<li>Contains (or doesn’t contain) a label with a certain key</li>
+<li>Contains a label with a certain key and value</li>
+<li>Contains a label with a certain key, but with a value not equal to the one you specify</li>
+</ul>
+<h3 id="Annotations"><a href="#Annotations" class="headerlink" title="Annotations"></a>Annotations</h3><p>A great use of annotations is <strong>adding descriptions for each pod or other API object</strong>, <mark class="label danger">it is key-value pair</mark>, but not used as selector!</p>
+<h3 id="liveness-probe-check-container-healthy"><a href="#liveness-probe-check-container-healthy" class="headerlink" title="liveness probe(check container healthy)"></a>liveness probe(check container healthy)</h3><mark class="label danger">Without health check(liveness probes), as long as the process is still running, Kubernetes will consider the container to be healthy, even your application goes into deadlock or infinite loop</mark>, K8s will NOT restart it.
+<p>Kubernetes can check if a container is still alive through liveness probes, you can <code>specify a liveness probe for each container in the pod’s specification</code>. Kubernetes will <strong>periodically execute</strong> the probe and <strong><code>restart the container if the probe fails</code></strong>.</p>
+<p><strong>Kubernetes can probe a container using one of the three mechanisms:</strong></p>
+<ul>
+<li><p><strong>An HTTP GET probe</strong> performs an HTTP GET request on the container’s IP address, a port and path you specify. If the probe receives a response, and the response code doesn’t represent an error (in other words, if the HTTP response code is 2xx or 3xx), the probe is considered successful. If the server returns an error response code or if it doesn’t respond at all, the probe is considered a failure and the container will be restarted as a result.</p>
+</li>
+<li><p><strong>A TCP Socket probe</strong> tries to open a TCP connection to the specified port of the container. If the connection is established successfully, the probe is successful. Otherwise, the container is restarted.</p>
+</li>
+<li><p><strong>An Exec probe</strong> executes an arbitrary command inside the container and checks the command’s exit status code. <strong>If the status code is 0, the probe is successful</strong>. All other codes are considered failures.</p>
+</li>
+</ul>
+<h3 id="readiness-probe-ready-to-handle-request"><a href="#readiness-probe-ready-to-handle-request" class="headerlink" title="readiness probe(ready to handle request)"></a>readiness probe(ready to handle request)</h3><p>The readiness probe is <strong>invoked periodically</strong> and determines whether the specific pod should receive client requests or not.</p>
+<p><strong>Three types of readiness probes exist:</strong></p>
+<ul>
+<li><strong>An Exec probe</strong>, where a process is executed. The container’s status is determined by the process’ exit status code.</li>
+<li><strong>An HTTP GET probe</strong>, which sends an HTTP GET request to the container and the HTTP status code of the response determines whether the container is ready or not.</li>
+<li><strong>A TCP Socket probe</strong>, which opens a TCP connection to a specified port of the container. If the connection is established, the container is considered ready.</li>
+</ul>
+<p>When a container is started, Kubernetes can be configured to wait for a configurable amount of time to pass before performing the first readiness check. After that, it invokes the probe periodically and acts based on the result of the readiness probe. <mark class="label danger">If a pod reports that it is not ready, it is removed from the service(endpoint). If the pod then becomes ready again, it is re-added to service endpoint</mark>.</p>
+<p><strong>Readiness vs Liveness</strong><br>Unlike liveness probes, <mark class="label info">if a container fails the readiness check, it will not be killed or restarted</mark>. This is an important distinction between liveness and readiness probes.<br><strong>Liveness probes keep pods healthy by killing off unhealthy containers and replacing them with new, healthy ones, whereas readiness probes make sure that only pods that are ready to serve requests receive them</strong>.</p>
+<p>If you don’t add a readiness probe to your pods, they’ll become service endpoints almost immediately. If your application takes too long to start listening for incoming connections, client requests hitting the service will be forwarded to the pod while it’s still starting up and not ready to accept incoming connections. Clients will therefore see “Connection refused” types of errors before it’s ready.</p>
+<h3 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h3><p>Mostly a volume is bound to the lifecycle of a pod and will stay in existence only while the pod exists, but depending on the volume type, the <strong>volume’s files may remain intact even after the pod and volume disappear</strong>, here are list of volume types.</p>
+<ul>
+<li>emptyDir—A simple empty directory used for <code>storing transient data</code>, deleted when pod is gone.</li>
+<li>hostPath—Used for <code>mounting directories from the worker node’s filesystem into the pod</code>.</li>
+<li>gitRepo—A volume initialized by checking out the contents of a Git repository.</li>
+<li>nfs—An <code>NFS share mounted into the pod</code>.</li>
+<li>persistentVolumeClaim—A way to use a pre or dynamically provisioned <code>persistent storage</code></li>
+<li>others by cloud provider</li>
+</ul>
+<p><strong>sharing data between <code>multiple containers in a pod</code> by emptyDir</strong></p>
+<p>The volume starts out as an empty directory, the app running inside the pod can then write any files it needs to it, because the volume’s lifetime is tied to that of the pod, <mark class="label danger">the volume contents are lost when the pod is deleted</mark></p>
+<p>The emptyDir you used as the volume was created on the actual disk of the worker node hosting your pod, so its performance depends on the type of the node’s disks, but you can tell Kubernetes to create the emptyDir on a tmpfs filesystem (in memory instead of on disk). To do this,set the emptyDir’s medium to Memory like this:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">html</span></span><br><span class="line">  <span class="attr">emptyDir:</span></span><br><span class="line">    <span class="attr">medium:</span> <span class="string">Memory</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>share files <code>between host and pod(in the host) by hostPath</code></strong></p>
+<p>If a pod is deleted and the next pod uses a hostPath volume pointing to the same path on the host, the new pod will see whatever was left behind by the previous pod, but only if it’s scheduled to the same node as the first pod, it’s persistent, each pod shares files with node that it’s scheduled to, if pod is deleted and recreated on another node, it does NOT see the previous content as the node is different. this type of volume is useful for DaemonSet pod.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">ca-certs</span></span><br><span class="line">  <span class="attr">hostPath:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/etc/ssl/certs</span></span><br><span class="line">    <span class="comment"># create if dir not exist</span></span><br><span class="line">    <span class="comment"># type: FileOrCreate</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">DirectoryOrCreate</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>share files <code>across nodes</code> by NFS or cloud provider method</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">data</span></span><br><span class="line">  <span class="attr">nfs:</span></span><br><span class="line">    <span class="attr">server:</span> <span class="number">1.2</span><span class="number">.3</span><span class="number">.4</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/some/path</span></span><br></pre></td></tr></table></figure>
+<h4 id="Persistentvolume-and-PersistentVolumeClaim"><a href="#Persistentvolume-and-PersistentVolumeClaim" class="headerlink" title="Persistentvolume and PersistentVolumeClaim"></a>Persistentvolume and PersistentVolumeClaim</h4><p>All the persistent volume types above have required the developer of the pod to have knowledge of the actual network storage infrastructure available in the cluster. For example, to create a NFS-backed volume, the developer has to know the actual server the NFS export is located on, we can decouple pods from the underlying storage technology, <code>create a &#39;virtual storage&#39; that takes care of underlying storage technology, let pod uses this &#39;virtual storage&#39;</code>, new resources were introduced. They are Persistentvolumes and PersistentVolumeClaims.</p>
+<p>As soon as you create the claim, <code>Kubernetes finds the appropriate PersistentVolume and binds it to the claim, binding is done by Kubernetes not user</code>, you just claim what you wants.</p>
+<p><img src="https://cyun.tech/images/k8s/k8s_pvc_pv_example.png" alt="k8s_pv_pvc_example"></p>
+<p><code>PersistentVolume resources are cluster-scoped and thus cannot be created in a specific namespace</code>, but <code>PersistentVolumeClaims can only be created in a specific namespace, they can then only be used by pods in the same namespace</code>.</p>
+<p><img src="https://cyun.tech/images/k8s/k8s_pv_pvc_relation.png" alt="k8s_pv_pvc_relation"></p>
+<p><strong>here just declare virtual storage disk, mongodb as backend</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolume</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">data-pv</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">capacity:</span></span><br><span class="line">    <span class="attr">storage:</span> <span class="string">1Gi</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadOnlyMany</span></span><br><span class="line">  <span class="attr">persistentVolumeReclaimPolicy:</span> <span class="string">Retain</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">pv-class</span> <span class="comment"># delcare which class I&#x27;m !!!</span></span><br><span class="line">  <span class="attr">gcePersistentDisk:</span></span><br><span class="line">    <span class="attr">pdName:</span> <span class="string">mongodb</span></span><br><span class="line">    <span class="attr">fsType:</span> <span class="string">ext4</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">data-pvc</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">pv-class</span> <span class="comment"># used to check which PV to use !!!</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="comment"># request 100M from data-pv</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">100Mi</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br></pre></td></tr></table></figure>
+
+<p>Use it from pod description</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">data</span></span><br><span class="line">  <span class="attr">persistentVolumeClaim:</span></span><br><span class="line">    <span class="attr">claimName:</span> <span class="string">data-pvc</span></span><br><span class="line"><span class="comment"># you need create pv and pvc first when use it in pod like this.</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Dynamic provisioning of PersistentVolumes</strong><br>Can K8s create PV for us automatically, user only creates PVC? yes, it’s storageClass, the cluster admin, instead of creating PersistentVolumes, can deploy a <strong>PersistentVolume provisioner and define one or more StorageClass objects</strong> to let users choose what type of PersistentVolume they want. The users can refer to the StorageClass in their PersistentVolumeClaims and the provisioner will take that into account when provisioning the persistent storage.</p>
+<p><img src="https://cyun.tech/images/k8s/k8s_storage_class.png" alt="k8s_storageClass"></p>
+<p><strong>Behind Storage class it’s PersistentVolume provisioner who creates PV automatically.!!!</strong></p>
+<p><strong>declare StorageClass</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">fast</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># auto create pv when needs</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/gce-pd</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">pd-ssd</span></span><br><span class="line">  <span class="attr">zone:</span> <span class="string">europe-west1-b</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Use storageClass in PVC instead of PV directly</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">data-pvc</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">fast</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">100Mi</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br></pre></td></tr></table></figure>
+
+<p>Use VolumeClaim from pod description</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">data</span></span><br><span class="line">  <span class="attr">persistentVolumeClaim:</span></span><br><span class="line">    <span class="attr">claimName:</span> <span class="string">data-pvc</span></span><br></pre></td></tr></table></figure>
+
+
+<p><strong>For all volumes, we need to mount it to pod for use</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">kubia</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">luksa/kubia</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">8080</span></span><br><span class="line">    <span class="comment"># optional, mount from html to /var/htdocs</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">html</span></span><br><span class="line">        <span class="attr">mountPath:</span> <span class="string">/var/htdoc</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Namespaces"><a href="#Namespaces" class="headerlink" title="Namespaces"></a>Namespaces</h2><p>K8s Namespace like a container, limits the scope of the resources, so you can use <code>same resource name in different namespaces</code>, most of resources are namespaced, that means you need to give the namespace name when you list resource, without namespace given, ‘default’ namespace is used, check resource if it’s namespaced by <strong><code>$ kubectl api-resources</code></strong>.</p>
+<p>Namespaces allow you to isolate objects into distinct groups, which allow you to operate only on those belonging to the specified namespace, but <code>they don’t provide any kind of isolation of running object, it&#39;s only for viewing</code></p>
+<h2 id="Replication"><a href="#Replication" class="headerlink" title="Replication"></a>Replication</h2><p>Replication is used to create pod with several copies, monitor them, restart them or create new one if fails, make sure the number of running <strong>pod equals user desires</strong>, <strong>it uses label selector to select pod(s)</strong>.</p>
+<h3 id="ReplicationController-deprecated"><a href="#ReplicationController-deprecated" class="headerlink" title="ReplicationController(deprecated)"></a>ReplicationController(deprecated)</h3><p>A ReplicationController’s job is to make sure that an exact number of pods always matches its label selector. If it doesn’t, the ReplicationController takes the appropriate action to reconcile the actual with the desired number.</p>
+<p><img src="https://cyun.tech/images/k8s/k8s_replication_controller.png" alt="replication_controller"></p>
+<p>A ReplicationController has three essential parts:</p>
+<ul>
+<li>A label selector, which determines what pods are in the ReplicationController’s scope</li>
+<li>A replica count, which specifies the desired number of pods that should be running</li>
+<li>A pod template, which is used when creating new pod replicas</li>
+</ul>
+<p>Changes to the label selector and the pod template have no effect on existing pods. <strong>Changing the label selector makes the existing pods fall out of the scope of the ReplicationController, so the controller stops caring about them</strong>.</p>
+<h3 id="ReplicaSet"><a href="#ReplicaSet" class="headerlink" title="ReplicaSet"></a>ReplicaSet</h3><p>It’s a new generation of ReplicationController, <code>a ReplicaSet behaves exactly like a ReplicationController</code>, but it has <strong><code>more expressive pod selectors</code></strong>, Whereas a ReplicationController’s label selector only allows matching pods that include a certain label, a ReplicaSet’s selector also <strong>allows matching pods that lack a certain label or pods that include a certain label key, regardless of its value</strong>.</p>
+<h3 id="DaemonSet"><a href="#DaemonSet" class="headerlink" title="DaemonSet"></a>DaemonSet</h3><p><code>DaemonSets run only a single pod replica on each node</code>, whereas ReplicaSets scatter them around the whole cluster randomly.</p>
+<p>Cases like pods that <strong>perform system-level operations</strong>. For example, you’ll want to run a log collector and a resource monitor on every node.</p>
+<mark class="label danger">Even node can be made unschedulable, preventing pods from being deployed to it. A DaemonSet will deploy pods even to such node</mark>, because the **unschedulable attribute is only used by the Scheduler, whereas pods managed by a DaemonSet bypass the Scheduler completely**.
+
+<h3 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h3><p>Job is similar to the other resources replica, but it allows you to <strong><code>run a pod whose container isn’t restarted when the process running inside finishes successfully</code></strong>. Once it does, the pod is considered complete, <strong>in case of failure during running, the job(pod) can be restarted.</strong></p>
+<p>In the event of a <code>node failure</code>, the pods on that node that are managed by a Job will be rescheduled to other nodes the way ReplicaSet pods are. In the event of <code>a failure of the process itself</code> (when the process returns an error exit code), the Job can be configured to <code>either restart the container or not</code>.</p>
+<p><strong>By default, Job only runs once successfully</strong>, but you can run it more times, each run after another finish, more over, you can run jobs at same time by setting <code>parallelism: 2</code> to allow run two same jobs at the same time.</p>
+<h3 id="CronJob"><a href="#CronJob" class="headerlink" title="CronJob"></a>CronJob</h3><p>Job resources run their pods immediately when you create the Job resource, but many batch jobs need to be run at a specific time in the future or repeatedly in the specified interval, this is CronJob object. <code>no difference with Job object except when it runs</code>.</p>
+<mark class="label danger">Cronjob depends on Job, as Job resources will be created from the CronJob resource at approximately the scheduled time. The Job then creates the pods.</mark>
+
+<h2 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h2><p>A Kubernetes Service is a resource you create to <strong>make a single, constant point of entry to a group of pods(selected by label selector) providing the same service</strong>. <mark class="label danger">Each service has an IP address and port that never change while the service exists. no interface for this ip, **ip is virtual just used to create iptable rules**</mark>, Clients can open connections to service IP and port, and those connections are then routed to one of the pods(may run on another node) backing that service. <strong><code>randomly selected (or RR selected with ipvs)pod which may or may not be the one running on the node the connection is being made to</code></strong>.</p>
+<p>Service does NOT create pod like replication, but uses label selector to select pods(created by rs or deploy) as endpoints. <strong>when you create a service with label selector, an EndPoint object is created automatically which holds pod ip lists.</strong></p>
+<p>By default service load-balances request by randomly to it’s backend, but you can change its behavior by setting <code>sessionAffinity: ClientIP</code></p>
+<p><strong>ClusterIP type internal service</strong><br>For this kind of service, the service has a <strong>fixed cluster IP(auto assigned or manually set)</strong>, cluster IP means it’s only accessible in the cluster. when such service is created, it only creates iptable nat rule(or ipvs rules), no interface configured with such cluster ip of service.</p>
+<p><strong>You have a few ways to make a service accessible externally:</strong></p>
+<ul>
+<li><p><strong>Setting the service type to NodePort</strong>—For a NodePort service, each cluster node opens a port on the node itself (hence the name) and redirects traffic received on that port to the underlying service’s endpoint. <strong>The service isn’t accessible only at the internal cluster IP and port, but also through a dedicated port on all nodes</strong>. <code>you need to know node&#39;s ip to access the service</code>.</p>
+</li>
+<li><p><strong>Setting the service type to LoadBalancer</strong>, an extension of the NodePort type—This makes the service accessible through a dedicated load balancer, <code>provisioned from the cloud infrastructure Kubernetes is running on</code>. The load balancer <code>redirects traffic to the node port across all the nodes</code>. Clients connect to the service through the load balancer’s IP, <strong>you only need an load balancer’s ip for accessing the service also NodePort service can be accessed not only through the service’s internal cluster IP, but also through any node’s IP and the reserved node port</strong></p>
+</li>
+<li><p><strong>Creating an Ingress resource</strong>, a radically <strong>different mechanism</strong> for <strong>exposing multiple services through a single public IP address</strong>,It operates at the HTTP level (network layer 7) and can thus offer more features than layer 4 services.</p>
+</li>
+</ul>
+<p><strong>node port external service</strong></p>
+<p>NodePort service(node ip)—–&gt;Pod(IP)</p>
+<p>Even you access one node, the request may be routed to other node which has the service pod, but why we still need loadbalancer service type <code>because when that node fails, your clients can’t access the service anymore</code>, that’s why it makes sense to put a load balancer in front of the nodes to make sure you’re spreading requests across all healthy nodes and never sending them to a node that’s offline at that moment.</p>
+<p><img src="https://cyun.tech/images/k8s/k8s_node_port_service.png" alt="node_port_service"></p>
+<p><strong>loadbalancer type external service</strong></p>
+<p>LoadBalancer service—&gt;NodePort service(healthy node)—–&gt;Pod(randomly selected or Client IP Or RR(ipvs) or WRR(ipvs))</p>
+<p>Send request to healthy node. it needs cloud provider support!!!</p>
+<p><img src="https://cyun.tech/images/k8s/k8s_loadbalancer_service.png" alt="loadbalancer_service"></p>
+<h2 id="Ingress"><a href="#Ingress" class="headerlink" title="Ingress"></a>Ingress</h2><p>Each service requires its own LoadBalancer with its own public IP address, whereas <code>an Ingress only requires one, even when providing access to dozens of services</code>.</p>
+<p>When a client sends an HTTP request to the Ingress, <code>the host and path in the request determine which service the request is forwarded to, to make Ingress resources work, an Ingress controller(pod) needs to be running in the cluster</code>. Different Kubernetes environments use different implementations of the controller.</p>
+<p>When you create Ingress resource, actually, you push several lua rules into ingress controller, based on the lua rule, ingress controller sends the request to the proper pod which gets from service definition.</p>
+<p><strong>ingress requires clusterIP service as backend, ingress controller sends reqeust to pod directly not sends to clusterIP!!!</strong></p>
+<p><img src="https://cyun.tech/images/k8s/k8s_ingress.png" alt="k8s_ingress"></p>
+<h2 id="configMap-secret-and-downwardAPI"><a href="#configMap-secret-and-downwardAPI" class="headerlink" title="configMap, secret and downwardAPI"></a>configMap, secret and downwardAPI</h2><p>configMap and secret are used to <code>pass any data</code> to running container, while downwardAPI is <code>used to pass Kubernetes metadata</code> to running container.</p>
+<h3 id="configMap"><a href="#configMap" class="headerlink" title="configMap"></a>configMap</h3><p>Kubernetes allows separating configuration options into a separate object called a ConfigMap, which is <code>a map containing key/value pairs with the values ranging from short literals to full config files</code>, that means the value can be a simple string or content of a file, <strong><code>the contents of the map are passed to containers either as environment variables or files in a volume</code></strong>.</p>
+<p><img src="https://cyun.tech/images/k8s/k8s_configMap.png" alt="k8s_configMap"></p>
+<p><strong>Different between use configMap as env var and volume</strong></p>
+<ul>
+<li><strong>env var for short content, while volume for large content</strong>.</li>
+<li>env var is not updated after container starts, so update configMap, env var no change</li>
+<li><strong>volume will be updated if you update configMap</strong></li>
+</ul>
+<mark class="label danger">The list of **environment variables also cannot be updated after the pod is created**</mark>
+
+<h3 id="secret"><a href="#secret" class="headerlink" title="secret"></a>secret</h3><p>Secrets are much like ConfigMaps, they’re also maps that hold key-value pairs. <code>They can be used the same way as a ConfigMap</code>.<br>You can</p>
+<ul>
+<li>Pass Secret entries to the container as environment variables</li>
+<li>Expose Secret entries as files in a volume</li>
+</ul>
+<p><strong>secret is for sensitive data secrets are always stored in memory and never written to physical storage</strong>. On the <code>master node itself (more specifically in etcd), Secrets used to be stored in decrypted form</code>, which meant the master node needs to be secured to keep the sensitive data stored in Secrets secure.</p>
+<p><strong>The contents of a Secret’s entries are shown in different encode(encrypted) formats, whereas those of a ConfigMap are shown in clear text, when you see it by <code>kubectl describe secrets</code></strong>. the showing format is determined by Secret type.</p>
+<ul>
+<li>generic secret: Base64-encoded</li>
+<li>tls secret: xxx</li>
+<li>service-account-token: yyy</li>
+</ul>
+<p>When you <strong><code>expose the Secret to a container through a secret volume, the value of the Secret entry is decoded and written to the file in its actual form (regardless if it is plain text or binary). The same is also true when exposing the Secret entry through an environment variable</code></strong>. In both cases, the app doesn’t need to decode it, but can read the file’s contents or look up the environment variable value and use it directly.</p>
+<h3 id="downwardAPI"><a href="#downwardAPI" class="headerlink" title="downwardAPI"></a>downwardAPI</h3><p>Kubernetes downwardAPI allows you to <code>pass metadata about the pod and its environment</code> through environment variables or files (in a downwardAPI volume), limits the passed data to running container.</p>
+<p><img src="/images/k8s/k8s_downWardAPI.png" alt="k8s_downWardAPI"></p>
+<p><strong>Metadata contains these:</strong></p>
+<ul>
+<li><strong>The pod’s name</strong></li>
+<li>The pod’s IP address</li>
+<li><strong>The namespace the pod belongs to</strong></li>
+<li>The name of the node the pod is running on</li>
+<li>The name of the service account the pod is running under</li>
+<li>The CPU and memory requests for each container</li>
+<li>The CPU and memory limits for each container</li>
+<li><strong>The pod’s labels</strong></li>
+<li>The pod’s annotations</li>
+</ul>
+<p>But the metadata exposed is limit, if you need more info about the cluster, talk to the API server directly in the pod, first we need to know restful API before we talk to it, but API server needs authentication, <code>the kubectl proxy command runs a proxy server that accepts HTTP connections on your local machine and proxies them to the API server while taking care of authentication</code>, so you don’t need to pass the authentication token in every request.</p>
+<h2 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h2><p><strong><code>Deployment aims to upgrade automatically</code></strong>, without deploy, using replicaSet, you need to upgrade(to new image) manually.</p>
+<p><strong>With deploy</strong></p>
+<ul>
+<li>it will <code>create replicaSet automatically</code></li>
+<li><code>upgrade automatically</code> at server side</li>
+<li>still need create service</li>
+</ul>
+<p><strong>upgrade(rolling update way) without deployment</strong></p>
+<p>Rolling update: replace old pod one by one with new pod, not replace them at once! it needs two replicaSet for rolling update, old replicaSet scales down while new replicaSet scales up, this could be done by one command <code>kubectl rolling-update kubia-v1 kubia-v2 --image=luksa/kubia:v2</code> kubia-v1 is old replicaSet, kubia-v2 is new will be created after you run such command,</p>
+<p>it will do below step by step <strong>in client(call API server by kubectl)</strong>:</p>
+<ul>
+<li>create new replicaSet</li>
+<li>scale up new replicaSet</li>
+<li>scale down old replicaSet</li>
+</ul>
+<p>One big issue for this old way is that if you lost network connectivity while kubectl was performing the update, the update process would be interrupted mid-way. <code>Pods and ReplicationControllers would end up in an intermediate state</code></p>
+<p>While compared with deployment, <strong>all these actions above are done inside server</strong>, no API call, hence if something goes wrong, we can rollback to original state.</p>
+<p>A Deployment is a higher-level resource meant for deploying applications and updating them declaratively, instead of doing it through a <strong>ReplicationController or a ReplicaSet, which are both considered lower-level concepts</strong>.</p>
+<p>When you create a Deployment, a ReplicaSet resource is created underneath, the actual pods are created and managed by the Deployment’s ReplicaSets, not by the Deployment directly.</p>
+<p>Creating a Deployment isn’t that different from creating a ReplicationController. <strong>A Deployment is also composed of a label selector, a desired replica count, and a pod template(like replicaset)</strong>. In addition to that, it also contains a field, which specifies a deployment strategy that defines how an <strong>update should be performed when the Deployment resource is modified</strong>.</p>
+<p>Default strategy is to perform a rolling update (<strong>the strategy is called RollingUpdate, no service down, good way</strong>). The alternative is the Recreate strategy, which deletes all the old pods at once and then creates new ones</p>
+<p>Recreate strategy causes all old pods to be deleted before the new ones are Recreate created. Use this strategy when your application doesn’t support running multiple versions in parallel and requires the old version to be stopped completely before the new one is started. This strategy does involve a short period of time when your app becomes completely unavailable.</p>
+<p>You should <strong>use rolling strategy only when your app can handle running both the old and new version at the same time</strong>.</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p><a target="_blank" rel="noopener" href="https://www.manning.com/books/kubernetes-in-action">kubernetes-in-action</a></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/k8s/" rel="tag"># k8s</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/06/28/k8s-concept/" rel="prev" title="k8s_concept">
+                  <i class="fa fa-chevron-left"></i> k8s_concept
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/09/css-basic/" rel="next" title="css_basic">
+                  css_basic <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

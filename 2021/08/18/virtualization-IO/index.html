@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="IntroductionVirtual machine uses host device by three different types.  Full Emulated devices Paravirtualized devices Physically shared devices  As the first way has low performance for IO intensive V">
+<meta property="og:type" content="article">
+<meta property="og:title" content="virtualization-IO">
+<meta property="og:url" content="http://cyun.tech/2021/08/18/virtualization-IO/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="IntroductionVirtual machine uses host device by three different types.  Full Emulated devices Paravirtualized devices Physically shared devices  As the first way has low performance for IO intensive V">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.redhat.com/cms/managed-files/2019-10-02-vdpa-figure3.jpg">
+<meta property="og:image" content="https://www.redhat.com/cms/managed-files/2019-10-02-vdpa-figure5.jpg">
+<meta property="article:published_time" content="2021-08-18T00:46:27.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.179Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="virtualization">
+<meta property="article:tag" content="virtio">
+<meta property="article:tag" content="passthrough">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.redhat.com/cms/managed-files/2019-10-02-vdpa-figure3.jpg">
+
+
+<link rel="canonical" href="http://cyun.tech/2021/08/18/virtualization-IO/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2021/08/18/virtualization-IO/","path":"2021/08/18/virtualization-IO/","title":"virtualization-IO"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>virtualization-IO | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Virtual-Devices"><span class="nav-number">2.</span> <span class="nav-text">Virtual Devices</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Paravirtulization"><span class="nav-number">2.1.</span> <span class="nav-text">Paravirtulization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Passthrough"><span class="nav-number">2.2.</span> <span class="nav-text">Passthrough</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-one"><span class="nav-number">2.2.1.</span> <span class="nav-text">Solution one</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#solution-two"><span class="nav-number">2.2.2.</span> <span class="nav-text">solution two</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/08/18/virtualization-IO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="virtualization-IO | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          virtualization-IO
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-08-18 08:46:27" itemprop="dateCreated datePublished" datetime="2021-08-18T08:46:27+08:00">2021-08-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/" itemprop="url" rel="index"><span itemprop="name">virtualization</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/io/" itemprop="url" rel="index"><span itemprop="name">io</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Virtual machine uses host device by three different types.</p>
+<ul>
+<li>Full Emulated devices</li>
+<li>Paravirtualized devices</li>
+<li>Physically shared devices</li>
+</ul>
+<p>As the first way has low performance for IO intensive VM, hence it should not be used in cloud provider, so let’s focus on the later two.<br>Paravirtualization provides a fast and efficient means of communication for guests to use devices on the host machine, The popular one is virtio.</p>
+<p>Physically shared devices(Direct&#x2F;IO, Passthrough) is more efficient than Paravirtualization for IO intensive VM, but it needs hardware IOMMU support.</p>
+<span id="more"></span>
+
+<h1 id="Virtual-Devices"><a href="#Virtual-Devices" class="headerlink" title="Virtual Devices"></a>Virtual Devices</h1><h2 id="Paravirtulization"><a href="#Paravirtulization" class="headerlink" title="Paravirtulization"></a>Paravirtulization</h2><p>Some paravirtualized devices decrease I&#x2F;O latency and increase I&#x2F;O throughput to near bare-metal levels, while other paravirtualized devices add functionality to virtual machines that is not otherwise available.  </p>
+<p>All virtio devices have two parts: the host device(backend) and the guest driver(front end). Paravirtualized device drivers allow the guest operating system access to physical devices on the host system. to use this device, the paravirtualized device drivers must be installed on the guest operating system and set the virtual device with such driver.</p>
+<p><strong>Front end driver for different type of virtual device</strong></p>
+<ul>
+<li><p><strong>The paravirtualized network device (virtio-net)</strong><br>  The paravirtualized network device is a virtual network device that provides network access to virtual machines with increased I&#x2F;O performance and lower latency. </p>
+</li>
+<li><p><strong>The paravirtualized block device (virtio-blk)</strong><br>  The paravirtualized block device is a high-performance virtual storage device that provides storage to virtual machines with increased I&#x2F;O performance and lower latency. The paravirtualized block device is supported by the hypervisor and is attached to the virtual machine (except for floppy disk drives, which must be emulated). </p>
+</li>
+<li><p><strong>The paravirtualized controller device (virtio-scsi)</strong><br>  The paravirtualized SCSI controller device provides a more flexible and scalable alternative to virtio-blk. A virtio-scsi guest is capable of inheriting the feature set of the target device, and can handle hundreds of devices compared to virtio-blk, which can only handle 28 devices. </p>
+</li>
+<li><p><strong>The paravirtualized serial device (virtio-serial)</strong><br>  The paravirtualized serial device is a bytestream-oriented, character stream device, and provides a simple communication interface between the host’s user space and the guest’s user space. </p>
+</li>
+<li><p><strong>The paravirtualized serial device (virtio-serial)</strong><br>  The paravirtualized serial device is a bytestream-oriented, character stream device, and provides <strong>a simple communication interface between the host’s user space and the guest’s user space.</strong></p>
+</li>
+</ul>
+<p>Requires:</p>
+<ul>
+<li>Guest: Must install virtio-xx front end driver(most linux already install it)</li>
+<li>Host: Must install vhost-xxx backend driver in host(Should install for KVM enabled machine), Host also needs to install driver for physical device, but Guest never access it directly. but backend driver in KVM accesses it.</li>
+</ul>
+<h2 id="Passthrough"><a href="#Passthrough" class="headerlink" title="Passthrough"></a>Passthrough</h2><p>VFIO attaches PCI devices on the host system directly to virtual machines, <strong>providing guests with exclusive access to PCI devices</strong> for a range of tasks. This enables PCI devices to appear and behave as if they were physically attached to the guest virtual machine.  </p>
+<p>VFIO improves on previous PCI device assignment architecture by moving device assignment out of the KVM hypervisor, and <strong>enforcing device isolation at the kernel level</strong>.</p>
+<p>With VFIO and IOMMU from hardware, Hypervisor can assign physical device to VM directly, like GPU to a VM, <strong>but in cloud environment, we usually we do not assign the whole physical device(GPU, network card, block device) to one VM directly, as we want to share physical device by different VMs, but still need isolation, this what SR-IOV does,  SR-IOR is a feature provided by PIC-E device, it’s virtualization from hardware.</strong></p>
+<blockquote>
+<p>SR-IOV (Single Root I&#x2F;O Virtualization) is a PCI Express (PCI-e) standard that extends a single physical PCI function to share its PCI resources as separate virtual functions (VFs). Each function can be used by a different virtual machine via PCI device assignment.<br>An SR-IOV-capable PCI-e device provides a Single Root function (for example, a single Ethernet port) and presents multiple, separate virtual devices as unique PCI device functions. Each virtual device may have its own unique PCI configuration space, memory-mapped registers, and individual MSI-based interrupts. </p>
+</blockquote>
+<p>SR-IOV has two main functions:</p>
+<ul>
+<li><p>Physical functions (PFs) which are a full PCI device including discovery, managing and configuring as normal PCI devices. There is a single PF pair per NIC and it provides the actual configuration for the full NIC device</p>
+</li>
+<li><p>Virtual functions (VFs) are simple PCI functions that only control part of the device and are derived from physical functions. Multiple VFs can reside on the same NIC.</p>
+</li>
+</ul>
+<p>There are two solutions for pass through, the solution two wins!!!</p>
+<h3 id="Solution-one"><a href="#Solution-one" class="headerlink" title="Solution one"></a>Solution one</h3><p>There are two cases for solution one vendor specific driver in Guest os</p>
+<ul>
+<li><p>Using the guest kernel driver: In this approach we use the NIC (vendor specific) driver in the kernel of the guest, while directly mapping the IO memory, so that the HW device can directly access the memory on the guest kernel.</p>
+</li>
+<li><p>Using the DPDK pmd driver in the guest: In this approach we use the NIC (vendor specific) DPDK pmd driver in the guest userspace, while directly mapping the IO memory, so that the HW device can directly access the memory on the specific userspace process in the guest.</p>
+</li>
+</ul>
+<mark class="label danger">Vendor-VF-PMD in userspace or Vendor-VF driver in guest kernel</mark>
+
+<p><img src="https://www.redhat.com/cms/managed-files/2019-10-02-vdpa-figure3.jpg"></p>
+<p><strong>Note</strong></p>
+<ul>
+<li><p>The data plane is vendor specific and goes directly to the VF.</p>
+</li>
+<li><p>For SRIOV, Vendor NIC specific drivers are required both in the host kernel (PF driver) and the guest userspace (VF PMD) to enable this solution.</p>
+</li>
+<li><p>The host kernel driver(for PF) and the guest userspace PMD driver don’t communicate directly. The PF&#x2F;VF drivers are configured through other interfaces (e.g. the host PF driver can be configured by libvirt).</p>
+</li>
+<li><p>The vendor-VF-pmd in the guest userspace is responsible for configuring the NICs VF while the vendor-PF-driver in the host kernel space is managing the full NIC.</p>
+</li>
+<li><p>Host: IOMMU support from hardware and must install VFIO driver and vendor driver for PF.</p>
+</li>
+</ul>
+<p><strong>Installed vendor driver in guest has many drawbacks</strong></p>
+<ul>
+<li>It requires a match between the drivers running in the guest and the actual physical NIC. </li>
+<li>If the NIC firmware is upgraded, the guest application driver may need to be upgraded as well.</li>
+<li>If the NIC is replaced with a NIC from another vendor, the guest must use another drive the NIC.</li>
+<li>Migration of a VM can only be done to a host with the exact same configuration.</li>
+</ul>
+<h3 id="solution-two"><a href="#solution-two" class="headerlink" title="solution two"></a>solution two</h3><p>Use generic driver(virtio) in Guest OS</p>
+<p><strong>Can we still use virtio driver in guest os to operate VF directly?</strong><br>Without hardware support, NO, as VF is vendor specific, different vendors use different formats for data transferring, it does not know data sent by virtio driver, so VF vendor in hardware must implement virtio spec(ring layout), so that for datapplane, it can know data sent with virtio format and send it on wire!!!, this is only for dataplane, in order to send, we need control plan for VF to prepare sending setting like set register etc, if we use virtio, there must be a guy in middle to convert virtio control to vendor specific, that’s virtio data path acceleration (vDPA) does, it’s only for control plane, In summary, offload dataplane to hardware, use vDPA for control plane.</p>
+<p>Why not offload control plan to HW as well?<br>Control plan supports the virtio control spec including discovery, feature negotiation, establishing&#x2F;terminating the data plane, and so on,it is more complicated and requires interactions with memory management units, hence it’s not offload to HW.</p>
+<p>Virtual data path acceleration (vDPA) in essence is an approach to standardize the NIC SRIOV data plane using the virtio ring layout and placing a single standard virtio driver in the guest decoupled from any vendor implementation, while adding a generic control plane and SW infrastructure to support it.</p>
+<p>with vDPA, Data plane goes directly from the NIC to the guest using the virtio ring layout. However each NIC vendor can now continue using its own driver (with a small vDPA add-on) and a generic vDPA driver is added to the kernel to translate the vendor NIC driver&#x2F;control-plane to the virtio control plane.</p>
+<p><img src="https://www.redhat.com/cms/managed-files/2019-10-02-vdpa-figure5.jpg"></p>
+<mark class="label danger">virtio-net-pmd can be replaced with virtio-net in guest kernel and vDPA can be in DPDK as well(actually vDPA framework in kernel merged March 2020, while in DPDK, it's April 2018! and deployed in production environment)</mark>
+
+<p><strong>Solution two requires</strong></p>
+<ul>
+<li>Guest: virtio driver</li>
+<li>Host: IOMMU support from CPU, VFIO driver, virtio support in PCI-E hardware(smartNIC), vDPA generic framework and vDPA for vendor specific plugin, vendor driver(vDPA generic-&gt;vDPA vendor plugin-&gt;vendor driver)</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Live migration—Providing live migration between different vendor NICs and versions given the ring layout is now standard in the guest.</li>
+<li>Providing a standard <strong>accelerated interface for containers</strong></li>
+<li>The bare-metal vision—a single generic NIC driver—Forward looking, the <strong>virtio-net driver can be enabled as a bare-metal driver</strong>, while using the vDPA SW infrastructure in the kernel to enable a single generic NIC driver to drive different HW NICs (similar, e.g. to the NVMe driver for storage devices).</li>
+</ul>
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_getting_started_guide/sec-virtualization_getting_started-products-virtualized-hardware-devices">virtual device</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/blog/achieving-network-wirespeed-open-standard-manner-introducing-vdpa">vDPA introduction</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/virtualization/" rel="tag"># virtualization</a>
+              <a href="/tags/virtio/" rel="tag"># virtio</a>
+              <a href="/tags/passthrough/" rel="tag"># passthrough</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/18/virtualization-memory/" rel="prev" title="virtualization-memory">
+                  <i class="fa fa-chevron-left"></i> virtualization-memory
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/18/virtualization-IO-deep-virtio/" rel="next" title="virtualization-IO-deep-virtio">
+                  virtualization-IO-deep-virtio <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

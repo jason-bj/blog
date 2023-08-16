@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="IntroductionThe graphics processing unit, or GPU was originally designed to accelerate the rendering of 3D graphics. you can use graphics SDK(DirectX, OpenGL) to use GPU for rendering, but it has beco">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hardware-gpu">
+<meta property="og:url" content="http://cyun.tech/2021/08/05/hardware-gpu/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="IntroductionThe graphics processing unit, or GPU was originally designed to accelerate the rendering of 3D graphics. you can use graphics SDK(DirectX, OpenGL) to use GPU for rendering, but it has beco">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://docs.nvidia.com/cuda/cuda-c-programming-guide/graphics/gpu-devotes-more-transistors-to-data-processing.png">
+<meta property="og:image" content="https://mms.businesswire.com/media/20200226005288/en/775883/5/Jon+Peddie.jpg?download=1">
+<meta property="og:image" content="https://miro.medium.com/max/651/1*12DKLmwM90BOWFgtAsq_Ow.png">
+<meta property="og:image" content="https://miro.medium.com/max/652/1*wyNnErQBopkQzsCgbRQoVA.png">
+<meta property="article:published_time" content="2021-08-05T00:17:50.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.146Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="gpu">
+<meta property="article:tag" content="cuda">
+<meta property="article:tag" content="opengl">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://docs.nvidia.com/cuda/cuda-c-programming-guide/graphics/gpu-devotes-more-transistors-to-data-processing.png">
+
+
+<link rel="canonical" href="http://cyun.tech/2021/08/05/hardware-gpu/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2021/08/05/hardware-gpu/","path":"2021/08/05/hardware-gpu/","title":"hardware-gpu"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>hardware-gpu | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GPU"><span class="nav-number">2.</span> <span class="nav-text">GPU</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GPU-vs-Graphics-Card"><span class="nav-number">2.1.</span> <span class="nav-text">GPU vs. Graphics Card</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPU-vs-CPU"><span class="nav-number">2.2.</span> <span class="nav-text">GPU vs CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Market"><span class="nav-number">2.3.</span> <span class="nav-text">Market</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Program-GPU-based-application"><span class="nav-number">2.4.</span> <span class="nav-text">Program GPU based application</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nvidia"><span class="nav-number">3.</span> <span class="nav-text">Nvidia</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/08/05/hardware-gpu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="hardware-gpu | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          hardware-gpu
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-08-05 08:17:50" itemprop="dateCreated datePublished" datetime="2021-08-05T08:17:50+08:00">2021-08-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/hardware/" itemprop="url" rel="index"><span itemprop="name">hardware</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/hardware/gpu/" itemprop="url" rel="index"><span itemprop="name">gpu</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>The graphics processing unit, or GPU was <strong>originally designed to accelerate the rendering of 3D graphics.</strong> you can use graphics SDK(<code>DirectX, OpenGL</code>) to use GPU for rendering, but it has become one of the most important <code>types of computing technology now</code>, it is <code>designed for parallel processing</code>, the GPU is used in a wide range of applications, including:</p>
+<ul>
+<li>Graphics and video rendering.</li>
+<li>Artificial intelligence (AI)</li>
+<li>Machining learning</li>
+<li>Deep learning</li>
+<li>More</li>
+</ul>
+<span id="more"></span>
+
+<h1 id="GPU"><a href="#GPU" class="headerlink" title="GPU"></a>GPU</h1><p>GPUs come in two basic types of a computer: integrated and discrete. An integrated GPU does not come on its own separate card at all and is instead embedded alongside the CPU. <strong>A discrete GPU is a distinct chip that is mounted on its own circuit board and is typically attached to a PCI Express slot.</strong></p>
+<p><strong>Integrated Graphics Processing Unit</strong></p>
+<p>The majority of GPUs on the market are actually integrated graphics. So, what are integrated graphics and how does it work in your computer? A CPU that comes with a fully integrated GPU on its motherboard allows for thinner and lighter systems, reduced power consumption, and lower system costs.</p>
+<p>Intel® Graphics Technology, which includes <code>Intel® Iris® Plus and Intel® Iris® Xe</code> graphics, is at the forefront of integrated graphics technology. </p>
+<p><strong>Discrete Graphics Processing Unit</strong></p>
+<p>Many computing applications can run well with integrated GPUs. However, for more resource-intensive applications with extensive performance demands, a discrete GPU (sometimes called a <code>dedicated graphics card</code>) is better suited to the job.</p>
+<h2 id="GPU-vs-Graphics-Card"><a href="#GPU-vs-Graphics-Card" class="headerlink" title="GPU vs. Graphics Card"></a>GPU vs. Graphics Card</h2><p>While the terms GPU and graphics card (or video card) are <code>often used interchangeably</code>, there is a subtle distinction between these terms. Much like a <strong>motherboard contains a CPU, a graphics card refers to an add-in board that incorporates the GPU</strong>. This board also includes the raft of components required to both allow the GPU to function and connect to the rest of the system.</p>
+<h2 id="GPU-vs-CPU"><a href="#GPU-vs-CPU" class="headerlink" title="GPU vs CPU"></a>GPU vs CPU</h2><table>
+<thead>
+<tr>
+<th>CPU</th>
+<th>GPU</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Central Processing Unit</td>
+<td>Graphics Processing Unit</td>
+</tr>
+<tr>
+<td>Several cores</td>
+<td>Many cores</td>
+</tr>
+<tr>
+<td>Low latency</td>
+<td>High throughput</td>
+</tr>
+<tr>
+<td>Good for serial processing</td>
+<td>Good for parallel processing</td>
+</tr>
+<tr>
+<td>Can do a handful of operations at once</td>
+<td>Can do thousands of operations at once</td>
+</tr>
+</tbody></table>
+<p><img src="https://docs.nvidia.com/cuda/cuda-c-programming-guide/graphics/gpu-devotes-more-transistors-to-data-processing.png" alt="CPU vs GPU Arch"></p>
+<p>Architecturally, the CPU is composed of just a few cores with lots of cache memory that can handle a few software threads at a time. In contrast, <strong>a GPU is composed of hundreds of cores that can handle thousands of threads simultaneously.</strong></p>
+<p><strong>GPU</strong><br>The GPU is a processor that is made up of <code>many smaller and more specialized cores(special, worker, student)</code>. By working together, the cores deliver massive performance when a processing task can be divided up and processed across many cores.  </p>
+<p><strong>CPU</strong><br>CPU is commonly referred to as the <code>brain of the computer(generic, smart, professor)</code>. It is essential to all modern computing systems as it executes the commands and processes needed for your computer and operating system.</p>
+<p><strong>Difference</strong><br>The CPU is suited to a wide variety of workloads, especially those for which latency or <code>per-core performance are important</code>. A powerful execution engine, the CPU focuses its smaller number of cores on individual tasks and on getting things done quickly. This makes it uniquely well equipped for jobs ranging from serial computing to running databases.</p>
+<p>GPUs began as specialized ASICs developed to accelerate specific 3D rendering tasks. Over time, these fixed-function engines became more programmable and more flexible. While graphics and the increasingly lifelike visuals of today’s top games remain their principal function, GPUs have evolved to become more general-purpose <code>parallel processors as well</code>, handling a growing range of applications.</p>
+<p>if you run a small task, CPU is faster than GPU, but if you run a complex task, GPU is faster as GPUs break complex problems into thousands or millions of separate tasks and work them out at once</p>
+<p><a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/products/docs/processors/cpu-vs-gpu.html">CPU vs GPU intel</a></p>
+<h2 id="Market"><a href="#Market" class="headerlink" title="Market"></a>Market</h2><p>Intel has the big market due to its Integrated Graphics Processing Unit, while for Dedicated GPU, Nvidia and AMD are the two main players.</p>
+<p><img src="https://mms.businesswire.com/media/20200226005288/en/775883/5/Jon+Peddie.jpg?download=1" alt="Total GPU market share by 2019"></p>
+<h2 id="Program-GPU-based-application"><a href="#Program-GPU-based-application" class="headerlink" title="Program GPU based application"></a>Program GPU based application</h2><p>Earlier years, There are only two SDK OpenGL(Apple lead this(open source): linux, mac, windows) and DirectX(Microsoft) to program GPD based application, applications can use them to render 2D and 3D computer graphics which is the main task of GPU, but today, except graphic rending, GPU is also designed for parallel processing, so the SDK should add proper APIS to support this, hence openGL —&gt; OpenCL, DirectX with new version supports this, beside OpenCL and new version DirectX which support different vendors, Nvidia provides its own SDK Cuba which is more powerful and easy to use if you are using Nvidia GPU which has Cuba Arch.</p>
+<p><strong>OpenGL vs DirectX</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Basis</td>
+<td>OpenGL</td>
+<td>DirectX</td>
+</tr>
+<tr>
+<td>Definition</td>
+<td>It is an open-source cross-platform application of interface programming which works on rendering of vector graphics of 2d and 3d graphics.</td>
+<td>DirectX is a collection APIs which re using for many different types of multimedia platform as well as game programming.</td>
+</tr>
+<tr>
+<td>Developer</td>
+<td>It was developed by the Khronos group but originally Silicon Graphics Inc. started its development in 1991 and released on June 30, 1992, for public use.</td>
+<td>Microsoft was its developer and launched it on September 30, 1995.</td>
+</tr>
+<tr>
+<td>Operating systems</td>
+<td>OpenGL can be installed on Linux, Mac OS, and Microsoft Windows operating systems.</td>
+<td>DirectX can run on Microsoft Windows, Dreamcast, Xbox, Xbox One, Xbox 360, Xbox series, and Series S because it is compatible with these operating systems.</td>
+</tr>
+<tr>
+<td>Latest version</td>
+<td>The latest version of OpenGL was released 3 years ago means on July 31, 2017, and named 4.6.</td>
+<td>12 Ultimate API was released on November 10, 2020 as its latest collection.</td>
+</tr>
+<tr>
+<td>Availability</td>
+<td>For working with OpenGL you can visit on <a target="_blank" rel="noopener" href="http://www.opengl.org/">www.opengl.org</a> and have it on your personal computer.</td>
+<td>Visit <a target="_blank" rel="noopener" href="http://www.microsoft.com/">www.microsoft.com</a> for DirectX and you can get any of the members of its collection to start working with that.</td>
+</tr>
+<tr>
+<td>Supported file format</td>
+<td>It supports .obj, .3ds as 3d model file formats for working on them.</td>
+<td>You can have 3d model of this software in c4d, max, obj, fbx, ma, 3ds, blend, 3dm, and many more file formats.</td>
+</tr>
+<tr>
+<td>Written in Language</td>
+<td>OpenGL is written in C or C++ computer language.</td>
+<td>As C and C++ are game designer’s pet languages so that is way DirectX is also written in C and C++ computer languages.</td>
+</tr>
+</tbody></table>
+<p><strong>OpenCL vs Cuba</strong><br><img src="https://miro.medium.com/max/651/1*12DKLmwM90BOWFgtAsq_Ow.png" alt="Pros and cons"></p>
+<p><img src="https://miro.medium.com/max/652/1*wyNnErQBopkQzsCgbRQoVA.png" alt="Applications"></p>
+<p>Note: Most GPUs are designed for a specific usage, real-time 3D graphics or other mass calculations:  </p>
+<ul>
+<li>Gaming<ul>
+<li>GeForce GTX, RTX</li>
+<li>Nvidia Titan</li>
+<li>Radeon HD, R5, R7, R9, RX, Vega and Navi series</li>
+<li>Radeon VII</li>
+</ul>
+</li>
+<li>Cloud Gaming<ul>
+<li>Nvidia GRID</li>
+<li>Radeon Sky</li>
+</ul>
+</li>
+<li>Workstation<ul>
+<li>Nvidia Quadro</li>
+<li>AMD FirePro</li>
+<li>AMD Radeon Pro</li>
+</ul>
+</li>
+<li>Cloud Workstation<ul>
+<li>Nvidia Tesla</li>
+<li>AMD FireStream</li>
+</ul>
+</li>
+<li>Artificial Intelligence training and Cloud<ul>
+<li>Nvidia Tesla</li>
+<li>AMD Radeon Instinct</li>
+</ul>
+</li>
+<li>Automated&#x2F;Driverless car<ul>
+<li>Nvidia Drive PX</li>
+</ul>
+</li>
+</ul>
+<p><strong>Nvidia Family</strong>: mobile GPU (Tegra), discrete GPU for a laptop (GeForce GT), desktop (GeForce GTX) and server (Quadro and Tesla)</p>
+<p><strong>Suggestion</strong></p>
+<ul>
+<li>GPU from Nvidia, Use Cuba</li>
+<li>NOT from Nvidia, Use OpenCL, or DirectX for Windows</li>
+</ul>
+<h1 id="Nvidia"><a href="#Nvidia" class="headerlink" title="Nvidia"></a>Nvidia</h1><p><code>To be more precise, CUDA is not a language or an API. CUDA is a platform for parallel computing and at the same time, it’s a programming model to utilize GPU to speed up general purpose computing</code>. The developer still can write software at C or C++, and incorporate some extensions in the form of a few basic keywords.</p>
+<p><a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html">cuda C program</a> and <a target="_blank" rel="noopener" href="https://developer.nvidia.com/blog/easy-introduction-cuda-c-and-c/">cuda simple example</a></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/gpu/" rel="tag"># gpu</a>
+              <a href="/tags/cuda/" rel="tag"># cuda</a>
+              <a href="/tags/opengl/" rel="tag"># opengl</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/03/hardware-fpga-smartnic/" rel="prev" title="hardware-fpga-smartnic">
+                  <i class="fa fa-chevron-left"></i> hardware-fpga-smartnic
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/09/hardware-vgpu/" rel="next" title="hardware-vgpu">
+                  hardware-vgpu <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

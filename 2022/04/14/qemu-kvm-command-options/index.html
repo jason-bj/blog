@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Standard Options-boot [order&#x3D;drives][,once&#x3D;drives][,menu&#x3D;on|off][,splash&#x3D;sp_name][,splash-time&#x3D;sp_time][,reboot-timeout&#x3D;rb_timeout][,strict&#x3D;on|off]  Specify boot ord">
+<meta property="og:type" content="article">
+<meta property="og:title" content="qemu-kvm-command-options">
+<meta property="og:url" content="http://cyun.tech/2022/04/14/qemu-kvm-command-options/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="Standard Options-boot [order&#x3D;drives][,once&#x3D;drives][,menu&#x3D;on|off][,splash&#x3D;sp_name][,splash-time&#x3D;sp_time][,reboot-timeout&#x3D;rb_timeout][,strict&#x3D;on|off]  Specify boot ord">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-14T06:33:03.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.173Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="qemu">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2022/04/14/qemu-kvm-command-options/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2022/04/14/qemu-kvm-command-options/","path":"2022/04/14/qemu-kvm-command-options/","title":"qemu-kvm-command-options"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>qemu-kvm-command-options | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Standard-Options"><span class="nav-number">1.</span> <span class="nav-text">Standard Options</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#memory"><span class="nav-number">1.1.</span> <span class="nav-text">memory</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#No-Explicit-memory-backend"><span class="nav-number">1.1.1.</span> <span class="nav-text">No Explicit memory backend</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Explicit-memory-backend-ram-more-control"><span class="nav-number">1.1.2.</span> <span class="nav-text">Explicit memory backend ram more control</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Explicit-memory-backend-file-to-use-hugepage"><span class="nav-number">1.1.3.</span> <span class="nav-text">Explicit memory backend file to use hugepage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPUS-and-Numa"><span class="nav-number">1.2.</span> <span class="nav-text">CPUS and Numa</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#migration"><span class="nav-number">1.3.</span> <span class="nav-text">migration</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Device-Emulation"><span class="nav-number">2.</span> <span class="nav-text">Device Emulation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#usb-options"><span class="nav-number">2.1.</span> <span class="nav-text">usb options</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#block-options"><span class="nav-number">2.2.</span> <span class="nav-text">block options</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FAQ"><span class="nav-number">3.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#what%E2%80%99s-chipset"><span class="nav-number">3.1.</span> <span class="nav-text">what’s chipset?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#add-console-to-qemu"><span class="nav-number">3.2.</span> <span class="nav-text">add console to qemu</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REF"><span class="nav-number">4.</span> <span class="nav-text">REF</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2022/04/14/qemu-kvm-command-options/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="qemu-kvm-command-options | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          qemu-kvm-command-options
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-04-14 14:33:03" itemprop="dateCreated datePublished" datetime="2022-04-14T14:33:03+08:00">2022-04-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/qemu/" itemprop="url" rel="index"><span itemprop="name">qemu</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Standard-Options"><a href="#Standard-Options" class="headerlink" title="Standard Options"></a>Standard Options</h1><p><strong>-boot [order&#x3D;drives][,once&#x3D;drives][,menu&#x3D;on|off][,splash&#x3D;sp_name][,splash-time&#x3D;sp_time][,reboot-timeout&#x3D;rb_timeout][,strict&#x3D;on|off]</strong></p>
+<blockquote>
+<p>Specify boot order drives as a string of drive letters. Valid drive letters depend on the target architecture. The x86 PC uses: a, b (floppy 1 and 2), c (first hard disk), d (first CD-ROM), n-p (Etherboot from network adapter 1-4), hard disk boot is the default. To apply a particular boot order only on the first startup, specify it via once. <code>Note that the order or once parameter should not be used together with the bootindex property of devices</code>, since the firmware implementations normally do not support both at the same time.</p>
+</blockquote>
+<span id="more"></span>
+
+<p><strong>-machine [type&#x3D;]name[,prop&#x3D;value[,…]]</strong></p>
+<blockquote>
+<p>Select the emulated machine(chipset) by name. Use <code>-machine help</code> to list available machines.For architectures which aim to support live migration compatibility across releases, each release will introduce a new versioned machine type. For example, the 2.8.0 release introduced machine types “pc-i440fx-2.8” and “pc-q35-2.8” for the x86_64&#x2F;i686 architectures. <code>-machine pc-i440fx-rhel7.6.0,accel=kvm,usb=off,dump-guest-core=off</code></p>
+</blockquote>
+<p><strong>-cpu model</strong></p>
+<blockquote>
+<p>Select CPU model (-cpu help for list and additional feature selection), <code>-cpu help</code> to check availabe cpu and flags, enable or disable or use default.<br><code>-cpu IvyBridge,pcid=on,movbe=on,hypervisor=on,arat=on,tsc_adjust=on,avx2=on,rdseed=on,clflushopt=on,abm=on,3dnowprefetch=on,f16c=off,smep=off,erms=off,xsaveopt=off</code> <font color='red'> without <code>-cpu</code> default is used that’s <code>model name : QEMU Virtual CPU version 2.5+</code></font></p>
+</blockquote>
+<p><strong>-daemonize</strong></p>
+<blockquote>
+<p>Daemonize the QEMU process after initialization. <code>QEMU will not detach from standard IO until it is ready to receive connections on any of its devices</code>. This option is a useful way for external programs to launch QEMU without having to cope with initialization race conditions.</p>
+</blockquote>
+<p><strong>-no-shutdown</strong></p>
+<blockquote>
+<p><code>Don’t exit QEMU(qemu process is still there) on guest shutdown, but instead only stop the emulation.</code> This allows for instance switching to monitor to commit changes to the disk image. <strong>but this is not working for libvirt as it will kill qemu process when shutdown from guest finished.</strong></p>
+</blockquote>
+<p><strong>-nodefaults</strong>  </p>
+<blockquote>
+<p>Don’t create default devices. <strong>Normally, QEMU sets the default devices like serial port, parallel port, virtual console, monitor device, VGA adapter, floppy and CD-ROM drive and others</strong>. The -nodefaults option will disable all those default devices <font color='red'>if <code>-nodefaults</code> is used, you must set vga adapter explicitly(<code>-vga std</code>), otherwise VNC is not working!!!</font></p>
+</blockquote>
+<p><strong>-S</strong></p>
+<blockquote>
+<p>Do not start CPU at startup (you must type ‘c’ in the monitor), this is mostly used for migration, at dst host, start qemu with such option, then we can copy memory from source to dst</p>
+</blockquote>
+<p><strong>-object typename[,prop1&#x3D;value1,…]</strong></p>
+<blockquote>
+<p>Create a new object of type typename setting properties in the order they are specified. Note that the ‘id’ property must be set. These objects are placed in the ‘&#x2F;objects’ path</p>
+</blockquote>
+<p><strong>-no-user-config</strong>  </p>
+<blockquote>
+<p>The -no-user-config option makes QEMU not load any of the user-provided config files on sysconfdir(&#x2F;etc&#x2F;qemu&#x2F;qemu.conf)</p>
+</blockquote>
+<p><strong>-global driver.prop&#x3D;value</strong></p>
+<blockquote>
+<p>In particular, you can use this to <strong><code>set driver properties for devices which are created automatically by the machine model</code></strong>, example <code>-global kvm-pit.lost_tick_policy=delay</code></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># get all properties of a given driver </span></span><br><span class="line">/usr/libexec/qemu-kvm -device kvm-pit,<span class="built_in">help</span></span><br><span class="line">kvm-pit.iobase=uint32</span><br><span class="line">kvm-pit.lost_tick_policy=LostTickPolicy</span><br></pre></td></tr></table></figure>
+
+<p><strong>-rtc [base&#x3D;utc|localtime|datetime][,clock&#x3D;host|rt|vm][,driftfix&#x3D;none|slew]</strong></p>
+<blockquote>
+<p>Specify base as utc or localtime to let the RTC start at the current UTC or local time, respectively. localtime is required for correct date in MS-DOS or Windows.</p>
+</blockquote>
+<blockquote>
+<p>By default <code>the RTC is driven by the host system time</code>. This allows using of the RTC as accurate reference clock inside the guest, specifically if the host time is smoothly following an accurate external reference clock, e.g. via NTP. If you want to <code>isolate the guest time from the host, you can set clock to rt instead</code>, which provides a host monotonic clock if host support it. <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations">timezones abbre</a> and <a target="_blank" rel="noopener" href="https://wiki.osdev.org/Timer_Interrupt_Sources">rtc, pit, hpet</a></p>
+</blockquote>
+<blockquote>
+<p>check guest clock source by <code>cat  /sys/devices/system/clocksource/clocksource0/current_clock</code></p>
+</blockquote>
+<p><strong>-msg [timestamp[&#x3D;on|off]][,guest-name[&#x3D;on|off]]</strong></p>
+<blockquote>
+<p>Control error message format of qemu process</p>
+</blockquote>
+<h2 id="memory"><a href="#memory" class="headerlink" title="memory"></a>memory</h2><p>For each memory(main ram, device ram), Qemu will create <code>memory backend object</code> automatically, QEMU has alternative memory backends.</p>
+<ul>
+<li>memory-backend-ram – The default backend</li>
+<li>memory-backend-file – Memory backed by a file, typcially used for non volatile memories (to save the contents when powering off the machine)</li>
+<li>memory-backend-memfd – Anonymous memory file backend</li>
+</ul>
+<p><strong>-m [size&#x3D;]megs[,slots&#x3D;n,maxmem&#x3D;size]</strong></p>
+<blockquote>
+<p>Sets guest startup RAM(main ram) size to megs megabytes. Optionally, a suffix of “M” or “G” can be used to signify a value in megabytes or gigabytes respectively. Optional <code>pair slots, maxmem could be used to set amount of hotpluggable memory slots and maximum amount of memory</code>. Note that <strong>maxmem must be aligned to the page size.</strong> </p>
+</blockquote>
+<blockquote>
+<p>For example, the following command-line sets the guest startup RAM size to 1GB, creates 3 slots to hotplug additional memory and sets the maximum memory the guest can reach to 4GB:<code>qemu-system-x86_64 -m 1G,slots=3,maxmem=4G</code></p>
+</blockquote>
+<blockquote>
+<p>If slots and maxmem are not specified, memory hotplug won’t be enabled and the guest startup RAM will never increase.</p>
+</blockquote>
+<blockquote>
+<p><font color='red'>By default, Qemu will create a memory backend(memory-backend-ram) object(named pc.ram) for the main ram automatically if user does not set memory backend object(pc.ram) explicitly.</font></p>
+</blockquote>
+<p><strong>-object memory-backend-ram,id&#x3D;id,merge&#x3D;on|off,dump&#x3D;on|off,share&#x3D;on|off,prealloc&#x3D;on|off,size&#x3D;size,host-nodes&#x3D;host-nodes,policy&#x3D;default|preferred|bind|interleave</strong></p>
+<blockquote>
+<p>Creates a memory backend object, which can be used to back the guest RAM. <strong>Memory backend objects offer more control than the -m option that is traditionally used to define guest RAM, with host-nodes can specify where guest ram comes from(which numa node)</strong>.<br>bind: Strict policy means that the allocation will fail if the memory cannot be allocated on the target node.<br>interleave: Memory pages are allocated across nodes specified by a nodeset, but are allocated in a round-robin fashion.<br>preferred: Memory is allocated from a single preferred memory node. If sufficient memory is not available, memory can be allocated from other nodes.</p>
+</blockquote>
+<p><strong>-object memory-backend-file,id&#x3D;id,size&#x3D;size,mem-path&#x3D;dir,share&#x3D;on|off,discard-data&#x3D;on|off,merge&#x3D;on|off,dump&#x3D;on|off,prealloc&#x3D;on|off,host-nodes&#x3D;host-nodes,policy&#x3D;default|preferred|bind|interleave,align&#x3D;align,readonly&#x3D;on|off</strong></p>
+<blockquote>
+<p>Creates a memory file backend object(<code>mem-path is required</code>), which can be used to back the guest RAM with huge pages.</p>
+</blockquote>
+<blockquote>
+<p>The id parameter is a unique ID that will be used to reference this memory region in other parameters, e.g. -numa, -device nvdimm, etc.</p>
+</blockquote>
+<blockquote>
+<p>The size option provides the size of the memory region, and accepts common suffixes, e.g. 500M.</p>
+</blockquote>
+<blockquote>
+<p>The <code>mem-path provides the path to either a shared memory or huge page filesystem mount.</code></p>
+</blockquote>
+<h3 id="No-Explicit-memory-backend"><a href="#No-Explicit-memory-backend" class="headerlink" title="No Explicit memory backend"></a>No Explicit memory backend</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># by default, memory is not prealloc, memory is grabed from host only when it&#x27;s accessed.</span></span><br><span class="line">-m 512M</span><br></pre></td></tr></table></figure>
+
+<h3 id="Explicit-memory-backend-ram-more-control"><a href="#Explicit-memory-backend-ram-more-control" class="headerlink" title="Explicit memory backend ram more control"></a>Explicit memory backend ram more control</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># new qemu version, memory-backend as the key</span></span><br><span class="line"><span class="comment"># guest ram bind to host numa node0, if no sufficient memory, it fails!!!</span></span><br><span class="line">-object memory-backend-ram,<span class="built_in">id</span>=pc.ram,size=512M,dump=on,share=on,prealloc=on,host-nodes=0,policy=<span class="built_in">bind</span> \</span><br><span class="line">-machine memory-backend=pc.ram \</span><br><span class="line">-m 512M</span><br><span class="line"></span><br><span class="line"><span class="comment"># old qemu version, memdev as the key</span></span><br><span class="line">-object memory-backend-ram,<span class="built_in">id</span>=pc.ram,size=512M,dump=on,share=on,prealloc=on \</span><br><span class="line">-numa node,nodeid=0,memdev=pc.ram \ </span><br><span class="line">-m 512M</span><br></pre></td></tr></table></figure>
+
+<h3 id="Explicit-memory-backend-file-to-use-hugepage"><a href="#Explicit-memory-backend-file-to-use-hugepage" class="headerlink" title="Explicit memory backend file to use hugepage"></a>Explicit memory backend file to use hugepage</h3><p><font color='red'><strong>Qemu will create this file automatically, but not delete it when qemu exits</strong></font></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># new qemu version</span></span><br><span class="line">-object memory-backend-file,<span class="built_in">id</span>=pc.ram,size=512M,mem-path=/dev/hugepages/libvirt/qemu/centos,prealloc=on,share=on,host-nodes=0,policy=<span class="built_in">bind</span> \</span><br><span class="line">-machine memory-backend=pc.ram \</span><br><span class="line">-m 512M</span><br><span class="line"></span><br><span class="line"><span class="comment"># old qemu version</span></span><br><span class="line">-object memory-backend-file,<span class="built_in">id</span>=pc.ram,size=512M,mem-path=/dev/hugepages/libvirt/qemu/centos,prealloc=on,share=on,host-nodes=0,policy=<span class="built_in">bind</span> \</span><br><span class="line">-numa node,nodeid=0,memdev=pc.ram \ </span><br><span class="line">-m 512M</span><br></pre></td></tr></table></figure>
+
+<h2 id="CPUS-and-Numa"><a href="#CPUS-and-Numa" class="headerlink" title="CPUS and Numa"></a>CPUS and Numa</h2><p><strong>-smp [[cpus&#x3D;]n][,maxcpus&#x3D;maxcpus][,sockets&#x3D;sockets][,dies&#x3D;dies][,clusters&#x3D;clusters][,cores&#x3D;cores][,threads&#x3D;threads]</strong></p>
+<blockquote>
+<p>Simulate a SMP system with ‘n’ CPUs initially present on the machine type board. On boards supporting CPU hotplug, the optional ‘maxcpus’ parameter can be set to enable further CPUs to be added at runtime. When both parameters are omitted, the maximum number of CPUs will be calculated from the provided topology members and the initial CPU count will match the maximum number. When only one of them is given then the omitted one will be set to its counterpart’s value.</p>
+</blockquote>
+<blockquote>
+<p><code>-smp 8,sockets=2,cores=2,threads=2,maxcpus=8</code></p>
+</blockquote>
+<blockquote>
+<p><strong>Either the initial CPU count, or at least one of the topology parameters must be specified</strong>. Values for any omitted parameters will be computed from those which are given.</p>
+</blockquote>
+<p><strong>-numa node[,mem&#x3D;size][,cpus&#x3D;firstcpu[-lastcpu]][,nodeid&#x3D;node][,initiator&#x3D;initiator]</strong><br><strong>-numa node[,memdev&#x3D;id][,cpus&#x3D;firstcpu[-lastcpu]][,nodeid&#x3D;node][,initiator&#x3D;initiator]</strong><br><strong>-numa dist,src&#x3D;source,dst&#x3D;destination,val&#x3D;distance</strong><br><strong>-numa cpu,node-id&#x3D;node[,socket-id&#x3D;x][,core-id&#x3D;y][,thread-id&#x3D;z]</strong><br><strong>-numa hmat-lb,initiator&#x3D;node,target&#x3D;node,hierarchy&#x3D;hierarchy,data-type&#x3D;tpye[,latency&#x3D;lat][,bandwidth&#x3D;bw]</strong><br><strong>-numa hmat-cache,node-id&#x3D;node,size&#x3D;size,level&#x3D;level[,associativity&#x3D;str][,policy&#x3D;str][,line&#x3D;size]</strong></p>
+<blockquote>
+<p>Define a NUMA node and assign RAM and VCPUs to it. Set the NUMA distance from a source node to a destination node. Set the ACPI Heterogeneous Memory Attributes for the given nodes.</p>
+</blockquote>
+<p><strong>Legacy CPU assigment</strong><br><strong>Legacy VCPU assignment uses ‘cpus’</strong> option where firstcpu and lastcpu are CPU indexes. Each ‘cpus’ option represent a contiguous range of CPU indexes (or a single VCPU if lastcpu is omitted). A non-contiguous set of VCPUs can be represented by providing multiple ‘cpus’ options. If ‘cpus’ is omitted on all nodes, VCPUs are automatically split between them.</p>
+<p><strong>New CPU assignment Way</strong><br>‘cpu’ option is a new alternative to ‘cpus’ option which uses ‘socket-id|core-id|thread-id’ properties to assign CPU objects to a node using topology layout properties of CPU.</p>
+<p><strong>memory assignment way(legacy and new)</strong><br><strong>Legacy ‘mem’</strong> assigns a given RAM amount to a node (not supported for 5.1 and newer machine types). ‘memdev’ assigns RAM from a given memory backend device to a node. <strong>If ‘mem’ and ‘memdev’ are omitted in all nodes, RAM is split equally between them.</strong></p>
+<p><strong>New Way for cpu(cpu) and memory(mdev)</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-M pc \</span><br><span class="line">-m 2G,slots=2,maxmem=4G \</span><br><span class="line">-object memory-backend-ram,size=1G,<span class="built_in">id</span>=m0 \</span><br><span class="line">-object memory-backend-ram,size=1G,<span class="built_in">id</span>=m1 \</span><br><span class="line">-numa node,nodeid=0,memdev=m0 \</span><br><span class="line">-numa node,nodeid=1,memdev=m1 \</span><br><span class="line">-smp 2,sockets=2,maxcpus=2  \</span><br><span class="line">-numa cpu,node-id=0,socket-id=0 \</span><br><span class="line">-numa cpu,node-id=1,socket-id=1</span><br></pre></td></tr></table></figure>
+
+<p><strong>Legency CPU(cpus) and New memory way(mdev)</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-M pc \</span><br><span class="line">-m 2G,slots=2,maxmem=4G \</span><br><span class="line">-object memory-backend-ram,size=1G,<span class="built_in">id</span>=m0 \</span><br><span class="line">-object memory-backend-ram,size=1G,<span class="built_in">id</span>=m1 \</span><br><span class="line">-smp 2,sockets=2,maxcpus=2  \</span><br><span class="line">-numa node,nodeid=0,memdev=m0,cpus=0 \</span><br><span class="line">-numa node,nodeid=1,memdev=m1,cpus=1</span><br></pre></td></tr></table></figure>
+
+<p><strong>Legency CPU(cpus) and legency memory way(mem)</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-M pc \</span><br><span class="line">-m 2G,slots=2,maxmem=4G \</span><br><span class="line">-smp 2,sockets=2,maxcpus=2  \</span><br><span class="line">-numa node,nodeid=0,mem=1G,cpus=0 \</span><br><span class="line">-numa node,nodeid=1,mem=1G,cpus=1</span><br></pre></td></tr></table></figure>
+
+<p><font color='red'><strong>Note that the -numa option doesn’t allocate any of the specified resources, it just assigns existing resources to NUMA nodes. This means that one still has to use the -m, -smp options to allocate RAM and VCPUs respectively</strong>.</font></p>
+<p><strong>-sandbox arg[,obsolete&#x3D;string][,elevateprivileges&#x3D;string][,spawn&#x3D;string][,resourcecontrol&#x3D;string]</strong></p>
+<blockquote>
+<p>Enable Seccomp mode 2 system call filter. ‘on’ will enable syscall filtering and ‘off’ will disable it. The default is ‘off’.  <strong>It disables system calls that are not needed by QEMU</strong>, thereby reducing the host kernel attack surface.</p>
+</blockquote>
+<blockquote>
+<p>obsolete&#x3D;string  </p>
+<blockquote>
+<p>   Enable Obsolete system calls  </p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>elevateprivileges&#x3D;string  </p>
+<blockquote>
+<p>   Disable set*uid|gid system calls  </p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>spawn&#x3D;string  </p>
+<blockquote>
+<p>   Disable *fork and execve  </p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>resourcecontrol&#x3D;string  </p>
+<blockquote>
+<p>   Disable process affinity and schedular priority   </p>
+</blockquote>
+</blockquote>
+<p><strong>NOTE</strong></p>
+<ul>
+<li>qemu does not proivde parameter to bind host’s physical cpu to vcpu, vcpu affinity is set outside of qemu either by <code>cgroup as we create cpu cgroup for each vm</code> or <code>cpuset_setaffinity() if cgroup is not available</code></li>
+</ul>
+<h2 id="migration"><a href="#migration" class="headerlink" title="migration"></a>migration</h2><p><strong>-incoming tcp:[host]:port[,to&#x3D;maxport][,ipv4&#x3D;on|off][,ipv6&#x3D;on|off]</strong><br><strong>-incoming rdma:host:port[,ipv4&#x3D;on|off][,ipv6&#x3D;on|off]</strong>  </p>
+<blockquote>
+<p>Prepare for incoming migration, listen on a given tcp port.</p>
+</blockquote>
+<p><strong>-incoming unix:socketpath</strong>  </p>
+<blockquote>
+<p>Prepare for incoming migration, listen on a given unix socket.</p>
+</blockquote>
+<p><strong>-incoming fd:fd</strong>  </p>
+<blockquote>
+<p>Accept incoming migration from a given filedescriptor.</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -S -incoming tcp:0.0.0.0:10000 is used for migration at dst host</span></span><br><span class="line"><span class="comment"># start qemu at dst host, now cpu is stopped, listn on 10000 for migration</span></span><br><span class="line">$/usr/libexec/qemu-kvm <span class="variable">$args</span> -S -incoming tcp:0.0.0.0:10000</span><br><span class="line"></span><br><span class="line">qmp_shell/&gt; query-status</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;running&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">&quot;singlestep&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">&quot;status&quot;</span>: <span class="string">&quot;inmigrate&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># then at src host, you can start migration process</span></span><br><span class="line"><span class="comment"># after migration completed, start vm at dst host</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Device-Emulation"><a href="#Device-Emulation" class="headerlink" title="Device Emulation"></a>Device Emulation</h1><h2 id="usb-options"><a href="#usb-options" class="headerlink" title="usb options"></a>usb options</h2><p><strong>-usb</strong></p>
+<blockquote>
+<p>Enable USB emulation on machine types with an on-board USB host controller (if not enabled by default). <strong>Note that on-board USB host controllers may not support USB 3.0. In this case -device qemu-xhci can be used instead on machines with PCI.</strong></p>
+</blockquote>
+<p><strong>-usbdevice devname</strong></p>
+<blockquote>
+<p>Add the USB device devname, and enable an on-board USB controller if possible and necessary (just like it can be done via -machine usb&#x3D;on). <strong>Note that this option is mainly intended for the user’s convenience only</strong>. More fine-grained control can be achieved by selecting a USB host controller (if necessary) and the desired USB device via the -device option instead. For example, instead of using -usbdevice mouse it is possible to use -device qemu-xhci -device usb-mouse to connect the USB mouse to a USB 3.0 controller instead (at least on machines that support PCI and do not have an USB controller enabled by default yet).</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># easy way</span></span><br><span class="line"><span class="comment"># use on-board usb controller</span></span><br><span class="line">-usb \</span><br><span class="line">-usbdevice tablet \</span><br><span class="line"></span><br><span class="line"><span class="comment"># more fine-grained control way(use usb3.0)</span></span><br><span class="line">-device qemu-xhci \</span><br><span class="line">-device usb-tablet \</span><br></pre></td></tr></table></figure>
+
+<p><strong>-device usb-tablet</strong>  </p>
+<blockquote>
+<p>Pointer device that uses absolute coordinates (like a touchscreen). This means QEMU is able to report the mouse position without having to grab the mouse. Also overrides the PS&#x2F;2 mouse emulation when activated. with this enabled, <code>mouse cursor follows mous position right way.</code></p>
+</blockquote>
+<h2 id="block-options"><a href="#block-options" class="headerlink" title="block options"></a>block options</h2><p><strong>-blockdev option[,option[,option[,…]]]</strong><br><font color='red'>Define a new block driver node(backend) only</font>. <strong>Some of the options apply to all block drivers, other options are only accepted for a specific block driver</strong>.</p>
+<p>Options that expect a reference to another node (e.g. file) can be given in two ways. Either you specify the node name of an already existing node (file&#x3D;node-name), or you define a new node inline, adding options for the referenced node after a dot (file.filename&#x3D;path,file.aio&#x3D;native).</p>
+<p><strong>A block driver node created with -blockdev can be used for a guest device by specifying its node name for the drive property in a -device argument that defines a block device.</strong></p>
+<p><strong>Valid options for any block driver node:</strong></p>
+<ul>
+<li>driver<blockquote>
+<blockquote>
+<p>Specifies the block driver to use for the given node.</p>
+</blockquote>
+</blockquote>
+</li>
+<li>node-name<blockquote>
+<blockquote>
+<p>This defines the name of the block driver node by which it will be referenced later. The name must be unique, i.e. it must not match the name of a different block driver node, or (if you use -drive as well) the ID of a drive.</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<p><strong>Driver-specific options for file</strong></p>
+<ul>
+<li>filename<blockquote>
+<blockquote>
+<p>The path to the image file in the local filesystem <code>-blockdev driver=file,node-name=disk,filename=disk.img</code></p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<p><strong>Driver-specific options for raw</strong></p>
+<ul>
+<li>file<blockquote>
+<blockquote>
+<p>Reference to or definition of the data source block driver node (e.g. a file driver node), <code>-blockdev driver=raw,node-name=disk,file=disk_file</code></p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<p><strong>Driver-specific options for qcow2</strong></p>
+<ul>
+<li>file<blockquote>
+<blockquote>
+<p>Reference to or definition of the data source block driver node (e.g. a file driver node) <code>-blockdev driver=qcow2,node-name=hda,file=my_file,overlap-check=none,cache-size=16777216</code></p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<p><strong>-drive option[,option[,option[,…]]]</strong></p>
+<blockquote>
+<p><font color='red'>Define a new drive. This includes creating a block driver node (the backend) as well as a guest device, and is mostly a shortcut for defining the corresponding -blockdev and -device options. </font></p>
+</blockquote>
+<blockquote>
+<p>-drive accepts all options that are accepted by -blockdev. In addition, it knows the following options:</p>
+</blockquote>
+<ul>
+<li>file&#x3D;file<blockquote>
+<blockquote>
+<p>This option defines which disk image to use with this drive</p>
+</blockquote>
+</blockquote>
+</li>
+<li>if&#x3D;interface<blockquote>
+<blockquote>
+<p>This option defines on which type on interface the drive is connected. Available types are: <strong>ide, scsi, sd, mtd, floppy, pflash, virtio, none</strong></p>
+</blockquote>
+</blockquote>
+</li>
+<li>bus&#x3D;bus,unit&#x3D;unit<blockquote>
+<blockquote>
+<p>These options define where is connected the drive by defining the bus number and the unit id.</p>
+</blockquote>
+</blockquote>
+</li>
+<li>index&#x3D;index<blockquote>
+<blockquote>
+<p>This option defines where the drive is connected by using an index in the list of available connectors of a given interface type, cdrom and disk share the index!!!</p>
+</blockquote>
+</blockquote>
+</li>
+<li>media&#x3D;media<blockquote>
+<blockquote>
+<p>This option defines the type of the media: <strong>disk or cdrom</strong></p>
+</blockquote>
+</blockquote>
+</li>
+<li>format&#x3D;format<blockquote>
+<blockquote>
+<p>Specify which disk format will be used rather than detecting the format. Can be used to specify format&#x3D;raw to avoid interpreting an untrusted format header.</p>
+</blockquote>
+</blockquote>
+</li>
+<li>iops&#x3D;i,iops_rd&#x3D;r,iops_wr&#x3D;w<blockquote>
+<blockquote>
+<p>Specify request rate limits in requests per second, either for all request types or for reads or writes only.</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cdrom</span></span><br><span class="line">qemu-system-x86_64 -drive file=file,index=2,media=cdrom</span><br><span class="line"></span><br><span class="line"><span class="comment"># fda, fdb</span></span><br><span class="line">qemu-system-x86_64 -drive file=file,index=0,<span class="keyword">if</span>=floppy</span><br><span class="line">qemu-system-x86_64 -drive file=file,index=1,<span class="keyword">if</span>=floppy</span><br><span class="line"></span><br><span class="line"><span class="comment"># index0 hda, index1 hdb as if=ide by default.</span></span><br><span class="line">qemu-system-x86_64 -drive file=file,index=0,media=disk</span><br><span class="line">qemu-system-x86_64 -drive file=file,index=1,media=disk</span><br><span class="line">qemu-system-x86_64 -drive file=file,index=2,media=disk</span><br><span class="line">qemu-system-x86_64 -drive file=file,index=3,media=disk</span><br></pre></td></tr></table></figure>
+
+<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><h2 id="what’s-chipset"><a href="#what’s-chipset" class="headerlink" title="what’s chipset?"></a>what’s chipset?</h2><p>A chipset is a set of electronic components in an integrated circuit known as a <code>&quot;Data Flow Management System&quot;</code> that <code>manages the data flow between the processor, memory and peripherals</code>. It is usually <code>found on the motherboard</code>. <code>Chipsets are usually designed to work with a specific family of microprocessors</code>. Because it controls communications between the processor and external devices, the chipset plays a crucial role in determining system performance.</p>
+<h2 id="add-console-to-qemu"><a href="#add-console-to-qemu" class="headerlink" title="add console to qemu"></a>add console to qemu</h2><p>With this, we can access console from pty directly</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># run qemu-kvm with daemon, then later connect to its console</span></span><br><span class="line">-D /tmp/qemu_vm.log \</span><br><span class="line">-daemonize \</span><br><span class="line">-device virtio-serial-pci,<span class="built_in">id</span>=virtio-serial0 \</span><br><span class="line">-chardev pty,<span class="built_in">id</span>=charconsole1 -device virtconsole,chardev=charconsole1,<span class="built_in">id</span>=console1 \</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cat</span> /tmp/qemu_vm.log</span><br><span class="line">qemu-kvm: -chardev pty,<span class="built_in">id</span>=charconsole1: char device redirected to /dev/pts/1 (label charconsole1)</span><br><span class="line"></span><br><span class="line">$ screen /dev/pts/1</span><br><span class="line"></span><br><span class="line"><span class="comment"># quit from console(terminate screen session)</span></span><br><span class="line">ctrl + a, <span class="keyword">then</span> press \</span><br></pre></td></tr></table></figure>
+
+<h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://qemu-project.gitlab.io/qemu/system/invocation.html">Qemu Options</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/qemu/" rel="tag"># qemu</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/04/12/hardware-usb/" rel="prev" title="hardware-usb">
+                  <i class="fa fa-chevron-left"></i> hardware-usb
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/04/15/qemu-kvm-security/" rel="next" title="qemu-kvm-security">
+                  qemu-kvm-security <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

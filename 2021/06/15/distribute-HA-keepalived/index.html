@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="IntroductionLoad balancing is a method of distributing IP traffic across a cluster of real servers, providing one or more highly available virtual services. When designing load balanced topologies, it">
+<meta property="og:type" content="article">
+<meta property="og:title" content="distribute_HA_keepalived">
+<meta property="og:url" content="http://cyun.tech/2021/06/15/distribute-HA-keepalived/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="IntroductionLoad balancing is a method of distributing IP traffic across a cluster of real servers, providing one or more highly available virtual services. When designing load balanced topologies, it">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cyun.tech/images/k8s/keepalived_ha.svg">
+<meta property="article:published_time" content="2021-06-15T02:11:23.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.134Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="distribute">
+<meta property="article:tag" content="keepalived">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cyun.tech/images/k8s/keepalived_ha.svg">
+
+
+<link rel="canonical" href="http://cyun.tech/2021/06/15/distribute-HA-keepalived/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2021/06/15/distribute-HA-keepalived/","path":"2021/06/15/distribute-HA-keepalived/","title":"distribute_HA_keepalived"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>distribute_HA_keepalived | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inside-keepalived"><span class="nav-number">2.</span> <span class="nav-text">Inside keepalived</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#VRRP"><span class="nav-number">2.1.</span> <span class="nav-text">VRRP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#keepalived-cases"><span class="nav-number">2.2.</span> <span class="nav-text">keepalived cases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Debug-keepalived"><span class="nav-number">2.3.</span> <span class="nav-text">Debug keepalived</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#split-brain"><span class="nav-number">3.</span> <span class="nav-text">split-brain</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#avoid-it"><span class="nav-number">3.1.</span> <span class="nav-text">avoid it</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#troubleshooting"><span class="nav-number">3.2.</span> <span class="nav-text">troubleshooting</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REF"><span class="nav-number">4.</span> <span class="nav-text">REF</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/06/15/distribute-HA-keepalived/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="distribute_HA_keepalived | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          distribute_HA_keepalived
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-06-15 10:11:23" itemprop="dateCreated datePublished" datetime="2021-06-15T10:11:23+08:00">2021-06-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/distribute/" itemprop="url" rel="index"><span itemprop="name">distribute</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/distribute/keepalived/" itemprop="url" rel="index"><span itemprop="name">keepalived</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Load balancing is a method of distributing IP traffic across a cluster of real servers, providing one or more highly available virtual services. When designing load balanced topologies, it is important to <code>account for the availability of the load balancer itself as well as the real servers behind it</code>.</p>
+<p>Keepalived provides frameworks for both load balancing and high availability. The load balancing framework relies on the well-known and widely used Linux Virtual Server (IPVS) kernel module, which provides Layer 4 load balancing. Keepalived implements a set of health checkers to dynamically and adaptively maintain and manage load balanced server pools according to their health. </p>
+<p>high-availability is achieved by the Virtual Router Redundancy Protocol (VRRP). VRRP is a fundamental brick for router failover. In addition, Keepalived implements a set of hooks to the VRRP finite state machine providing low-level and high-speed protocol interactions. In order to offer fastest network failure detection, <code>Keepalived implements the Bidirectional Forwarding Detection (BFD) protocol</code>. VRRP state transition can take into account BFD hints to drive fast state transition. <code>Keepalived frameworks can be used independently or all together to provide resilient infrastructures.</code></p>
+<p>In short, Keepalived provides two main functions:</p>
+<ul>
+<li>Health checking for LVS systems</li>
+<li>Implementation of the VRRPv2 stack to handle load balancer failover<span id="more"></span></li>
+</ul>
+<p>In this acticle, we only talk about high-availability， load balancer failover.</p>
+<h1 id="Inside-keepalived"><a href="#Inside-keepalived" class="headerlink" title="Inside keepalived"></a>Inside keepalived</h1><h2 id="VRRP"><a href="#VRRP" class="headerlink" title="VRRP"></a>VRRP</h2><p>The Virtual Router Redundancy Protocol (VRRP) is a computer networking protocol that provides for <code>automatic assignment of available Internet Protocol (IP) routers to participating hosts</code>. This increases the availability and reliability of routing paths via automatic default gateway selections on an IP subnetwork.</p>
+<p>The protocol achieves this by creation of virtual routers, which are an abstract representation of multiple routers, i.e. Primary&#x2F;Active and Secondary&#x2F;Standby routers, acting as a group. <code>The virtual router is assigned to act as a default gateway of participating hosts, instead of a physical router</code>. If the physical router that is routing packets on behalf of the virtual router fails, another physical router is selected to automatically replace it. The physical router that is forwarding packets at any given time is called the Primary&#x2F;Active router.</p>
+<p><strong>VRRP provides information on the state of a router, not the routes processed and exchanged by that router</strong>.</p>
+<p>Physical routers within the virtual router must <code>communicate within themselves using packets with multicast IP address 224.0.0.18(newly implementation support unicast heartbeat to peers)</code> and IP protocol number 112.</p>
+<p>Routers have a priority of between 1 and 254 and the router with the highest priority will become the Primary&#x2F;Active. The default priority is 100.</p>
+<p><strong>Elections of Primary&#x2F;Active routers</strong>  </p>
+<p>A failure to receive a multicast packet from the Primary&#x2F;Active router for <code>a period longer than three times the advertisement</code> timer causes the Secondary&#x2F;Standby routers to assume that the Primary&#x2F;Active router is dead. The virtual router then transitions into an unsteady state and an election process is initiated to select the next Primary&#x2F;Active router from the Secondary&#x2F;Standby routers. This is fulfilled through the use of multicast packets.</p>
+<p><code>Secondary/Standby router(s) are only supposed to send multicast packets during an election process. One exception to this rule is when a physical router is configured with a higher priority than the current Primary/Active, which means that on connection to the network it will preempt the Primary/Active status</code>. This allows a system administrator to force a physical router to the Primary&#x2F;Active state immediately after booting, for example when that particular router is more powerful than others within the virtual router. The Secondary&#x2F;Standby router with the highest priority becomes the Primary&#x2F;Active router by raising its priority above that of the current Primary&#x2F;Active. It will then take responsibility for routing packets sent to the virtual gateway’s MAC address. In cases where Secondary&#x2F;Standby routers all have the same priority, the Secondary&#x2F;Standby router with the highest IP address becomes the Primary&#x2F;Active router.</p>
+<p><code>All physical routers acting as a virtual router must be in the same local area network (LAN) segment(newly implementation support unicast)</code>. Communication within the virtual router takes place periodically. This period can be adjusted by changing advertisement interval timers. The shorter the advertisement interval, the shorter the black hole period, though at the expense of more traffic in the subnet.</p>
+<p><strong>Once the new master has been elected, it sends out a “gratuitous ARP.”</strong>, every host has an ARP table that ties IP addresses to Ethernet addresses. A gratuitous ARP is an unsolicited message with an IP address to Ethernet address mapping. <strong>All hosts receiving the gratuitous ARP update their tables, which effectively means that the virtual IP address is owned by a new device on the network</strong>.</p>
+<p><strong>Note that whether we use VRRP in multicast or unicast mode, we are not using UDP&#x2F;IP or TCP&#x2F;IP. VRRP is its own protocol on top of IP that is independent of either of those</strong></p>
+<h2 id="keepalived-cases"><a href="#keepalived-cases" class="headerlink" title="keepalived cases"></a>keepalived cases</h2><p>Even keepalived supports nodes located at different subnet, but the best choice is to run them at same subnet.</p>
+<p><strong>different subnets nodes</strong>  </p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># VRRP advertisements ordinarily go out over multicast. This </span><br><span class="line"># configuration paramter causes keepalived to send them</span><br><span class="line"># as unicasts. This specification can be useful in environments</span><br><span class="line"># where multicast isn&#x27;t supported or in instances where you want</span><br><span class="line"># to limit which devices see your VRRP announcements. The IP</span><br><span class="line"># address(es) can be IPv4 or IPv6, and indicate the real IP of</span><br><span class="line"># other members.</span><br><span class="line">unicast_peer &#123;</span><br><span class="line">    10.5.132.122</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>nodes are at same subnet, no across router</strong></p>
+<p><img src="https://cyun.tech/images/k8s/keepalived_ha.svg" alt="HA"></p>
+<p><strong>Two nodes runs keepalived</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ubuntu</span></span><br><span class="line">node1<span class="comment"># apt-get install -y keepalived</span></span><br><span class="line">node2<span class="comment"># apt-get install -y keepalived</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Centos7</span></span><br><span class="line">node1<span class="comment"># yum install -y keepalived</span></span><br><span class="line">node2<span class="comment"># yum install -y keepalived</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># node1 keepalived conf</span></span><br><span class="line"></span><br><span class="line">node1<span class="comment"># cat /etc/keepalived/keepalived.conf</span></span><br><span class="line">global_defs &#123;                                                                   </span><br><span class="line">   notification_email &#123;                                                         </span><br><span class="line">      jason_lkm@163.com</span><br><span class="line">   &#125;                                                                            </span><br><span class="line">   notification_email_from keepalived@cyun.tech                        </span><br><span class="line">   smtp_server 192.168.100.1                                                   </span><br><span class="line">   smtp_connect_timeout 30                                                      </span><br><span class="line">   router_id LVS_DEVEL                                                          </span><br><span class="line">&#125;</span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">  state MASTER</span><br><span class="line">  interface eth0</span><br><span class="line">  virtual_router_id 51</span><br><span class="line">  priority 100</span><br><span class="line">  advert_int 1</span><br><span class="line">  authentication &#123;</span><br><span class="line">    auth_type PASS</span><br><span class="line">    auth_pass 12345</span><br><span class="line">  &#125;</span><br><span class="line">  virtual_ipaddress &#123;</span><br><span class="line">    10.117.5.123 dev eth0</span><br><span class="line">    <span class="comment">#10.117.5.111 dev eth0</span></span><br><span class="line">    <span class="comment"># should be nginx VIP(it should be public IP in production), nginx should run at this node as well</span></span><br><span class="line">    <span class="comment"># (nginx can listen on any address even it&#x27;s not local or exist on interface)</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">node1<span class="comment"># service keepalived restart</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#node2 keepalived </span></span><br><span class="line">node2<span class="comment"># cat /etc/keepalived/keepalived.conf</span></span><br><span class="line"></span><br><span class="line">global_defs &#123;                                                                   </span><br><span class="line">   notification_email &#123;                                                         </span><br><span class="line">     jason_lkm@163.com</span><br><span class="line">   &#125;                                                                            </span><br><span class="line">   notification_email_from keepalived@cyun.tech                        </span><br><span class="line">   smtp_server 192.168.100.1                                                   </span><br><span class="line">   smtp_connect_timeout 30                                                      </span><br><span class="line">   router_id LVS_DEVEL                                                          </span><br><span class="line">&#125;</span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">  state BACKUP</span><br><span class="line">  interface eth0</span><br><span class="line">  virtual_router_id 51</span><br><span class="line">  priority 80</span><br><span class="line">  advert_int 1</span><br><span class="line">  authentication &#123;</span><br><span class="line">    auth_type PASS</span><br><span class="line">    auth_pass 12345</span><br><span class="line">  &#125;</span><br><span class="line">  virtual_ipaddress &#123;</span><br><span class="line">    10.117.5.123 dev eth0</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">node2<span class="comment"># service keepalived restart</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>vrrp_instance defines an individual instance of the VRRP protocol running on an interface.</li>
+<li>state defines the initial state that the instance should start in, but may not be final state due to master selection algorithm.</li>
+<li>interface defines the interface that VRRP runs on.</li>
+<li>virtual_router_id is the unique identifier, should be same for the all nodes.</li>
+<li>priority is the advertised priority used for master&#x2F;slave election.</li>
+<li>advert_int specifies the frequency that advertisements are sent at (1 second, in this case).</li>
+<li>authentication specifies the information necessary for servers participating in VRRP to authenticate with each other. In this case, a simple password is defined.</li>
+<li><strong>virtual_ipaddress defines the IP addresses (there can be multiple) that VRRP is responsible for.</strong></li>
+</ul>
+<p><strong>If you’re using a host-based firewall, such as firewalld or iptables, then you need to add the necessary rules to permit IP protocol 112 traffic.</strong></p>
+<h2 id="Debug-keepalived"><a href="#Debug-keepalived" class="headerlink" title="Debug keepalived"></a>Debug keepalived</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># check virtual ip configured or not on master</span></span><br><span class="line">$ ip addr show eth0</span><br><span class="line">$ service keepalived status</span><br><span class="line">$ tcpdump -i eth0 vrrp</span><br><span class="line"></span><br><span class="line"><span class="comment"># if virtual IP is not local</span></span><br><span class="line">$ sysctl -w net.ipv4.ip_nonlocal_bind=1</span><br><span class="line"></span><br><span class="line"><span class="comment"># run keepalived in forground and detail logs!!!</span></span><br><span class="line">$ keepalived -d -D -l -n</span><br></pre></td></tr></table></figure>
+<h1 id="split-brain"><a href="#split-brain" class="headerlink" title="split-brain"></a>split-brain</h1><p>In a highly available (HA) system, <code>when the &quot;heartbeat&quot; linking the two nodes is disconnected</code>, the HA system, which was originally a whole and coordinated in action, splits into two independent individuals. Since they lost contact with each other, they thought it was the other party that had malfunctioned. The HA software on the two nodes is like a “brain splitter”. <code>If they compete for &quot;shared resources&quot; and compete for &quot;application services&quot;, serious consequences will occur-or if the shared resources are divided and the &quot;services&quot; on both sides will </code>not&#96;. Coming; or both “services” are up, but at the same time reading and writing “shared storage”, resulting in data corruption (common errors such as online logs polled by the database).</p>
+<p><strong>Two active nodes, same virtual IP configured at differetn nodes</strong></p>
+<p><strong>Why it happens</strong></p>
+<ul>
+<li>The heartbeat link between the pair of highly available servers fails, which prevents normal communication. If the heartbeat line is broken (including broken, aging).</li>
+<li>Because the network card and related drivers are broken, IP configuration and conflict problems (network card direct connection).</li>
+<li>Due to the failure of the equipment connected between the heartbeat cables (network card and switch).</li>
+<li>There is a problem with the arbitration machine (using the arbitration scheme).</li>
+<li>The iptables firewall is turned on on the high availability server to block the transmission of heartbeat messages.</li>
+<li>In the same VRRP instance in the Keepalived configuration, if the virtual_router_id parameter settings on both ends are inconsistent, split-brain problems can also occur.</li>
+<li>vrrp instance names are inconsistent and their priorities are the same</li>
+</ul>
+<h2 id="avoid-it"><a href="#avoid-it" class="headerlink" title="avoid it"></a>avoid it</h2><ul>
+<li><p>Add redundant heartbeat wires, for example: double-line wires (heartbeat wires are also HA), to minimize the occurrence of “split brain”</p>
+</li>
+<li><p>Enable disk lock. The serving party locks the shared disk, and when the “split brain” occurs, let the other party completely “snatch away” the shared disk resources. But there is also a problem with using locked disks. If the party occupying the shared disk does not actively “unlock” it, the other party will never get the shared disk. In reality, if the service node suddenly crashes or crashes, it is impossible to execute the unlock command. The backup node cannot take over shared resources and application services. So someone designed a “smart” lock in HA. That is: the party that is serving only enables the disk lock when it finds that the heartbeat line is all disconnected (the peer end is not detected). Usually it is not locked.</p>
+</li>
+<li><p>Set up an arbitration mechanism. For example, set the reference IP (such as the gateway IP). When the heartbeat line is completely disconnected, both nodes ping the reference IP. If they fail, the breakpoint is at the local end. Not only the “heartbeat”, but also the external “service” of the local network link is broken, even if the application service is started (or continued) is useless, then actively give up competition and let the end that can ping the reference IP to start the service . More secure, the party that cannot ping the reference IP simply restarts itself to completely release the shared resources that may be occupied.</p>
+</li>
+<li><p>Script detection and alarm</p>
+</li>
+</ul>
+<p><strong>The last two are commonly used in production env</strong></p>
+<h2 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h2><p>Check why  </p>
+<ol>
+<li>first make sure, config is correct, check <code>/etc/keepalived/keepalived.conf</code></li>
+<li>check route is ok</li>
+<li>check iptables to allow vrrp</li>
+</ol>
+<h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://keepalived.readthedocs.io/en/latest/">Keepalived User Guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Virtual_Router_Redundancy_Protocol">VRRP wiki</a></li>
+<li><a target="_blank" rel="noopener" href="https://dzone.com/articles/inside-vrrp-packet-captures">VRRP Example</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/distribute/" rel="tag"># distribute</a>
+              <a href="/tags/keepalived/" rel="tag"># keepalived</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/06/09/k8s-kata-container/" rel="prev" title="k8s_kata_container">
+                  <i class="fa fa-chevron-left"></i> k8s_kata_container
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/06/22/linux-kernel-vxlan/" rel="next" title="linux_kernel_vxlan">
+                  linux_kernel_vxlan <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

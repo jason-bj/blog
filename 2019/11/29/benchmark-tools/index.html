@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="IntroductionThere are lots of tools for traffic capturing, sending, replaying about protocols, here are some examples of these popular tools. capture  tcpdump(linux) wireshark(windows&#x2F;linux)  sen">
+<meta property="og:type" content="article">
+<meta property="og:title" content="benchmark-tools">
+<meta property="og:url" content="http://cyun.tech/2019/11/29/benchmark-tools/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="IntroductionThere are lots of tools for traffic capturing, sending, replaying about protocols, here are some examples of these popular tools. capture  tcpdump(linux) wireshark(windows&#x2F;linux)  sen">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-11-29T01:36:54.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.131Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="traffic sender">
+<meta property="article:tag" content="traffic capture">
+<meta property="article:tag" content="http benchmark">
+<meta property="article:tag" content="io benchmark">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2019/11/29/benchmark-tools/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2019/11/29/benchmark-tools/","path":"2019/11/29/benchmark-tools/","title":"benchmark-tools"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>benchmark-tools | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Traffic"><span class="nav-number">2.</span> <span class="nav-text">Traffic</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tcpdump-vs-wireshark"><span class="nav-number">2.1.</span> <span class="nav-text">tcpdump vs wireshark</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sendip-vs-tcprelay"><span class="nav-number">2.2.</span> <span class="nav-text">sendip vs tcprelay</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sendip"><span class="nav-number">2.2.1.</span> <span class="nav-text">sendip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcpreplay"><span class="nav-number">2.2.2.</span> <span class="nav-text">tcpreplay</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#curl-vs-ab-vs-wrk"><span class="nav-number">2.3.</span> <span class="nav-text">curl vs ab vs wrk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#curl"><span class="nav-number">2.4.</span> <span class="nav-text">curl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ab"><span class="nav-number">2.5.</span> <span class="nav-text">ab</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wrk"><span class="nav-number">2.5.1.</span> <span class="nav-text">wrk</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ"><span class="nav-number">2.6.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#why-content-length-is-0-with-POST-method-by-curl"><span class="nav-number">2.6.1.</span> <span class="nav-text">why content-length is 0 with POST method by curl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#send-http-over-unix-socket"><span class="nav-number">2.6.2.</span> <span class="nav-text">send http over unix-socket</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IO"><span class="nav-number">3.</span> <span class="nav-text">IO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">3.1.</span> <span class="nav-text">Ref</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2019/11/29/benchmark-tools/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="benchmark-tools | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          benchmark-tools
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-11-29 09:36:54" itemprop="dateCreated datePublished" datetime="2019-11-29T09:36:54+08:00">2019-11-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/traffic/" itemprop="url" rel="index"><span itemprop="name">traffic</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/traffic/tool/" itemprop="url" rel="index"><span itemprop="name">tool</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>There are lots of tools for traffic capturing, sending, replaying about protocols, here are some examples of these popular tools.</p>
+<p><strong>capture</strong></p>
+<ul>
+<li>tcpdump(linux)</li>
+<li>wireshark(windows&#x2F;linux)</li>
+</ul>
+<p><strong>sending&#x2F;replay</strong></p>
+<ul>
+<li>sendip</li>
+<li>tcprelay</li>
+</ul>
+<p><strong>http benchmark</strong></p>
+<ul>
+<li>ab</li>
+<li>wrk</li>
+</ul>
+<p><strong>io benchmark</strong></p>
+<ul>
+<li>dd</li>
+</ul>
+<span id="more"></span>
+<h1 id="Traffic"><a href="#Traffic" class="headerlink" title="Traffic"></a>Traffic</h1><h2 id="tcpdump-vs-wireshark"><a href="#tcpdump-vs-wireshark" class="headerlink" title="tcpdump vs wireshark"></a>tcpdump vs wireshark</h2><p>tcpdump and wireshark are used to capture traffic on the internet, while wireshark provides filter for us after capture, that’s much helpful, while for tcpdump, there is no filter after capture, filter is only available when capturing, but you can save tcpdump output to xx.pcap than open it with wireshark, hence use filter provided by wireshark.</p>
+<p>when <strong>capturing packets tcpdump and wireshark use the same syntax</strong> like <code>host 10.10.2.2 and tcp port 5000</code>.</p>
+<p><strong>tcpdump</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># type:      host，net，port,</span></span><br><span class="line"><span class="comment"># direction: src, dst, dst or src, dst and src</span></span><br><span class="line"><span class="comment"># proto:     arp, rarp, tcp, udp</span></span><br><span class="line"><span class="comment"># logical:   not，and, or</span></span><br><span class="line"><span class="comment"># combine them together</span></span><br><span class="line">$ tcpdump -i eth0 host 10.10.10.8 and tcp src port 5000 and not dst port 6000</span><br><span class="line"></span><br><span class="line"><span class="comment"># save to wireshark message</span></span><br><span class="line">$ tcpdump -i eth0 -s 0 -w /home/lzq/pt.pcap</span><br><span class="line"></span><br><span class="line"><span class="comment"># vxlan use 4789, 11:4 is VNI</span></span><br><span class="line"><span class="comment"># capture VNI 6452, vxlan packet</span></span><br><span class="line">$ tcpdump -i mirror-out port 4789 and udp[11:4]=6452</span><br></pre></td></tr></table></figure>
+
+<p><strong>wireshark capture</strong></p>
+<p><code>syntax</code></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">support tcpdump syntax but more than that with extra options like this.</span><br><span class="line"></span><br><span class="line">dst port 135 and tcp port 135 and ip[2:2]==48</span><br><span class="line"></span><br><span class="line">icmp[icmptype]==icmp-echo and ip[2:2]==92 and icmp[8:4]==0xAAAAAAAA</span><br><span class="line"></span><br><span class="line">dst port 135 or dst port 445 or dst port 1433  and tcp[tcpflags] &amp; (tcp-syn) != 0 and tcp[tcpflags] &amp; (tcp-ack) = 0 and src net 192.168.0.0/24</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>wireshark filter</strong></p>
+<p><em>tips: exported filtered packets from wireshark.</em></p>
+<p>At the wireshark main panel, apply a filter, then you see filtered packets displayed, then exported it by</p>
+<p><code>File-&gt;Export specified Packets-&gt; All packets(displayed)!</code></p>
+<p><code>filter syntax</code></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tcp.port eq 25 or icmp</span><br><span class="line">tcp.port == 25 or icmp</span><br><span class="line">ip.src==192.168.0.0/16 and ip.dst==192.168.0.0/16</span><br><span class="line">tcp.window_size == 0 &amp;&amp; tcp.flags.reset != 1</span><br><span class="line"></span><br><span class="line">Match packets containing the (arbitrary) 3-byte sequence 0x81, 0x60, 0x03 at the beginning of the UDP payload, skipping the 8-byte UDP header.</span><br><span class="line">udp[8:3]==81:60:03</span><br><span class="line"></span><br><span class="line">eth.addr[0:3]==00:06:5B</span><br></pre></td></tr></table></figure>
+
+<p><strong>wireshark display</strong></p>
+<p><em>show absolute time</em><br><code>View-&gt;Time Display Format</code></p>
+<p><em>show absolute tcp seq number</em><br><code>Preference-&gt;Protocols-&gt;TCP [uncheck]Relative sequence numbers</code></p>
+<p><em>for tcp retransmission how can I distinguish the original packet and retransmitted on</em><br><code>Check TsVal it&#39;s at packets&#39; Tcp options Tsval</code> Or <code>Tcp field checksum</code></p>
+<h2 id="sendip-vs-tcprelay"><a href="#sendip-vs-tcprelay" class="headerlink" title="sendip vs tcprelay"></a>sendip vs tcprelay</h2><p>sendip is used to send arbitrary <code>IP</code> packets while tcprelay is mostly used to replay(edit) captured packet(send it again).</p>
+<h3 id="sendip"><a href="#sendip" class="headerlink" title="sendip"></a>sendip</h3><p><code>sendip</code> sends arbitrary IP packets(ip + upper protocol), like tcp, udp, icmp, rip etc</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sendip -v -d <span class="string">&quot;hello&quot;</span> -p ipv4 -is 192.168.200.1 -<span class="built_in">id</span> 192.168.200.2 -p udp -us 4000 -ud 1200 192.168.200.2</span><br><span class="line"><span class="comment"># send ipv4 udp with src 192.168.200.1, src port 4000, payload hello</span></span><br><span class="line"><span class="comment"># -is:  source ip</span></span><br><span class="line"><span class="comment"># -id:  dst ip</span></span><br><span class="line"><span class="comment"># -us:  udp src port</span></span><br><span class="line"><span class="comment"># -ud:  udp dst port</span></span><br><span class="line"><span class="comment"># -d   data(payload)</span></span><br><span class="line"></span><br><span class="line">$ sudo sendip -v -d <span class="string">&quot;hello&quot;</span> -p ipv4 -is 192.168.200.1 -<span class="built_in">id</span> 192.168.200.2 -p tcp -ts 4000 -td 1200 192.168.200.2</span><br></pre></td></tr></table></figure>
+
+<h3 id="tcpreplay"><a href="#tcpreplay" class="headerlink" title="tcpreplay"></a>tcpreplay</h3><p>tcpreplay is a series of commands that can be used to replay packets captured(not only tcp packet) with more control, like sending duration, loop, send number, pps, modify packets etc.</p>
+<ul>
+<li>tcpreplay:      only <code>send</code> packets captured</li>
+<li>tcprewrite:     only <code>modify</code>(mac, vlan, ip, tcp&#x2F;udp etc)captured packets and save it to a file</li>
+<li>tcpreplay-edit: modify on fly and send the modified packets &#x3D;&#x3D; <code>tcprewrite + tcpreplay</code>, so options for tcprewrite still work for tcpreplay-edit</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ tcpreplay -i eth0 -l 2 c.pcap      <span class="comment"># replay twice</span></span><br><span class="line">$ tcpreplay-edit -i eth0 c.pcap      <span class="comment"># same as replay</span></span><br><span class="line"></span><br><span class="line">$ tcprewrite --portmap=80:8000 --srcipmap=10.117.6.8:10.117.6.80 --fixcsum --ttl=125 --infile=c.pcap --outfile=b.pcap</span><br><span class="line"><span class="comment"># --enet-dmac=00:12:13:14:15:16,00:22:33:44:55:66</span></span><br><span class="line"></span><br><span class="line">$ tcpreplay-edit --portmap=80:8000 --srcipmap=10.117.6.8:10.117.6.80 --fixcsum --ttl=125 c.pcap</span><br></pre></td></tr></table></figure>
+
+<h2 id="curl-vs-ab-vs-wrk"><a href="#curl-vs-ab-vs-wrk" class="headerlink" title="curl vs ab vs wrk"></a>curl vs ab vs wrk</h2><p>curl used for <code>function test</code> supports get&#x2F;post etc. while ab&#x2F;wrk are used for <code>performance test</code></p>
+<p>ab and wrk both for http benchmark(software level, should not used for production), ab is from apache, old but more powerful with lots of options, while wrk is a newly tool which is very popular today.</p>
+<h2 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h2><p>curl provides lots of options for sending one http request, <code>by default, curl use http1.1 can change to http1.0 or http2.0</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">$ curl --http1.0 www.example.com</span><br><span class="line">$ curl --http1.1 www.example.com</span><br><span class="line">$ curl --http2 www.example.com</span><br><span class="line">$ curl www.example.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># By default, Post uses x-www-form-urlencoded format to send data</span></span><br><span class="line"><span class="comment"># send post payload from a file</span></span><br><span class="line">$ curl -X POST -d <span class="string">&quot;@data.txt&quot;</span> http:/www.test.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># send post request with chunked data</span></span><br><span class="line">$ curl -H <span class="string">&quot;Transfer-Encoding: chunked&quot;</span> -d <span class="string">&quot;payload to send&quot;</span> http://example.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># send post request with data</span></span><br><span class="line">$ curl -X POST -d <span class="string">&quot;name=Mona&amp;age=20&quot;</span>  https://www.example.com/update_info</span><br><span class="line"></span><br><span class="line"><span class="comment"># send post with json format, must set Content-type to json explicitly</span></span><br><span class="line">$ curl -X POST -d <span class="string">&quot;@json_data&quot;</span> -H <span class="string">&quot;Content-Type: application/json&quot;</span> https://www.example.com/update_info</span><br><span class="line">$ curl -X POST -d <span class="string">&#x27;&#123;&quot;key1&quot;:&quot;value1&quot;, &quot;key2&quot;:&quot;value2&quot;&#125;&#x27;</span> -H <span class="string">&quot;Content-Type: application/json&quot;</span> https://www.example.com/update_info</span><br><span class="line"></span><br><span class="line"><span class="comment"># send password,  cookie when download a file</span></span><br><span class="line">$ curl -u <span class="string">&quot;user:passwd&quot;</span> -b <span class="string">&quot;name=john123&quot;</span> -O http://ubuntu.biz.net.id/18.04.2/ubuntu-18.04.2-desktop-amd64.iso</span><br><span class="line"></span><br><span class="line"><span class="comment"># write cookie to a file</span></span><br><span class="line">$ curl -u <span class="string">&quot;user:passwd&quot;</span> -c saved_cookie.txt -O http://ubuntu.biz.net.id/18.04.2/ubuntu-18.04.2-desktop-amd64.iso</span><br><span class="line"></span><br><span class="line"><span class="comment"># read cookie from a file</span></span><br><span class="line">$ curl -u <span class="string">&quot;user:passwd&quot;</span> -b saved_cookie.txt -O http://ubuntu.biz.net.id/18.04.2/ubuntu-18.04.2-desktop-amd64.iso</span><br><span class="line"></span><br><span class="line"><span class="comment"># check http response headers, only headers returned</span></span><br><span class="line">$ curl -I http://www.yahoo.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># change agent</span></span><br><span class="line">$ curl -A <span class="string">&quot;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&quot;</span> https://example.com/</span><br><span class="line"></span><br><span class="line"><span class="comment"># send request with parameter</span></span><br><span class="line">$ curl -i http://localhost/login?key1=jason&amp;key2=jason2</span><br><span class="line"></span><br><span class="line"><span class="comment"># send request with custom header</span></span><br><span class="line">$ curl -i -H <span class="string">&quot;Host: 10.10.10.3&quot;</span> -H <span class="string">&quot;Content-Type: application/json&quot;</span> http://123.123.123.123/login</span><br><span class="line"></span><br><span class="line"><span class="comment"># bind src when sending</span></span><br><span class="line">$ curl --interface 10.10.10.10 http://123.123.123.123/</span><br><span class="line"></span><br><span class="line"><span class="comment"># send SNI</span></span><br><span class="line"><span class="comment"># first edit /etc/hosts with below content</span></span><br><span class="line"><span class="comment"># 100.0.1.1 app1.xyz.com</span></span><br><span class="line"></span><br><span class="line">$ curl -k --resolve app1.xyz.com https://app1.xyz.com</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># curl use proxy</span></span><br><span class="line">$ curl -x <span class="variable">$proxy_server</span>:<span class="variable">$port</span> -U <span class="variable">$user</span>:<span class="variable">$passwd</span> www.google.com</span><br></pre></td></tr></table></figure>
+<h2 id="ab"><a href="#ab" class="headerlink" title="ab"></a>ab</h2><p>ab provides lots of options for sending http request, like set cookie, header, authentication, ssl etc, by default ab sends <code>GET</code> request with default values. <code>only supports http1.0</code></p>
+<p><strong>get</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ ab -n 1000 -c 10  http://127.0.0.1:8080/index.html</span><br><span class="line"><span class="comment"># -n 1000 total requests</span></span><br><span class="line"><span class="comment"># -c 10   send 10 at a time (cocurrency, total request unchanged)</span></span><br><span class="line"></span><br><span class="line">$ ab -n 1000 -c 10 -C <span class="string">&quot;ck1=123&quot;</span> -C <span class="string">&quot;ck2=124&quot;</span> -H <span class="string">&quot;Accept-Encoding: gzip&quot;</span> -k http://127.0.0.1:8080/index.html</span><br><span class="line"><span class="comment"># with cookie(-C), http keep alive(-k), and headers(-H)</span></span><br><span class="line"></span><br><span class="line">$ ab -B 10.10.10.10 http//127.0.0.1:8080/index.html</span><br><span class="line"><span class="comment"># with binding SRC</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>post with data</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ ab -t 30 -c 10 -p ./post.data -T <span class="string">&quot;application/x-www-form-urlencoded&quot;</span> http://local/user</span><br><span class="line"></span><br><span class="line"><span class="comment"># -t means run 30 second with 10 connection with post method</span></span><br><span class="line">$ ab -t 30 -c 10 -p ./post.data -T <span class="string">&quot;application/json&quot;</span> http://localhost/user</span><br><span class="line"></span><br><span class="line"><span class="comment"># with token auth</span></span><br><span class="line">$ ab -t 30 -c 10 -p ./post.data -T <span class="string">&quot;application/json&quot;</span> -H <span class="string">&#x27;Authorization: Token abcd1234&#x27;</span> http://localhost/user</span><br><span class="line"></span><br><span class="line"><span class="comment"># with basic auth</span></span><br><span class="line">$ ab -t 30 -c 10 -p ./post.data -T <span class="string">&quot;application/json&quot;</span> -A <span class="string">&#x27;user:passwd&#x27;</span> http://localhost/user</span><br></pre></td></tr></table></figure>
+
+<h3 id="wrk"><a href="#wrk" class="headerlink" title="wrk"></a>wrk</h3><p><strong>run get with default header</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ wrk -t12 -c400 -d30s --latency http://127.0.0.1:8080/index.html</span><br><span class="line"><span class="comment"># run get with(does NOT support setting outbinding address)</span></span><br><span class="line"><span class="comment"># -t12    12 threads to run</span></span><br><span class="line"><span class="comment"># -c400   keep 400 connection open during the test</span></span><br><span class="line"><span class="comment"># -d30s   test 30 seconds with get request</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>run get custom header</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ wrk -t2 -c10 -d30s --latency -s ./get.lua http://127.0.0.1/index.html</span><br><span class="line"></span><br><span class="line"><span class="comment"># get.lua</span></span><br><span class="line">wrk.method = <span class="string">&quot;GET&quot;</span></span><br><span class="line">wrk.headers[<span class="string">&quot;Content-Type&quot;</span>] = <span class="string">&quot;application/json&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>run post with data</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ wrk -t2 -c10 -d30s --latency -s ./post.lua http://127.0.0.1/user</span><br><span class="line"></span><br><span class="line"><span class="comment"># post.lua</span></span><br><span class="line">wrk.method = <span class="string">&quot;POST&quot;</span></span><br><span class="line">wrk.body   = <span class="string">&quot;foo=bar&amp;baz=quux&quot;</span></span><br><span class="line">wrk.headers[<span class="string">&quot;Content-Type&quot;</span>] = <span class="string">&quot;application/x-www-form-urlencoded&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># post.lua with json format</span></span><br><span class="line">wrk.method = <span class="string">&quot;POST&quot;</span></span><br><span class="line">wrk.body = <span class="string">&quot;&#123;\&quot;firstKey\&quot;: &#x27;somedata&#x27;, \&quot;secondKey\&quot;: &#x27;somedata&#x27;&#125;&quot;</span></span><br><span class="line">wrk.headers[<span class="string">&quot;Content-Type&quot;</span>] = <span class="string">&quot;application/json&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><h3 id="why-content-length-is-0-with-POST-method-by-curl"><a href="#why-content-length-is-0-with-POST-method-by-curl" class="headerlink" title="why content-length is 0 with POST method by curl"></a>why content-length is 0 with POST method by curl</h3><p>The reason should be the content of the file used by POST <font color='red'>contains zero</font>, as curl first reads the whole file to memory, then calculate the content_length with <strong>strlen(file content)</strong>, hence if the content of the file contains ‘\0’, the content_length !&#x3D; file size, unexpected. here is a example</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># file content is all &#x27;\0&#x27;!!</span></span><br><span class="line">$ <span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=data.txt bs=1M count=1</span><br><span class="line"></span><br><span class="line"><span class="comment"># actually, curl just reads the data, but not send it, the Content_Length: 0</span></span><br><span class="line">$ curl -X POST -d <span class="string">&quot;@data.txt&quot;</span> http:/www.test.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># FIX it, generate a file without &#x27;\0&#x27; or with given repeated content like</span></span><br><span class="line">$ <span class="built_in">yes</span> <span class="string">&#x27;this is a test&#x27;</span> | <span class="built_in">head</span> -c 1K &gt; 1K.file</span><br><span class="line">$ <span class="built_in">yes</span> <span class="string">&#x27;this is a test&#x27;</span> | <span class="built_in">head</span> -c 1M &gt; 1M.file</span><br><span class="line">$ curl -X POST -d <span class="string">&quot;@1K.file&quot;</span> http:/www.test.com</span><br></pre></td></tr></table></figure>
+<h3 id="send-http-over-unix-socket"><a href="#send-http-over-unix-socket" class="headerlink" title="send http over unix-socket"></a>send http over unix-socket</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># if http server listens on unix socket</span></span><br><span class="line"><span class="comment"># --unix-socket (Added in 7.40.0)</span></span><br><span class="line">$ curl --version</span><br><span class="line">$ curl --unix-socket /var/run/tes.sock http://debug/api</span><br></pre></td></tr></table></figure>
+
+<h1 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h1><p>Use <code>dd</code> to test io benchmark, as it’s easy tool to use</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># write to another block device like nbd here</span></span><br><span class="line">$ <span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=/dev/nbd124 bs=1M count=1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># write testing</span></span><br><span class="line">$ <span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=out.disk bs=1M count=1000</span><br><span class="line"><span class="comment"># with direct io for writing</span></span><br><span class="line">$ <span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=out.disk bs=1M count=1000 oflag=direct</span><br><span class="line"></span><br><span class="line"><span class="comment"># read testing</span></span><br><span class="line">$ <span class="built_in">dd</span> <span class="keyword">if</span>=out.disk of=/dev/null bs=1M count=1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># check static io stats or runtime io</span></span><br><span class="line">$ iostat</span><br><span class="line">$ iotop</span><br><span class="line"></span><br><span class="line"><span class="comment"># fio is better than dd</span></span><br><span class="line"><span class="comment"># -------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># --rw=str</span></span><br><span class="line"><span class="comment"># read: sequential reads</span></span><br><span class="line"><span class="comment"># write: sequential writes</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># randread: random reads</span></span><br><span class="line"><span class="comment"># randwrite: random writes</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># rw: sequential mix of reads and writes</span></span><br><span class="line"><span class="comment"># randrw: random mix of reads and writes</span></span><br><span class="line"><span class="comment"># -------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># --numJobs=int</span></span><br><span class="line"><span class="comment"># The number of threads spawned by the test. By default, each thread is reported separately. To see the results for all threads as a whole, use --group_reporting.</span></span><br><span class="line"><span class="comment"># -------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># --iodepth=int</span></span><br><span class="line"><span class="comment"># Number of I/O units to keep in flight against the file. That is the amount of outstanding I/O for each thread.</span></span><br><span class="line"><span class="comment"># -------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># --runtime=int</span></span><br><span class="line"><span class="comment">#  The amount of time the test will be running in seconds.</span></span><br><span class="line"><span class="comment"># -------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># --time_based</span></span><br><span class="line"><span class="comment"># If given, run for the specified runtime duration even if the files are completely read or written. The same workload will be repeated as many times as runtime allows.</span></span><br><span class="line"><span class="comment"># -------------------------------------------------------------------------------</span></span><br><span class="line">$ fio --name=fiotest --filename=./test1 --size=1Gb --rw=randread --bs=4K --direct=1 --numjobs=1 --ioengine=libaio --iodepth=1 --group_reporting --runtime=60 --time_based</span><br><span class="line">$ fio --name=fiotest --filename=./test1 --size=1Gb --rw=write --bs=4K --direct=1 --numjobs=1 --ioengine=libaio --iodepth=1 --group_reporting --runtime=60 --time_based</span><br><span class="line">$ fio --name=fiotest --filename=./test1 --size=1Gb --rw=rw --bs=4K --direct=1 --numjobs=1 --ioengine=libaio --iodepth=1 --group_reporting --runtime=60 --time_based</span><br></pre></td></tr></table></figure>
+
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.tcpdump.org/manpages/tcpdump.1.html">tcpdump manpage</a></li>
+<li><a target="_blank" rel="noopener" href="http://tcpreplay.appneta.com/">tcprelay manpage</a></li>
+<li><a target="_blank" rel="noopener" href="https://linux.die.net/man/1/sendip">sendip manpage</a></li>
+<li><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/2.4/programs/ab.html">ab manpage</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/wg/wrk">wrk manpage</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tsenart/vegeta">vegeta</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/apache/jmeter">jmeter</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/locustio/locust">locust</a></li>
+<li><a target="_blank" rel="noopener" href="https://fio.readthedocs.io/en/latest/fio_doc.html">fio doc</a></li>
+<li><a target="_blank" rel="noopener" href="https://portal.nutanix.com/page/documents/kbs/details?targetId=kA07V000000LX7xSAG">fio example</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/traffic-sender/" rel="tag"># traffic sender</a>
+              <a href="/tags/traffic-capture/" rel="tag"># traffic capture</a>
+              <a href="/tags/http-benchmark/" rel="tag"># http benchmark</a>
+              <a href="/tags/io-benchmark/" rel="tag"># io benchmark</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/11/25/linux-tips-daily/" rel="prev" title="linux-tips-daily">
+                  <i class="fa fa-chevron-left"></i> linux-tips-daily
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/11/29/linux-memory-checker/" rel="next" title="linux-memory-checker">
+                  linux-memory-checker <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

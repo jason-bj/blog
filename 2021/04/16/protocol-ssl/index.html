@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="TLS, RSA, AES">
+<meta property="og:type" content="article">
+<meta property="og:title" content="protocol-ssl">
+<meta property="og:url" content="http://cyun.tech/2021/04/16/protocol-ssl/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="TLS, RSA, AES">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.thesslstore.com/blog/wp-content/uploads/2017/01/SSL_Handshake_10-Steps-1.png">
+<meta property="og:image" content="http://coppercash.github.io/media/files/2013/12/18/SSL_handshake_with_two_way_authentication_with_certificates.svg">
+<meta property="og:image" content="https://www.thesslstore.com/blog/wp-content/uploads/2019/04/TLS-1.2-Cipher-Suite.png">
+<meta property="og:image" content="https://www.thesslstore.com/blog/wp-content/uploads/2019/04/TLS-1.3-cipher-suite.png">
+<meta property="og:image" content="https://cyun.tech/images/ssl/http-client-server-interaction.png">
+<meta property="og:image" content="https://cyun.tech/images/ssl/sni-vs-non-sni.png">
+<meta property="og:image" content="https://cyun.tech/images/ssl/certificate.png">
+<meta property="og:image" content="https://cyun.tech/images/ssl/ssl-certificate.png">
+<meta property="article:published_time" content="2021-04-16T03:29:12.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.171Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="ssl">
+<meta property="article:tag" content="security">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.thesslstore.com/blog/wp-content/uploads/2017/01/SSL_Handshake_10-Steps-1.png">
+
+
+<link rel="canonical" href="http://cyun.tech/2021/04/16/protocol-ssl/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2021/04/16/protocol-ssl/","path":"2021/04/16/protocol-ssl/","title":"protocol-ssl"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>protocol-ssl | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Handshake"><span class="nav-number">2.</span> <span class="nav-text">Handshake</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TLS-1-2-Handshake"><span class="nav-number">2.1.</span> <span class="nav-text">TLS 1.2 Handshake</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TLS-1-3-Handshake"><span class="nav-number">2.2.</span> <span class="nav-text">TLS 1.3 Handshake</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cipher-Suite"><span class="nav-number">3.</span> <span class="nav-text">Cipher Suite</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TLS1-2"><span class="nav-number">3.1.</span> <span class="nav-text">TLS1.2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TLS-1-3"><span class="nav-number">3.2.</span> <span class="nav-text">TLS 1.3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SNI"><span class="nav-number">4.</span> <span class="nav-text">SNI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#why-need-SNI"><span class="nav-number">4.1.</span> <span class="nav-text">why need SNI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what%E2%80%99s-SNI"><span class="nav-number">4.2.</span> <span class="nav-text">what’s SNI</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSL-certificate"><span class="nav-number">5.</span> <span class="nav-text">SSL certificate</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Certificate-format"><span class="nav-number">5.1.</span> <span class="nav-text">Certificate format</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PEM"><span class="nav-number">5.1.1.</span> <span class="nav-text">PEM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DER-%E2%80%93-%E8%BE%A8%E5%88%AB%E7%BC%96%E7%A0%81%E8%A7%84%E5%88%99-DER-%E5%8F%AF%E5%8C%85%E5%90%AB%E6%89%80%E6%9C%89%E7%A7%81%E9%92%A5%E3%80%81%E5%85%AC%E9%92%A5%E5%92%8C%E8%AF%81%E4%B9%A6"><span class="nav-number">5.1.2.</span> <span class="nav-text">DER – 辨别编码规则 (DER) 可包含所有私钥、公钥和证书**</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%81%E4%B9%A6%E7%BC%96%E7%A0%81%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-number">5.1.3.</span> <span class="nav-text">证书编码的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E7%9A%84%E6%96%87%E4%BB%B6%E6%89%A9%E5%B1%95%E5%90%8D"><span class="nav-number">5.1.4.</span> <span class="nav-text">相关的文件扩展名</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Openssl-command"><span class="nav-number">6.</span> <span class="nav-text">Openssl command</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REF"><span class="nav-number">7.</span> <span class="nav-text">REF</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/04/16/protocol-ssl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="protocol-ssl | CYun">
+      <meta itemprop="description" content="TLS, RSA, AES">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          protocol-ssl
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-04-16 11:29:12" itemprop="dateCreated datePublished" datetime="2021-04-16T11:29:12+08:00">2021-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/protocol/" itemprop="url" rel="index"><span itemprop="name">protocol</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/protocol/ssl/" itemprop="url" rel="index"><span itemprop="name">ssl</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">TLS, RSA, AES</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><h1 id="Handshake"><a href="#Handshake" class="headerlink" title="Handshake"></a>Handshake</h1><p>SSL&#x2F;TLS handshake is different between TLS1.2 and TLS1.3, but they have common concept.</p>
+<p>The purpose of the SSL&#x2F;TLS handshake is to perform all the cryptographic work needed to <code>have a secure connection</code>. This includes authenticating the SSL certificate being used, and generating an encryption key.</p>
+<p>The TLS handshake accomplishes 3 main things:</p>
+<ul>
+<li>Exchanging cipher suites and parameters</li>
+<li>Authenticating one or both parties</li>
+<li>Creating&#x2F;Exchanging symmetric session keys</li>
+</ul>
+<span id="more"></span>
+
+<p><strong>Negotiating Cipher Suites</strong><br>The first step of the TLS handshake requires the client and server to share their capabilities so they can find the cryptographic features they mutually support.</p>
+<p>Once a client and server agree on the exact encryption methods they will use, this is called a cipher suite – the server sends the client its SSL certificate</p>
+<p><strong>Authentication SSL certificate</strong><br>Upon its receipt, the client checks to make sure the <code>certificate is “authentic.”</code> This is an extremely important step. To truly have a secure connection, you can’t just encrypt your data, you also need to know it’s being sent to the right website&#x2F;organization. SSL&#x2F;TLS certificates provide that authentication.</p>
+<p>During the authentication portion of the TLS handshake, the client performs several cryptographically secure checks to make sure the certificate provided by the server is authentic. This includes <strong>checking the digital signature and making sure the certificate originates from a trusted CA.</strong></p>
+<p>With the most common public key cryptosystem, RSA, the client will encrypt random data(<strong>pre-master-key</strong>) with the public key that needs to be used to generate the session key. The server will only be able to decrypt and use that data if it has the private key, which provides proof of possession.</p>
+<p><strong>Key Exchange</strong><br>The last part of the TLS handshake involves creating the “session key,” which is the key that will actually be used for secure communication, both client and server <strong>compute the session key by them self</strong> based on <code>(client random number, server random number, pre-master key)</code></p>
+<p>Session keys are “symmetric,” meaning the same key is used for encryption and decryption. These keys can achieve strong encryption much more efficiently than asymmetric keys, making them appropriate for sending data back and forth in an HTTPS connection。</p>
+<p> The exact method for generating the key varies based on the cipher suite that was chosen, with the two most common schemes being <code>RSA and Diffie-Hellman</code>.</p>
+<p> To end the handshake, each party lets the other know they have done all the necessary work, then both run check-sums to make sure the handshake occurred without any malicious tampering or corruption.</p>
+<h2 id="TLS-1-2-Handshake"><a href="#TLS-1-2-Handshake" class="headerlink" title="TLS 1.2 Handshake"></a>TLS 1.2 Handshake</h2><p> <strong>Please note this is just the logical process, several steps combine together and may send in one TCP packet.</strong></p>
+<p><img src="https://www.thesslstore.com/blog/wp-content/uploads/2017/01/SSL_Handshake_10-Steps-1.png" alt="TLS 1.2 handshake"></p>
+<ol>
+<li><p>The first message is called the “ClientHello.” This message lists the client’s capabilities so that the server can pick the cipher suite that the two will use to communicate. <strong>It also includes a large, randomly picked prime number called a “client random.”</strong></p>
+</li>
+<li><p>The server politely responds with a “SeverHello” message. In this message it tells the client what connection parameters it has selected from the provided list and <strong>returns its own randomly selected prime number called a “server random.”</strong> If the client and server do not share any capabilities in common, the connection terminates unsuccessfully.</p>
+</li>
+<li><p>In the “Certificate” message, the Server sends its SSL certificate chain (which includes its leaf certificate and intermediate certificates) to the client. To provide authentication to the connection an SSL certificate is signed by a CA, which allows the client to verify that the certificate is legitimate. Upon receipt, the client performs several checks to authenticate the certificate. This includes <strong>checking the certificate’s digital signature, verifying the certificate chain, and checking for any other potential problems with the certificate data (expired certificate, wrong domain name, etc)</strong>. The client will also make sure the server has possession of the certificate’s private key. This is done during the key exchange&#x2F;generation process.</p>
+</li>
+<li><p><strong>(OPTIONAL)[<code>Server Key Exchange</code>]This is an optional message</strong>, only needed for certain key exchange methods (Diffie-Hellman) that require the server provides additional data.</p>
+</li>
+<li><p>The “Server Hello Done” message tells the client that it has sent over all its messages.</p>
+</li>
+<li><p>[<code>Client Key Exchange</code>] The client then provides its contribution to the session key. <code>The specifics of this step depend on the key exchange method that was decided on in the initial “Hello” messages</code>. In this example we’re looking at <code>RSA, so the client is going to generate a random string of bytes called a pre-master secret</code>, then encrypt it with the server’s public key and transmit it.</p>
+</li>
+<li><p>The <code>“Change Cipher Spec”</code> message lets the other party know that it has generated the session key and is going to switch to encrypted communication.</p>
+</li>
+<li><p>The <code>“Finished” message</code> is then sent to indicate that the handshake is complete on the client side. The Finished message is encrypted, and is the first data protected by the session key. The message contains data (MAC) that allows each party to make sure the handshake was not tampered with.</p>
+</li>
+<li><p>Now it’s the server’s turn to do the same. It decrypts the pre-master secret and computes the session key. Then it sends its <code>“Change Cipher Spec”</code> message to indicate it is switching to encrypted communication.</p>
+</li>
+<li><p>The server sends its <code>“Finished”</code> message using the symmetric session key it just generated, it also performs the same check-sum to verify the integrity of the handshake.</p>
+</li>
+</ol>
+<p>After these steps the SSL handshake is complete. Both parties now have a session key and will begin to communicate with an encrypted and authenticated connection.<br>2, 3, 4, 5 may in one TCP message, 6.7.8 may in one TCP message, 9, 10 may in one TCP message.</p>
+<p>Another way to see SSL handshake  </p>
+<p><img src="http://coppercash.github.io/media/files/2013/12/18/SSL_handshake_with_two_way_authentication_with_certificates.svg" alt="TLS1.2 handshake"></p>
+<h2 id="TLS-1-3-Handshake"><a href="#TLS-1-3-Handshake" class="headerlink" title="TLS 1.3 Handshake"></a>TLS 1.3 Handshake</h2><h1 id="Cipher-Suite"><a href="#Cipher-Suite" class="headerlink" title="Cipher Suite"></a>Cipher Suite</h1><p>A cipher suite is a collection of algorithms that determine the parameters of a secure connection.</p>
+<p>At the start of any connection, the very first interaction, the Client Hello, is a list of cipher suites that are supported. The server looks for the best, most secure option that is mutually supported and responds with its choice. You can look at a cipher suite and figure out all of the parameters of the handshake and the connection</p>
+<h2 id="TLS1-2"><a href="#TLS1-2" class="headerlink" title="TLS1.2"></a>TLS1.2</h2><p>four distinct algorithms represented in TLS 1.2 cipher suites:</p>
+<ul>
+<li>Key Exchange(how to generate pre-master key)</li>
+<li>Authentication(how to valid certificate)</li>
+<li>Bulk Cipher(data encryption)</li>
+<li>Hashing Algorithm(data integrity check)</li>
+</ul>
+<p><strong>Example Format</strong><br><img src="https://www.thesslstore.com/blog/wp-content/uploads/2019/04/TLS-1.2-Cipher-Suite.png" alt="TLS1.2 Cipher"></p>
+<ul>
+<li>TLS is the protocol</li>
+<li>ECDHE is the key exchange algorithm</li>
+<li>ECDSA is the authentication algorithm</li>
+<li>AES 128 GCM is the symmetric encryption algorithm</li>
+<li>SHA256 is the hashing algorithm.</li>
+</ul>
+<p>In the example above, we’re using Elliptic Curve Diffie-Hellman Ephemeral(ECDHE) for key exchange and Elliptic Curve Digital Signature Algorithm(ECDSA) for authentication. DH can also be paired with RSA (functioning as a digital signature algorithm) to accomplish authentication.</p>
+<p>TLS 1.2 has 37 available ciphers in total, though not all of them are advisable. Here’s a list of the most widely-supported cipher suites:</p>
+<ul>
+<li><p>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</p>
+</li>
+<li><p>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</p>
+</li>
+<li><p>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA</p>
+</li>
+<li><p>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA</p>
+</li>
+<li><p>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256</p>
+</li>
+<li><p>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</p>
+</li>
+<li><p>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</p>
+</li>
+<li><p>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</p>
+</li>
+<li><p>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA</p>
+</li>
+<li><p>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA</p>
+</li>
+<li><p>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256</p>
+</li>
+<li><p>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384</p>
+</li>
+<li><p>TLS_DHE_RSA_WITH_AES_128_GCM_SHA256</p>
+</li>
+<li><p>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384</p>
+</li>
+<li><p>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</p>
+</li>
+<li><p>TLS_DHE_RSA_WITH_AES_256_CBC_SHA</p>
+</li>
+<li><p>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256</p>
+</li>
+<li><p>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256</p>
+</li>
+</ul>
+<h2 id="TLS-1-3"><a href="#TLS-1-3" class="headerlink" title="TLS 1.3"></a>TLS 1.3</h2><p>TLS 1.3 has made countless improvements over its predecessors, which is good considering it was in development for about a decade. The IETF removed support for older outmoded algorithms and streamlined everything, shortening the entire handshake from two round trips to one and reducing the sizes of cipher suites from four negotiations&#x2F;algorithms to two.</p>
+<p>The number of supported cipher suites has also dropped from 37 to five. Here’s an example of a TLS 1.3 cipher suite:<br><img src="https://www.thesslstore.com/blog/wp-content/uploads/2019/04/TLS-1.3-cipher-suite.png" alt="TLS1.3 Cipher Suite"></p>
+<ul>
+<li>TLS is the protocol</li>
+<li>AES 256 GCM is the Authenticated Encryption with Associated Data (AEAD) algorithm</li>
+<li>SHA384 is the Hashed-Key Derivation Function (HKFD) algorithm</li>
+</ul>
+<p>We(TLS 1.3) already know we’re going be <code>using some version of Diffie-Hellman Ephemeral key exchange</code>, we just don’t know the parameters, so that means that the first two algorithms in the TLS 1.2 cipher suite are no longer needed. Those functions are still occurring, they just <code>no longer need to be negotiated during the handshake</code>.</p>
+<p>Here are the five supported TLS 1.3 cipher suites:</p>
+<ul>
+<li>TLS_AES_256_GCM_SHA384</li>
+<li>TLS_CHACHA20_POLY1305_SHA256</li>
+<li>TLS_AES_128_GCM_SHA256</li>
+<li>TLS_AES_128_CCM_8_SHA256</li>
+<li>TLS_AES_128_CCM_SHA256</li>
+</ul>
+<h1 id="SNI"><a href="#SNI" class="headerlink" title="SNI"></a>SNI</h1><h2 id="why-need-SNI"><a href="#why-need-SNI" class="headerlink" title="why need SNI"></a>why need SNI</h2><p>Let’s begin from an example, Let’s say you have two HTTP websites and you want to run them on <strong>a single IP address and port</strong>, how to config nginx to support this.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen  80;</span><br><span class="line">        server_name www.example.com;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen  80;</span><br><span class="line">        server_name www.example.org;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Both server has the same IP and port!!!</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">The default_server parameter, <span class="keyword">if</span> present, will cause the server to become the default server <span class="keyword">for</span> the specified address:port pair.</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">If none of the directives have the default_server parameter</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="keyword">then</span> the first server with the address:port pair will be the default server <span class="keyword">for</span> this pair</span></span><br></pre></td></tr></table></figure>
+<p>when a user requests a particular site out of two, it uses a unique HTTP header(‘HOST’) that includes hostname.<br>nginx will use this header to match the request server, hence use that server to serve the request.</p>
+<p><img src="https://cyun.tech/images/ssl/http-client-server-interaction.png" alt="http"></p>
+<p>but this won’t work in the case of HTTPS, that’s because the HTTPS protocol uses an SSL&#x2F;TLS handshake to enforce secure communications between the client (browser) and server. The HTTP header will only be sent once the handshake is over. <strong>during the handshake, we need to send server’s certificate to client, which server’s certificate should be sent is a problem because we do not have HOST header right now</strong>, before SNI, we must listen on different IPs to support different website, so that one IP&lt;—–&gt;one certificate, after SNI was introduced, no need to use different addresses.</p>
+<h2 id="what’s-SNI"><a href="#what’s-SNI" class="headerlink" title="what’s SNI"></a>what’s SNI</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 443 ssl;</span><br><span class="line">        server_name www.example.com;</span><br><span class="line">        ssl_certificate     www.example.com.crt;</span><br><span class="line">        ssl_certificate_key www.example.com.key;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen 443 ssl;</span><br><span class="line">        server_name www.example.org;</span><br><span class="line">        ssl_certificate     www.example.org.crt;</span><br><span class="line">        ssl_certificate_key www.example.org.key;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>as Server Name Indication (SNI), an extension to the SSL&#x2F;TLS protocol, <code>allows multiple SSL certificates to be hosted on a single unique IP address</code>. <strong>SNI does this by inserting the HTTP header (virtual domain) in the SSL&#x2F;TLS handshake</strong>. As the server is able to see the virtual domain at ssl handshake phase, hence send correct certificate and serves the client with the website he&#x2F;she requested.</p>
+<p><img src="https://cyun.tech/images/ssl/sni-vs-non-sni.png" alt="https"></p>
+<h1 id="SSL-certificate"><a href="#SSL-certificate" class="headerlink" title="SSL certificate"></a>SSL certificate</h1><p>Certificate is used for identification, like you’re a good man, I trust you, Or it’s good company, I can send my personal info to it!!</p>
+<p>How to identify the certificate to know you’re good man?<br>As certificate is issued by CA encrypted with its private key(popular CA’s public key is always installed at PC), if we can decrypt the certificate and valid the field in it, Ok, you’re good man!!!</p>
+<p><strong>certificate contains company’s info and its public key! and encrypted with CA’s private key!!!</strong>  </p>
+<p><img src="https://cyun.tech/images/ssl/certificate.png" alt="certificate"></p>
+<p>Actually, certificate contains two parts, one is CSR(public key+ basic info), the other is signature(CA signed use CA private key), then encode these two with BASE64. that means you can <code>get the basic info and public key,without verify it</code>, but you can’t trust them until you verify it(use CA public key)</p>
+<p>Everyone should have a certificate if he&#x2F;she needs to be identified by others. First he&#x2F;she gives his&#x2F;her certificate(like an ID) to the one she&#x2F;he wants to talk, then the one ASKs CA(certificate authority ), if this guy is a good man(good company), did he register at CA? CA checks his db, ok, he is good man(good company), you can talk with he&#x2F;her, or trust he&#x2F;her. but be sure talk with encryption, so that others can NOT know what you’re saying!</p>
+<p><strong>Before SSL, what client&#x2F;server needs to do?</strong><br>client&#x2F;server need to get their certificates and install CA, for two direction identification!</p>
+<ul>
+<li><p>Install CA<br>  Always the computer(OS) pre installed commonly used CA, organized like a tree(CA tree)</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root(CA)</span><br><span class="line">|      |</span><br><span class="line">|      |</span><br><span class="line">   CA1    CA2</span><br></pre></td></tr></table></figure>
+<p>  Note: each CA entry contains CA’s public key! key point!!<br>  (certificate is encrypted by CA’s private key)</p>
+</li>
+<li><p>Get certificate<br> server(client) generates its own public&#x2F;private keys, then send a CSR(certificate signing request) which contains its public key&#x2F;company name, website etc to CA, CA encrypts these info with CA’s private key to issue a certificate! now server(client) has its certificate(encrypted with CA’s private key) which contains his public key, company info and signature.</p>
+<p> <img src="https://cyun.tech/images/ssl/ssl-certificate.png" alt="certificate generation"></p>
+</li>
+</ul>
+<h2 id="Certificate-format"><a href="#Certificate-format" class="headerlink" title="Certificate format"></a>Certificate format</h2><p><code>X.509 - 这是一种证书标准</code>,主要定义了证书中应该包含哪些内容.其详情可以参考RFC5280,SSL使用的就是这种证书标准.</p>
+<p>目前有以下<code>两种编码格式(实现方式).(PEM, DER编码格式)</code></p>
+<h3 id="PEM"><a href="#PEM" class="headerlink" title="PEM"></a>PEM</h3><p>Privacy Enhanced Mail,打开看文本格式,以”—–BEGIN…”开头, “—–END…”结尾,内容是BASE64编码.  </p>
+<p>查看PEM格式证书的信息:<code>$ openssl x509 -in certificate.pem -text -noout</code><br><code>Apache和NGINX服务器偏向于使用这种编码格式.</code></p>
+<p>PEM – Openssl使用 PEM(Privacy Enhanced Mail)格式来存放各种信息, 它是 **<code>openssl 默认采用的信息存放方式</code>**。<br>Openssl 中的 PEM 文件一般包含如下信息:</p>
+<ul>
+<li><p>内容类型:表明本文件存放的是什么信息内容,它的形式为“——-BEGIN XXXX ——”,与结尾的“——END XXXX——”对应。</p>
+</li>
+<li><p>头信息:表明数据是如果被处理后存放,openssl 中用的最多的是加密信息,比如加密算法以及初始化向量 iv。</p>
+</li>
+<li><p>信息体:为 BASE64 编码的数据。可以包括所有私钥（RSA 和 DSA）、公钥（RSA 和 DSA）和 (x509) 证书。<br>它存储用 Base64 编码的 DER 格式数据，用 ascii 报头包围，因此适合系统之间的文本模式传输。</p>
+</li>
+</ul>
+<p><strong>使用PEM格式存储的证书：</strong>  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">—–BEGIN CERTIFICATE—–</span><br><span class="line">MIICJjCCAdCgAwIBAgIBITANBgkqhkiG9w0BAQQFADCBqTELMAkGA1UEBhMCVVMx</span><br><span class="line">………</span><br><span class="line">1p8h5vkHVbMu1frD1UgGnPlOO/K7Ig/KrsU=</span><br><span class="line">—–END CERTIFICATE—–</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用PEM格式存储的私钥：</strong>  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">—–BEGIN RSA PRIVATE KEY—–</span><br><span class="line">MIICJjCCAdCgAwIBAgIBITANBgkqhkiG9w0BAQQFADCBqTELMAkGA1UEBhMCVVMx</span><br><span class="line">………</span><br><span class="line">1p8h5vkHVbMu1frD1UgGnPlOO/K7Ig/KrsU=</span><br><span class="line">—–END RSA PRIVATE KEY—–</span><br></pre></td></tr></table></figure>
+<p><strong>使用PEM格式存储的证书请求文件：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">—–BEGIN CERTIFICATE REQUEST—–</span><br><span class="line">MIICJjCCAdCgAwIBAgIBITANBgkqhkiG9w0BAQQFADCBqTELMAkGA1UEBhMCVVMx</span><br><span class="line">………</span><br><span class="line">1p8h5vkHVbMu1frD1UgGnPlOO/K7Ig/KrsU=</span><br><span class="line">—–END CERTIFICATE REQUEST—–</span><br></pre></td></tr></table></figure>
+
+<p><strong>Here is a certificate(encode with base64)</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN CERTIFICATE-----</span><br><span class="line">MIICPjCCAaegAwIBAgIBADANBgkqhkiG9w0BAQ0FADA8MQswCQYDVQQGEwJ1czEL</span><br><span class="line">MAkGA1UECAwCYmoxCzAJBgNVBAoMAnd3MRMwEQYDVQQDDAp3d3cuYXMuY29tMB4X</span><br><span class="line">DTE5MTAyODE1MDUxNFoXDTIwMTAyNzE1MDUxNFowPDELMAkGA1UEBhMCdXMxCzAJ</span><br><span class="line">BgNVBAgMAmJqMQswCQYDVQQKDAJ3dzETMBEGA1UEAwwKd3d3LmFzLmNvbTCBnzAN</span><br><span class="line">BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA1P7qDXxtezldoIv5Id7pylE0k3JMqUa1</span><br><span class="line">nw3HLhITZfOs2kt/hvoeeVcsOZMsgXtHNTHZCJrA6KilnCUpJUM3qhKjmLLfRE9Q</span><br><span class="line">wahEbd9zoCxvDNhBztcx8UFZKtX3oOtYBlmW2QHrzm9mHfRduYFSiRsLyMOzeU98</span><br><span class="line">BKfMwV+ZdZMCAwEAAaNQME4wHQYDVR0OBBYEFFzwMNE95TTwAifd8k2//byKQzyc</span><br><span class="line">MB8GA1UdIwQYMBaAFFzwMNE95TTwAifd8k2//byKQzycMAwGA1UdEwQFMAMBAf8w</span><br><span class="line">DQYJKoZIhvcNAQENBQADgYEACxvLypbO4tugxpcgl6NFsYx9pGwp4eMteyPVa1pt</span><br><span class="line">FuRytVrTyV/AP397nazQ9Msm7vFxlmHjQoVyZ29a49QTN/uFAkV+OkZu0QqjY//I</span><br><span class="line">0t0uW2lD/+jdRP+MLt2aVga3qPuS9DaxN0b52DOoJTLCmjJfApdrqdqLC+QiOfxr</span><br><span class="line">j+Q=</span><br><span class="line">-----END CERTIFICATE-----</span><br></pre></td></tr></table></figure>
+
+<p><strong>After decode with base64</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">Certificate:</span><br><span class="line">    Data:</span><br><span class="line">        Version: 3 (0x2)</span><br><span class="line">        Serial Number: 0 (0x0)</span><br><span class="line">    Signature Algorithm: sha512WithRSAEncryption</span><br><span class="line">        Issuer: C=us, ST=bj, O=ww, CN=www.as.com</span><br><span class="line">        Validity</span><br><span class="line">            Not Before: Oct 28 15:05:14 2019 GMT</span><br><span class="line">            Not After : Oct 27 15:05:14 2020 GMT</span><br><span class="line">        Subject: C=us, ST=bj, O=ww, CN=www.as.com</span><br><span class="line">        Subject Public Key Info:</span><br><span class="line">            Public Key Algorithm: rsaEncryption</span><br><span class="line">                Public-Key: (1024 bit)</span><br><span class="line">                Modulus:</span><br><span class="line">                    00:d4:fe:ea:0d:7c:6d:7b:39:5d:a0:8b:f9:21:de:</span><br><span class="line">                    e9:ca:51:34:93:72:4c:a9:46:b5:9f:0d:c7:2e:12:</span><br><span class="line">                    13:65:f3:ac:da:4b:7f:86:fa:1e:79:57:2c:39:93:</span><br><span class="line">                    2c:81:7b:47:35:31:d9:08:9a:c0:e8:a8:a5:9c:25:</span><br><span class="line">                    29:25:43:37:aa:12:a3:98:b2:df:44:4f:50:c1:a8:</span><br><span class="line">                    44:6d:df:73:a0:2c:6f:0c:d8:41:ce:d7:31:f1:41:</span><br><span class="line">                    59:2a:d5:f7:a0:eb:58:06:59:96:d9:01:eb:ce:6f:</span><br><span class="line">                    66:1d:f4:5d:b9:81:52:89:1b:0b:c8:c3:b3:79:4f:</span><br><span class="line">                    7c:04:a7:cc:c1:5f:99:75:93</span><br><span class="line">                Exponent: 65537 (0x10001)</span><br><span class="line">        X509v3 extensions:</span><br><span class="line">            X509v3 Subject Key Identifier: </span><br><span class="line">                5C:F0:30:D1:3D:E5:34:F0:02:27:DD:F2:4D:BF:FD:BC:8A:43:3C:9C</span><br><span class="line">            X509v3 Authority Key Identifier: </span><br><span class="line">                keyid:5C:F0:30:D1:3D:E5:34:F0:02:27:DD:F2:4D:BF:FD:BC:8A:43:3C:9C</span><br><span class="line"></span><br><span class="line">            X509v3 Basic Constraints: </span><br><span class="line">                CA:TRUE</span><br><span class="line">    Signature Algorithm: sha512WithRSAEncryption</span><br><span class="line">         0b:1b:cb:ca:96:ce:e2:db:a0:c6:97:20:97:a3:45:b1:8c:7d:</span><br><span class="line">         a4:6c:29:e1:e3:2d:7b:23:d5:6b:5a:6d:16:e4:72:b5:5a:d3:</span><br><span class="line">         c9:5f:c0:3f:7f:7b:9d:ac:d0:f4:cb:26:ee:f1:71:96:61:e3:</span><br><span class="line">         42:85:72:67:6f:5a:e3:d4:13:37:fb:85:02:45:7e:3a:46:6e:</span><br><span class="line">         d1:0a:a3:63:ff:c8:d2:dd:2e:5b:69:43:ff:e8:dd:44:ff:8c:</span><br><span class="line">         2e:dd:9a:56:06:b7:a8:fb:92:f4:36:b1:37:46:f9:d8:33:a8:</span><br><span class="line">         25:32:c2:9a:32:5f:02:97:6b:a9:da:8b:0b:e4:22:39:fc:6b:</span><br><span class="line">         8f:e4</span><br></pre></td></tr></table></figure>
+<p>As you can see that it contains basic info and public key and signature(signed with CA private key)</p>
+<p><strong>Certificate revocation list(CRL)</strong><br>In cryptography, a certificate revocation list (or CRL) is “<code>a list of digital certificates that have been revoked by the issuing certificate authority (CA) before their scheduled expiration date</code> and should no longer be trusted.</p>
+<p>Expiration dates are not a substitute for a CRL. While all expired certificates are considered invalid, <code>not all unexpired certificates should be valid</code></p>
+<p><strong>Common Name(CN) vs Subject Alternative Name(SAN)</strong><br><a target="_blank" rel="noopener" href="https://support.dnsimple.com/articles/what-is-common-name/#commonname-format">CN vs SAN</a></p>
+<h3 id="DER-–-辨别编码规则-DER-可包含所有私钥、公钥和证书"><a href="#DER-–-辨别编码规则-DER-可包含所有私钥、公钥和证书" class="headerlink" title="DER – 辨别编码规则 (DER) 可包含所有私钥、公钥和证书**"></a>DER – 辨别编码规则 (DER) 可包含所有私钥、公钥和证书**</h3><p><code>它是大多数浏览器的缺省格式</code>，并按 ASN1 DER 格式存储。它是无报头的 － PEM 是用文本报头包围的 DER。</p>
+<p>DER - Distinguished Encoding Rules,打开看是二进制格式,不可读.<br>查看DER格式证书的信息:<code>$ openssl x509 -in certificate.der -inform der -text -noout</code><br><code>Java和Windows服务器偏向于使用这种编码格式.</code></p>
+<h3 id="证书编码的转换"><a href="#证书编码的转换" class="headerlink" title="证书编码的转换"></a>证书编码的转换</h3><p><code>PEM转为DER $ openssl x509 -in cert.crt -outform der -out cert.der</code></p>
+<p><code>DER转为PEM $ openssl x509 -in cert.crt -inform der -outform pem -out cert.pem</code></p>
+<p>(提示:要转换KEY文件也类似,只不过把x509换成rsa,要转CSR的话,把x509换成req…)</p>
+<h3 id="相关的文件扩展名"><a href="#相关的文件扩展名" class="headerlink" title="相关的文件扩展名"></a>相关的文件扩展名</h3><p>这是比较误导人的地方,虽然我们已经知道有PEM和DER这两种编码格式, 但文件扩展名并不一定就叫”PEM”或者”DER”,常见的扩展名除了PEM和DER还有以下这些, 它们除了编码格式可能不同之外,内容也有差别,但大多数都能相互转换编码格式.</p>
+<ul>
+<li><p>CRT - <code>CRT应该是certificate,其实还是证书的意思</code>,常见于 NIX系统,有可能是PEM编码,也有可能是DER编码, 大多数应该是PEM编码,相信你已经知道怎么辨别.</p>
+</li>
+<li><p>CER - <code>还是certificate,还是证书</code>,常见于Windows系统,同样的,可能是PEM编码,也可能是DER编码,大多数应该是DER编码.证书中没有私钥，DER 编码二进制格式的证书文件</p>
+</li>
+<li><p>KEY - 通常用来存放一个<code>公钥或者私钥,并非X.509证书</code>, 编码同样的,可能是PEM,也可能是DER.<br>  查看KEY的办法 PEM 格式: <code>$ openssl rsa -in mykey.key -text -noout</code><br>  DER格式: <code>$ openssl rsa -in mykey.key -text -noout -inform der</code></p>
+</li>
+<li><p>CSR - <code>Certificate Signing Request,即证书签名请求,这个并不是证书</code>,而是向权威证书颁发机构获得签名证书的申请,其核心内容是一个公钥(当然还附带了一些别的信息),在生成这个申请的时候,同时也会生成一个私钥,私钥要自己保管好.做过iOS APP的朋友都应该知道是怎么向苹果申请开发者证书的吧.<br>查看的办法:openssl req -noout -text -in my.csr (如果是DER格式的话照旧加上-inform der,这里不写了)</p>
+</li>
+<li><p>PFX&#x2F;P12 - predecessor of PKCS#12,包含公钥和私钥的二进制格式证书</p>
+<p>  对nginx服务器来说,一般CRT和KEY是分开存放在不同文件中的,但Windows的IIS则将它们存在一个PFX文件中,(因此这个文件包含了证书及私钥)这样会不会不安全？应该不会,PFX通常会有一个”提取密码”,你想把里面的东西读取出来的话,它就要求你提供提取密码,PFX使用的时DER编码,如何把PFX转换为PEM编码？</p>
+<p>  <code>$ openssl pkcs12 -in for-iis.pfx -out for-iis.pem -nodes</code><br>  这个时候会提示你输入提取代码. for-iis.pem就是可读的文本.<br>  生成pfx的命令类似这样: <code>$ openssl pkcs12 -export -in certificate.crt -inkey privateKey.key -out certificate.pfx</code></p>
+<p>  其中CACert.crt是CA(权威证书颁发机构)的根证书,有的话也通过-certfile参数一起带进去.这么看来,PFX其实是个证书密钥库.</p>
+</li>
+<li><p>p7b - 以树状展示证书链(certificate chain)，同时也支持单个证书，不含私钥。</p>
+</li>
+<li><p>JKS - 即Java Key Storage,这是Java的专利,跟OpenSSL关系不大,利用Java的一个叫”keytool”的工具,可以将PFX转为JKS,当然了,keytool也能直接生成JKS,不过在此就不多表了.</p>
+</li>
+</ul>
+<h1 id="Openssl-command"><a href="#Openssl-command" class="headerlink" title="Openssl command"></a>Openssl command</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># check certificate with .pem format</span></span><br><span class="line">$ openssl x509 -text -noout -<span class="keyword">in</span> cert.pem</span><br><span class="line"></span><br><span class="line"><span class="comment"># create self-signed certificate with openssl</span></span><br><span class="line"><span class="comment"># no extension</span></span><br><span class="line">$ <span class="built_in">cat</span> san.cnf</span><br><span class="line">[ req ]</span><br><span class="line">default_bits       = 2048</span><br><span class="line">distinguished_name = req_distinguished_name</span><br><span class="line">prompt = no</span><br><span class="line">[ req_distinguished_name ]</span><br><span class="line">countryName                 = CN</span><br><span class="line">stateOrProvinceName         = bj</span><br><span class="line">localityName               = bj</span><br><span class="line">organizationName           = cyun </span><br><span class="line">commonName                 = cyun.com</span><br><span class="line"></span><br><span class="line">$ openssl req -config san.cnf -new -x509 -sha256 \</span><br><span class="line">   -newkey rsa:2048 -nodes -keyout private.key -days 365 -out cert.pem</span><br><span class="line"></span><br><span class="line"><span class="comment"># with extension</span></span><br><span class="line">$ <span class="built_in">cat</span> san.cnf</span><br><span class="line">[ req ]</span><br><span class="line">default_bits       = 2048</span><br><span class="line">distinguished_name = req_distinguished_name</span><br><span class="line">req_extensions     = req_ext</span><br><span class="line">prompt = no</span><br><span class="line">[ req_distinguished_name ]</span><br><span class="line">countryName                 = CN</span><br><span class="line">stateOrProvinceName         = bj</span><br><span class="line">localityName               = bj</span><br><span class="line">organizationName           = cyun </span><br><span class="line">commonName                 = cyun.com</span><br><span class="line">[ req_ext ]</span><br><span class="line">subjectAltName = @alt_names</span><br><span class="line">[alt_names]</span><br><span class="line">DNS.1   = bestflare.com</span><br><span class="line">DNS.2   = usefulread.com</span><br><span class="line">DNS.3   = chandank.com</span><br><span class="line"></span><br><span class="line">$ openssl req -config san.cnf -new -x509 -sha256 \</span><br><span class="line">  -newkey rsa:2048 -nodes -keyout private.key -days 365 \</span><br><span class="line">  -out cert.pem -extensions req_ext</span><br></pre></td></tr></table></figure>
+
+<h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.thesslstore.com/blog/explaining-ssl-handshake/">SSL handshake</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/ssl/" rel="tag"># ssl</a>
+              <a href="/tags/security/" rel="tag"># security</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/15/stress-workload-generator/" rel="prev" title="stress_workload_generator">
+                  <i class="fa fa-chevron-left"></i> stress_workload_generator
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/20/character-encoding/" rel="next" title="character_encoding">
+                  character_encoding <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

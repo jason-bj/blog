@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Docker CLIBefore going into docker cli, let’s see how docker client, daemon and registry works, here is an overview of these two part and how they work with each other.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker-frequently-used-commands">
+<meta property="og:url" content="http://cyun.tech/2019/10/11/docker-frequently-used-commands/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="Docker CLIBefore going into docker cli, let’s see how docker client, daemon and registry works, here is an overview of these two part and how they work with each other.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cyun.tech/images/docker/client-daemon-registry.JPG">
+<meta property="article:published_time" content="2019-10-11T07:36:59.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.137Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="docker command">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cyun.tech/images/docker/client-daemon-registry.JPG">
+
+
+<link rel="canonical" href="http://cyun.tech/2019/10/11/docker-frequently-used-commands/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2019/10/11/docker-frequently-used-commands/","path":"2019/10/11/docker-frequently-used-commands/","title":"docker-frequently-used-commands"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>docker-frequently-used-commands | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-CLI"><span class="nav-number">1.</span> <span class="nav-text">Docker CLI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Container"><span class="nav-number">1.1.</span> <span class="nav-text">Container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Image"><span class="nav-number">1.2.</span> <span class="nav-text">Image</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Network"><span class="nav-number">1.3.</span> <span class="nav-text">Network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Registry"><span class="nav-number">1.4.</span> <span class="nav-text">Registry</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Volume"><span class="nav-number">1.5.</span> <span class="nav-text">Volume</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Others"><span class="nav-number">1.6.</span> <span class="nav-text">Others</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2019/10/11/docker-frequently-used-commands/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="docker-frequently-used-commands | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          docker-frequently-used-commands
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-10-11 15:36:59" itemprop="dateCreated datePublished" datetime="2019-10-11T15:36:59+08:00">2019-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/docker/command/" itemprop="url" rel="index"><span itemprop="name">command</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Docker-CLI"><a href="#Docker-CLI" class="headerlink" title="Docker CLI"></a>Docker CLI</h1><p>Before going into docker cli, let’s see how docker client, daemon and registry works, here is an overview of these two part and how they work with each other.</p>
+<span id="more"></span>
+<p><img src="https://cyun.tech/images/docker/client-daemon-registry.JPG" alt="client-daemon-registry"></p>
+<p>As you can see client, daemon, registry are three different parts, they can run in <mark>one machine or different machines</mark>, by default, <mark class="label success">daemon listens on Unix socket, CLI connects with that socket, registry can be your company registry or docker official hub</mark>, </p>
+<p>You can use docker cli or call REST API to communicate with docker daemon, <strong><mark>docker cli is just a wrapper of rest api</mark></strong></p>
+<p>All docker commands are available here </p>
+<h2 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h2><p><font color='red'><strong>Frequently used one</strong></font></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># run with bridge mode with specific address</span></span><br><span class="line">$ docker run --name mycentos --restart=always -p 6000:22 --hostname <span class="built_in">test</span> --ip 172.16.0.2 --privileged=<span class="literal">true</span> -itd centos /usr/sbin/init</span><br><span class="line"></span><br><span class="line"><span class="comment"># run with host network</span></span><br><span class="line">$ docker run --name mycentos --restart=always -p 6000:22 --hostname <span class="built_in">test</span> --net=host  --privileged=<span class="literal">true</span> -itd centos /usr/sbin/init</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Run a container in interactive mode with tty</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker run = docker create + docker start</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -t: Allocate a pseudo-TTY, When set to true Docker can allocate a pseudo-tty and attach to the standard input of any container</span></span><br><span class="line"><span class="comment"># -i: Keep STDIN open even if not attached.</span></span><br><span class="line">$ docker run -it nginx bash</span><br><span class="line"><span class="comment"># this will pull nginx(image) and create a container and start it with bash command</span></span><br><span class="line"><span class="comment"># Note: bash overwrite CMD provide in nginx so nginx daemon is not started in this docker</span></span><br><span class="line"></span><br><span class="line">$ docker run --<span class="built_in">rm</span> -it nginx bash</span><br><span class="line">control + C</span><br><span class="line"><span class="comment"># --rm means this docker will be removed when it exited</span></span><br><span class="line">$ docker ps -a <span class="comment"># will not show it as it&#x27;s removed</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Run a container in detached mode or non-detached mode</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># detach(run in background) then later on you attach to it</span></span><br><span class="line">$ docker run --name my-nginx -d nginx</span><br><span class="line">$ docker attach <span class="variable">$container_id</span></span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ docker run nginx</span><br><span class="line"><span class="comment"># both will run nginx image from CMD provided in docker image CMD [&quot;nginx&quot; &quot;-g&quot; &quot;daemon&quot;]</span></span><br><span class="line"><span class="comment"># as docker run will create container if not exist(user docker create) so it&#x27;s also</span></span><br><span class="line"><span class="comment"># has lots of args like create provide https://docs.docker.com/engine/reference/commandline/run/</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Check start logs of a specific container</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker logs <span class="variable">$container_id</span>(name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># if docker failed to write such log, check syslog as well</span></span><br><span class="line"><span class="comment"># /var/log/syslog</span></span><br></pre></td></tr></table></figure></li>
+<li><p>List containers and its size(disk used)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker ps <span class="comment"># only active containers</span></span><br><span class="line">$ docker ps -a <span class="comment"># all containers even it&#x27;s stopped.</span></span><br><span class="line">$ docker ps --size</span><br><span class="line">$ docker stats <span class="comment"># show running stats CPU, MEM, IO, NET</span></span><br></pre></td></tr></table></figure></li>
+<li><p>create&#x2F;stop&#x2F;start&#x2F;restart&#x2F;rm container</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ docker create --name my-nginx nginx</span><br><span class="line">$ docker start <span class="variable">$container_id</span>(name)</span><br><span class="line">$ docker stop <span class="variable">$container_id</span>(name)</span><br><span class="line">$ docker restart <span class="variable">$container_id</span>(name)</span><br><span class="line">$ docker <span class="built_in">rm</span> <span class="variable">$container_id</span>(name)</span><br><span class="line"><span class="comment"># Actually create provides lots of args when create a docker to set it config</span></span><br><span class="line"><span class="comment"># like volume, mount points, cpu, entrypoint, CMD, env etc</span></span><br><span class="line"><span class="comment"># https://docs.docker.com/engine/reference/commandline/create/</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Run a new command in an running container</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">exec</span> -it <span class="variable">$container_id</span>(name) bash</span><br></pre></td></tr></table></figure></li>
+<li><p>copy file in&#x2F;out container</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">cp</span> <span class="variable">$container_id</span>(name):/home/text.txt /root/text.txt</span><br><span class="line">$ docker <span class="built_in">cp</span> /root/text.txt <span class="variable">$container_id</span>(name):/home/text.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>inspect a container</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker inspect $container_id</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h2><ul>
+<li>pull an image from registry<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull nginx:latest</span><br></pre></td></tr></table></figure></li>
+<li>build an image<br>Details refer to <a href="/2019/10/14/docker-create-image/" title="docker-create-image">Dockfile inside</a></li>
+<li>check history of an image<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">history</span> <span class="variable">$image_id</span></span><br><span class="line"><span class="comment"># OR to show history full description</span></span><br><span class="line">$ docker <span class="built_in">history</span> <span class="variable">$image_id</span> --no-trunc</span><br></pre></td></tr></table></figure></li>
+<li>list images<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker images</span><br></pre></td></tr></table></figure></li>
+<li>remove image(s)<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker rmi <span class="variable">$image_id</span></span><br></pre></td></tr></table></figure></li>
+<li>tag an image<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker tag <span class="variable">$image_id</span> <span class="variable">$new_image_tag</span> <span class="comment"># will create a new image</span></span><br><span class="line">$ docker images</span><br></pre></td></tr></table></figure></li>
+<li>create an image from a running container<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker commit <span class="variable">$container_id</span> <span class="variable">$new_image_name</span> <span class="comment"># add the image to local repo</span></span><br><span class="line"><span class="comment"># OR export it to a local file</span></span><br><span class="line">$ docker <span class="built_in">export</span> -o new_image.tar <span class="variable">$container_id</span></span><br><span class="line">$ docker import new_image.tar <span class="variable">$new_image_name</span>:latest</span><br></pre></td></tr></table></figure></li>
+<li>backup&#x2F;restore an image<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># save an image to tar file</span></span><br><span class="line">$ docker save nginx:latest &gt;/root/back.tar <span class="comment"># must be absolute path with repo and tag later on when load</span></span><br><span class="line"><span class="comment"># still have such info</span></span><br><span class="line">$ docker load &lt;/root/back.tar <span class="comment"># must be absolute path</span></span><br></pre></td></tr></table></figure>
+<h2 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker network <span class="built_in">ls</span></span><br><span class="line">$ docker network inspect <span class="variable">$network_id</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Registry"><a href="#Registry" class="headerlink" title="Registry"></a>Registry</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker search xxx <span class="comment"># search image from registry</span></span><br></pre></td></tr></table></figure>
+<h2 id="Volume"><a href="#Volume" class="headerlink" title="Volume"></a>Volume</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker volume <span class="built_in">ls</span></span><br><span class="line">$ docker volume inspect <span class="variable">$volume_name</span></span><br><span class="line">$ docker volume create <span class="variable">$volume_name</span></span><br><span class="line">$ docker volume <span class="built_in">rm</span> <span class="variable">$volume_name</span></span><br><span class="line"><span class="comment"># volume can be used at docker create or docker run</span></span><br></pre></td></tr></table></figure>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ul>
+<li>check docker info<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">$ docker info</span><br><span class="line">Client:</span><br><span class="line"> Context:    default</span><br><span class="line"> Debug Mode: <span class="literal">false</span></span><br><span class="line"> Plugins:</span><br><span class="line">  app: Docker App (Docker Inc., v0.9.1-beta3)</span><br><span class="line">  buildx: Docker Buildx (Docker Inc., v0.8.2-docker)</span><br><span class="line">  scan: Docker Scan (Docker Inc., v0.17.0)</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Containers: 0</span><br><span class="line">  Running: 0</span><br><span class="line">  Paused: 0</span><br><span class="line">  Stopped: 0</span><br><span class="line"> Images: 0</span><br><span class="line"> Server Version: 20.10.15</span><br><span class="line"></span><br><span class="line"> Storage Driver: overlay2                ------important</span><br><span class="line">  Backing Filesystem: xfs</span><br><span class="line">  Supports d_type: <span class="literal">true</span></span><br><span class="line">  Native Overlay Diff: <span class="literal">true</span></span><br><span class="line">  userxattr: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"> Logging Driver: json-file              -------important</span><br><span class="line"> Cgroup Driver: cgroupfs</span><br><span class="line"> Cgroup Version: 1</span><br><span class="line"></span><br><span class="line"> ...</span><br><span class="line"> Docker Root Dir: /var/lib/docker        -----important</span><br><span class="line"> Debug Mode: <span class="literal">false</span></span><br><span class="line"> Registry: https://index.docker.io/v1/</span><br><span class="line"> ...</span><br><span class="line">$ docker version</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/docker-command/" rel="tag"># docker command</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/10/11/docker-image-container-on-disk/" rel="prev" title="docker-image-container-on-disk">
+                  <i class="fa fa-chevron-left"></i> docker-image-container-on-disk
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/10/14/docker-persist-data/" rel="next" title="docker-persist-share-data">
+                  docker-persist-share-data <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

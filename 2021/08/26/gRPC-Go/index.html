@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="grpcIn gRPC, a client application can directly call a method on a server application on a different machine as if it were a local object, making it easier for you to create distributed applications an">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gRPC_Go">
+<meta property="og:url" content="http://cyun.tech/2021/08/26/gRPC-Go/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="grpcIn gRPC, a client application can directly call a method on a server application on a different machine as if it were a local object, making it easier for you to create distributed applications an">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://grpc.io/img/landing-2.svg">
+<meta property="og:image" content="https://hpbn.co/assets/diagrams/8e6931bb40fc26c511ad15645e7b6113.svg">
+<meta property="og:image" content="https://miro.medium.com/max/700/1*1_-UZ0WlVd5-LSZzD02IpA.png">
+<meta property="og:image" content="https://miro.medium.com/max/700/1*l-gSz3cxkutbc5nq8HZKmQ.png">
+<meta property="og:image" content="https://miro.medium.com/max/700/1*1GjibJpAUbnl9hLAjIK3iQ.png">
+<meta property="og:image" content="https://miro.medium.com/max/700/1*Ug3CAac6nPclg87bxmRBoA.png">
+<meta property="article:published_time" content="2021-08-26T06:56:37.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.142Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="grpc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://grpc.io/img/landing-2.svg">
+
+
+<link rel="canonical" href="http://cyun.tech/2021/08/26/gRPC-Go/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2021/08/26/gRPC-Go/","path":"2021/08/26/gRPC-Go/","title":"gRPC_Go"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>gRPC_Go | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#grpc"><span class="nav-number">1.</span> <span class="nav-text">grpc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#http2"><span class="nav-number">1.1.</span> <span class="nav-text">http2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unary-RPC-call"><span class="nav-number">1.2.</span> <span class="nav-text">Unary RPC call</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#writing-service-in-proto"><span class="nav-number">1.2.1.</span> <span class="nav-text">writing service in proto</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#build"><span class="nav-number">1.2.2.</span> <span class="nav-text">build</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Implement-rpc"><span class="nav-number">1.2.3.</span> <span class="nav-text">Implement rpc</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#client-stream-rpc-call"><span class="nav-number">1.3.</span> <span class="nav-text">client stream rpc call</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#server-in-proto"><span class="nav-number">1.3.1.</span> <span class="nav-text">server in proto</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#build-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">build</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#implement-rpc"><span class="nav-number">1.3.3.</span> <span class="nav-text">implement rpc</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#server-stream-rpc-call"><span class="nav-number">1.4.</span> <span class="nav-text">server stream rpc call</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#server-in-proto-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">server in proto</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#build-2"><span class="nav-number">1.4.2.</span> <span class="nav-text">build</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#implement-rpc-1"><span class="nav-number">1.4.3.</span> <span class="nav-text">implement rpc</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bi-direction-stream-rpc-call"><span class="nav-number">1.5.</span> <span class="nav-text">bi-direction stream rpc call</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#server-in-proto-2"><span class="nav-number">1.5.1.</span> <span class="nav-text">server in proto</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#build-3"><span class="nav-number">1.5.2.</span> <span class="nav-text">build</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#implement-rpc-2"><span class="nav-number">1.5.3.</span> <span class="nav-text">implement rpc</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Debug-grpc"><span class="nav-number">1.6.</span> <span class="nav-text">Debug grpc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#grpcui%EF%BC%88web"><span class="nav-number">1.6.1.</span> <span class="nav-text">grpcui（web)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#command-line-tool"><span class="nav-number">1.6.2.</span> <span class="nav-text">command line tool</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gogo"><span class="nav-number">1.7.</span> <span class="nav-text">gogo</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/08/26/gRPC-Go/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="gRPC_Go | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          gRPC_Go
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-08-26 14:56:37" itemprop="dateCreated datePublished" datetime="2021-08-26T14:56:37+08:00">2021-08-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/go/rpc/" itemprop="url" rel="index"><span itemprop="name">rpc</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="grpc"><a href="#grpc" class="headerlink" title="grpc"></a>grpc</h1><p>In gRPC, a client application can directly call a method on a server application on a different machine as if it were a local object, making it easier for you to create distributed applications and services. As in many RPC systems, gRPC is based around the idea of defining a service, specifying the methods that can be called remotely with their parameters and return types. On the server side, the server implements this interface and runs a gRPC server to handle client calls. On the client side, the client has a stub (referred to as just a client in some languages) that provides the same methods as the server.</p>
+<p><img src="https://grpc.io/img/landing-2.svg" alt="grpc"></p>
+<span id="more"></span>
+
+<p>It is a <strong>protocol that is build on top of HTTP&#x2F;2</strong>, and it has some handy features. These included the ability to make streaming calls from the client and server side, or Bi-directional streaming. It serializes and deserializes data using <code>Protocol Buffers</code>, and it also provides code generation through the gRPC compiler to currently 11 different languages.</p>
+<p>gRPC clients and servers can run and talk to each other in a variety of environments - from servers inside Google to your own desktop - and can be written in any of gRPC’s supported languages. So, for example, you can easily create a gRPC server in Java with clients in Go, Python, or Ruby. In addition, the latest Google APIs will have gRPC versions of their interfaces, letting you easily build Google functionality into your applications</p>
+<p><strong>No input rpc parameter defines</strong><br>If you don’t want any input or output parameters, you can use the well-known proto <code>google.protobuf.Empty</code>. However, this is discouraged as it prevents you from adding parameters to the method in the future. Instead, you would be encouraged to follow the normal practice of having a message for the request, but simply with no contents.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">service Greeter &#123;</span><br><span class="line">    rpc SayHello (SayHelloRequest) returns (SayHelloResponse) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message SayHelloRequest &#123;&#125; // service has no input</span><br></pre></td></tr></table></figure>
+<p><font color='red'><strong>implicit stream context</strong></font><br>stream also has context as well like unary rpc call which passed context explicitly, while for stream it’s implicitly!</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ctx := stream.Context() </span><br><span class="line">&lt;-ctx.Done</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>Metadata</strong><br>Metadata is information about a particular RPC call (such as authentication details) in <code>the form of a list of key-value pairs</code>, where the keys are strings and the values are typically strings, but can be binary data. <strong>Metadata is opaque to gRPC itself</strong> - it lets the client provide information associated with the call to the server and vice versa.</p>
+<p>Access to metadata is language dependent</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/grpc/grpc-go/blob/master/Documentation/grpc-metadata.md">metadata-go</a></li>
+<li><a target="_blank" rel="noopener" href="https://grpc.io/docs/languages/go/basics/">grpc go basic</a></li>
+</ul>
+<h2 id="http2"><a href="#http2" class="headerlink" title="http2"></a>http2</h2><p>As grpc based on http2, in order to understand deeply, we need to learn some core concepts of http2.<br>A “stream” is an <code>independent, bidirectional sequence of frames exchanged between the client and server within an HTTP/2 connection</code>.</p>
+<ul>
+<li><p>Stream</p>
+<blockquote>
+<p>A bidirectional flow of bytes within an established connection, which may carry one or more messages. </p>
+<blockquote>
+<ul>
+<li>A single HTTP&#x2F;2 connection can contain multiple concurrently open streams, with either endpoint interleaving frames from multiple streams.</li>
+<li>Streams can be established and used unilaterally or shared by either the client or server.</li>
+<li>Streams can be closed by either endpoint.</li>
+<li>Streams are identified by an integer. Stream identifiers are assigned to streams by the endpoint initiating the stream.</li>
+</ul>
+</blockquote>
+</blockquote>
+</li>
+<li><p>Message</p>
+<blockquote>
+<p>A complete sequence of frames that map to a logical request or response message. </p>
+</blockquote>
+</li>
+<li><p>Frame</p>
+<blockquote>
+<p>The smallest unit of communication in HTTP&#x2F;2, each containing a frame<br>header, which at a minimum identifies the stream to which the frame belongs.</p>
+<blockquote>
+<ul>
+<li>All communication is performed over a single TCP connection that can carry any number of bidirectional streams.</li>
+<li>Each stream has a unique identifier and optional priority information that is used to carry bidirectional messages.</li>
+<li><code>Each message is a logical HTTP message</code>, such as a request, or response, which consists of one or more frames.</li>
+<li>The frame is the smallest unit of communication that carries a specific type of data—e.g., HTTP headers, message payload, and so on. Frames from different streams may be interleaved and then reassembled via the embedded stream identifier in the header of each frame.</li>
+</ul>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<img src="https://hpbn.co/assets/diagrams/8e6931bb40fc26c511ad15645e7b6113.svg" alt="drawing" width="500"/>
+
+<p><strong>Stream is not http2 connection(mostly tcp connection), it’s also bidirectional stuff, <code>close stream does not means close its underlaying connection</code>.</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developers.google.com/web/fundamentals/performance/http2">http2 introduction</a></li>
+<li><a target="_blank" rel="noopener" href="https://datatracker.ietf.org/doc/html/rfc7540">http2 rfc</a></li>
+</ul>
+<h2 id="Unary-RPC-call"><a href="#Unary-RPC-call" class="headerlink" title="Unary RPC call"></a>Unary RPC call</h2><p><strong><font color='red'>gRPC service methods have exactly one input message and exactly one output message, <code>handler is called only when its get the whole message</code></font></strong>. Typically, these messages are used as input and output to only one method. This is on purpose, as it allows easily adding new parameters later (to the messages) while maintaining backward compatibility.</p>
+<p>In a unary rpc call, the client sends a single request and the server responds with a single message.</p>
+<p><img src="https://miro.medium.com/max/700/1*1_-UZ0WlVd5-LSZzD02IpA.png"></p>
+<p><strong>pros and cons</strong></p>
+<ul>
+<li>easy to use</li>
+<li>only effective to small data</li>
+<li>if data is huge, it causes delay to response</li>
+<li>no interactive support.</li>
+</ul>
+<h3 id="writing-service-in-proto"><a href="#writing-service-in-proto" class="headerlink" title="writing service in proto"></a>writing service in proto</h3><p><strong>greet.proto</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line">package greet;</span><br><span class="line">//used by proto itself(independent with different language)</span><br><span class="line">// to prevent naming conflicts between different projects(protos).</span><br><span class="line">// import &quot;google/protobuf/timestamp.proto&quot;;</span><br><span class="line"></span><br><span class="line">option go_package = &quot;github.com/hello/runtime/proto/greet&quot;;</span><br><span class="line">// used by protoc when generate go specific code</span><br><span class="line"></span><br><span class="line">// The greeting service definition.</span><br><span class="line">service Greeter &#123;</span><br><span class="line">  // Sends a greeting</span><br><span class="line">  rpc SayHello (HelloRequest) returns (HelloReply) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// The request message containing the user&#x27;s name.</span><br><span class="line">message HelloRequest &#123;</span><br><span class="line">  string name = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// The response message containing the greetings</span><br><span class="line">message HelloReply &#123;</span><br><span class="line">  string message = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="build"><a href="#build" class="headerlink" title="build"></a>build</h3><p><strong>Prerequisite</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ wget -O ./protoc-3.15.8-linux-x86_64.zip https://github.com/protocolbuffers/protobuf/releases/download/v3.15.8/protoc-3.15.8-linux-x86_64.zip</span><br><span class="line">$ unzip protoc-3.15.8-linux-x86_64.zip -d /usr/local</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install the protocol compiler plugins for Go using the following commands</span></span><br><span class="line"><span class="comment"># protoc-gen-go: go plugin or gogo/protobuf</span></span><br><span class="line"><span class="comment"># proto-gen-go-grpc: go rpc plugin</span></span><br><span class="line">$ go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.26</span><br><span class="line">$ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.1</span><br></pre></td></tr></table></figure>
+
+<p><strong>compile rpc</strong><br><font color='red'><strong>if multiple protos belong to same package, you must provide all of them to protoc command!!!</strong></font></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># put your source at $GOPATH/src/github.com/hello</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="variable">$GOPATH</span>/src/github.com/hello</span><br><span class="line"></span><br><span class="line"><span class="comment"># If the paths=import flag is specified, the output file is placed in a directory named after the Go package&#x27;s import path For example, an input file pro/hello.proto with a Go import path of github.com/hello/runtime/proto/greet results in an output file at github.com/hello/runtime/proto/greet/hello.pb.go. This is the default output mode if a paths flag is not specified.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If the paths=source_relative flag is specified, the output file is placed in the same relative directory as the input file. For example, an input file pro/hello.proto results in an output file at pro/hello.pb.go</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># --go_out and --go-grpc_out is based path, all other paths are relative to it!!!</span></span><br><span class="line"></span><br><span class="line">$ protoc --go_out=<span class="variable">$GOPATH</span>/src/ --go_opt=paths=import --go-grpc_out=<span class="variable">$GOPATH</span>/src/ --go-grpc_opt=paths=import proto/greet.proto -I=xxx/other/proto:protocols/</span><br><span class="line"><span class="comment"># generated code at $GOPATH/src/github.com/hello/runtime/proto/greet</span></span><br><span class="line"></span><br><span class="line">$ protoc --go_out=<span class="variable">$GOPATH</span>/src/ --go_opt=paths=source_relative --go-grpc_out=<span class="variable">$GOPATH</span>/src/ --go-grpc_opt=paths=source_relative proto/greet.proto -I=xxx/other/proto:protocols/</span><br><span class="line"><span class="comment"># generated code at $GOPATH/src/proto</span></span><br><span class="line"></span><br><span class="line">$ protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative proto/hello.proto</span><br><span class="line"><span class="comment"># generated code at ./proto</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Implement-rpc"><a href="#Implement-rpc" class="headerlink" title="Implement rpc"></a>Implement rpc</h3><p><strong>Server</strong>  </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;context&quot;</span></span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line">    <span class="string">&quot;net&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;google.golang.org/grpc&quot;</span></span><br><span class="line">    <span class="string">&quot;google.golang.org/grpc/metadata&quot;</span></span><br><span class="line">    pb <span class="string">&quot;github.com/hello/runtime/protocols/greet&quot;</span></span><br><span class="line">    <span class="string">&quot;google.golang.org/grpc/reflection&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    port = <span class="string">&quot;:50051&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// server is used to implement greet.GreeterServer.</span></span><br><span class="line"><span class="keyword">type</span> server <span class="keyword">struct</span> &#123;</span><br><span class="line">    pb.UnimplementedGreeterServer <span class="comment">// must be first field</span></span><br><span class="line">    <span class="comment">// your staff here</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// return value: HelloReply, error</span></span><br><span class="line"><span class="comment">// SayHello implements greet.GreeterServer</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *server)</span></span> SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, <span class="type">error</span>) &#123;</span><br><span class="line">    md, ok := metadata.FromIncomingContext(ctx)</span><br><span class="line">    <span class="keyword">if</span> ok &#123;</span><br><span class="line">        <span class="comment">// metadata is map: var MD map[string][]string</span></span><br><span class="line">        <span class="comment">// key is string, while value is string array!!!</span></span><br><span class="line">        log.Printf(<span class="string">&quot;metadata: %v&quot;</span>, md.Get(<span class="string">&quot;k1&quot;</span>))</span><br><span class="line">    &#125;</span><br><span class="line">    log.Printf(<span class="string">&quot;Received: %v&quot;</span>, in.GetName())</span><br><span class="line">    <span class="comment">// connection is close when returns!!!</span></span><br><span class="line">    <span class="keyword">return</span> &amp;pb.HelloReply&#123;Message: <span class="string">&quot;Hi &quot;</span> + in.GetName()&#125;, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    lis, err := net.Listen(<span class="string">&quot;tcp&quot;</span>, port)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;failed to listen: %v&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    s := grpc.NewServer()</span><br><span class="line">    <span class="comment">// register services(server&#123;&#125;) with rpc server</span></span><br><span class="line">    pb.RegisterGreeterServer(s, &amp;server&#123;&#125;)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// for debugging</span></span><br><span class="line">    reflection.Register(s)</span><br><span class="line">    log.Printf(<span class="string">&quot;server listening at %v&quot;</span>, lis.Addr())</span><br><span class="line">    <span class="keyword">if</span> err := s.Serve(lis); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;failed to serve: %v&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Client</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;context&quot;</span></span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line"></span><br><span class="line">    pb <span class="string">&quot;github.com/hello/proto&quot;</span></span><br><span class="line">    <span class="string">&quot;google.golang.org/grpc&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Client..&quot;</span>)</span><br><span class="line"></span><br><span class="line">    con, err := grpc.Dial(<span class="string">&quot;localhost:50051&quot;</span>, opts, grpc.WithInsecure(), grpc.WithBlock())</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;Error connecting: %v \n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">defer</span> con.Close()</span><br><span class="line">    <span class="comment">//client for specific service</span></span><br><span class="line">    c := pb.NewGreeterClient(con)</span><br><span class="line">    req := pb.HelloRequest&#123;Name: <span class="string">&quot;tom&quot;</span>&#125;</span><br><span class="line">    res, err := c.SayHello(context.Background(), &amp;req)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;Error on Echo rpc call: %v\n&quot;</span>, err)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">&quot;Response: %v\n&quot;</span>, res)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="client-stream-rpc-call"><a href="#client-stream-rpc-call" class="headerlink" title="client stream rpc call"></a>client stream rpc call</h2><p>In a client streaming rpc call, the client sends a bunch of requests and <strong>once it is done streaming, the server will return a single message.</strong><br><img src="https://miro.medium.com/max/700/1*l-gSz3cxkutbc5nq8HZKmQ.png"></p>
+<p><strong>stream here is stream of particular request message, the unit is request but byte</strong>!!</p>
+<p>Making a client stream request is useful when the client needs to send resources one by one to the server, so they can be processed right away, and once the streaming call is finished the client gets the response.</p>
+<p>For client stream, client side needs a stream to send and also server needs a stream to receive messages, both side need to change.</p>
+<p><strong>Steps</strong></p>
+<ul>
+<li><p>client send one request, then another</p>
+</li>
+<li><p>client notify server I finished the stream</p>
+</li>
+<li><p>server receive request one by one</p>
+</li>
+<li><p>server see client finish the stream send one reply.</p>
+</li>
+</ul>
+<h3 id="server-in-proto"><a href="#server-in-proto" class="headerlink" title="server in proto"></a>server in proto</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line">package greet;</span><br><span class="line">//used by proto itself(independent with different language)</span><br><span class="line">// to prevent naming conflicts between different projects(protos).</span><br><span class="line">// import &quot;google/protobuf/timestamp.proto&quot;;</span><br><span class="line"></span><br><span class="line">option go_package = &quot;github.com/hello/runtime/protocols/greet&quot;;</span><br><span class="line">// used by protoc when generate go specific code</span><br><span class="line"></span><br><span class="line">service Greeter &#123;</span><br><span class="line">  // Sends a greeting</span><br><span class="line">  rpc SayHello (stream HelloRequest) returns (HelloReply) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// The request message containing the user&#x27;s name.</span><br><span class="line">message HelloRequest &#123;</span><br><span class="line">  string name = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// The response message containing the greetings</span><br><span class="line">message HelloReply &#123;</span><br><span class="line">  string message = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="build-1"><a href="#build-1" class="headerlink" title="build"></a>build</h3><p>Same as unary rpc</p>
+<h3 id="implement-rpc"><a href="#implement-rpc" class="headerlink" title="implement rpc"></a>implement rpc</h3><p><strong>server</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;io&quot;</span></span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line">    <span class="string">&quot;net&quot;</span></span><br><span class="line">    <span class="string">&quot;strings&quot;</span></span><br><span class="line"></span><br><span class="line">    pb <span class="string">&quot;github.com/hello/proto&quot;</span></span><br><span class="line">    <span class="string">&quot;google.golang.org/grpc&quot;</span></span><br><span class="line">    <span class="string">&quot;google.golang.org/grpc/reflection&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    port = <span class="string">&quot;:50051&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// server is used to implement greet.GreeterServer.</span></span><br><span class="line"><span class="keyword">type</span> greetServer <span class="keyword">struct</span> &#123;</span><br><span class="line">    pb.UnimplementedGreeterServer <span class="comment">// must be first field</span></span><br><span class="line">    <span class="comment">// your staff here</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SayHello implements greet.GreeterServer</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *greetServer)</span></span> SayHello(stream pb.Greeter_SayHelloServer) <span class="type">error</span> &#123;</span><br><span class="line">    data := []<span class="type">string</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        req, err := stream.Recv()</span><br><span class="line">        <span class="keyword">if</span> err == io.EOF &#123;</span><br><span class="line">            <span class="comment">// response message is returned through stream, not return value for unary rpc call</span></span><br><span class="line">            <span class="keyword">return</span> stream.SendAndClose(&amp;pb.HelloReply&#123;Message: strings.Join(data, <span class="string">&quot;,&quot;</span>)&#125;)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;internal error&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        data = <span class="built_in">append</span>(data, req.GetName())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    lis, err := net.Listen(<span class="string">&quot;tcp&quot;</span>, port)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;failed to listen: %v&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    s := grpc.NewServer()</span><br><span class="line">    <span class="comment">// register services(server&#123;&#125;) with rpc server</span></span><br><span class="line">    pb.RegisterGreeterServer(s, &amp;greetServer&#123;&#125;)</span><br><span class="line">    <span class="comment">// for debugging</span></span><br><span class="line">    reflection.Register(s)</span><br><span class="line">    log.Printf(<span class="string">&quot;server listening at %v&quot;</span>, lis.Addr())</span><br><span class="line">    <span class="keyword">if</span> err := s.Serve(lis); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;failed to serve: %v&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>client</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;context&quot;</span></span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line"></span><br><span class="line">    pb <span class="string">&quot;github.com/hello/proto&quot;</span></span><br><span class="line">    <span class="string">&quot;google.golang.org/grpc&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Client..&quot;</span>)</span><br><span class="line"></span><br><span class="line">    con, err := grpc.Dial(<span class="string">&quot;localhost:50051&quot;</span>, opts, grpc.WithInsecure(), grpc.WithBlock())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;Error connecting: %v \n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">defer</span> con.Close()</span><br><span class="line">    <span class="comment">//client for specific service</span></span><br><span class="line">    c := pb.NewGreeterClient(con)</span><br><span class="line">    req1 := pb.HelloRequest&#123;Name: <span class="string">&quot;tom&quot;</span>&#125;</span><br><span class="line">    req2 := pb.HelloRequest&#123;Name: <span class="string">&quot;jack&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// rpc retuns a stream handler</span></span><br><span class="line">    stream, err := c.SayHello(context.Background())</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;Error on Echo rpc call: %v\n&quot;</span>, err)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// send several requests through stream</span></span><br><span class="line">        err = stream.Send(&amp;req1)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            log.Fatalf(<span class="string">&quot;Error on sending: %v\n&quot;</span>, err)</span><br><span class="line">        &#125;</span><br><span class="line">        fmt.Printf(<span class="string">&quot;sent: %v\n&quot;</span>, req1.GetName())</span><br><span class="line">        time.Sleep(<span class="number">10</span> * time.Second)</span><br><span class="line">        err = stream.Send(&amp;req2)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            log.Fatalf(<span class="string">&quot;Error on sending: %v\n&quot;</span>, err)</span><br><span class="line">        &#125;</span><br><span class="line">        fmt.Printf(<span class="string">&quot;sent: %v\n&quot;</span>, req2.GetName())</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// this will call CloseSend to notify I sent all, then receive</span></span><br><span class="line">    res, err := stream.CloseAndRecv()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;Error on recv: %v\n&quot;</span>, err)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">&quot;Response :%s\n&quot;</span>, res.GetMessage())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="server-stream-rpc-call"><a href="#server-stream-rpc-call" class="headerlink" title="server stream rpc call"></a>server stream rpc call</h2><p><img src="https://miro.medium.com/max/700/1*1GjibJpAUbnl9hLAjIK3iQ.png"></p>
+<p>For server stream, server side needs a stream to send and also client needs a stream to receive response messages, both side need to change.</p>
+<h3 id="server-in-proto-1"><a href="#server-in-proto-1" class="headerlink" title="server in proto"></a>server in proto</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line">package greet;</span><br><span class="line">//used by proto itself(independent with different language)</span><br><span class="line">// to prevent naming conflicts between different projects(protos).</span><br><span class="line">// import &quot;google/protobuf/timestamp.proto&quot;;</span><br><span class="line"></span><br><span class="line">option go_package = &quot;github.com/hello/runtime/protocols/greet&quot;;</span><br><span class="line">// used by protoc when generate go specific code</span><br><span class="line"></span><br><span class="line">service Greeter &#123;</span><br><span class="line">  // Sends a greeting</span><br><span class="line">  rpc SayHello (HelloRequest) returns (stream HelloReply) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// The request message containing the user&#x27;s name.</span><br><span class="line">message HelloRequest &#123;</span><br><span class="line">  string name = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// The response message containing the greetings</span><br><span class="line">message HelloReply &#123;</span><br><span class="line">  string message = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="build-2"><a href="#build-2" class="headerlink" title="build"></a>build</h3><p>Same as unary rpc</p>
+<h3 id="implement-rpc-1"><a href="#implement-rpc-1" class="headerlink" title="implement rpc"></a>implement rpc</h3><p><strong>server</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line">    <span class="string">&quot;net&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line"></span><br><span class="line">    pb <span class="string">&quot;github.com/hello/proto&quot;</span></span><br><span class="line">    <span class="string">&quot;google.golang.org/grpc&quot;</span></span><br><span class="line">    <span class="string">&quot;google.golang.org/grpc/reflection&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    port = <span class="string">&quot;:50051&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// server is used to implement greet.GreeterServer.</span></span><br><span class="line"><span class="keyword">type</span> greetServer <span class="keyword">struct</span> &#123;</span><br><span class="line">    pb.UnimplementedGreeterServer <span class="comment">// must be first field</span></span><br><span class="line">    <span class="comment">// your staff here</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SayHello implements greet.GreeterServer</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *greetServer)</span></span> SayHello(req *pb.HelloRequest, stream pb.Greeter_SayHelloServer) <span class="type">error</span> &#123;</span><br><span class="line">    res1 := pb.HelloReply&#123;Message: <span class="string">&quot;hello: &quot;</span> + req.GetName()&#125;</span><br><span class="line">    err := stream.Send(&amp;res1)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;error while sending response&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    time.Sleep(<span class="number">5</span> * time.Second)</span><br><span class="line"></span><br><span class="line">    res2 := pb.HelloReply&#123;Message: <span class="string">&quot;hi: &quot;</span> + req.GetName()&#125;</span><br><span class="line">    err = stream.Send(&amp;res2)</span><br><span class="line">    <span class="comment">// context = stream.Context() get context if needs</span></span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;error while sending response&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// stream is close when it returns</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    lis, err := net.Listen(<span class="string">&quot;tcp&quot;</span>, port)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;failed to listen: %v&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    s := grpc.NewServer()</span><br><span class="line">    <span class="comment">// register services(server&#123;&#125;) with rpc server</span></span><br><span class="line">    pb.RegisterGreeterServer(s, &amp;greetServer&#123;&#125;)</span><br><span class="line">    reflection.Register(s) <span class="comment">// for testing</span></span><br><span class="line">    log.Printf(<span class="string">&quot;server listening at %v&quot;</span>, lis.Addr())</span><br><span class="line">    <span class="keyword">if</span> err := s.Serve(lis); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;failed to serve: %v&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>client</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;context&quot;</span></span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;io&quot;</span></span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line"></span><br><span class="line">    pb <span class="string">&quot;github.com/hello/proto&quot;</span></span><br><span class="line">    <span class="string">&quot;google.golang.org/grpc&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Client..&quot;</span>)</span><br><span class="line"></span><br><span class="line">    opts := grpc.WithInsecure()</span><br><span class="line">    <span class="comment">// WithBlock() blocks here until, error or connection is setup</span></span><br><span class="line">    con, err := grpc.Dial(<span class="string">&quot;localhost:50051&quot;</span>, opts, grpc.WithInsecure(), grpc.WithBlock())</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;Error connecting: %v \n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">defer</span> con.Close()</span><br><span class="line">    <span class="comment">//client for specific service</span></span><br><span class="line">    c := pb.NewGreeterClient(con)</span><br><span class="line">    req1 := pb.HelloRequest&#123;Name: <span class="string">&quot;tom&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">    stream, err := c.SayHello(context.Background(), &amp;req1)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;Error on sending: %v\n&quot;</span>, err)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> &#123;</span><br><span class="line">            res, err := stream.Recv()</span><br><span class="line">            <span class="keyword">if</span> err == io.EOF &#123;<span class="comment">// server close the stream, all is done!!!</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                fmt.Println(err)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            fmt.Printf(<span class="string">&quot;response: %v\n&quot;</span>, res)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="bi-direction-stream-rpc-call"><a href="#bi-direction-stream-rpc-call" class="headerlink" title="bi-direction stream rpc call"></a>bi-direction stream rpc call</h2><p>In a bi-directional streaming rpc call, both the client and the server sends multiple messages to each other. Using this type of rpc call, can be a little bit more complicated, since you have to take care of error handling from the server side and the client side, plus in some cases it can add more latency. And perhaps it could be a better option to use a unary call.</p>
+<p><img src="https://miro.medium.com/max/700/1*Ug3CAac6nPclg87bxmRBoA.png"></p>
+<pre><code>Both the client and server can stop receiving or sending messages at any point in time, either because some errors occurred or because some other business logic happened.
+</code></pre>
+<h3 id="server-in-proto-2"><a href="#server-in-proto-2" class="headerlink" title="server in proto"></a>server in proto</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line">package greet;</span><br><span class="line">//used by proto itself(independent with different language)</span><br><span class="line">// to prevent naming conflicts between different projects(protos).</span><br><span class="line">// import &quot;google/protobuf/timestamp.proto&quot;;</span><br><span class="line"></span><br><span class="line">option go_package = &quot;github.com/hello/runtime/protocols/greet&quot;;</span><br><span class="line">// used by protoc when generate go specific code</span><br><span class="line"></span><br><span class="line">service Greeter &#123;</span><br><span class="line">  // Sends a greeting</span><br><span class="line">  rpc SayHello (stream HelloRequest) returns (stream HelloReply) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// The request message containing the user&#x27;s name.</span><br><span class="line">message HelloRequest &#123;</span><br><span class="line">  string name = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// The response message containing the greetings</span><br><span class="line">message HelloReply &#123;</span><br><span class="line">  string message = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="build-3"><a href="#build-3" class="headerlink" title="build"></a>build</h3><p>Same as unary rpc</p>
+<h3 id="implement-rpc-2"><a href="#implement-rpc-2" class="headerlink" title="implement rpc"></a>implement rpc</h3><p><strong>server</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;io&quot;</span></span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line">    <span class="string">&quot;net&quot;</span></span><br><span class="line"></span><br><span class="line">    pb <span class="string">&quot;github.com/hello/proto&quot;</span></span><br><span class="line">    <span class="string">&quot;google.golang.org/grpc&quot;</span></span><br><span class="line">    <span class="string">&quot;google.golang.org/grpc/reflection&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    port = <span class="string">&quot;:50051&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// server is used to implement greet.GreeterServer.</span></span><br><span class="line"><span class="keyword">type</span> greetServer <span class="keyword">struct</span> &#123;</span><br><span class="line">    pb.UnimplementedGreeterServer <span class="comment">// must be first field</span></span><br><span class="line">    <span class="comment">// your staff here</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SayHello implements greet.GreeterServer</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *greetServer)</span></span> SayHello(stream pb.Greeter_SayHelloServer) <span class="type">error</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        req, err := stream.Recv()</span><br><span class="line">        <span class="keyword">if</span> err == io.EOF &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;server recv error&quot;</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            err = stream.Send(&amp;pb.HelloReply&#123;Message: <span class="string">&quot;hello &quot;</span> + req.GetName()&#125;)</span><br><span class="line">            <span class="keyword">if</span> err == io.EOF &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;server send error&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    lis, err := net.Listen(<span class="string">&quot;tcp&quot;</span>, port)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;failed to listen: %v&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    s := grpc.NewServer()</span><br><span class="line">    <span class="comment">// register services(server&#123;&#125;) with rpc server</span></span><br><span class="line">    pb.RegisterGreeterServer(s, &amp;greetServer&#123;&#125;)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// for debugging</span></span><br><span class="line">    reflection.Register(s)</span><br><span class="line">    log.Printf(<span class="string">&quot;server listening at %v&quot;</span>, lis.Addr())</span><br><span class="line">    <span class="keyword">if</span> err := s.Serve(lis); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;failed to serve: %v&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>client</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;context&quot;</span></span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;io&quot;</span></span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line">    <span class="string">&quot;sync&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line"></span><br><span class="line">    pb <span class="string">&quot;github.com/hello/proto&quot;</span></span><br><span class="line">    <span class="string">&quot;google.golang.org/grpc&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Client..&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// WithBlock() blocks here until, error or connection is setup</span></span><br><span class="line">    con, err := grpc.Dial(<span class="string">&quot;localhost:50051&quot;</span>, opts, grpc.WithInsecure(), grpc.WithBlock())</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;Error connecting: %v \n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">defer</span> con.Close()</span><br><span class="line">    <span class="comment">//client for specific service</span></span><br><span class="line">    c := pb.NewGreeterClient(con)</span><br><span class="line">    <span class="comment">// rpc retuns a stream handler</span></span><br><span class="line">    stream, err := c.SayHello(context.Background())</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;Error on Echo rpc call: %v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// start a goroutine to send</span></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        req1 := pb.HelloRequest&#123;Name: <span class="string">&quot;tom&quot;</span>&#125;</span><br><span class="line">        stream.Send(&amp;req1)</span><br><span class="line">        fmt.Println(<span class="string">&quot;sent: tom&quot;</span>)</span><br><span class="line"></span><br><span class="line">        time.Sleep(time.Second * <span class="number">5</span>)</span><br><span class="line">        req2 := pb.HelloRequest&#123;Name: <span class="string">&quot;jack&quot;</span>&#125;</span><br><span class="line">        stream.Send(&amp;req2)</span><br><span class="line">        fmt.Println(<span class="string">&quot;sent: jack&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// tell sever sending is done, connection is still alive, but stream is close</span></span><br><span class="line">        stream.CloseSend()</span><br><span class="line">        fmt.Println(<span class="string">&quot;sending done&quot;</span>)</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line">    wg.Add(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">defer</span> wg.Done()</span><br><span class="line">        <span class="keyword">for</span> &#123;</span><br><span class="line">            res, err := stream.Recv()</span><br><span class="line">            <span class="keyword">if</span> err == io.EOF &#123;</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="comment">// continue next</span></span><br><span class="line">                fmt.Println(<span class="string">&quot;error in recv&quot;</span>)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line">            fmt.Printf(<span class="string">&quot;Response: %v\n&quot;</span>, res)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="comment">// block until receive io.EOF</span></span><br><span class="line">    wg.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Debug-grpc"><a href="#Debug-grpc" class="headerlink" title="Debug grpc"></a>Debug grpc</h2><p>There are two tools can be used as grpc client to test grpc server, see below</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/fullstorydev/grpcui">grpcui</a>(like postman), WebUI</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/fullstorydev/grpcurl">grpcurl</a>(like curl), command line</li>
+</ul>
+<h3 id="grpcui（web"><a href="#grpcui（web" class="headerlink" title="grpcui（web)"></a>grpcui（web)</h3><p><strong>On way to edit source code to include reflection in your grpc server or without change see below</strong></p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="addition">+ import &quot;google.golang.org/grpc/reflection&quot;</span></span><br><span class="line">  s := grpc.NewServer()</span><br><span class="line">  pb.RegisterGreeterService(s, &amp;pb.GreeterService&#123;SayHello: sayHello&#125;)</span><br><span class="line"><span class="addition">+ // Register reflection service on gRPC server.</span></span><br><span class="line"><span class="addition">+ reflection.Register(s)</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Run grpcui as below</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ GO111MODULE=on go install github.com/fullstorydev/grpcui/cmd/grpcui@latest</span><br><span class="line"><span class="comment"># -bind: webserver address</span></span><br><span class="line"><span class="comment"># -port: webserver port</span></span><br><span class="line"><span class="comment"># -plaintext: connect grpc server without tls</span></span><br><span class="line"><span class="comment"># localhost:50051: grpc server</span></span><br><span class="line"><span class="comment"># With this command, you must register your rpc with reflection as above</span></span><br><span class="line">$ grpcui -open-browser=<span class="literal">false</span> -<span class="built_in">bind</span>=10.0.2.15 -port=8000 -plaintext localhost:50051</span><br><span class="line"></span><br><span class="line"><span class="comment"># if you can NOT change your source code, there is an another way to run grpcui</span></span><br><span class="line"><span class="comment"># xxx.proto who defines rpc call and message.</span></span><br><span class="line"><span class="comment"># -proto can be relative path </span></span><br><span class="line">$ grpcui -open-browser=<span class="literal">false</span> -proto=./path/to/xxx.proto -<span class="built_in">bind</span>=10.0.2.15 -port=8000 -plaintext localhost:50051</span><br><span class="line"></span><br><span class="line"><span class="comment"># More advanced, if your xxx.proto import other protos, you need to add -import-path to let grpcui to find them</span></span><br><span class="line"><span class="comment"># other protos path relative to --import-path(used for imported protos)</span></span><br><span class="line">$ grpcui -open-browser=<span class="literal">false</span> -proto=./path/to/xxx.proto -import-path=/path/to/depen/ -<span class="built_in">bind</span>=10.0.2.15 -port=8000 -plaintext localhost:50051</span><br><span class="line"></span><br><span class="line"><span class="comment"># then open browser at http://10.0.2.15:8000/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="command-line-tool"><a href="#command-line-tool" class="headerlink" title="command line tool"></a>command line tool</h3><p><strong>On way to edit source code to include reflection in your grpc server or without change see below</strong></p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="addition">+ import &quot;google.golang.org/grpc/reflection&quot;</span></span><br><span class="line">  s := grpc.NewServer()</span><br><span class="line">  pb.RegisterGreeterService(s, &amp;pb.GreeterService&#123;SayHello: sayHello&#125;)</span><br><span class="line"><span class="addition">+ // Register reflection service on gRPC server.</span></span><br><span class="line"><span class="addition">+ reflection.Register(s)</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Run grpcurl command</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">$ GO111MODULE=on go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest</span><br><span class="line"></span><br><span class="line"><span class="comment"># list all services</span></span><br><span class="line">$ grpcurl -plaintext localhost:50051 list</span><br><span class="line">grpc.reflection.v1alpha.ServerReflection</span><br><span class="line">greet.Greeter</span><br><span class="line"></span><br><span class="line"><span class="comment"># list all methods</span></span><br><span class="line">$ grpcurl -plaintext localhost:50051 list greet.Greeter</span><br><span class="line">greet.Greeter.SayHello</span><br><span class="line"></span><br><span class="line"><span class="comment"># desribe all methods</span></span><br><span class="line">$ grpcurl -plaintext localhost:50051 describe greet.Greeter</span><br><span class="line">greet.Greeter is a service:</span><br><span class="line">service Greeter &#123;</span><br><span class="line">  rpc SayHello ( .greet.HelloRequest ) returns ( .greet.HelloReply );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># describe message type</span></span><br><span class="line">$ grpcurl -plaintext localhost:50051 describe greet.HelloRequest</span><br><span class="line">greet.HelloRequest is a message:</span><br><span class="line">message HelloRequest &#123;</span><br><span class="line">  string name = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># call rpc</span></span><br><span class="line">$ grpcurl -plaintext -d <span class="string">&#x27;&#123;&quot;name&quot;: &quot;jason&quot;&#125;&#x27;</span> localhost:50051 greet.Greeter.SayHello</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hi jason&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># if you can&#x27;t register your grpc server with reflection, you can pass -proto and -import-path to grpcurl as grpcui does!!</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="gogo"><a href="#gogo" class="headerlink" title="gogo"></a>gogo</h2><p>gogoprotobuf is a fork of golang&#x2F;protobuf with extra code generation features.</p>
+<p>This code generation is used to achieve:</p>
+<ul>
+<li>fast marshalling and unmarshalling</li>
+<li>more canonical Go structures</li>
+<li>goprotobuf compatibility</li>
+<li>less typing by optionally generating extra helper code</li>
+<li>peace of mind by optionally generating test and benchmark code</li>
+<li>other serialization formats</li>
+</ul>
+<p>gogo depends on grpc when generates grpc stub code, that means it justs wrapper grpc only. so for grpc, you must install grpc as well. <code>go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.3.2</code>, make sure install proper version tested by gogo.</p>
+<p><strong>Install</strong></p>
+<p>Choose one binary and install it, different binaries have different speed and customization. more refer to <a target="_blank" rel="noopener" href="https://github.com/gogo/protobuf">gogo</a>.</p>
+<p><strong>Usage</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># can only github.com/golang/protobuf/proto</span></span><br><span class="line">protoc --gofast_out=. myproto.proto</span><br><span class="line"></span><br><span class="line"><span class="comment"># explicit use gogo github.com/golang/protobuf/proto</span></span><br><span class="line">protoc -I=. -I=<span class="variable">$GOPATH</span>/src -I=<span class="variable">$GOPATH</span>/src/github.com/golang/protobuf/proto --&#123;binary&#125;_out=. myproto.proto</span><br><span class="line"></span><br><span class="line"><span class="comment"># use gogo github.com/golang/protobuf/proto by default</span></span><br><span class="line">protoc --gofast_out=plugins=grpc:. my.proto</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://jbrandhorst.com/post/gogoproto/">pros and cons</a></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/go/" rel="tag"># go</a>
+              <a href="/tags/grpc/" rel="tag"># grpc</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/24/libvirt-design/" rel="prev" title="libvirt-design">
+                  <i class="fa fa-chevron-left"></i> libvirt-design
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/09/15/html-websocket/" rel="next" title="html-websocket">
+                  html-websocket <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

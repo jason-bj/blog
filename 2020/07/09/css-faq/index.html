@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="FAQ about CSS property">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css_faq">
+<meta property="og:url" content="http://cyun.tech/2020/07/09/css-faq/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="FAQ about CSS property">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://cyun.tech/images/web/css/css_grid_layout.png">
+<meta property="og:image" content="https://mdn.mozillademos.org/files/16437/rules_pane.png">
+<meta property="og:image" content="https://mdn.mozillademos.org/files/16438/invalid_property.png">
+<meta property="og:image" content="https://mdn.mozillademos.org/files/16447/rules_pane.png">
+<meta property="article:published_time" content="2020-07-09T09:54:54.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.133Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="css">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cyun.tech/images/web/css/css_grid_layout.png">
+
+
+<link rel="canonical" href="http://cyun.tech/2020/07/09/css-faq/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2020/07/09/css-faq/","path":"2020/07/09/css-faq/","title":"css_faq"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>css_faq | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FAQ"><span class="nav-number">1.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Align-element-center-x2F-center"><span class="nav-number">1.1.</span> <span class="nav-text">Align element center&#x2F;center</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inline-block-inline-block-difference"><span class="nav-number">1.2.</span> <span class="nav-text">inline, block, inline-block difference</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-happens-if-content-is-too-big-to-fix-in-the-container"><span class="nav-number">1.3.</span> <span class="nav-text">what happens if content is too big to fix in the container?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web-layout"><span class="nav-number">1.4.</span> <span class="nav-text">web layout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#float-property-used-for-what"><span class="nav-number">1.5.</span> <span class="nav-text">float property used for what?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#display"><span class="nav-number">1.5.1.</span> <span class="nav-text">display</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flex"><span class="nav-number">1.5.2.</span> <span class="nav-text">Flex</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#can-fixed-item-be-flex-item"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">can fixed item be flex item?</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Grid"><span class="nav-number">1.5.3.</span> <span class="nav-text">Grid</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bootstrap-grid-system"><span class="nav-number">1.5.4.</span> <span class="nav-text">Bootstrap grid system</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Browser-extensions-to-CSS"><span class="nav-number">1.6.</span> <span class="nav-text">Browser extensions to CSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-change-the-cursor-when-it-moves-to-element"><span class="nav-number">1.7.</span> <span class="nav-text">how to change the cursor when it moves to element</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#input-with-icon"><span class="nav-number">1.8.</span> <span class="nav-text">input with icon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-make-a-round-or-oval"><span class="nav-number">1.9.</span> <span class="nav-text">how to make a round or oval</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set-multiple-imgs-as-background"><span class="nav-number">1.10.</span> <span class="nav-text">set multiple imgs as background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gradients-only-for-color"><span class="nav-number">1.11.</span> <span class="nav-text">gradients only for color!!!</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-to-set-shadow"><span class="nav-number">1.12.</span> <span class="nav-text">How to set shadow?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-use-web-font-which-is-not-installed-on-client-computer"><span class="nav-number">1.13.</span> <span class="nav-text">how to use web font which is not installed on client computer.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transition-x2F-transform-x2F-animation"><span class="nav-number">1.14.</span> <span class="nav-text">transition&#x2F;transform&#x2F;animation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#transform"><span class="nav-number">1.14.1.</span> <span class="nav-text">transform</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transition"><span class="nav-number">1.14.2.</span> <span class="nav-text">transition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#animation"><span class="nav-number">1.14.3.</span> <span class="nav-text">animation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#negative-value-in-top-x2F-left-x2F-right-x2F-bottom-and-margin"><span class="nav-number">1.15.</span> <span class="nav-text">negative value in top&#x2F;left&#x2F;right&#x2F;bottom and margin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what%E2%80%99s-the-difference-for-width-and-max-width"><span class="nav-number">1.16.</span> <span class="nav-text">what’s the difference for width and max-width</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-define-large-button"><span class="nav-number">1.17.</span> <span class="nav-text">how to define large button</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-resize-element-by-drag"><span class="nav-number">1.18.</span> <span class="nav-text">how to resize element by drag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#beatiful-tooltips"><span class="nav-number">1.19.</span> <span class="nav-text">beatiful tooltips</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#debug-css-by-firefox"><span class="nav-number">1.20.</span> <span class="nav-text">debug css by firefox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#px-x2F-em-x2F-rem-x2F-vw-x2F-fr"><span class="nav-number">1.21.</span> <span class="nav-text">px&#x2F;em&#x2F;rem&#x2F;vw&#x2F;fr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#css-useful-snippet"><span class="nav-number">1.22.</span> <span class="nav-text">css useful snippet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what%E2%80%99s-value-for-css-property"><span class="nav-number">1.23.</span> <span class="nav-text">what’s value for css property.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#height-and-width-for-an-element"><span class="nav-number">1.24.</span> <span class="nav-text">height and width for an element</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#defaut-value"><span class="nav-number">1.24.1.</span> <span class="nav-text">defaut value</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#explicit-setting"><span class="nav-number">1.24.2.</span> <span class="nav-text">explicit setting</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-use-relative-and-absolute-and-fixed"><span class="nav-number">1.25.</span> <span class="nav-text">how to use relative and absolute and fixed</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">1.26.</span> <span class="nav-text">Ref</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2020/07/09/css-faq/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="css_faq | CYun">
+      <meta itemprop="description" content="FAQ about CSS property">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          css_faq
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-07-09 17:54:54" itemprop="dateCreated datePublished" datetime="2020-07-09T17:54:54+08:00">2020-07-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">FAQ about CSS property</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><h2 id="Align-element-center-x2F-center"><a href="#Align-element-center-x2F-center" class="headerlink" title="Align element center&#x2F;center"></a>Align element center&#x2F;center</h2><ul>
+<li><p>Align <code>block element</code> center with <code>margin:auto</code> the browser assigns half the remaining space to margin-left and the other half to margin-right, this is only works for block element so &lt;img&gt; not working, you need to change it <code>display: block</code> or <code>display:inline-block</code>.</p>
+</li>
+<li><p>Align text center</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.center</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.text</span> &#123;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="inline-block-inline-block-difference"><a href="#inline-block-inline-block-difference" class="headerlink" title="inline, block, inline-block difference"></a>inline, block, inline-block difference</h2><p>Compared to display: inline, the major difference is that display: inline-block allows to set a width and height on the element, it’s always set for real inline elment that wants width or height.</p>
+</li>
+</ul>
+<p>Compared to display: block, the major difference is that display: inline-block does not add a line-break after the element, so the element can sit next to other elements</p>
+<p>Note: for real inline element, you can set padding, border, background, but cant NOT set width and height.</p>
+<h2 id="what-happens-if-content-is-too-big-to-fix-in-the-container"><a href="#what-happens-if-content-is-too-big-to-fix-in-the-container" class="headerlink" title="what happens if content is too big to fix in the container?"></a>what happens if content is too big to fix in the container?</h2><p>The CSS overflow property controls what happens to content that is too big to fit into an area.</p>
+<p>The overflow property specifies whether to clip the content or to add scrollbars when the content of an element is too big to fit in the specified area.</p>
+<p>The overflow property has the following values:</p>
+<ul>
+<li>visible - Default. The overflow is not clipped. The content renders<code> outside the element&#39;s box</code></li>
+<li>hidden - The overflow is clipped, and the rest of the content will be <code>invisible</code></li>
+<li>scroll - The overflow is clipped, and a scrollbar is always added to see the rest of the content at X&#x2F;Y.</li>
+<li>auto - Similar to scroll, but it adds scrollbars only when necessary.</li>
+</ul>
+<h2 id="web-layout"><a href="#web-layout" class="headerlink" title="web layout"></a>web layout</h2><h2 id="float-property-used-for-what"><a href="#float-property-used-for-what" class="headerlink" title="float property used for what?"></a>float property used for what?</h2><p>The float property is used for <code>positioning and formatting content</code> e.g. let an image float left to the text in a container, <code>the float limited inside the conainer!!!</code>.</p>
+<p>The float property can have one of the following values:</p>
+<ul>
+<li>left - The element floats to the left of <code>its container in the same line</code></li>
+<li>right - The element floats to the right of its container</li>
+<li>none - The element does not float (will be displayed just where it occurs in the text). This is default</li>
+<li>inherit - The element inherits the float value of its parent</li>
+</ul>
+<p>In its simplest use, the float property can be used to wrap text around images. The image as a child of <code>p</code> tag or sibling of <code>p</code> have different effect. it’s floated inside the container!!!</p>
+<p>Another good example, float makes the &lt;li&gt; sit side by side <code>in the same line</code>.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="display"><a href="#display" class="headerlink" title="display"></a>display</h3><p>The display property specifies if&#x2F;how an element is displayed, every HTML element has a default display value depending on what type of element it is. The default display value for most elements is <code>block or inline</code>.</p>
+<p>A block-level element always starts on a new line and takes up the full width available (stretches out to the left and right as far as it can), we can prevent this by setting width property to prevent it from stretching out to the edges of its container.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span> - <span class="tag">&lt;<span class="name">h6</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">th</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>An inline element does not start on a new line and only takes up as much width as necessary</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">b</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">cite</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">strong</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>As mentioned, every element has a default display value. However, you can override this, Setting the display property of an element <code>only changes how the element is displayed</code>, NOT what kind of element it is. So, <code>an inline element with display: block; is not allowed to have other block elements inside it but can set width, height the fake block!!!</code>.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>display: none, take no space from layout, seem no element</li>
+<li>visibility:hidden; also hides an element. but it still takes the space(width and height) of layout, just can’t see it!!!</li>
+<li>width: 0 and overflow: hidden, can’t see the element as well, but the element still takes(height) of layout. just can’t see it!!!</li>
+</ul>
+<h3 id="Flex"><a href="#Flex" class="headerlink" title="Flex"></a>Flex</h3><p>Flexbox is made for one dimensional layouts, there are two concepts here, flex container and flex items, <code>flex container is a block element, any element with display: flex, it will behaves like a box starts a new line, scretch full width of it&#39;s container</code>, all <code>flex items behaves like inline-block, its width equals its content length</code>, they sit one by one in one direction, but they are flexible, that means their width can grow(should set <code>flex-grow</code>) if there is free space left in the flex container or their width can shrink if there is less space in the conatiner. ther width are not fixed, even you set it explicitly. but there is the default behavior, you can change the default behavior by setting proper property.</p>
+<p>As the width are not fixed, what’s the final value of flex items</p>
+<ul>
+<li><code>initial value(width) = equal to content length or width if set explicitly</code>.</li>
+<li>may grow or shrink if allowed to the final width</li>
+</ul>
+<p><strong>flex container property setting</strong></p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flex_container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// default: row</span></span><br><span class="line">  <span class="comment">// others: row-reverse, column, colum-reverse</span></span><br><span class="line">  <span class="attribute">flex-direction</span>: row;</span><br><span class="line">  <span class="comment">//default: nowrap: all items always in the same line</span></span><br><span class="line">  <span class="attribute">flex-wrap</span>: nowrap</span><br><span class="line"></span><br><span class="line">  //OR shorthand for above two</span><br><span class="line">  flex-flow: row nowrap;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// align-items specifies the default alignment for items inside the flexible container.</span></span><br><span class="line">  <span class="comment">// default: scretch</span></span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>grow and shrink on each flex item</strong><br>The flex-grow property specifies how much the item will grow <code>relative to</code> the rest of the flexible items inside the same container, it <code>grows only when there is free space left after the initial value</code>.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flex_item</span> &#123;</span><br><span class="line">  <span class="comment">//default: auto, width == content length.</span></span><br><span class="line">  <span class="comment">//others: flex-basis: 100px, flex-basis: 20%(20% container&#x27;s width)</span></span><br><span class="line">  <span class="attribute">flex-basis</span>: auto;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//default: no grow, shrink euqaly, make on item grow, other not</span></span><br><span class="line">  <span class="comment">// the grow element will take the rest space of its container!!</span></span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//shorthand for above three with below order</span></span><br><span class="line">  <span class="comment">//1. flex-grow</span></span><br><span class="line">  <span class="comment">//2. flex-shrink</span></span><br><span class="line">  <span class="comment">//3. flex-basis</span></span><br><span class="line">  <span class="comment">// default: 0 1 auto</span></span><br><span class="line">  <span class="comment">// others: flex:auto    == 1 1 auto</span></span><br><span class="line">  <span class="comment">//         flex:initial == 0 1 auto</span></span><br><span class="line">  <span class="comment">//         flex:none    == 0 0 auto</span></span><br><span class="line">  </span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">0</span> <span class="number">1</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.flex_item_large</span> &#123;</span><br><span class="line">  <span class="comment">//default: auto, width == content length.</span></span><br><span class="line">  <span class="comment">//others: flex-basis: 100px, flex-basis: 20%(20% container&#x27;s width)</span></span><br><span class="line">  <span class="attribute">flex-basis</span>: auto;</span><br><span class="line">  <span class="comment">//2 times grows tha others</span></span><br><span class="line">  <span class="comment">//let&#x27;s take an example, 60px free space, two flex items, flex items grow, the large one gains 40px, the other one gains 20px. same thing for shrink.</span></span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">2</span>;</span><br><span class="line">  <span class="attribute">flex-shrink</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>More examples refer to <a target="_blank" rel="noopener" href="https://www.w3schools.com/cssref/css3_pr_flex.asp">Flex example</a>;</p>
+<p><code>Main difference between display: flex; and display: inline-flex; is that display: inline-flex; will make the flex container an inline element while its content maintains its flexbox properties</code>.</p>
+<p><strong>ALign of flex</strong></p>
+<ul>
+<li>align-items: specifies the default alignment for items inside the flexible container <code>vertically</code></li>
+<li>justify-content: aligns the flexible container’s items when the items do not use all available space on the main-axis <code>(horizontally)</code></li>
+<li>align-content: modifies the behavior of the flex-wrap property. It is similar to align-items, but instead of aligning flex items, it <code>aligns flex lines</code> only valid with wrap property set, as in that case more lines can happen for flex items.</li>
+<li>align-self: specifies the alignment for the selected item inside the flexible container, the flexible container’s align-items property.</li>
+</ul>
+<p>It only works for the direct children(which is called flex items), it does not affect the elements inside each items</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--flex has three flex items</span></span><br><span class="line"><span class="comment">  1. div.inner</span></span><br><span class="line"><span class="comment">  2. &lt;span&gt;</span></span><br><span class="line"><span class="comment">  3. &lt;i&gt;</span></span><br><span class="line"><span class="comment">  4. #Text with yes</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;inner&quot;</span>&gt;</span></span><br><span class="line">    Hello</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>World<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fas fas-book&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">  Yes</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Wrap means if flex item width is over the container’s width, the item starts with a new line, by default no wrap that means each item will shrink to hold the item in the same line.</p>
+<p>Note: Use the align-self property of each item to override the align-items property</p>
+<h4 id="can-fixed-item-be-flex-item"><a href="#can-fixed-item-be-flex-item" class="headerlink" title="can fixed item be flex item?"></a>can fixed item be flex item?</h4><p>element with <code>position: fixed</code> itself can NOT be flex item, but Can be flex container. if you check flex layout with developer tool, you will see such item is not flex item!!! that means flex setting not work for such item!!!</p>
+<h3 id="Grid"><a href="#Grid" class="headerlink" title="Grid"></a>Grid</h3><p>Grid is made for two dimensional layouts, Row and Column. Grid will give you more flexibility, you can <code>control how row and column display</code>. each row is spilitted into columns, the <code>direct children(grid item) fall into each column automatically.</code></p>
+<p><strong>Grid Container</strong></p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.grid-container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: grid;</span><br><span class="line">  <span class="comment">//default no gaps for row and column</span></span><br><span class="line">  <span class="attribute">grid-row</span>-<span class="attribute">gap</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">grid-column</span>-<span class="attribute">gap</span>: <span class="number">20px</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//OR shorthand, if same value grid-gap 10px;</span></span><br><span class="line">  <span class="attribute">grid-gap</span>: <span class="number">10px</span> <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Explicity container</strong></p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.grid-container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: grid;</span><br><span class="line">  <span class="comment">// explicit 4 columns</span></span><br><span class="line">  <span class="comment">//The size(width) of the columns is determined by the size of the container and on the size of the content of the items in the column</span></span><br><span class="line">  <span class="attribute">grid-template-columns</span>: auto auto auto auto;</span><br><span class="line">  <span class="comment">//OR only depends its content</span></span><br><span class="line">  <span class="attribute">grid-template-columns</span>: max-content max-content max-content max-content;</span><br><span class="line">  <span class="comment">//OR fix length repeat(4, 100px) or repeat(4, 10%)</span></span><br><span class="line">  <span class="attribute">grid-template-columns</span>: <span class="number">100px</span> <span class="number">100px</span> <span class="number">100px</span> <span class="number">100px</span>;</span><br><span class="line">  <span class="comment">//OR</span></span><br><span class="line">  <span class="attribute">grid-template-columns</span>: repeat(<span class="number">4</span>, <span class="number">10%</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Specify the first two row size(height), it&#x27;s tempalte, that means</span></span><br><span class="line">  <span class="comment">// the second row in real may not there but if it&#x27;s there, it has 300px height.</span></span><br><span class="line">  <span class="attribute">grid-template-rows</span>: <span class="number">100px</span> <span class="number">300px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>As explicit container only says part of column’s width and part of row’s height.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.grid-container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: grid;</span><br><span class="line">  <span class="comment">//Each &lt;flex&gt;-sized track takes a share of the remaining space in proportion to its flex factor</span></span><br><span class="line">  <span class="comment">//the last two columns take all rest space in proportion</span></span><br><span class="line">  <span class="attribute">grid-template-columns</span>: <span class="number">100px</span> <span class="number">100px</span> <span class="number">2</span>fr <span class="number">1</span>fr;</span><br><span class="line">  <span class="comment">//the last columns take all rest space!!</span></span><br><span class="line">  <span class="attribute">grid-template-columns</span>: <span class="number">100px</span> <span class="number">100px</span> <span class="number">100px</span> <span class="number">1</span>fr;</span><br><span class="line">  <span class="comment">//if we have 9 grid items, the 9th items starts a new row, we did not say the height for that row</span></span><br><span class="line">  <span class="comment">//it use default row height and default column width which is defined below.</span></span><br><span class="line">  <span class="attribute">grid-template-rows</span>: <span class="number">100px</span> <span class="number">300px</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//set default row height value for implicit grid row, column in that row use default width set by grid-auto-columns</span></span><br><span class="line">  <span class="attribute">grid-auto-rows</span>: <span class="number">50px</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//implicit tracks: This can happen either by explicitly positioning into a column that is out of range, or by the auto-placement algorithm creating additional columns.</span></span><br><span class="line">  <span class="attribute">grid-auto-columns</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">grid-auto-columns</span>: <span class="number">100px</span> <span class="number">150px</span> <span class="number">390px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>dynamic columns</strong><br>Above the grid has fixed column number, even there is free space left in the row, but <code>auto-fill</code> keyword creates as many tracks as fit into the grid container without causing the grid to overflow it, same thing for <code>auto-fit</code> except that after grid item placement it will only create as many tracks(columns) as needed and <code>any empty repeated track collapses</code>.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.grid</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: grid;</span><br><span class="line">  <span class="attribute">grid-template-columns</span>: repeat(auto-fit, <span class="number">100px</span>);</span><br><span class="line">  <span class="attribute">grid-gap</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Grid item</strong><br>By default each <code>grid item takes one column from one row</code> but you can change the default behavior to let one item to take more columuns and more rows.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item1</span> &#123;</span><br><span class="line">  <span class="comment">//item1 takes two rows starting from row 1</span></span><br><span class="line">  <span class="attribute">grid-row</span>: <span class="number">1</span> / span <span class="number">2</span>;</span><br><span class="line">  <span class="comment">//item1 starts from row 1, end row3(not include), two rows</span></span><br><span class="line">  <span class="attribute">grid-row</span>: <span class="number">1</span> / <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//item1 takes two columns starting from colum 1</span></span><br><span class="line">  <span class="attribute">grid-column</span>: <span class="number">1</span> /span <span class="number">2</span>;</span><br><span class="line">  <span class="comment">//span 2 columns, the start depends on location.</span></span><br><span class="line">  <span class="attribute">grid-column</span>: span <span class="number">2</span>;</span><br><span class="line">  <span class="comment">//item1 starts from column 1, end column3(not include), two columns</span></span><br><span class="line">  <span class="attribute">grid-column</span>: <span class="number">1</span> / <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//OR</span></span><br><span class="line">  <span class="comment">//shorthand for above</span></span><br><span class="line">  <span class="comment">// grid-area: grid-row-start / grid-column-start /grid-row-end /grid-column-end;</span></span><br><span class="line">  <span class="attribute">grid-area</span>: <span class="number">1</span> / <span class="number">1</span> / span <span class="number">2</span> / span <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Most of time, we use named area to do this, as it’s easy to understand.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//<span class="doctag">NOTE:</span> NO &quot;&quot; quotes for each area name!!!</span></span><br><span class="line"><span class="selector-class">.item1</span> &#123; <span class="attribute">grid-area</span>: header; &#125;</span><br><span class="line"><span class="selector-class">.item2</span> &#123; <span class="attribute">grid-area</span>: menu; &#125;</span><br><span class="line"><span class="selector-class">.item3</span> &#123; <span class="attribute">grid-area</span>: main; &#125;</span><br><span class="line"><span class="selector-class">.item4</span> &#123; <span class="attribute">grid-area</span>: right; &#125;</span><br><span class="line"><span class="selector-class">.item5</span> &#123; <span class="attribute">grid-area</span>: footer; &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.grid-container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: grid;</span><br><span class="line">  <span class="comment">//as you can see six columns</span></span><br><span class="line">  <span class="comment">//header takes 5 columns + unamed columns</span></span><br><span class="line">  <span class="comment">//menu takes 1 column + across two rows</span></span><br><span class="line">  <span class="attribute">grid-template-areas</span>:</span><br><span class="line">    <span class="string">&#x27;header header header header header .&#x27;</span></span><br><span class="line">    <span class="string">&#x27;menu main main main right right&#x27;</span></span><br><span class="line">    <span class="string">&#x27;menu footer footer footer footer footer&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Note</strong></p>
+<p>Flex and Grid are note standalone, you can use Flex inside Grid, combine them, also Flex can achieve grid system this’s boostrap4 does.</p>
+<h3 id="Bootstrap-grid-system"><a href="#Bootstrap-grid-system" class="headerlink" title="Bootstrap grid system"></a>Bootstrap grid system</h3><p>Bootstrap3 uses float&#x2F;width and more hacks to achieve its grid system, from bootstrap4, it uses CSS flex box to do this, as flex is widely supported by most browsers, CSS Grid is more powerful, but not all browsers support it, but someday in future, after it’s widely supported, bootstrap may change its grid system to use CSS Grid.</p>
+<p>CSS grid is currently not an official standard (it is a W3C Candidate Recommendation) although it has been adopted by most major browsers, as of October 2017, Chrome, Firefox, Safari and Edge all support CSS grid without vendor prefixes.[3][4][5] IE 10 and 11 support CSS grid but with an outdated specification. On mobile, all modern browsers support CSS grid except for Opera Mini and UC Browser.</p>
+<p><strong>Bootstrap grid vs CSS grid for the same layout</strong><br>responsive layout</p>
+<p><img src="/images/web/css/css_grid_layout.png" alt="web layout"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-xs-12 header&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-xs-12 col-md-6 col-lg-4 navigation-menu&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-xs-12 col-md-6 col-lg-8 main-content&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-xs-12 footer&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>CSS Grid is more cleaner</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;header&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;navigation-menu&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;main-content&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: grid;</span><br><span class="line">  <span class="attribute">grid-template-columns</span>: repeat(<span class="number">12</span>, <span class="number">1</span>fr);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.header</span> &#123;</span><br><span class="line">  <span class="attribute">grid-column</span>: span <span class="number">12</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">768px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.navigation-menu</span> &#123;</span><br><span class="line">    <span class="attribute">grid-column</span>: span <span class="number">6</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.main-content</span> &#123;</span><br><span class="line">    <span class="attribute">grid-column</span>: span <span class="number">6</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">480px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.navigation-menu</span> &#123;</span><br><span class="line">    <span class="attribute">grid-column</span>: span <span class="number">12</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.main-content</span> &#123;</span><br><span class="line">    <span class="attribute">grid-column</span>: span <span class="number">12</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.footer</span> &#123;</span><br><span class="line">  <span class="attribute">grid-column</span>: span <span class="number">12</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Browser-extensions-to-CSS"><a href="#Browser-extensions-to-CSS" class="headerlink" title="Browser extensions to CSS"></a>Browser extensions to CSS</h2><p>CSS defines the standard way(property name, value) that all browser <code>should support</code>, but some browsers support it in their own way that’s the extension for, browser extensions are only valid for that particular type of browser, if you only use the standard CSS property, the style may not take effect in some version of browser, so check that if browser supports it at <a target="_blank" rel="noopener" href="https://caniuse.com/">canIuse</a>;</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Firefox</th>
+<th>Chrome</th>
+<th>Microsoft(IE)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>prefix</td>
+<td>-moz-xxx</td>
+<td>-webkit-xxx</td>
+<td>-ms-xxx</td>
+</tr>
+</tbody></table>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@mixin</span> border-radius(<span class="variable">$radius</span>) &#123;</span><br><span class="line">    -webkit-<span class="attribute">border-radius</span>: <span class="variable">$radius</span>;</span><br><span class="line">       -moz-<span class="attribute">border-radius</span>: <span class="variable">$radius</span>;</span><br><span class="line">        -ms-<span class="attribute">border-radius</span>: <span class="variable">$radius</span>;</span><br><span class="line">            <span class="attribute">border-radius</span>: <span class="variable">$radius</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="how-to-change-the-cursor-when-it-moves-to-element"><a href="#how-to-change-the-cursor-when-it-moves-to-element" class="headerlink" title="how to change the cursor when it moves to element"></a>how to change the cursor when it moves to element</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;cursor:pointer&quot;</span>&gt;</span>pointer<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;cursor:wait&quot;</span>&gt;</span>wait<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="input-with-icon"><a href="#input-with-icon" class="headerlink" title="input with icon"></a>input with icon</h2><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=text]</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: white;</span><br><span class="line">  <span class="attribute">background-image</span>: url(<span class="string">&#x27;searchicon.png&#x27;</span>);</span><br><span class="line">  <span class="attribute">background-position</span>: <span class="number">10px</span> <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">  <span class="attribute">padding-left</span>: <span class="number">40px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Animated Search Input</span></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=text]</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">transition</span>: width <span class="number">0.4s</span> ease-in-out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=text]</span><span class="selector-pseudo">:focus</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Note: In real world, you don’t need to write property for each browser as it could be done by tool like <a target="_blank" rel="noopener" href="https://postcss.org/">PostCSS</a>;</p>
+<h2 id="how-to-make-a-round-or-oval"><a href="#how-to-make-a-round-or-oval" class="headerlink" title="how to make a round or oval"></a>how to make a round or oval</h2><p>let’s say we have an element like div or img how to make it a round or oval, use <code>border-radius: 50%</code></p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.img</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="comment">// as width == height, so it&#x27;s round, if width != height, it&#x27;s an oval</span></span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: red;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="set-multiple-imgs-as-background"><a href="#set-multiple-imgs-as-background" class="headerlink" title="set multiple imgs as background"></a>set multiple imgs as background</h2><p>For some case, you may want to set multiple images as a background for an element, CSS allows us to do this and set peroperties for each imge seperately. The different background images are separated by commas, and <code>the images are stacked on top of each other</code>, where the <code>first image is closest to the viewer</code>, if overlap happens, you see the first image for overlap part.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#example1</span> &#123;</span><br><span class="line">  <span class="comment">// set each img seperately</span></span><br><span class="line">  <span class="attribute">background-image</span>: url(img_flwr.gif), url(paper.gif);</span><br><span class="line">  <span class="attribute">background-position</span>: right bottom, left top;</span><br><span class="line">  <span class="attribute">background-repeat</span>: no-repeat, repeat;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//ShortHand</span></span><br><span class="line"><span class="selector-id">#example1</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: url(img_flwr.gif) right bottom no-repeat, url(paper.gif) left top repeat;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="gradients-only-for-color"><a href="#gradients-only-for-color" class="headerlink" title="gradients only for color!!!"></a>gradients only for color!!!</h2><p>CSS gradients let you display <code>smooth transitions between two or more specified colors</code></p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#grad</span> &#123;</span><br><span class="line">  <span class="attribute">background-image</span>: linear-gradient(to right, red , yellow);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="How-to-set-shadow"><a href="#How-to-set-shadow" class="headerlink" title="How to set shadow?"></a>How to set shadow?</h2><p>There are two kind of shadowns <code>text-shadow</code> and <code>box-shadow</code>;</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">  <span class="attribute">text-shadow</span>: <span class="number">2px</span> <span class="number">2px</span> red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// box shadow</span></span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">10px</span> <span class="number">10px</span> grey;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="how-to-use-web-font-which-is-not-installed-on-client-computer"><a href="#how-to-use-web-font-which-is-not-installed-on-client-computer" class="headerlink" title="how to use web font which is not installed on client computer."></a>how to use web font which is not installed on client computer.</h2><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">  <span class="comment">// use font-face to define a font-family which refer to web font</span></span><br><span class="line">  <span class="attribute">font-family</span>: myFirstFont;</span><br><span class="line">  <span class="comment">// client(browser will download the font automatically</span></span><br><span class="line">  <span class="attribute">src</span>: url(sansation_light.woff);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: myFirstFont;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="transition-x2F-transform-x2F-animation"><a href="#transition-x2F-transform-x2F-animation" class="headerlink" title="transition&#x2F;transform&#x2F;animation"></a>transition&#x2F;transform&#x2F;animation</h2><h3 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h3><p>CSS transforms allow you to move, rotate, scale, and skew elements <code>based on the center of element itself.</code></p>
+<ul>
+<li>2D transforms: X, Y</li>
+<li>3D transforms: X, Y, Z</li>
+</ul>
+<p><code>Transform performs on any element.</code>  </p>
+<p>Both 2D and 3D use the same property, but 2D only support X,Y function, 3D added Y function.</p>
+<ul>
+<li>The translate() method moves an element from its current position (according to the parameters given for the X-axis and the Y-axis)</li>
+<li>The rotate() method rotates an element clockwise or counter-clockwise according to a given degree</li>
+<li>The scale() method increases or decreases the size of an element (according to the parameters given for the width and height)</li>
+<li>The skew() method skews an element along the X and Y-axis by the given angles.</li>
+<li>The matrix() method combines all the 2D transform methods into one, the parameters are as follow: matrix(scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY())</li>
+</ul>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.div</span> &#123;</span><br><span class="line">  <span class="comment">// 2 times width, 20deg skew, move 100px on X-axis, 50 px on Y-axis</span></span><br><span class="line">  <span class="attribute">transform</span>: matrix(<span class="number">2</span>, <span class="number">20deg</span>, <span class="number">20deg</span>, <span class="number">0.5</span>, <span class="number">100px</span>, <span class="number">50px</span>);</span><br><span class="line">  <span class="comment">//rotate is only for 2D, not a combine with rotateX and rotateY which is provided by 3D</span></span><br><span class="line">  <span class="attribute">transform</span>: rotate(<span class="number">10deg</span>); <span class="comment">//rotate clockwise</span></span><br><span class="line">  <span class="attribute">transform</span>: rotateX(<span class="number">10deg</span>); <span class="comment">//rotate on X-axis</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="transition"><a href="#transition" class="headerlink" title="transition"></a>transition</h3><p>CSS transitions allows you to change <code>property values smoothly</code>, over a given duration. you have to specify</p>
+<ul>
+<li>allowed property(default all)</li>
+<li>when it happens</li>
+<li>how long it keeps<br>At last set the value change to trigger the transition</li>
+</ul>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="comment">//allowed</span></span><br><span class="line">  <span class="attribute">transition-property</span>: width;</span><br><span class="line">  <span class="comment">//how long</span></span><br><span class="line">  <span class="attribute">transition-duration</span>: <span class="number">2s</span>;</span><br><span class="line">  <span class="comment">//effect others: ease, ease-in, ease-out, ease-in-out</span></span><br><span class="line">  <span class="attribute">transition-timing-function</span>: linear;</span><br><span class="line">  <span class="comment">//delay before happen</span></span><br><span class="line">  <span class="attribute">transition-delay</span>: <span class="number">1s</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//shorthand</span></span><br><span class="line">  <span class="attribute">transition</span>: width <span class="number">2s</span> linear <span class="number">1s</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Change Several Property Values</span></span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line"><span class="comment">// multiple properties must be in signle line, that means at most one transition property set.</span></span><br><span class="line">  <span class="attribute">transition</span>: width <span class="number">2s</span>, height <span class="number">4s</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="animation"><a href="#animation" class="headerlink" title="animation"></a>animation</h3><p>An animation lets an element gradually change from one style to another. the style includes several properites<br>You can change as many CSS properties you want, as many times you want</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: red;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="comment">//animation setting</span></span><br><span class="line">  <span class="attribute">animation-name</span>: example;</span><br><span class="line">  <span class="attribute">animation-duration</span>: <span class="number">5s</span>;</span><br><span class="line">  <span class="attribute">animation-timing-function</span>: linear;</span><br><span class="line">  <span class="attribute">animation-delay</span>: <span class="number">2s</span>;</span><br><span class="line">  <span class="attribute">animation-iteration-count</span>: infinite; <span class="comment">// can set 3 times</span></span><br><span class="line">  <span class="attribute">animation-direction</span>: alternate;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Shorthand</span></span><br><span class="line">  <span class="attribute">animation</span>: example <span class="number">5s</span> linear <span class="number">2s</span> infinite alternate;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@keyframes</span> example &#123;</span><br><span class="line">  <span class="comment">// styles for each frame</span></span><br><span class="line">  <span class="number">0%</span>   &#123;<span class="attribute">background-color</span>:red; <span class="attribute">left</span>:<span class="number">0px</span>; <span class="attribute">top</span>:<span class="number">0px</span>;&#125;</span><br><span class="line">  <span class="number">25%</span>  &#123;<span class="attribute">background-color</span>:yellow; <span class="attribute">left</span>:<span class="number">200px</span>; <span class="attribute">top</span>:<span class="number">0px</span>;&#125;</span><br><span class="line">  <span class="number">50%</span>  &#123;<span class="attribute">background-color</span>:blue; <span class="attribute">left</span>:<span class="number">200px</span>; <span class="attribute">top</span>:<span class="number">200px</span>;&#125;</span><br><span class="line">  <span class="number">75%</span>  &#123;<span class="attribute">background-color</span>:green; <span class="attribute">left</span>:<span class="number">0px</span>; <span class="attribute">top</span>:<span class="number">200px</span>;&#125;</span><br><span class="line">  <span class="number">100%</span> &#123;<span class="attribute">background-color</span>:red; <span class="attribute">left</span>:<span class="number">0px</span>; <span class="attribute">top</span>:<span class="number">0px</span>;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="negative-value-in-top-x2F-left-x2F-right-x2F-bottom-and-margin"><a href="#negative-value-in-top-x2F-left-x2F-right-x2F-bottom-and-margin" class="headerlink" title="negative value in top&#x2F;left&#x2F;right&#x2F;bottom and margin"></a>negative value in top&#x2F;left&#x2F;right&#x2F;bottom and margin</h2><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.div</span> &#123;</span><br><span class="line">  <span class="comment">//the offset if relative to its normal position.</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//move left margin of element to left direction 5px: move close to left element</span></span><br><span class="line">  <span class="attribute">margin-left</span>: -<span class="number">5px</span>;</span><br><span class="line">  <span class="comment">//if the right element besides it at same row, the right element move left 5px</span></span><br><span class="line">  <span class="attribute">margin-right</span>: -<span class="number">5px</span>;</span><br><span class="line">  <span class="comment">//move top margin of element to top direction 5px: move close to up element</span></span><br><span class="line">  <span class="attribute">margin-top</span>: -<span class="number">5px</span>;</span><br><span class="line">  <span class="comment">//the closest down element besides it, the down element moves up 5px</span></span><br><span class="line">  <span class="attribute">margin-bottom</span>: -<span class="number">5px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>top&#x2F;left&#x2F;right&#x2F;bottom value</p>
+<ul>
+<li><p>If position: absolute; or position: fixed; - the left property sets the left edge of an element to a unit to the left of the left edge of its nearest positioned ancestor</p>
+</li>
+<li><p>If position: relative; - the left property sets the left edge of an element to a unit to the left&#x2F;right of its normal position.</p>
+</li>
+</ul>
+<p>The value can be</p>
+<ul>
+<li>length 	Sets the left edge position in px, cm, etc. Negative values are allowed</li>
+<li>% 	    Sets the left edge position in % of containing element. Negative values are allowed, 10% if container is 100px, 10% means 10px!!!</li>
+</ul>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-class">.b</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="comment">// 0px means edge of its container, -10px means move left 10px of its container&#x27;s left edge</span></span><br><span class="line">  <span class="attribute">left</span>: -<span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">120px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">3px</span> solid blue;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h2 id="what’s-the-difference-for-width-and-max-width"><a href="#what’s-the-difference-for-width-and-max-width" class="headerlink" title="what’s the difference for width and max-width"></a>what’s the difference for width and max-width</h2><p>width has a fixed length, no matter the viewpoint, if viewpoint is small, scroll bar is added<br>max-width: it limits the max length of the element when brower is large, but when viewpoint is small, no scroll bar!</p>
+<p>hence same value for width and max-width, max-width is responsive.</p>
+<h2 id="how-to-define-large-button"><a href="#how-to-define-large-button" class="headerlink" title="how to define large button"></a>how to define large button</h2><p>Acutally button size is determined by font-size, if font is large, the button is large as well. but you can set its width like this</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.button1</span> &#123;<span class="attribute">width</span>: <span class="number">250px</span>;&#125;</span><br><span class="line"><span class="comment">// depends on container size</span></span><br><span class="line"><span class="selector-class">.button2</span> &#123;<span class="attribute">width</span>: <span class="number">50%</span>;&#125;</span><br><span class="line"><span class="selector-class">.button3</span> &#123;<span class="attribute">width</span>: <span class="number">100%</span>;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="how-to-resize-element-by-drag"><a href="#how-to-resize-element-by-drag" class="headerlink" title="how to resize element by drag"></a>how to resize element by drag</h2><p>The resize property specifies if (and how) an element should be resizable by the user.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="comment">// other values: both, vertical</span></span><br><span class="line">  <span class="attribute">resize</span>: horizontal;</span><br><span class="line">  <span class="attribute">overflow</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="beatiful-tooltips"><a href="#beatiful-tooltips" class="headerlink" title="beatiful tooltips"></a>beatiful tooltips</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.tooltip</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">position</span>: relative;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">display</span>: inline-block;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">border-bottom</span>: <span class="number">1px</span> dotted black;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.tooltip</span> <span class="selector-class">.tooltiptext</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">visibility</span>: hidden;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">width</span>: <span class="number">120px</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">background-color</span>: black;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">border-radius</span>: <span class="number">6px</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">padding</span>: <span class="number">5px</span> <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">z-index</span>: <span class="number">1</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">bottom</span>: <span class="number">150%</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">left</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">margin-left</span>: -<span class="number">60px</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.tooltip</span> <span class="selector-class">.tooltiptext</span><span class="selector-pseudo">::after</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span></span><br><span class="line"><span class="language-css">  <span class="comment">/* the parent must set position with relative, otherwise the offset top, left will used body as ancestor */</span></span></span><br><span class="line"><span class="language-css">  <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">top</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">left</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">margin-left</span>: -<span class="number">5px</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">border-width</span>: <span class="number">5px</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">border-style</span>: solid;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">border-color</span>: black transparent transparent transparent;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.tooltip</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.tooltiptext</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">visibility</span>: visible;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">style</span>=<span class="string">&quot;text-align:center;&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Top Tooltip w/ Bottom Arrow<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;tooltip&quot;</span>&gt;</span>Hover over me</span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;tooltiptext&quot;</span>&gt;</span>Tooltip text<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="debug-css-by-firefox"><a href="#debug-css-by-firefox" class="headerlink" title="debug css by firefox"></a>debug css by firefox</h2><p>The Rules view lists <strong>all the rules that apply to the selected element</strong>, <strong>ordered from most-specific to least-specific, some from itself, some from its parent</strong>. see below</p>
+<p><strong>cross-line with attribute mean it’s overwritten!</strong></p>
+<p><img src="https://mdn.mozillademos.org/files/16437/rules_pane.png" alt="s"></p>
+<p>A warning icon appears next to unsupported or invalid styles. This can help you understand why certain styles are not being applied:<br><img src="https://mdn.mozillademos.org/files/16438/invalid_property.png" alt="invalid style"></p>
+<p><strong>rule display</strong><br><img src="https://mdn.mozillademos.org/files/16447/rules_pane.png" alt="rule display"></p>
+<h2 id="px-x2F-em-x2F-rem-x2F-vw-x2F-fr"><a href="#px-x2F-em-x2F-rem-x2F-vw-x2F-fr" class="headerlink" title="px&#x2F;em&#x2F;rem&#x2F;vw&#x2F;fr"></a>px&#x2F;em&#x2F;rem&#x2F;vw&#x2F;fr</h2><ul>
+<li>px: fixed size</li>
+<li>em: relative to it’s parent</li>
+<li>vw: 1vw &#x3D; 1% of viewport width. If the viewport is 50cm wide, 1vw is 0.5cm. font-size is responsive!!!<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">child &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">2em</span>; <span class="comment">//relative to parent&#x27;s font-size</span></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">2em</span>; <span class="comment">//relative to itself font-size</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>rem: relative to root</li>
+</ul>
+<p><strong>Note: font-size: 16px by default</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">font-size</span>: <span class="number">40px</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">width</span>: <span class="number">10em</span>; <span class="comment">/* 400px */</span></span></span><br><span class="line"><span class="language-css">  <span class="attribute">height</span>: <span class="number">10em</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">border</span>: solid <span class="number">1px</span> black;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-tag">p</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">font-size</span>: <span class="number">0.5em</span>; <span class="comment">/* 20px */</span></span></span><br><span class="line"><span class="language-css">  <span class="attribute">width</span>: <span class="number">10em</span>; <span class="comment">/* 200px */</span></span></span><br><span class="line"><span class="language-css">  <span class="attribute">height</span>: <span class="number">10em</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">border</span>: solid <span class="number">1px</span> red;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-tag">span</span> &#123;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">font-size</span>: <span class="number">0.5em</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">width</span>: <span class="number">10em</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">height</span>: <span class="number">10em</span>;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">border</span>: solid <span class="number">1px</span> blue;</span></span><br><span class="line"><span class="language-css">  <span class="attribute">display</span>: block;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  我是父元素div</span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    我是子元素p</span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>我是孙元素span<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="css-useful-snippet"><a href="#css-useful-snippet" class="headerlink" title="css useful snippet"></a>css useful snippet</h2><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//“Responsive” media</span></span><br><span class="line"><span class="selector-tag">img</span>, <span class="selector-tag">video</span>, <span class="selector-tag">audio</span> &#123;</span><br><span class="line">  <span class="attribute">max-width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Box sizing</span></span><br><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">*, *<span class="selector-pseudo">::before</span>, *<span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">box-sizing</span>: inherit;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">.🦄 &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">  <span class="attribute">justify-content</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: grid;</span><br><span class="line">  place-items: center;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100vh</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.foo</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">transform</span>: translate (-<span class="number">50%</span>, -<span class="number">50%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="what’s-value-for-css-property"><a href="#what’s-value-for-css-property" class="headerlink" title="what’s value for css property."></a>what’s value for css property.</h2><p>As you know that property can be inherited from its parent, but not ALL properties support this, that means for a property that’s not set explicitly from inline style, internal style, external style, its value depends on what type it’s</p>
+<p><strong>Value of a property which is Not set explicitly</strong></p>
+<ul>
+<li>default value (non-inherited properity)</li>
+<li>its parent value (inherited property)</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.w3schools.com/cssref/css_default_values.asp">default value for css</a></p>
+<p><code>Actually, most of properties can be NOT inheritid.</code><br><strong>Inherited Property</strong></p>
+<ul>
+<li>color</li>
+<li>font-size</li>
+<li>font-family</li>
+<li>font-weight</li>
+<li>font-xxx</li>
+<li>list-style</li>
+<li>list-xxx</li>
+<li>visibility</li>
+<li>text-indent</li>
+<li>text-transform</li>
+<li>text-align</li>
+<li>text-shadow</li>
+<li>:hover</li>
+</ul>
+<h2 id="height-and-width-for-an-element"><a href="#height-and-width-for-an-element" class="headerlink" title="height and width for an element"></a>height and width for an element</h2><h3 id="defaut-value"><a href="#defaut-value" class="headerlink" title="defaut value"></a>defaut value</h3><p>It depends on the type of elmenent, auto means different</p>
+<p><strong>inline element you can’t set height and width</strong></p>
+<ul>
+<li><code>height: auto</code> means the height of its content</li>
+<li><code>width: auto</code> means the length of its content</li>
+</ul>
+<p><strong>block element you can set height and width</strong></p>
+<ul>
+<li><code>height: auto</code> means the height of it’s content</li>
+<li><code>width: auto</code> means scratch the full of its container</li>
+</ul>
+<p><strong>element with <code>position: fixed</code> like inline but without container</strong><br>As fixed element out of document flow, its width and height equal its content length if not set explicitly<br>otherwise belong to user setting.<br>div with <code>position: fixed</code> will not start a new line and scretch its container, as it out of document flow.</p>
+<h3 id="explicit-setting"><a href="#explicit-setting" class="headerlink" title="explicit setting"></a>explicit setting</h3><p>explicit setting has the highest priority than others, element always belongs to it if set.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-class">.a</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Note: position property can effect height and width as well if set in pairs</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-class">.a</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: fixed;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//the height is the entire viewport</span></span><br><span class="line">    <span class="comment">//same thing for left and width as well!!!</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.b</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: fixed;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="comment">//bottom not working, start from top 0 with height 100px(which has high priority)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="how-to-use-relative-and-absolute-and-fixed"><a href="#how-to-use-relative-and-absolute-and-fixed" class="headerlink" title="how to use relative and absolute and fixed"></a>how to use relative and absolute and fixed</h2><ul>
+<li>static 	Default value. Elements render in order, as they appear in the document flow</li>
+<li>absolute 	The element is positioned relative to its first positioned (not static) ancestor element, it must have a parent with(fixed, relative, sticky)</li>
+<li>The element is positioned relative to the browser window</li>
+<li>The element is positioned relative to its normal position, so “left:20px” adds 20 pixels to the element’s LEFT position</li>
+<li>The element is positioned based on the user’s scroll position</li>
+</ul>
+<p><strong>Note: the absolute and fixed element behaves like inline element not scretch at all even it’s block element. but relative still remains</strong></p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://ishadeed.com/article/grid-layout-flexbox-components/">flex-grid good cases</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3schools.com/cssref/">css flex and grid</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/web/" rel="tag"># web</a>
+              <a href="/tags/css/" rel="tag"># css</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/07/09/css-basic/" rel="prev" title="css_basic">
+                  <i class="fa fa-chevron-left"></i> css_basic
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/09/css-sass-basic/" rel="next" title="css_sass_basic">
+                  css_sass_basic <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

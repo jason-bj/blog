@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OverviewIt is a simple workload generator for POSIX systems. It imposes a configurable amount of CPU, memory, I&#x2F;O, and disk stress on the system. It will stress test a server for the following fe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="stress_workload_generator">
+<meta property="og:url" content="http://cyun.tech/2021/04/15/stress-workload-generator/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="OverviewIt is a simple workload generator for POSIX systems. It imposes a configurable amount of CPU, memory, I&#x2F;O, and disk stress on the system. It will stress test a server for the following fe">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-15T12:43:48.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.176Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="stress">
+<meta property="article:tag" content="generator">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2021/04/15/stress-workload-generator/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2021/04/15/stress-workload-generator/","path":"2021/04/15/stress-workload-generator/","title":"stress_workload_generator"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>stress_workload_generator | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Stressor"><span class="nav-number">2.</span> <span class="nav-text">Stressor</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Examples"><span class="nav-number">2.1.</span> <span class="nav-text">Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU"><span class="nav-number">2.1.1.</span> <span class="nav-text">CPU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memory"><span class="nav-number">2.1.2.</span> <span class="nav-text">Memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#interrupt-load"><span class="nav-number">2.1.3.</span> <span class="nav-text">interrupt load</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#page-faults"><span class="nav-number">2.1.4.</span> <span class="nav-text">page faults</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/04/15/stress-workload-generator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="stress_workload_generator | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          stress_workload_generator
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-04-15 20:43:48" itemprop="dateCreated datePublished" datetime="2021-04-15T20:43:48+08:00">2021-04-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/stress/" itemprop="url" rel="index"><span itemprop="name">stress</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/stress/generator/" itemprop="url" rel="index"><span itemprop="name">generator</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>It is a simple workload generator for POSIX systems. It imposes a configurable amount of CPU, memory, I&#x2F;O, and disk stress on the system. It will <code>stress test a server</code> for the following features:</p>
+<ul>
+<li>CPU compute</li>
+<li>Cache thrashing</li>
+<li>VM stress</li>
+<li>Drive stress</li>
+<li>I&#x2F;O syncs</li>
+<li>Socket stressing</li>
+<li>Context switching</li>
+<li>Process creation and termination</li>
+<li>It includes over 60 different stress tests, over 50 CPU specific stress tests that exercise floating point, integer, bit manipulation and control flow, over 20 virtual memory stress tests.<span id="more"></span>
+<strong>Lots of stressors</strong></li>
+</ul>
+<p><strong>It is not a benchmark, but is rather a tool designed</strong></p>
+<h1 id="Stressor"><a href="#Stressor" class="headerlink" title="Stressor"></a>Stressor</h1><p><code>The stress-ng stressors are grouped together in different classes, each class may have many stressors or one stressor</code>, when you start stress, <strong>you can run a class(all stressor in that class) or just a specific stressor or several stressors at a time.</strong></p>
+<p><strong>Classes:</strong>  </p>
+<ul>
+<li>cpu - CPU intensive</li>
+<li>cpu-cache - stress CPU instruction and&#x2F;or data caches</li>
+<li>device - raw device driver stressors</li>
+<li>io - generic input&#x2F;output</li>
+<li>interrupt - high interrupt load generators</li>
+<li>filesystem - file system activity</li>
+<li>memory - stack, heap, memory mapping, shared memory stressors</li>
+<li>network - TCP&#x2F;IP, UDP and UNIX domain socket stressors</li>
+<li>os - core kernel stressors</li>
+<li>pipe - pipe and UNIX socket stressors</li>
+<li>scheduler - force high levels of context switching</li>
+<li>security - AppArmor stressor</li>
+<li>vm - Virtual Memory stressor (paging and memory)</li>
+</ul>
+<p><strong>Stressors</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yum install -y stress-ng</span><br><span class="line">$ stress-ng --stressor</span><br><span class="line">access af-alg affinity aio aiol apparmor atomic bad-altstack bad-ioctl bigheap bind-mount binderfs branch brk bsearch cache <span class="built_in">cap</span> chattr <span class="built_in">chdir</span> <span class="built_in">chmod</span> <span class="built_in">chown</span> <span class="built_in">chroot</span> clock <span class="built_in">clone</span> close context copy-file cpu cpu-online crypt cyclic daemon dccp dentry dev dev-shm <span class="built_in">dir</span> dirdeep dnotify dup dynlib efivar enosys <span class="built_in">env</span> epoll eventfd <span class="built_in">exec</span> fallocate fanotify fault fcntl fiemap fifo file-ioctl filename flock fork fp-error fstat full funccall funcret futex get getdent getrandom handle hdd heapsort hrtimers hsearch icache icmp-flood idle-page inode-flags inotify io iomix ioport ioprio io-uring ipsec-mb itimer judy kcmp key <span class="built_in">kill</span> klog l1cache lease <span class="built_in">link</span> locka lockbus lockf lockofd longjmp loop lsearch madvise malloc matrix matrix-3d mcontend membarrier memcpy memfd memhotplug memrate memthrash mergesort mincore <span class="built_in">mknod</span> mlock mlockmany mmap mmapaddr mmapfixed mmapfork mmapmany mq mremap msg msync nanosleep netdev netlink-proc netlink-task <span class="built_in">nice</span> nop null numa oom-pipe opcode open personality physpage pidfd ping-sock pipe pipeherd pkey poll prctl procfs pthread ptrace pty qsort quota radixsort ramfs rawdev rawpkt rawsock rawudp rdrand readahead reboot remap rename resources revio rlimit rmap rseq rtc schedpolicy sctp seal seccomp secretmem seek sem sem-sysv sendfile session <span class="built_in">set</span> shellsort shm shm-sysv sigabrt sigchld sigfd sigfpe sigio signal sigpending sigpipe sigq sigrt sigsegv sigsuspend sigtrap skiplist <span class="built_in">sleep</span> sock sockabuse sockdiag sockfd sockpair sockmany softlockup spawn splice stack stackmmap str stream swap switch symlink sync-file sysbadaddr sysinfo sysinval sysfs <span class="built_in">tee</span> timer timerfd tlb-shootdown tmpfs tree tsc tsearch tun udp udp-flood unshare uprobe urandom userfaultfd utime vdso vecmath verity vfork vforkmany vm vm-addr vm-rw vm-segv vm-splice <span class="built_in">wait</span> watchdog wcs x86syscall xattr yield zero zlib zombie</span><br></pre></td></tr></table></figure>
+
+<p><strong>Options</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">-a N, --all N, --parallel N (mostly used combined with  --class)</span><br><span class="line">    start N instances of all stressors <span class="keyword">in</span> parallel. If N is less than  zero,  <span class="keyword">then</span>  the</span><br><span class="line">    number  of CPUs online is used <span class="keyword">for</span> the number of instances.  If N is zero, <span class="keyword">then</span> the</span><br><span class="line">    number of CPUs <span class="keyword">in</span> the system is used.</span><br><span class="line"></span><br><span class="line">--sequential N</span><br><span class="line">    sequentially  run  all  the  stressors  one by one <span class="keyword">for</span> a default of 60 seconds. The</span><br><span class="line">    number of instances of each of the individual stressors to be started is N.   If  N</span><br><span class="line">    is  less  than  zero,  <span class="keyword">then</span>  the  number  of  CPUs online is used <span class="keyword">for</span> the number of</span><br><span class="line">    instances.  If N is zero, <span class="keyword">then</span> the number of CPUs <span class="keyword">in</span> the system is used.   Use  the</span><br><span class="line">    --<span class="built_in">timeout</span> option to specify the duration to run each stressor.</span><br><span class="line"></span><br><span class="line">--taskset list</span><br><span class="line">    <span class="built_in">set</span> CPU affinity based on the list of CPUs provided; stress-ng is bound to just use</span><br><span class="line">    these CPUs (Linux only). The CPUs to be used are specified  by  a  comma  separated</span><br><span class="line">    list  of  CPU  (0  to N-1). One can specify a range of CPUs using <span class="string">&#x27;-&#x27;</span>, <span class="keyword">for</span> example:</span><br><span class="line">    --taskset 0,2-3,6,7-11</span><br><span class="line"></span><br><span class="line">-t N, --<span class="built_in">timeout</span> T</span><br><span class="line">    stop  stress  <span class="built_in">test</span>  after  T  seconds.  One  can  also specify the units of time <span class="keyword">in</span></span><br><span class="line">    seconds, minutes, hours, days or years with the suffix s, m, h, d or  y.   Note:  A</span><br><span class="line">    <span class="built_in">timeout</span> of 0 will run stress-ng without any timeouts (run forever).</span><br><span class="line"></span><br><span class="line">--vm-keep</span><br><span class="line">    don not continually unmap and map memory, just keep on re-writing to</span><br><span class="line">    it.</span><br><span class="line"></span><br><span class="line">--vm-populate</span><br><span class="line">    populate (prefault) page tables <span class="keyword">for</span> the memory mappings; this can</span><br><span class="line">    stress swapping. Only available on systems that support</span><br><span class="line">    MAP_POPULATE (since Linux 2.5.46).</span><br></pre></td></tr></table></figure>
+
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># fork two processes for 10 seconds</span></span><br><span class="line">$ stress-ng -c 2 -t 10s --metrics-brief</span><br><span class="line">$ stress-ng -c 2 -t 1m --metrics-brief</span><br><span class="line"></span><br><span class="line"><span class="comment"># fork process of inline CPU</span></span><br><span class="line">$ stress-ng -c 0 -t 1m --metrics-brief</span><br><span class="line"></span><br><span class="line"><span class="comment"># run 3 instances of the CPU stressor and pin them to CPUs 0, 2 and 3.</span></span><br><span class="line">$ stress-ng --taskset 0,2-3 --cpu 3</span><br></pre></td></tr></table></figure>
+<h3 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># fork 1 process malloc/free 128M</span></span><br><span class="line">$ stress-ng -m 1 --vm-bytes 128M -t 10s --metrics-brief</span><br><span class="line"><span class="comment"># fork 1 process malloc/free 1G</span></span><br><span class="line">$ stress-ng -m 1 --vm-bytes 1G -t 10s --metrics-brief</span><br><span class="line"></span><br><span class="line">$ stress-ng -m 1 --vm-bytes 1G -t 10s --vm-keep --vm-populate --metrics-brief</span><br><span class="line"></span><br><span class="line"><span class="comment"># fork 2 processes malloc/free 50% available memory, one 25 %</span></span><br><span class="line">$ stress-ng -m 2 --vm-bytes 50% -t 10s --metrics-brief</span><br></pre></td></tr></table></figure>
+<h3 id="interrupt-load"><a href="#interrupt-load" class="headerlink" title="interrupt load"></a>interrupt load</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 32 instances at 1MHz:</span></span><br><span class="line">$ stress-ng --timer 32 --timer-freq 1000000</span><br></pre></td></tr></table></figure>
+<h3 id="page-faults"><a href="#page-faults" class="headerlink" title="page faults"></a>page faults</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># You can generate major page faults (by accessing a page is not loaded in memory at the time of the fault) and see the page fault rate using:</span></span><br><span class="line">$ stress-ng --fault 0 --perf -t 1m</span><br><span class="line"></span><br><span class="line"><span class="comment"># or with newer kernels use the userfaultfd stressor to force even more major faults:</span></span><br><span class="line">$ stress-ng --userfaultfd 0 --perf -t 1m</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/stress/" rel="tag"># stress</a>
+              <a href="/tags/generator/" rel="tag"># generator</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/13/load-balancer-markert-solution/" rel="prev" title="load-balancer-markert-solution">
+                  <i class="fa fa-chevron-left"></i> load-balancer-markert-solution
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/16/protocol-ssl/" rel="next" title="protocol-ssl">
+                  protocol-ssl <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

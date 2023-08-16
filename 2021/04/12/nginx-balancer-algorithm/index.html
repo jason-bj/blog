@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="AlgorithmNginx now supports following load-balancing disciplines  Round-robin and weighted round-robin Least-connected and weighted least-connected Source-ip hash-based, and a weighted one Generic has">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx-balancer-algorithm">
+<meta property="og:url" content="http://cyun.tech/2021/04/12/nginx-balancer-algorithm/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="AlgorithmNginx now supports following load-balancing disciplines  Round-robin and weighted round-robin Least-connected and weighted least-connected Source-ip hash-based, and a weighted one Generic has">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-12T03:38:59.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.165Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="nginx">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2021/04/12/nginx-balancer-algorithm/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2021/04/12/nginx-balancer-algorithm/","path":"2021/04/12/nginx-balancer-algorithm/","title":"nginx-balancer-algorithm"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>nginx-balancer-algorithm | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Algorithm"><span class="nav-number">1.</span> <span class="nav-text">Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pros-Cons-and-Use-Cases"><span class="nav-number">1.1.</span> <span class="nav-text">Pros, Cons, and Use Cases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weighted-Least-Connection"><span class="nav-number">1.2.</span> <span class="nav-text">(weighted)Least Connection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Weighted-Round-Robin"><span class="nav-number">1.3.</span> <span class="nav-text">(Weighted)Round Robin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weighted-Generic-Hash"><span class="nav-number">1.4.</span> <span class="nav-text">(weighted)Generic Hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weighted-IP-Hash"><span class="nav-number">1.5.</span> <span class="nav-text">(weighted)IP Hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weighted-Consistent-Hash"><span class="nav-number">1.6.</span> <span class="nav-text">(weighted)Consistent Hash</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/04/12/nginx-balancer-algorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="nginx-balancer-algorithm | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          nginx-balancer-algorithm
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-04-12 11:38:59" itemprop="dateCreated datePublished" datetime="2021-04-12T11:38:59+08:00">2021-04-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/nginx/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h1><p>Nginx now supports following load-balancing disciplines</p>
+<ul>
+<li>Round-robin and weighted round-robin</li>
+<li>Least-connected and weighted least-connected</li>
+<li>Source-ip hash-based, and a weighted one</li>
+<li>Generic hash</li>
+<li>Consistent hash<span id="more"></span></li>
+</ul>
+<p>Rule to choose a algorithm for your website, we’ll consider pros and cons of each method to help you narrow the range of choices to consider.</p>
+<ul>
+<li>Running Tests to Compare Methods<blockquote>
+<p>Whichever subset of load‑balancing methods you consider, we encourage you to test them to see which works best for your traffic. “Best” usually means shortest time to deliver responses to clients, but you might have different criteria. <code>Testing is most straightforward if all servers have the same capacity. If not, you need to set server weights so that machines with more capacity receive more requests</code></p>
+</blockquote>
+</li>
+</ul>
+<p><strong>Some metrics to check during testing are:</strong>  </p>
+<ul>
+<li><p>CPU and memory load – Look at the percentage of total capacity used, for both CPU and memory. If all servers aren’t equally loaded, traffic is not being distributed efficiently.</p>
+</li>
+<li><p>Server response time – If the time is consistently higher for some servers than others, somehow “heavier” requests (requiring more computation or calls to a database or other services) are getting directed to them in an unbalanced way. Try adjusting the weights, because the imbalance might be caused by incorrect weights rather than by a problem with the load‑balancing technique.</p>
+</li>
+<li><p>Total time to respond to the client – Again, consistently higher times for some servers suggest they’re getting a disproportionate share of time‑consuming requests. And again, you can try adjusting weights to see if that eliminates the issue.</p>
+</li>
+<li><p>Errors and failed requests – You need to make sure that the number of failed requests and other errors during the tests is not larger than is usual for your site. Otherwise you’re basing your decision on error conditions instead of realistic traffic. For some errors, the server can send its response more quickly than when the request succeeds. For HTTP response code 404 (File Not Found), for example, the server probably returns the error much more quickly than it could deliver the actual file if it existed. With the Least Connections and Least Time load‑balancing algorithms, this can lead the load balancer to favor a server that is actually not working well.</p>
+</li>
+</ul>
+<h2 id="Pros-Cons-and-Use-Cases"><a href="#Pros-Cons-and-Use-Cases" class="headerlink" title="Pros, Cons, and Use Cases"></a>Pros, Cons, and Use Cases</h2><p><strong>Hash and IP Hash</strong><br>The Hash and IP Hash load‑balancing techniques create a fixed association between a given type of client request (captured in the hash value) and a certain server. You might recognize this as session persistence  – <code>all requests with a given hash value always go to the same server</code>.</p>
+<p>The biggest drawback of these methods is that <code>they are not guaranteed to distribute requests in equal numbers across servers</code>, let alone balance load evenly. The hashing algorithm evenly divides the set of all possible hash values into “buckets”, one for each server in the upstream group, but there’s no way to predict whether the requests that actually occur will have hashes that are evenly distributed. </p>
+<p>So it makes sense to <code>use Hash or IP Hash when the benefit of maintaining sessions outweighs the possibly bad effects of unbalanced load</code>. They are the only form of session persistence available in NGINX.</p>
+<p>There are a couple cases where <code>IP Hash – and Hash when the client IP address is in the key – don’t work</code>:</p>
+<ul>
+<li>When the client’s IP address can change during the session, for example when a mobile client switches from a WiFi network to a cellular one.</li>
+<li>When the requests from a large number of clients are passing through a forward proxy, because the proxy’s IP address is used for all of them.</li>
+</ul>
+<p><code>Changing the set of upstream servers usually forces recalculation of at least some of the mappings</code>, breaking session persistence. You can reduce the number of recalculated mappings somewhat:</p>
+<ul>
+<li>For the Hash method, include the consistent parameter to the hash directive</li>
+<li>For the IP Hash method, before removing a server from the upstream group temporarily, add the down parameter to its server directive, as for web2 in the following example. The mappings are not recalculated, on the assumption that the server will soon return to service  <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">upstream</span> backend &#123;</span><br><span class="line">    ip_hash;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">server</span> web1;</span><br><span class="line">    <span class="attribute">server</span> web2 down;</span><br><span class="line">    <span class="attribute">server</span> web3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>Round Robin</strong><br>The general consensus is that Round Robin works best when the characteristics of the servers and requests are unlikely to cause some servers to become overloaded relative to others. Some of the conditions are:</p>
+<ul>
+<li><code>All the servers have about the same capacity.</code> This requirement is less important if differences between servers are accurately represented by server weights.</li>
+<li>All the servers host the same content.</li>
+<li>Requests are pretty similar in the amount of time or processing power they require. If there’s a wide variation in request weight, a server can become overloaded because the load balancer happens to send it a lot of heavyweight requests in quick succession.</li>
+<li>Traffic volume is not heavy enough to push servers to near full capacity very often. If servers are already heavily loaded, it’s more likely that Round Robin’s rote distribution of requests will push some servers “over the edge” into overload as described in the previous bullet.</li>
+</ul>
+<p><strong>Least Connections</strong><br>Least Connections is the most suitable load‑balancing technique for the widest range of use cases, and particularly for production traffic.</p>
+<p><code>Least Connections also effectively distributes workload across servers according to their capacity</code>. A more powerful server fulfills requests more quickly, so at any given moment it’s likely to have a smaller number of connections still being processed (or even waiting for processing to start) than a server with less capacity. Least Connections sends each request to the server with the smallest number of current connections, and so is more likely to send requests to powerful servers.</p>
+<h2 id="weighted-Least-Connection"><a href="#weighted-Least-Connection" class="headerlink" title="(weighted)Least Connection"></a>(weighted)Least Connection</h2><p>It is designed to distribute the load evenly among upstream servers, by selecting the one with the fewest number of active connections. If the upstream servers do not all have the same processing power, this can be indicated using the weight parameter to the server directive. The algorithm will take into account the different weighted servers when calculating the number of least connections.</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">upstream</span> bakend &#123; </span><br><span class="line">    least_conn;   </span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.1.1:8080</span> weight=<span class="number">1</span>;    </span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.1.2:8080</span> weight=<span class="number">2</span>;    </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h2 id="Weighted-Round-Robin"><a href="#Weighted-Round-Robin" class="headerlink" title="(Weighted)Round Robin"></a>(Weighted)Round Robin</h2><p>The load balancer runs through the list of upstream servers in sequence, assigning the next connection request to each one in turn. while weight is used to configure the weight. The default value is 1. The higher the weight, the more requests will be allocated to this server.<code>The weight should be set according to the actual processing capacity of the server</code>.</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">upstream</span> bakend &#123;    </span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.1.1:8080</span> weight=<span class="number">1</span>;    </span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.1.2:8080</span> weight=<span class="number">2</span>;    </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h2 id="weighted-Generic-Hash"><a href="#weighted-Generic-Hash" class="headerlink" title="(weighted)Generic Hash"></a>(weighted)Generic Hash</h2><p>With the Hash method, for each request the load balancer <code>calculates a hash that is based on the combination of text and NGINX variables you specify</code>, and associates the hash with one of the servers. It sends all requests with that hash to that server, so this method establishes a basic kind of session persistence.</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">upstream</span> bakend &#123; </span><br><span class="line">    <span class="attribute">hash</span> <span class="variable">$scheme</span><span class="variable">$request_uri</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.1.1:8080</span> weight=<span class="number">1</span>;    </span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.1.2:8080</span> weight=<span class="number">2</span>;    </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h2 id="weighted-IP-Hash"><a href="#weighted-IP-Hash" class="headerlink" title="(weighted)IP Hash"></a>(weighted)IP Hash</h2><p>The certain IP addresses should always be mapped to the same upstream server. Nginx does this by using the first three octets of an IPv4 address or the entire IPv6 address, as a hashing key. The same pool of IP addresses are therefore always mapped to the same upstream server. So, this mechanism isn’t designed to ensure a fair distribution, but rather a consistent mapping between the client and upstream server. It is very useful for sessions, such as php store sessions on files which located on every web servers, in which case, it will be difficult to synchronize.</p>
+<p>Why use first three octets of an IPV4, it is designed to <code>optimize for ISP clients that are assigned IP addresses dynamically from a subnetwork (/24) range. In case of reboot or reconnection, the client’s address often changes to a different one in the /24 network range, but the connection still represents the same client, so there’s no reason to change the mapping to the server</code>.</p>
+<p>If, however, the majority of the traffic to your site is coming from <code>clients on the same /24 network, IP Hash doesn’t make sense</code> because it maps all clients to the same server. In that case (or if you want to hash on all four octets for another reason), instead use the Hash method with the <code>$remote_addr</code> variable.<br><code>hash $remote_addr;</code></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">upstream</span> bakend &#123;</span><br><span class="line">    ip_hash;    </span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.1.1:8080</span> weight=<span class="number">1</span>;    </span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.1.2:8080</span> weight=<span class="number">2</span>;    </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h2 id="weighted-Consistent-Hash"><a href="#weighted-Consistent-Hash" class="headerlink" title="(weighted)Consistent Hash"></a>(weighted)Consistent Hash</h2><p>Consistent hash algorithm: consistent_ <code>Key is dynamically specified.</code></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">upstream</span> bakend &#123; </span><br><span class="line">    <span class="attribute">hash</span> <span class="variable">$consistent_key</span> consistent;   </span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.1.1:8080</span> weight=<span class="number">1</span>;    </span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.1.2:8080</span> weight=<span class="number">2</span>;    </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/nginx/" rel="tag"># nginx</a>
+              <a href="/tags/algorithm/" rel="tag"># algorithm</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/11/protocol-ip/" rel="prev" title="protocol_ip">
+                  <i class="fa fa-chevron-left"></i> protocol_ip
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/13/load-balancer-markert-solution/" rel="next" title="load-balancer-markert-solution">
+                  load-balancer-markert-solution <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

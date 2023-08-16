@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Go through common html tag">
+<meta property="og:type" content="article">
+<meta property="og:title" content="html_basic">
+<meta property="og:url" content="http://cyun.tech/2020/07/16/html-basic/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="Go through common html tag">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-16T03:54:56.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.147Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="tag">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2020/07/16/html-basic/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2020/07/16/html-basic/","path":"2020/07/16/html-basic/","title":"html_basic"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>html_basic | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML"><span class="nav-number">1.</span> <span class="nav-text">HTML</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#block-box-and-inline-box-element"><span class="nav-number">1.1.</span> <span class="nav-text">block box and inline box element</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Global-attribute"><span class="nav-number">1.2.</span> <span class="nav-text">Global attribute</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#empty-tag"><span class="nav-number">1.3.</span> <span class="nav-text">empty tag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quotes-attributes-value"><span class="nav-number">1.4.</span> <span class="nav-text">Quotes attributes value</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Html-Links"><span class="nav-number">1.5.</span> <span class="nav-text">Html Links</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Image-vs-Picture"><span class="nav-number">1.6.</span> <span class="nav-text">Image vs Picture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iframe"><span class="nav-number">1.7.</span> <span class="nav-text">iframe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#File-Path"><span class="nav-number">1.8.</span> <span class="nav-text">File Path</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML-Entities"><span class="nav-number">1.9.</span> <span class="nav-text">HTML Entities</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Emojis"><span class="nav-number">1.10.</span> <span class="nav-text">Emojis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL-encoding"><span class="nav-number">1.11.</span> <span class="nav-text">URL encoding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Form"><span class="nav-number">1.12.</span> <span class="nav-text">Form</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVG-in-html"><span class="nav-number">1.13.</span> <span class="nav-text">SVG in html</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#video"><span class="nav-number">1.14.</span> <span class="nav-text">video</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#audio"><span class="nav-number">1.15.</span> <span class="nav-text">audio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Plugin"><span class="nav-number">1.16.</span> <span class="nav-text">Plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML-built-in-API"><span class="nav-number">1.17.</span> <span class="nav-text">HTML built-in API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Events"><span class="nav-number">1.18.</span> <span class="nav-text">Events</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REF"><span class="nav-number">2.</span> <span class="nav-text">REF</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2020/07/16/html-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="html_basic | CYun">
+      <meta itemprop="description" content="Go through common html tag">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          html_basic
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-07-16 11:54:56" itemprop="dateCreated datePublished" datetime="2020-07-16T11:54:56+08:00">2020-07-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/html/" itemprop="url" rel="index"><span itemprop="name">html</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/html/tag/" itemprop="url" rel="index"><span itemprop="name">tag</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">Go through common html tag</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><h2 id="block-box-and-inline-box-element"><a href="#block-box-and-inline-box-element" class="headerlink" title="block box and inline box element"></a>block box and inline box element</h2><p><code>Both block and inline element are box</code>! but with different formatting contexts, say for inline-box you can set padding, background, border for them, but can’t set width and height for inline element.</p>
+<p>By default, <code>a block level element&#39;s content is 100% of the width of its parent element, and as tall as its content</code>. <code>Inline elements are as tall as their content, and as wide as their content</code>. You can’t set width or height on inline elements — they just sit inside the content of block level elements</p>
+<p><code>Block-level elements may contain inline elements and (sometimes) other block-level elements. Inherent in this structural distinction is the idea that block elements create &quot;larger&quot; structures than inline elements</code></p>
+<p><code>Inline elements may contain only data and other inline elements. You can&#39;t put block elements inside inline elements.</code></p>
+<p>The behavior of elements which have a block or inline formatting context is defined like this.</p>
+<ul>
+<li><p><strong>block formatting context</strong><br>  In a block formatting context, boxes are laid out one after the other <code>vertically</code>, <code>beginning at the top of a containing block</code>. The vertical distance between two sibling boxes is determined by the ‘margin’ properties. <code>Vertical margins between adjacent block-level boxes in a block formatting context collapse</code>.</p>
+<p>  By default <code>block elements will consume all of the space in the inline direction</code>.</p>
+</li>
+</ul>
+<p>In a block formatting context, each box’s left outer edge touches the left edge of the containing block.</p>
+<ul>
+<li><strong>inline formatting context</strong><br>  In an inline formatting context, boxes are laid out <code>horizontally, one after the other</code>, beginning at the top of a containing block. <code>Horizontal margins, borders, and padding are respected between these boxes.</code> The boxes may be aligned vertically in different ways: their bottoms or tops may be aligned, or the baselines of text within them may be aligned. <code>The rectangular area that contains the boxes that form a line is called a line box</code></li>
+</ul>
+<p><strong>Block element</strong></p>
+<ul>
+<li>address, article, aside, div, dd, d,t fieldset, footer, form, h1, h6, header, nav, hr, li, ol, p, ul, table etc</li>
+</ul>
+<p><strong>Inline element</strong></p>
+<ul>
+<li>a, audio, video, button, img, input, select, b, br, i, iframe, label, svg etc.</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements">ALL inline elements</a> and <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">ALL block elements</a></p>
+<h2 id="Global-attribute"><a href="#Global-attribute" class="headerlink" title="Global attribute"></a>Global attribute</h2><p>The global attributes are attributes that can be used with all HTML elements(tag), include custom tag. below are common global attributes.</p>
+<table>
+<thead>
+<tr>
+<th>attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>style</td>
+<td>Specifies an inline CSS style for an element</td>
+</tr>
+<tr>
+<td>class</td>
+<td>Specifies one or more classnames for an element</td>
+</tr>
+<tr>
+<td>id</td>
+<td>Specifies a unique id for an element</td>
+</tr>
+<tr>
+<td>title</td>
+<td>The value of the title attribute will be displayed as a tooltip when you mouse over the element</td>
+</tr>
+<tr>
+<td>draggable</td>
+<td>Specifies whether an element is draggable or not</td>
+</tr>
+<tr>
+<td>data-*</td>
+<td>Used to store custom data private to the page or application</td>
+</tr>
+</tbody></table>
+<h2 id="empty-tag"><a href="#empty-tag" class="headerlink" title="empty tag"></a>empty tag</h2><p>Some HTML elements have no content (like the &lt;br&gt; element). These elements are called empty elements. Empty elements do not have an end tag!</p>
+<ul>
+<li>&lt;br&gt;</li>
+<li>&lt;hr&gt;</li>
+<li>&lt;img&gt;</li>
+<li>&lt;input&gt;</li>
+</ul>
+<h2 id="Quotes-attributes-value"><a href="#Quotes-attributes-value" class="headerlink" title="Quotes attributes value"></a>Quotes attributes value</h2><p>Single or Double Quotes?</p>
+<p><code>Double quotes around attribute values are the most common in HTML, but single quotes can also be used</code>.<br>In some situations, when the attribute value itself contains double quotes, it is necessary to use single quotes</p>
+<h2 id="Html-Links"><a href="#Html-Links" class="headerlink" title="Html Links"></a>Html Links</h2><p>When you move the mouse over a link, the mouse arrow will turn into a little hand, A link does not have to be text. <code>A link can be an image or any other inline HTML element</code></p>
+<p>The target attribute specifies where to open the linked document.</p>
+<ul>
+<li>_self - Default. Opens the document in the same window&#x2F;tab as it was clicked</li>
+<li>_blank - Opens the document in a new window or tab</li>
+</ul>
+<p>Use mailto: inside the href attribute to create a link that opens the user’s email program (to let them send a new email):</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;mailto:someone@example.com&quot;</span>&gt;</span>Send email<span class="tag">&lt;/<span class="name">a</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p>Jump to particular element on the same page or another page</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--C4 is element id on the same page--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#C4&quot;</span>&gt;</span>Jump to Chapter 4<span class="tag">&lt;/<span class="name">a</span>&gt;</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--C4 is element id on the another page--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;html_demo.html#C4&quot;</span>&gt;</span>Jump to Chapter 4<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Image-vs-Picture"><a href="#Image-vs-Picture" class="headerlink" title="Image vs Picture"></a>Image vs Picture</h2><p><code>Always specify the width and height of an image</code>. If width and height are not specified, <code>the web page might flicker while the image loads</code>. as Browser does not know the width and height, it uses zero, after get the image, the whole page is render again which causes flicker.</p>
+<p>The most common use of the &lt;picture&gt; element will be for art direction in responsive designs. Instead of having one image that is scaled up or down based on the viewport width, multiple images can be designed to more nicely fill the browser viewport.</p>
+<p>The &lt;picture&gt; element contains two tags: one or more &lt;source&gt; tags and one &lt;img&gt; tag.</p>
+<p>The browser will look for the first &lt;source&gt; element where the media query matches the current viewport width, and then it will display the proper image (specified in the srcset attribute). The &lt;img&gt; element is required as the last child of the &lt;picture&gt; element, as a fallback option if none of the source tags matches.</p>
+<p>Tip: The &lt;picture&gt; element works “similar” to &lt;video&gt; and &lt;audio&gt;. You set up different sources, and the first source that fits the preferences is the one being used.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">picture</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">media</span>=<span class="string">&quot;(min-width:650px)&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;img_pink_flowers.jpg&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">media</span>=<span class="string">&quot;(min-width:465px)&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;img_white_flower.jpg&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img_orange_flowers.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Flowers&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width:auto;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">picture</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+<h2 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h2><p>An HTML iframe is used to display a web page within a web page.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;https://www.google.com&quot;</span> <span class="attr">name</span>=<span class="string">&quot;iframe_a&quot;</span> <span class="attr">height</span>=<span class="string">&quot;300px&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">title</span>=<span class="string">&quot;Iframe Example&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>use iframe as the target of link</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;demo_iframe.htm&quot;</span> <span class="attr">name</span>=<span class="string">&quot;iframe_a&quot;</span> <span class="attr">title</span>=<span class="string">&quot;Iframe Example&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.w3schools.com&quot;</span> <span class="attr">target</span>=<span class="string">&quot;iframe_a&quot;</span>&gt;</span>W3Schools.com<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<h2 id="File-Path"><a href="#File-Path" class="headerlink" title="File Path"></a>File Path</h2><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt;img src&#x3D;”picture.jpg”&gt;</td>
+<td>The “picture.jpg” file is located in the same folder as the current page</td>
+</tr>
+<tr>
+<td>&lt;img src&#x3D;”images&#x2F;picture.jpg”&gt;</td>
+<td>The “picture.jpg” file is located in the images folder in the current folder</td>
+</tr>
+<tr>
+<td>&lt;img src&#x3D;”&#x2F;images&#x2F;picture.jpg”&gt;</td>
+<td>The “picture.jpg” file is located in the images folder at the root of the current web</td>
+</tr>
+<tr>
+<td>&lt;img src&#x3D;”..&#x2F;picture.jpg”&gt;</td>
+<td>The “picture.jpg” file is located in the folder one level up from the current folder</td>
+</tr>
+</tbody></table>
+<h2 id="HTML-Entities"><a href="#HTML-Entities" class="headerlink" title="HTML Entities"></a>HTML Entities</h2><p>If you use the less than (&lt;) or greater than (&gt;) signs in your text, the browser might mix them with tags.</p>
+<p>Character entities are used to display reserved characters in HTML.<br>A character entity looks like this in html directly</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&amp;entity_name;</span><br><span class="line">OR</span><br><span class="line">&amp;#entity_number; </span><br><span class="line"></span><br><span class="line">To display a less than sign (&lt;) we must write: &amp;lt; or &amp;#60;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.w3schools.com/html/html_entities.asp">Useful entities</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3schools.com/charsets/ref_utf_symbols.asp">symbol entities</a></p>
+<h2 id="Emojis"><a href="#Emojis" class="headerlink" title="Emojis"></a>Emojis</h2><p>Emojis are characters from the UTF-8 character set: 😄 😍 💗, They are letters (characters) from the UTF-8 (Unicode) character set. display like image.</p>
+<ul>
+<li>😄 is 128516</li>
+<li>😍 is 128525</li>
+<li>💗 is 128151</li>
+</ul>
+<p>Two place to use UTF-8 code.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="symbol">&amp;#128512;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">&quot;\128512&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.w3schools.com/charsets/ref_emoji.asp">Emoji Unicode Reference</a></p>
+<h2 id="URL-encoding"><a href="#URL-encoding" class="headerlink" title="URL encoding"></a>URL encoding</h2><p>URLs can only be sent over the Internet using the ASCII character-set. If a URL contains characters outside the ASCII set, the URL has to be converted.</p>
+<p>URL encoding converts non-ASCII characters into a format that can be transmitted over the Internet.<br>URL encoding replaces non-ASCII characters with a “%” followed by hexadecimal digits.<br>URLs cannot contain spaces. URL encoding normally replaces a space with a plus (+) sign, or %20.</p>
+<h2 id="Form"><a href="#Form" class="headerlink" title="Form"></a>Form</h2><p>Form elements have &lt;input&gt; &lt;select&gt; &lt;textarea&gt;</p>
+<p><code>Each input field must have a name attribute to be submitted</code>.<br>If the name attribute is omitted, the data of that input field will not be sent at all, as we have to send name and value pairs with Post method.</p>
+<p>Different input types, actually, some built-in validation for each type and styes for that</p>
+<ul>
+<li>&lt;input type&#x3D;”button”&gt;</li>
+<li>&lt;input type&#x3D;”checkbox”&gt;</li>
+<li>&lt;input type&#x3D;”color”&gt;</li>
+<li>&lt;input type&#x3D;”date”&gt;</li>
+<li>&lt;input type&#x3D;”datetime-local”&gt;</li>
+<li>&lt;input type&#x3D;”email”&gt;</li>
+<li>&lt;input type&#x3D;”file”&gt;</li>
+<li>&lt;input type&#x3D;”hidden”&gt;</li>
+<li>&lt;input type&#x3D;”image”&gt;</li>
+<li>&lt;input type&#x3D;”month”&gt;</li>
+<li>&lt;input type&#x3D;”number”&gt;</li>
+<li>&lt;input type&#x3D;”password”&gt;</li>
+<li>&lt;input type&#x3D;”radio”&gt;</li>
+<li>&lt;input type&#x3D;”range”&gt;</li>
+<li>&lt;input type&#x3D;”reset”&gt;</li>
+<li>&lt;input type&#x3D;”search”&gt;</li>
+<li>&lt;input type&#x3D;”submit”&gt;</li>
+<li>&lt;input type&#x3D;”tel”&gt;</li>
+<li>&lt;input type&#x3D;”text”&gt;</li>
+<li>&lt;input type&#x3D;”time”&gt;</li>
+<li>&lt;input type&#x3D;”url”&gt;</li>
+<li>&lt;input type&#x3D;”week”&gt;</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Attribute 	Description</span><br><span class="line">checked 	Specifies that an input field should be pre-selected when the page loads (for type=&quot;checkbox&quot; or type=&quot;radio&quot;)</span><br><span class="line">disabled 	Specifies that an input field should be disabled</span><br><span class="line">max             Specifies the maximum value for an input field</span><br><span class="line">maxlength 	Specifies the maximum number of character for an input field</span><br><span class="line">min 	        Specifies the minimum value for an input field</span><br><span class="line">pattern 	Specifies a regular expression to check the input value against</span><br><span class="line">readonly 	Specifies that an input field is read only (cannot be changed)</span><br><span class="line">required 	Specifies that an input field is required (must be filled out)</span><br><span class="line">size 	        Specifies the width (in characters) of an input field</span><br><span class="line">step 	        Specifies the legal number intervals for an input field</span><br><span class="line">value 	        Specifies the default value for an input field</span><br></pre></td></tr></table></figure>
+
+<h2 id="SVG-in-html"><a href="#SVG-in-html" class="headerlink" title="SVG in html"></a>SVG in html</h2><p>SVG defines vector-based graphics in XML format, the HTML &lt;svg&gt; element is a container for SVG graphics.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">width</span>=<span class="string">&quot;300&quot;</span> <span class="attr">height</span>=<span class="string">&quot;200&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">polygon</span> <span class="attr">points</span>=<span class="string">&quot;100,10 40,198 190,78 10,78 160,198&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">style</span>=<span class="string">&quot;fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="video"><a href="#video" class="headerlink" title="video"></a>video</h2><p>There are three supported video formats: MP4, WebM, and Ogg by browser built-in player. MP4 is popular than others as most browser supports it.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">video</span> <span class="attr">width</span>=<span class="string">&quot;320&quot;</span> <span class="attr">height</span>=<span class="string">&quot;240&quot;</span> <span class="attr">controls</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;movie.mp4&quot;</span> <span class="attr">type</span>=<span class="string">&quot;video/mp4&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;movie.ogg&quot;</span> <span class="attr">type</span>=<span class="string">&quot;video/ogg&quot;</span>&gt;</span></span><br><span class="line">Your browser does not support the video tag.</span><br><span class="line"><span class="tag">&lt;/<span class="name">video</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<h2 id="audio"><a href="#audio" class="headerlink" title="audio"></a>audio</h2><p>There are three supported audio formats: MP3, WAV, and OGG by browser built-in player, mp3 is more popular than others.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">audio</span> <span class="attr">controls</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;horse.ogg&quot;</span> <span class="attr">type</span>=<span class="string">&quot;audio/ogg&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;horse.mp3&quot;</span> <span class="attr">type</span>=<span class="string">&quot;audio/mpeg&quot;</span>&gt;</span></span><br><span class="line">Your browser does not support the audio element.</span><br><span class="line"><span class="tag">&lt;/<span class="name">audio</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+<h2 id="Plugin"><a href="#Plugin" class="headerlink" title="Plugin"></a>Plugin</h2><p>Plug-ins are computer programs that extend the standard functionality of the browser, </p>
+<p>Plug-ins were designed to be used for many different purposes:</p>
+<ul>
+<li>To run Java applets</li>
+<li>To run Microsoft ActiveX controls</li>
+<li>To display Flash movies</li>
+<li>To display maps</li>
+<li>To scan for viruses</li>
+<li>To verify a bank id</li>
+</ul>
+<p>Hence Plugin-in can do more than &lt;video&gt; and &lt;audio&gt;, and browser supports it long time ago, there are two type to include plugin &lt;object&gt; Microsoft standard and &lt;embed&gt; way, always use later as it’s supported by most browsers, even Microsoft browser.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">embed</span> <span class="attr">type</span>=<span class="string">&quot;video/webm&quot;</span> <span class="attr">src</span>=<span class="string">&quot;video.mp4&quot;</span> <span class="attr">width</span>=<span class="string">&quot;400&quot;</span> <span class="attr">height</span>=<span class="string">&quot;300&quot;</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<h2 id="HTML-built-in-API"><a href="#HTML-built-in-API" class="headerlink" title="HTML built-in API"></a>HTML built-in API</h2><p>API is used by JS to get information, like GEO, Storage, Drap&#x2F;Drop</p>
+<p>The getCurrentPosition() method is used to return the user’s position. then you and print it or show it in a Map</p>
+<p><strong>Drag and Droop</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;!DOCTYPE <span class="keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">function</span> <span class="title function_">allowDrop</span>(<span class="params">ev</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  ev.<span class="title function_">preventDefault</span>();</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">function</span> <span class="title function_">drag</span>(<span class="params">ev</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  ev.<span class="property">dataTransfer</span>.<span class="title function_">setData</span>(<span class="string">&quot;text&quot;</span>, ev.<span class="property">target</span>.<span class="property">id</span>);</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">function</span> <span class="title function_">drop</span>(<span class="params">ev</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  ev.<span class="title function_">preventDefault</span>();</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> data = ev.<span class="property">dataTransfer</span>.<span class="title function_">getData</span>(<span class="string">&quot;text&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  ev.<span class="property">target</span>.<span class="title function_">appendChild</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(data));</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;div1&quot;</span> <span class="attr">ondrop</span>=<span class="string">&quot;drop(event)&quot;</span> <span class="attr">ondragover</span>=<span class="string">&quot;allowDrop(event)&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">&quot;drag1&quot;</span> <span class="attr">src</span>=<span class="string">&quot;img_logo.gif&quot;</span> <span class="attr">draggable</span>=<span class="string">&quot;true&quot;</span> <span class="attr">ondragstart</span>=<span class="string">&quot;drag(event)&quot;</span> <span class="attr">width</span>=<span class="string">&quot;336&quot;</span> <span class="attr">height</span>=<span class="string">&quot;69&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p><strong>Web Storage</strong><br>HTML web storage provides two objects for storing data on the client:</p>
+<ul>
+<li>window.localStorage -   stores data with no expiration date</li>
+<li>window.sessionStorage - stores data for one session (data is lost when the browser tab is closed)</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Store</span></span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&quot;lastname&quot;</span>, <span class="string">&quot;Smith&quot;</span>);</span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="property">lastname</span> = <span class="string">&quot;Smith&quot;</span>;</span><br><span class="line"><span class="comment">// Retrieve</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;result&quot;</span>).<span class="property">innerHTML</span> = <span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&quot;lastname&quot;</span>);</span><br><span class="line"><span class="comment">//localStorage.lastname</span></span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">removeItem</span>(<span class="string">&quot;lastname&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Session storage</span></span><br><span class="line"><span class="keyword">if</span> (sessionStorage.<span class="property">clickcount</span>) &#123;</span><br><span class="line">  sessionStorage.<span class="property">clickcount</span> = <span class="title class_">Number</span>(sessionStorage.<span class="property">clickcount</span>) + <span class="number">1</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  sessionStorage.<span class="property">clickcount</span> = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;result&quot;</span>).<span class="property">innerHTML</span> = <span class="string">&quot;You have clicked the button &quot;</span> +</span><br><span class="line">sessionStorage.<span class="property">clickcount</span> + <span class="string">&quot; time(s) in this session.&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h2><p><strong>Events</strong></p>
+<ul>
+<li>Window event</li>
+<li>Form events</li>
+<li>Keyboard events</li>
+<li>Mouse events</li>
+<li>Clipboard events</li>
+<li>Drap events</li>
+<li>Media events</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.w3schools.com/tags/ref_eventattributes.asp">ALL Events</a></p>
+<h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://htmlcheatsheet.com/#">HTML cheatsheet</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/html/" rel="tag"># html</a>
+              <a href="/tags/tag/" rel="tag"># tag</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/07/09/css-sass-basic/" rel="prev" title="css_sass_basic">
+                  <i class="fa fa-chevron-left"></i> css_sass_basic
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/17/html-faq/" rel="next" title="html-faq">
+                  html-faq <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

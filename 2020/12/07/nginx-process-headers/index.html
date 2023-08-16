@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Overviewnginx provides flexible way to manipulate headers, you can do this by directive or by lua, here we only say directive, headers can be request header or response header, that means nginx gives">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx_process_headers">
+<meta property="og:url" content="http://cyun.tech/2020/12/07/nginx-process-headers/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="Overviewnginx provides flexible way to manipulate headers, you can do this by directive or by lua, here we only say directive, headers can be request header or response header, that means nginx gives">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-07T07:13:41.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.167Z">
+<meta property="article:author" content="Jason">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2020/12/07/nginx-process-headers/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2020/12/07/nginx-process-headers/","path":"2020/12/07/nginx-process-headers/","title":"nginx_process_headers"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>nginx_process_headers | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Header-building"><span class="nav-number">2.</span> <span class="nav-text">Header building</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Structure"><span class="nav-number">2.1.</span> <span class="nav-text">Data Structure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API"><span class="nav-number">2.2.</span> <span class="nav-text">API</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2020/12/07/nginx-process-headers/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="nginx_process_headers | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          nginx_process_headers
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-12-07 15:13:41" itemprop="dateCreated datePublished" datetime="2020-12-07T15:13:41+08:00">2020-12-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>nginx provides flexible way to manipulate headers, you can do this by <code>directive or by lua</code>, here we only say directive, headers can be request header or response header, that means <strong>nginx gives you the way to manipulate request header before sending to upstream and response header before sending to client</strong>.<br><strong>nginx supports</strong></p>
+<ul>
+<li>add a header</li>
+<li>update existing header</li>
+<li>delete a header</li>
+</ul>
+<p><strong>request header related directive before sending to upstream</strong></p>
+<ul>
+<li>proxy_set_header</li>
+</ul>
+<p><strong>response header related directives before sending to client</strong></p>
+<ul>
+<li>add_header</li>
+<li>proxy_ignore_headers</li>
+<li>proxy_hide_header</li>
+<li>proxy_pass_header</li>
+</ul>
+<span id="more"></span>
+<h1 id="Header-building"><a href="#Header-building" class="headerlink" title="Header building"></a>Header building</h1><p>For proxy header sent to upstream, it depends on three parts.</p>
+<ul>
+<li>request sent(header in request itself) lowest priority</li>
+<li>default behavior for some proxy headers</li>
+<li>user setting by directive(proxy_set_header) highest priority</li>
+</ul>
+<p>First check user setting, if has, use that value, otherwise, use default behavior for some proxy headers, if not header has no default behavior, just pass it to upstream.</p>
+<p>For response header sent to client, it depends on two parts.</p>
+<ul>
+<li>ignore&#x2F;hide</li>
+<li>user setting by directive(add_header) highest priority</li>
+</ul>
+<p>First check user setting, if has, use that value, otherwise not send to client if ignored or hidden.</p>
+<h2 id="Data-Structure"><a href="#Data-Structure" class="headerlink" title="Data Structure"></a>Data Structure</h2><p><strong>proxy header(most headers from client) sent to upstream</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="comment">/* as proxy headers value can have variable, so need to compile it, then saved at values(handler)</span></span><br><span class="line"><span class="comment">     * hash is the hash table for proxy header name</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">ngx_array_t</span>                   *flushes;</span><br><span class="line">    <span class="type">ngx_array_t</span>                   *lengths;</span><br><span class="line">    <span class="type">ngx_array_t</span>                   *values;</span><br><span class="line">    <span class="type">ngx_hash_t</span>                     hash;</span><br><span class="line">&#125; <span class="type">ngx_http_proxy_headers_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">ngx_str_t</span>   key;</span><br><span class="line">    <span class="type">ngx_str_t</span>   value;</span><br><span class="line">&#125; <span class="type">ngx_keyval_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">ngx_http_upstream_conf_t</span>       upstream;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/* headers(used runtime sent to backend) are merged result from two parts</span></span><br><span class="line"><span class="comment">     * default proxy header                         : ngx_http_proxy_headers</span></span><br><span class="line"><span class="comment">     * header set by proxy_set_header directive     : headers_source(high priority)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">ngx_http_proxy_headers_t</span>       headers;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* headers set by proxy_set_header directive, user defines</span></span><br><span class="line"><span class="comment">     * proxy_set_header supports using variable as value like this:</span></span><br><span class="line"><span class="comment">     * proxy_set_header Host       $http_host;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">ngx_array_t</span>                   *headers_source; <span class="comment">// ngx_keyval_t array</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * default proxy headers(overwrite such header if client sends it as well)</span></span><br><span class="line"><span class="comment"> * these headers will be sent/removed when sending request to backend</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * like &#123; ngx_string(&quot;TE&quot;), ngx_string(&quot;&quot;)&#125; means remove such header</span></span><br><span class="line"><span class="comment"> * when sending request to backend, even client sends it.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * these can be overwritten by proxy_set_header</span></span><br><span class="line"><span class="comment"> * because we merge these two parts during conf</span></span><br><span class="line"><span class="comment"> * but proxy_set_header has higher priority</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">static</span> <span class="type">ngx_keyval_t</span>  ngx_http_proxy_headers[] = &#123;</span><br><span class="line">    &#123; ngx_string(<span class="string">&quot;Host&quot;</span>), ngx_string(<span class="string">&quot;$proxy_host&quot;</span>) &#125;,</span><br><span class="line">    <span class="comment">/* if no set default Connection header is set with Connection: close when send request to upstream */</span></span><br><span class="line">    &#123; ngx_string(<span class="string">&quot;Connection&quot;</span>), ngx_string(<span class="string">&quot;close&quot;</span>) &#125;,</span><br><span class="line">    &#123; ngx_string(<span class="string">&quot;Content-Length&quot;</span>), ngx_string(<span class="string">&quot;$proxy_internal_body_length&quot;</span>) &#125;,</span><br><span class="line">    &#123; ngx_string(<span class="string">&quot;Transfer-Encoding&quot;</span>), ngx_string(<span class="string">&quot;$proxy_internal_chunked&quot;</span>) &#125;,</span><br><span class="line">    &#123; ngx_string(<span class="string">&quot;TE&quot;</span>), ngx_string(<span class="string">&quot;&quot;</span>) &#125;,</span><br><span class="line">    &#123; ngx_string(<span class="string">&quot;Keep-Alive&quot;</span>), ngx_string(<span class="string">&quot;&quot;</span>) &#125;,</span><br><span class="line">    &#123; ngx_string(<span class="string">&quot;Expect&quot;</span>), ngx_string(<span class="string">&quot;&quot;</span>) &#125;,</span><br><span class="line">    &#123; ngx_string(<span class="string">&quot;Upgrade&quot;</span>), ngx_string(<span class="string">&quot;&quot;</span>) &#125;,</span><br><span class="line">    &#123; ngx_null_string, ngx_null_string &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>response header sent to client(hide or ignore some headers)</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// response header sent to client(hide or ignore some headers)</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="comment">/* ignore header bit for supported ignore header, user can only ignore these headers</span></span><br><span class="line"><span class="comment">     * you can ignore processing these response headers(limit scope) from backend</span></span><br><span class="line"><span class="comment">     * no set var etc</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">     * ngx_conf_bitmask_t  ngx_http_upstream_ignore_headers_masks[] = &#123;</span></span><br><span class="line"><span class="comment">     *     &#123; ngx_string(&quot;X-Accel-Redirect&quot;), NGX_HTTP_UPSTREAM_IGN_XA_REDIRECT &#125;,</span></span><br><span class="line"><span class="comment">     *     &#123; ngx_string(&quot;X-Accel-Expires&quot;), NGX_HTTP_UPSTREAM_IGN_XA_EXPIRES &#125;,</span></span><br><span class="line"><span class="comment">     *     &#123; ngx_string(&quot;X-Accel-Limit-Rate&quot;), NGX_HTTP_UPSTREAM_IGN_XA_LIMIT_RATE &#125;,</span></span><br><span class="line"><span class="comment">     *     &#123; ngx_string(&quot;X-Accel-Buffering&quot;), NGX_HTTP_UPSTREAM_IGN_XA_BUFFERING &#125;,</span></span><br><span class="line"><span class="comment">     *     &#123; ngx_string(&quot;X-Accel-Charset&quot;), NGX_HTTP_UPSTREAM_IGN_XA_CHARSET &#125;,</span></span><br><span class="line"><span class="comment">     *     &#123; ngx_string(&quot;Expires&quot;), NGX_HTTP_UPSTREAM_IGN_EXPIRES &#125;,</span></span><br><span class="line"><span class="comment">     *     &#123; ngx_string(&quot;Cache-Control&quot;), NGX_HTTP_UPSTREAM_IGN_CACHE_CONTROL &#125;,</span></span><br><span class="line"><span class="comment">     *     &#123; ngx_string(&quot;Set-Cookie&quot;), NGX_HTTP_UPSTREAM_IGN_SET_COOKIE &#125;,</span></span><br><span class="line"><span class="comment">     *     &#123; ngx_string(&quot;Vary&quot;), NGX_HTTP_UPSTREAM_IGN_VARY &#125;,</span></span><br><span class="line"><span class="comment">     *     &#123; ngx_null_string, 0 &#125;</span></span><br><span class="line"><span class="comment">     * &#125;;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">     * by default, no header is ignored</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">ngx_uint_t</span>                       ignore_headers;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* hide_headers for quick searching */</span></span><br><span class="line">    <span class="type">ngx_hash_t</span>                       hide_headers_hash;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* by default nginx will hide some headers when send response to client</span></span><br><span class="line"><span class="comment">     * these headers like Server, you can also add more hide header by proxy_hide_header</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * if you don&#x27;t hide some default headers you can use</span></span><br><span class="line"><span class="comment">     * proxy_pass_header to exclude them from hide_headers</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* both ignore and hiding headers are not processed, so you can&#x27;t get that header value by ngx.header.xx</span></span><br><span class="line"><span class="comment">     * but ignore header has limit group, only support some headers</span></span><br><span class="line"><span class="comment">     * hide header can hide any header, that&#x27;s the difference</span></span><br><span class="line"><span class="comment">     /</span></span><br><span class="line"><span class="comment">    ngx_array_t                     *hide_headers;</span></span><br><span class="line"><span class="comment">    ngx_array_t                     *pass_headers;</span></span><br><span class="line"><span class="comment">&#125; ngx_http_upstream_conf_t;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">static ngx_str_t  ngx_http_proxy_hide_headers[] = &#123;</span></span><br><span class="line"><span class="comment">    /* by default, we did NOT send these to client, but you can use proxy_pass_header to exclude a header</span></span><br><span class="line"><span class="comment">     * let nginx sends it to client</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    ngx_string(<span class="string">&quot;Date&quot;</span>), <span class="comment">// exception: Date means NOT use Date header from backend, but use nginx cache time, still send Date to client!!!</span></span><br><span class="line">    ngx_string(<span class="string">&quot;Server&quot;</span>),</span><br><span class="line">    ngx_string(<span class="string">&quot;X-Pad&quot;</span>),</span><br><span class="line">    ngx_string(<span class="string">&quot;X-Accel-Expires&quot;</span>),</span><br><span class="line">    ngx_string(<span class="string">&quot;X-Accel-Redirect&quot;</span>),</span><br><span class="line">    ngx_string(<span class="string">&quot;X-Accel-Limit-Rate&quot;</span>),</span><br><span class="line">    ngx_string(<span class="string">&quot;X-Accel-Buffering&quot;</span>),</span><br><span class="line">    ngx_string(<span class="string">&quot;X-Accel-Charset&quot;</span>),</span><br><span class="line">    ngx_null_string</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="comment">// set by add_header directive(user setting response header)</span></span><br><span class="line">    <span class="type">ngx_array_t</span>               *headers;</span><br><span class="line">&#125; <span class="type">ngx_http_headers_conf_t</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// each request has such instance</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ngx_http_upstream_s</span> &#123;</span></span><br><span class="line">    <span class="comment">/* all parsed headers from backend */</span></span><br><span class="line">    <span class="type">ngx_http_upstream_headers_in_t</span>   headers_in;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ngx_http_request_s</span> &#123;</span></span><br><span class="line">    <span class="type">ngx_http_upstream_t</span>        *upstream;</span><br><span class="line"></span><br><span class="line">    <span class="type">ngx_http_headers_in_t</span>             headers_in; <span class="comment">// request headers from client</span></span><br><span class="line">    <span class="type">ngx_http_headers_out_t</span>            headers_out; <span class="comment">// response header sent to client</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">ngx_list_t</span>                        headers;</span><br><span class="line">    <span class="type">ngx_list_t</span>                        trailers;</span><br><span class="line"></span><br><span class="line">    <span class="type">ngx_uint_t</span>                        status;</span><br><span class="line">    <span class="type">ngx_str_t</span>                         status_line;</span><br><span class="line"></span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *server;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *date;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *content_length;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *content_encoding;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *location;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *refresh;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *last_modified;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *content_range;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *accept_ranges;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *www_authenticate;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *expires;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *etag;</span><br><span class="line"></span><br><span class="line">    <span class="type">ngx_str_t</span>                        *override_charset;</span><br><span class="line"></span><br><span class="line">    <span class="type">size_t</span>                            content_type_len;</span><br><span class="line">    <span class="type">ngx_str_t</span>                         content_type;</span><br><span class="line">    <span class="type">ngx_str_t</span>                         charset;</span><br><span class="line">    u_char                           *content_type_lowcase;</span><br><span class="line">    <span class="type">ngx_uint_t</span>                        content_type_hash;</span><br><span class="line"></span><br><span class="line">    <span class="type">ngx_array_t</span>                       cache_control;</span><br><span class="line">    <span class="type">ngx_array_t</span>                       link;</span><br><span class="line"></span><br><span class="line">    <span class="type">off_t</span>                             content_length_n;</span><br><span class="line">    <span class="type">off_t</span>                             content_offset;</span><br><span class="line">    <span class="type">time_t</span>                            date_time;</span><br><span class="line">    <span class="type">time_t</span>                            last_modified_time;</span><br><span class="line">&#125; <span class="type">ngx_http_headers_out_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="comment">/* all headers parsed, each is a ngx_table_elt_t</span></span><br><span class="line"><span class="comment">     * below header pointer points to the element in</span></span><br><span class="line"><span class="comment">     * the list</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">ngx_list_t</span>                        headers;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* shortcut for HOST header in headers array</span></span><br><span class="line"><span class="comment">     * the ngx_table_elt_t-&gt;value points to r-&gt;buf</span></span><br><span class="line"><span class="comment">     * NOT copy from r-&gt;buf!!!</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *host;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *connection;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *if_modified_since;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *if_unmodified_since;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *if_match;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *if_none_match;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *user_agent;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *referer;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *content_length;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *content_range;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *content_type;</span><br><span class="line"></span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *range;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *if_range;</span><br><span class="line"></span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *transfer_encoding;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *te;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *expect;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *upgrade;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> (NGX_HTTP_GZIP || NGX_HTTP_HEADERS)</span></span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *accept_encoding;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *via;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *authorization;</span><br><span class="line"></span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *keep_alive;</span><br><span class="line"><span class="meta">#<span class="keyword">if</span> (NGX_HTTP_X_FORWARDED_FOR)</span></span><br><span class="line">    <span class="type">ngx_array_t</span>                       x_forwarded_for;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> (NGX_HTTP_REALIP)</span></span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *x_real_ip;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> (NGX_HTTP_HEADERS)</span></span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *accept;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *accept_language;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> (NGX_HTTP_DAV)</span></span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *depth;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *destination;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *overwrite;</span><br><span class="line">    <span class="type">ngx_table_elt_t</span>                  *date;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125; <span class="type">ngx_http_headers_in_t</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// build r-&gt;headers_in from request header</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">ngx_http_process_request_headers</span><span class="params">(<span class="type">ngx_event_t</span> *rev)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//build header sent to upstream(backend), create a temp buffer to hold all header copied from r-&gt;headers_in</span></span><br><span class="line"><span class="type">static</span> <span class="type">ngx_int_t</span> <span class="title function_">ngx_http_proxy_create_request</span><span class="params">(<span class="type">ngx_http_request_t</span> *r)</span>;</span><br><span class="line"><span class="comment">// build header sent to client(set r-&gt;headers_out) when parsed all response headers</span></span><br><span class="line"><span class="type">static</span> <span class="type">ngx_int_t</span> <span class="title function_">ngx_http_upstream_process_headers</span><span class="params">(<span class="type">ngx_http_request_t</span> *r, <span class="type">ngx_http_upstream_t</span> *u)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// header filter to add/update/remove(manipulate r-&gt;headers_out) response header</span></span><br><span class="line"><span class="type">static</span> <span class="type">ngx_int_t</span> <span class="title function_">ngx_http_headers_filter</span><span class="params">(<span class="type">ngx_http_request_t</span> *r)</span>;</span><br><span class="line"><span class="comment">// last header filter based on r-&gt;headers_out create a temp buffer to hold all header copied from r-&gt;headers_out, then send it out</span></span><br><span class="line"><span class="type">static</span> <span class="type">ngx_int_t</span> <span class="title function_">ngx_http_header_filter</span><span class="params">(<span class="type">ngx_http_request_t</span> *r)</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/07/nginx-upstream-multiplexing-keepalive/" rel="prev" title="nginx_upstream_multiplexing_keepalive">
+                  <i class="fa fa-chevron-left"></i> nginx_upstream_multiplexing_keepalive
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/12/09/nginx-http-log/" rel="next" title="nginx_http_log">
+                  nginx_http_log <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

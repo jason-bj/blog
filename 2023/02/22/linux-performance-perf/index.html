@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OverviewPerf can do lots of thing, like collect, cache miss, context switch, per-thread, per-cpu etc But it needs kernel supporting, perf is always used for system performace debugging, gperftools for">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux-performance-perf">
+<meta property="og:url" content="http://cyun.tech/2023/02/22/linux-performance-perf/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="OverviewPerf can do lots of thing, like collect, cache miss, context switch, per-thread, per-cpu etc But it needs kernel supporting, perf is always used for system performace debugging, gperftools for">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-02-22T08:45:17.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.161Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="perf">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2023/02/22/linux-performance-perf/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2023/02/22/linux-performance-perf/","path":"2023/02/22/linux-performance-perf/","title":"linux-performance-perf"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>linux-performance-perf | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Usage"><span class="nav-number">2.</span> <span class="nav-text">Usage</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#perf-for-application-performance"><span class="nav-number">2.1.</span> <span class="nav-text">perf for application performance</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-wide-performace"><span class="nav-number">2.2.</span> <span class="nav-text">System-wide performace</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FAQ"><span class="nav-number">3.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#perf-kvm-stat-vs-perf-stat"><span class="nav-number">3.1.</span> <span class="nav-text">perf kvm stat vs perf stat</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2023/02/22/linux-performance-perf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="linux-performance-perf | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux-performance-perf
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-02-22 16:45:17" itemprop="dateCreated datePublished" datetime="2023-02-22T16:45:17+08:00">2023-02-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/performance/" itemprop="url" rel="index"><span itemprop="name">performance</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/performance/system/" itemprop="url" rel="index"><span itemprop="name">system</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>Perf can do lots of thing, like <code>collect, cache miss, context switch, per-thread, per-cpu etc</code> But it needs kernel supporting, <code>perf is always used for system performace debugging</code>, <strong>gperftools for application performance debugging(perf also can take application performance debugging)</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Usage</span><br><span class="line"></span><br><span class="line">    #perf</span><br><span class="line">    usage: perf [--version] [--help] COMMAND [ARGS]</span><br><span class="line"></span><br><span class="line">    The most commonly used perf commands are:</span><br><span class="line">     annotate        Read perf.data (created by perf record) and display annotated code</span><br><span class="line">     diff            Read two perf.data files and display the differential profile</span><br><span class="line">     list            List all symbolic event types</span><br><span class="line">     probe           Define new dynamic tracepoints</span><br><span class="line">     record          Run a command and record its profile into perf.data</span><br><span class="line">     report          Read perf.data (created by perf record) and display the profile</span><br><span class="line">     script          Read perf.data (created by perf record) and display trace output</span><br><span class="line">     stat            Run a command and gather performance counter statistics</span><br><span class="line">     top             System profiling tool.</span><br><span class="line"></span><br><span class="line">    details about each command</span><br><span class="line">    #perf annotate --help</span><br><span class="line"></span><br><span class="line">    Summary: perf has two ACTIONS &#x27;stat&#x27; and &#x27;record&#x27; for profiling</span><br><span class="line">    &#x27;stat&#x27; uses counter while &#x27;record&#x27; uses samples( xx samples/per second)</span><br><span class="line">    which can show call graph(stacks)</span><br><span class="line">    to collect information about the system, cpu, thread, call graph</span><br><span class="line"></span><br><span class="line">    As EVENT is the core part of perf that it can monitor, EVENT includes</span><br><span class="line">        Hardware event like (cach misses, LL2 cache etc)</span><br><span class="line">        Software event like (page fault, context switch etc)</span><br><span class="line">        tracepoint predefined in kernel(requires kernel compiled with debugfs)</span><br><span class="line">        Dynamic event (create by #perf probe --add )</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p><strong>event overview</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># run a command under perf stat</span></span><br><span class="line">$ perf <span class="built_in">stat</span> [-e &lt;EVENT&gt; | --event=EVENT] [-a] &lt;<span class="built_in">command</span>&gt;</span><br><span class="line">$ perf <span class="built_in">stat</span> [-e &lt;EVENT&gt; | --event=EVENT] [-a] — &lt;<span class="built_in">command</span>&gt; [&lt;options&gt;]</span><br><span class="line">$ perf <span class="built_in">stat</span> [-e &lt;EVENT&gt; | --event=EVENT] [-a] record [-o file] — &lt;<span class="built_in">command</span>&gt; [&lt;options&gt;]</span><br><span class="line"></span><br><span class="line"><span class="comment"># OR attach to a running process</span></span><br><span class="line">$ perf <span class="built_in">stat</span> [-e &lt;EVENT&gt; | --event=EVENT] [-a] -p <span class="variable">$pid</span></span><br><span class="line"></span><br><span class="line">important options</span><br><span class="line"></span><br><span class="line">-i: by default perf <span class="built_in">stat</span> without -i option count all processes, forked (and threads cloned) from target process after starting of counting. With perf <span class="built_in">stat</span> ./program it will profile all child processes too, and with perf <span class="built_in">stat</span> -p <span class="variable">$PID</span> with attaching to already running <span class="variable">$PID</span> it will profile target process and all child processes started after attaching. use -i to <span class="built_in">disable</span> counting child.</span><br><span class="line"></span><br><span class="line"><span class="comment"># ================= remote cache and remote dram access for multiple numa =======================================</span></span><br><span class="line"><span class="comment">#  offcore_response.all_data_rd.llc_miss.remote_dram </span></span><br><span class="line"><span class="comment">#       [Counts all demand &amp; prefetch data reads that miss the L3 and the data is returned from remote dram]</span></span><br><span class="line"><span class="comment">#  offcore_response.all_data_rd.llc_miss.remote_hit_forward</span></span><br><span class="line"><span class="comment">#       [Counts all demand &amp; prefetch data reads that miss the L3 and clean or shared data is transferred from remote cache]</span></span><br><span class="line"><span class="comment">#  offcore_response.all_data_rd.llc_miss.remote_hitm </span></span><br><span class="line"><span class="comment">#       [Counts all demand &amp; prefetch data reads that miss the L3 and the modified data is transferred from remote cache]</span></span><br><span class="line"><span class="comment">#  offcore_response.all_reads.llc_miss.remote_dram   </span></span><br><span class="line"><span class="comment">#       [Counts all data/code/rfo reads (demand &amp; prefetch) that miss the L3 and the data is returned from remote dram]</span></span><br><span class="line"><span class="comment">#  offcore_response.all_reads.llc_miss.remote_hit_forward</span></span><br><span class="line"><span class="comment">#       [Counts all data/code/rfo reads (demand &amp; prefetch) that miss the L3 and clean or shared data is transferred from remote cache]</span></span><br><span class="line"><span class="comment">#  offcore_response.all_reads.llc_miss.remote_hitm   </span></span><br><span class="line"><span class="comment">#       [Counts all data/code/rfo reads (demand &amp; prefetch) that miss the L3 and the modified data is transferred from remote cache]</span></span><br><span class="line"><span class="comment">#  offcore_response.demand_rfo.llc_miss.remote_hitm  </span></span><br><span class="line"><span class="comment">#       [Counts all demand data writes (RFOs) that miss the L3 and the modified data is transferred from remote cache]</span></span><br><span class="line"><span class="comment"># ================= remote cache and remote dram access for multiple numa =======================================</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># splitlock</span></span><br><span class="line">$ perf <span class="built_in">stat</span> -e cpu/event=0xf4,<span class="built_in">umask</span>=0x10/ -a -I 1000 </span><br><span class="line">===</span><br><span class="line">$ perf <span class="built_in">stat</span> -e sq_misc.split_lock -a -I 1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># run a application that accesss automic memory cross cache-line, henc generate splitlock</span></span><br><span class="line">$ perf <span class="built_in">stat</span> -e sq_misc.split_lock -a -I 100 ./sp</span><br><span class="line"><span class="comment">#           time             counts unit events</span></span><br><span class="line">     0.108722215             36,456      sq_misc.split_lock                                          </span><br><span class="line">     0.214217317             37,401      sq_misc.split_lock                                          </span><br><span class="line">     0.318182137             37,700      sq_misc.split_lock           </span><br><span class="line"></span><br><span class="line"><span class="comment"># total last level cache</span></span><br><span class="line">$ lscpu | grep <span class="string">&#x27;L3 cache&#x27;</span></span><br><span class="line">L3 cache:              40960K</span><br><span class="line"></span><br><span class="line"><span class="comment"># intel cqm need hardware and kernel support</span></span><br><span class="line">$ <span class="built_in">cat</span> /proc/cpuinfo | grep rdt_a</span><br><span class="line">$ grep  <span class="string">&#x27;RDT_A&#x27;</span> /boot/config-$(<span class="built_in">uname</span> -r)</span><br><span class="line"></span><br><span class="line">$ perf <span class="built_in">stat</span> -a -e intel_cqm/llc_occupancy/ -I 1000 -p <span class="variable">$pid</span></span><br><span class="line">$ perf <span class="built_in">stat</span> -a -e intel_cqm/total_bytes/ -I 1000 -p <span class="variable">$pid</span></span><br><span class="line">$ perf <span class="built_in">stat</span> -a -e intel_cqm/local_bytes/ -I 1000 -p <span class="variable">$pid</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># last level cache occupancy</span></span><br><span class="line">$ perf <span class="built_in">stat</span> -a -e intel_cqm/llc_occupancy/ -I 1000 <span class="built_in">sleep</span> 100</span><br><span class="line"><span class="comment">#           time             counts  unit events</span></span><br><span class="line">     1.004945555         35,061,760 Bytes intel_cqm/llc_occupancy/                                    </span><br><span class="line">     2.007805514         46,989,312 Bytes intel_cqm/llc_occupancy/                                    </span><br><span class="line">$ perf <span class="built_in">stat</span> -a -e intel_cqm/llc_occupancy/ -I 1000 ./sp</span><br><span class="line"><span class="comment">#           time             counts  unit events</span></span><br><span class="line">     1.011122701         31,391,744 Bytes intel_cqm/llc_occupancy/                                    </span><br><span class="line">     2.018970467         42,401,792 Bytes intel_cqm/llc_occupancy/                                    </span><br><span class="line"></span><br><span class="line">$ perf <span class="built_in">stat</span> -a -e intel_cqm/total_bytes/ -I 1000 <span class="built_in">sleep</span> 30</span><br><span class="line"><span class="comment">#           time             counts unit events</span></span><br><span class="line">     1.007463857               0.00 MB   intel_cqm/total_bytes/                                      </span><br><span class="line">     2.011665924               0.00 MB   intel_cqm/total_bytes/                       </span><br><span class="line"></span><br><span class="line">$ perf <span class="built_in">stat</span> -a -e intel_cqm/local_bytes/ -I 1000 <span class="built_in">sleep</span> 30</span><br><span class="line"><span class="comment">#           time             counts unit events</span></span><br><span class="line">     1.008000842               0.00 MB   intel_cqm/local_bytes/                                      </span><br><span class="line">     2.012502066               0.00 MB   intel_cqm/local_bytes/  </span><br><span class="line"></span><br><span class="line"><span class="comment"># -----For memory bandwith on new kernel(&gt;=4.14), use this way----------</span></span><br><span class="line"><span class="comment"># this need cpu and kernel supports</span></span><br><span class="line">$ <span class="built_in">cat</span> /proc/cpuinfo | grep rdt_a</span><br><span class="line">$ grep  <span class="string">&#x27;RESCTRL&#x27;</span> /boot/config-$(<span class="built_in">uname</span> -r)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mount the resctrl filesystem.</span></span><br><span class="line">$ mount -t resctrl resctrl -o mba_MBps /sys/fs/resctrl</span><br><span class="line"><span class="comment"># after mount check</span></span><br><span class="line">$ <span class="built_in">ls</span> -p /sys/fs/resctrl/</span><br><span class="line">cpus  cpus_list  info/  mode  mon_data/  mon_groups/  schemata  size  tasks</span><br><span class="line"><span class="comment"># ======================host level=====================</span></span><br><span class="line"><span class="comment"># Print the number of llc occupancy on the first socket.</span></span><br><span class="line">$ <span class="built_in">cat</span> /sys/fs/resctrl/mon_data/mon_L3_00/llc_occupancy</span><br><span class="line"><span class="comment"># Print the number of local bytes on the first socket.</span></span><br><span class="line">$ <span class="built_in">cat</span> /sys/fs/resctrl/mon_data/mon_L3_00/mbm_local_bytes</span><br><span class="line"><span class="comment"># Print the number of total bytes on the first socket.</span></span><br><span class="line">$ <span class="built_in">cat</span> /sys/fs/resctrl/mon_data/mon_L3_00/mbm_total_bytes</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print the number of llc occupancy on the second socket.</span></span><br><span class="line">$ <span class="built_in">cat</span> /sys/fs/resctrl/mon_data/mon_L3_01/llc_occupancy</span><br><span class="line"><span class="comment"># Print the number of local bytes on the second socket.</span></span><br><span class="line">$ <span class="built_in">cat</span> /sys/fs/resctrl/mon_data/mon_L3_01/mbm_local_bytes</span><br><span class="line"><span class="comment"># Print the number of total bytes on the second socket.</span></span><br><span class="line">$ <span class="built_in">cat</span> /sys/fs/resctrl/mon_data/mon_L3_01/mbm_total_bytes</span><br><span class="line"><span class="comment"># ======================host level=====================</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ====================== group level=====================</span></span><br><span class="line"><span class="comment"># group level mean collect mbm data of all task in this group</span></span><br><span class="line">$ <span class="built_in">mkdir</span> /sys/fs/resctrl/mon_groups/test</span><br><span class="line">$ <span class="built_in">ls</span> /sys/fs/resctrl/mon_groups/test</span><br><span class="line">cpus  cpus_list  mon_data/  tasks</span><br><span class="line">$ <span class="built_in">ls</span> /sys/fs/resctrl/mon_groups/test/mon_data/mon_L3_00</span><br><span class="line">llc_occupancy  mbm_local_bytes  mbm_total_bytes</span><br><span class="line"><span class="comment"># mbm data of this group</span></span><br><span class="line">$ <span class="built_in">ls</span> /sys/fs/resctrl/mon_groups/test/mon_data/</span><br><span class="line">mon_L3_00/  mon_L3_01/</span><br><span class="line"></span><br><span class="line"><span class="comment"># then add task(process to this group)</span></span><br><span class="line">$ <span class="built_in">echo</span> 245543 /sys/fs/resctrl/mon_groups/test/tasks</span><br><span class="line"><span class="comment"># ====================== group level=====================</span></span><br><span class="line"><span class="comment"># -----For memory bandwith on new kernel(&gt;=4.14), use this way----------</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># command help</span></span><br><span class="line"><span class="comment"># List all symbolic event types, event has another format: Raw which is number!!!</span></span><br><span class="line">$ perf list [hw|sw|cache|tracepoint|pmu|event_glob]</span><br><span class="line">- <span class="string">&#x27;hw&#x27;</span> or <span class="string">&#x27;hardware&#x27;</span> to list hardware events such as cache-misses, etc.</span><br><span class="line">- <span class="string">&#x27;sw&#x27;</span> or <span class="string">&#x27;software&#x27;</span> to list software events such as context switches, etc.</span><br><span class="line">- <span class="string">&#x27;cache&#x27;</span> or <span class="string">&#x27;hwcache&#x27;</span> to list hardware cache events such as L1-dcache-loads, etc.</span><br><span class="line">- <span class="string">&#x27;tracepoint&#x27;</span> to list all tracepoint events, alternatively use subsys_glob:event_glob to filter by tracepoint subsystems such as <span class="built_in">sched</span>, block, etc</span><br><span class="line">- <span class="string">&#x27;pmu&#x27;</span> to <span class="built_in">print</span> the kernel supplied PMU events.</span><br><span class="line">- As a last resort, it will <span class="keyword">do</span> a substring search <span class="keyword">in</span> all event names</span><br><span class="line"></span><br><span class="line"><span class="comment"># list the available PMUs</span></span><br><span class="line">$ <span class="built_in">ls</span> /sys/devices/*/events/</span><br><span class="line">/sys/devices/cpu/events/:</span><br><span class="line">branch-instructions  bus-cycles    cache-references  cycles-ct  el-abort     el-commit    el-start      mem-loads   ref-cycles  tx-capacity  tx-conflict</span><br><span class="line">branch-misses        cache-misses  cpu-cycles        cycles-t   el-capacity  el-conflict  instructions  mem-stores  tx-abort    tx-commit    tx-start</span><br><span class="line"></span><br><span class="line">/sys/devices/intel_cqm/events/:</span><br><span class="line">llc_occupancy          llc_occupancy.scale     llc_occupancy.unit  local_bytes.per-pkg  local_bytes.unit  total_bytes.per-pkg  total_bytes.unit</span><br><span class="line">llc_occupancy.per-pkg  llc_occupancy.snapshot  local_bytes         local_bytes.scale    total_bytes       total_bytes.scale</span><br><span class="line"></span><br><span class="line">/sys/devices/power/events/:</span><br><span class="line">energy-cores  energy-cores.scale  energy-cores.unit  energy-gpu  energy-gpu.scale  energy-gpu.unit  energy-pkg  energy-pkg.scale  energy-pkg.unit  energy-ram  energy-ram.scale  energy-ram.unit</span><br><span class="line"></span><br><span class="line">/sys/devices/uncore_imc_0/events/:</span><br><span class="line">cas_count_read  cas_count_read.scale  cas_count_read.unit  cas_count_write  cas_count_write.scale  cas_count_write.unit  clockticks</span><br><span class="line"></span><br><span class="line">/sys/devices/uncore_imc_1/events/:</span><br><span class="line">cas_count_read  cas_count_read.scale  cas_count_read.unit  cas_count_write  cas_count_write.scale  cas_count_write.unit  clockticks</span><br><span class="line"></span><br><span class="line">/sys/devices/uncore_imc_4/events/:</span><br><span class="line">cas_count_read  cas_count_read.scale  cas_count_read.unit  cas_count_write  cas_count_write.scale  cas_count_write.unit  clockticks</span><br><span class="line"></span><br><span class="line">/sys/devices/uncore_imc_5/events/:</span><br><span class="line">cas_count_read  cas_count_read.scale  cas_count_read.unit  cas_count_write  cas_count_write.scale  cas_count_write.unit  clockticks</span><br><span class="line"></span><br><span class="line"><span class="comment"># check Raw of one PMU event</span></span><br><span class="line">$ <span class="built_in">cat</span> /sys/devices/cpu/events/cache-misses </span><br><span class="line">event=0x2e,<span class="built_in">umask</span>=0x41</span><br><span class="line"></span><br><span class="line"><span class="comment"># L1 cache</span></span><br><span class="line">$ perf <span class="built_in">stat</span> -e L1-dcache-loads,L1-dcache-load-misses,L1-dcache-stores <span class="built_in">sleep</span> 1</span><br><span class="line"><span class="comment"># L3 cache</span></span><br><span class="line">$ perf <span class="built_in">stat</span> -e LLC-loads,LLC-load-misses,LLC-stores,LLC-prefetches <span class="built_in">sleep</span> 1</span><br><span class="line"></span><br><span class="line">$ perf <span class="built_in">stat</span> -e cache-misses <span class="built_in">sleep</span> 1</span><br><span class="line">equal to</span><br><span class="line">$ perf <span class="built_in">stat</span> -e cpu/event=0x2e,<span class="built_in">umask</span>=0x41/ <span class="built_in">sleep</span> 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="perf-for-application-performance"><a href="#perf-for-application-performance" class="headerlink" title="perf for application performance"></a>perf for application performance</h2><p><strong>User-level application performance</strong>  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">func1</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; <span class="number">100000</span>) &#123;</span><br><span class="line">        ++i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">func2</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; <span class="number">200000</span>) &#123;</span><br><span class="line">        ++i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">func3</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (; i &lt; <span class="number">1000</span>; ++i) &#123;</span><br><span class="line">        func1();</span><br><span class="line">        func2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    func3();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -o <span class="built_in">test</span> test.c -g -O0</span><br><span class="line"></span><br><span class="line">$ perf record ./test</span><br><span class="line">$ perf report</span><br><span class="line">    <span class="comment"># To display the perf.data header info, please use --header/--header-only options.</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment"># Samples: 2K of event &#x27;cpu-clock&#x27;</span></span><br><span class="line">    <span class="comment"># Event count (approx.): 723750000</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment"># Overhead  Command      Shared Object                      Symbol</span></span><br><span class="line">    <span class="comment"># ........  .......  .................  ..........................</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">        66.22%     <span class="built_in">test</span>  <span class="built_in">test</span>               [.] func2</span><br><span class="line">        33.75%     <span class="built_in">test</span>  <span class="built_in">test</span>               [.] func1</span><br><span class="line">         0.03%     <span class="built_in">test</span>  [kernel.kallsyms]  [k] get_page_from_freelist</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment"># (For a higher level overview, try: perf report --sort comm,dso)</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">$ perf annotate -s func2</span><br><span class="line">     Percent |      Source code &amp; Disassembly of <span class="built_in">test</span></span><br><span class="line">    --------------------------------------------------</span><br><span class="line">             :</span><br><span class="line">             :</span><br><span class="line">             :</span><br><span class="line">             :      Disassembly of section .text:</span><br><span class="line">             :</span><br><span class="line">             :      0000000000400509 &lt;func2&gt;:</span><br><span class="line">             :          int i = 0;</span><br><span class="line">             :          <span class="keyword">while</span> (i &lt; 100000) &#123;</span><br><span class="line">             :              ++i;</span><br><span class="line">             :          &#125;</span><br><span class="line">             :      &#125;</span><br><span class="line">             :      void <span class="function"><span class="title">func2</span></span>() &#123;</span><br><span class="line">        0.00 :        400509:       push   %rbp</span><br><span class="line">        0.00 :        40050a:       mov    %rsp,%rbp</span><br><span class="line">             :          int i = 0;</span><br><span class="line">        0.00 :        40050d:       movl   <span class="variable">$0x0</span>,-0x4(%rbp)</span><br><span class="line">             :          <span class="keyword">while</span> (i &lt; 200000) &#123;</span><br><span class="line">        0.05 :        400514:       jmp    40051a &lt;func2+0x11&gt;</span><br><span class="line">             :              ++i;</span><br><span class="line">       17.48 :        400516:       addl   <span class="variable">$0x1</span>,-0x4(%rbp)</span><br><span class="line">             :              ++i;</span><br><span class="line">             :          &#125;</span><br><span class="line">             :      &#125;</span><br><span class="line">             :      void <span class="function"><span class="title">func2</span></span>() &#123;</span><br><span class="line">             :          int i = 0;</span><br><span class="line">             :          <span class="keyword">while</span> (i &lt; 200000) &#123;</span><br><span class="line">        1.88 :        40051a:       cmpl   <span class="variable">$0x30d3f</span>,-0x4(%rbp)</span><br><span class="line">       80.59 :        400521:       jle    400516 &lt;func2+0xd&gt;</span><br><span class="line">             :              ++i;</span><br><span class="line">             :          &#125;</span><br><span class="line">             :      &#125;</span><br><span class="line">        0.00 :        400523:       pop    %rbp</span><br><span class="line">        0.00 :        400524:       retq</span><br><span class="line"></span><br><span class="line"><span class="comment"># Except this, you can monitor system information (event) when running your processes see how many cache miss when executing test</span></span><br><span class="line"></span><br><span class="line">$ perf <span class="built_in">stat</span> -e instructions,cycles,branches,branch-misses,cache-misses ./test</span><br><span class="line"></span><br><span class="line"><span class="comment">#===============attach to a running process===================================</span></span><br><span class="line"><span class="comment"># show top cpu usage for a process from system wide view(include kernel symbol)</span></span><br><span class="line">$ sysctl -w kernel.pax.softmode=1</span><br><span class="line">$ sysctl -w kernel.kptr_restrict=1</span><br><span class="line">$ perf top -p <span class="variable">$pid</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># show cpu counter until ctrl+C</span></span><br><span class="line">$ perf <span class="built_in">stat</span> -p <span class="variable">$pid</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># show open event for $PID with 5s</span></span><br><span class="line">$ perf <span class="built_in">stat</span> -e <span class="string">&quot;syscalls:sys_*&quot;</span> -p <span class="variable">$PID</span> <span class="built_in">sleep</span> 10</span><br><span class="line"></span><br><span class="line"><span class="comment"># show open event for $PID until ctrl+C</span></span><br><span class="line">$ perf <span class="built_in">stat</span> -e <span class="string">&quot;syscalls:sys_*&quot;</span>  -p <span class="variable">$PID</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># recod cpu-clock event for given pid until control + c</span></span><br><span class="line">$ perf record -p <span class="variable">$pid</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># record event for context switch of given pid until control + c</span></span><br><span class="line">$ perf record -e <span class="string">&quot;cs&quot;</span> -p <span class="variable">$pid</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="System-wide-performace"><a href="#System-wide-performace" class="headerlink" title="System-wide performace"></a>System-wide performace</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># show funtion(from different apps or kernel function) which takes much CPU</span></span><br><span class="line">$ perf top</span><br><span class="line"></span><br><span class="line"><span class="comment"># show all EVNETs supported that can be used by &#x27;stat&#x27; or &#x27;record&#x27;</span></span><br><span class="line">$ perf list</span><br><span class="line"></span><br><span class="line"><span class="comment"># show counters in detail of all cpus within 10s</span></span><br><span class="line">$ perf <span class="built_in">stat</span> -a -d <span class="built_in">sleep</span> 10</span><br><span class="line"></span><br><span class="line"><span class="comment"># show cpu counter when executing &#x27;ls&#x27; command</span></span><br><span class="line">$ perf <span class="built_in">stat</span> <span class="built_in">ls</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># show open event for all cpu with 5s</span></span><br><span class="line">$ perf <span class="built_in">stat</span> -e <span class="string">&quot;syscalls:sys_*&quot;</span> -a <span class="built_in">sleep</span> 5</span><br><span class="line"></span><br><span class="line"><span class="comment">#record all cpus within 10s</span></span><br><span class="line"><span class="comment"># (-g graph, call graph)</span></span><br><span class="line">$ perf record -a -g -- <span class="built_in">sleep</span> 10</span><br><span class="line">$ perf record -a  -- <span class="built_in">sleep</span> 10</span><br><span class="line"></span><br><span class="line">$ perf record -e <span class="string">&quot;cpu-clock&quot;</span> -a <span class="built_in">sleep</span> 5</span><br><span class="line">$ perf record -e <span class="string">&quot;sched:sched_switch&quot;</span> -a <span class="built_in">sleep</span> 5</span><br><span class="line"></span><br><span class="line"><span class="comment"># record until ctrl+c</span></span><br><span class="line">$ perf record -e block:block_rq_insert -a</span><br><span class="line"></span><br><span class="line">$ perf report -n --stdio -i perf.data</span><br><span class="line"><span class="comment"># (need kernel debug info)</span></span><br><span class="line">$ perf annotate --stdio</span><br><span class="line"></span><br><span class="line"><span class="comment"># add tracepoint at door of tcp_sendmsg</span></span><br><span class="line"></span><br><span class="line">$ perf probe --add tcp_sendmsg</span><br><span class="line">    Failed to find path of kernel module.</span><br><span class="line">    Added new event:</span><br><span class="line">        probe:tcp_sendmsg    (on tcp_sendmsg)</span><br><span class="line"></span><br><span class="line">    You can now use it <span class="keyword">in</span> all perf tools, such as:</span><br><span class="line"></span><br><span class="line">        perf record -e probe:tcp_sendmsg -a <span class="built_in">sleep</span> 10</span><br><span class="line">        perf <span class="built_in">stat</span> -e probe:tcp_sendmsg -a <span class="built_in">sleep</span> 10</span><br><span class="line"></span><br><span class="line">$ perf record -e probe:tcp_sendmsg -aR <span class="built_in">sleep</span> 10</span><br><span class="line"></span><br><span class="line"><span class="comment"># show current probed event</span></span><br><span class="line">$ perf probe -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># delete dynamic trace point</span></span><br><span class="line">$ perf probe -d tcp_sendmsg</span><br><span class="line"></span><br><span class="line"><span class="comment"># show page faults, cache miss of whole system</span></span><br><span class="line">$ perf <span class="built_in">stat</span> -B -e context-switches,cpu-migrations,cache-references,cache-misses,cycles,instructions,page-faults <span class="built_in">sleep</span> 5</span><br><span class="line">Performance counter stats <span class="keyword">for</span> <span class="string">&#x27;sleep 5&#x27;</span>:</span><br><span class="line"></span><br><span class="line">             1      context-switches                                            </span><br><span class="line">             1      cpu-migrations                                              </span><br><span class="line">        18,143      cache-references                                            </span><br><span class="line">           957      cache-misses              <span class="comment">#    5.275 % of all cache refs    </span></span><br><span class="line">     1,598,875      cycles                                                      </span><br><span class="line">       667,345      instructions              <span class="comment">#    0.42  insn per cycle         </span></span><br><span class="line">           179      page-faults                                                 </span><br><span class="line"></span><br><span class="line">   5.002159188 seconds time elapsed</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># default output for perf stat</span></span><br><span class="line">$ perf <span class="built_in">stat</span> -B <span class="built_in">sleep</span> 5</span><br><span class="line">Performance counter stats <span class="keyword">for</span> <span class="string">&#x27;sleep 5&#x27;</span>:</span><br><span class="line"></span><br><span class="line">      1.136437      task-clock (msec)         <span class="comment">#    0.000 CPUs utilized          </span></span><br><span class="line">             1      context-switches          <span class="comment">#    0.880 K/sec                  </span></span><br><span class="line">             0      cpu-migrations            <span class="comment">#    0.000 K/sec                  </span></span><br><span class="line">           179      page-faults               <span class="comment">#    0.158 M/sec                  </span></span><br><span class="line">     1,612,448      cycles                    <span class="comment">#    1.419 GHz                    </span></span><br><span class="line">       671,118      instructions              <span class="comment">#    0.42  insn per cycle         </span></span><br><span class="line">       129,284      branches                  <span class="comment">#  113.763 M/sec                  </span></span><br><span class="line">         8,996      branch-misses             <span class="comment">#    6.96% of all branches        </span></span><br><span class="line"></span><br><span class="line">   5.002229617 seconds time elapsed</span><br><span class="line"></span><br><span class="line"><span class="comment"># check which function triggered cache-miss or page fault event on system</span></span><br><span class="line">$ perf record -e cache-misses <span class="built_in">sleep</span> 5</span><br><span class="line">$ perf record -e page-faults <span class="built_in">sleep</span> 5</span><br><span class="line">$ perf report</span><br><span class="line"></span><br><span class="line"><span class="comment"># check which function triggered cache-miss or page fault event of given process</span></span><br><span class="line">$ perf record -e cache-misses -p  <span class="variable">$pid</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># perf stat with multiple events</span></span><br><span class="line">$ perf <span class="built_in">stat</span> -e intel_cqm/local_bytes/,intel_cqm/total_bytes/ -a -I 1000</span><br></pre></td></tr></table></figure>
+
+<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><h2 id="perf-kvm-stat-vs-perf-stat"><a href="#perf-kvm-stat-vs-perf-stat" class="headerlink" title="perf kvm stat vs perf stat"></a>perf kvm stat vs perf stat</h2><p>You can use the <code>perf</code> command with the <code>kvm</code> option to collect guest operating system statistics from the host, </p>
+<p>In order to use <code>perf kvm record</code> in the host, you must <code>have access to the /proc/modules and /proc/kallsyms files from the guest</code>, otherwise, <code>perf report</code> can NOT show symbol correctly. but these two files is not needed for <code>perf kvm stat</code> as it does not use symbol table</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># On host</span></span><br><span class="line"><span class="comment">################## perf kvm stat ##########################</span></span><br><span class="line">$ ps -ef | grep 84857</span><br><span class="line">root      84857      1 60 10:07 ?        01:02:09 /usr/libexec/qemu-kvm -daemonize -D /tmp/qemu_vm.log -machine pc,accel=kvm,usb=off,dump-guest-core=off -object memory-backend-file,<span class="built_in">id</span>=ram-node0,prealloc=<span class="built_in">yes</span>,mem-path=/mnt/huge_1GB,share=no,size=34359738368,host-nodes=0,policy=<span class="built_in">bind</span> -numa node,nodeid=0,cpus=0-15,memdev=ram-node0 -m 32G -cpu host,host-cache-info=on,l3-cache=off -smp 16,maxcpus=16,sockets=1,cores=16,threads=1 -realtime mlock=off -no-user-config -drive file=./centos7.qcow2 -qmp unix:/var/run/qmp.sock,server,nowait -nodefaults -no-hpet -vga std -vnc 0.0.0.0:0 -serial pty -netdev tap,<span class="built_in">id</span>=net1,ifname=vnet10,script=./qemu-ifup,downscript=./qemu-ifdown -device virtio-net,netdev=net1,mac=52:54:00:12:34:56 -device qemu-xhci -device usb-tablet</span><br><span class="line"><span class="comment"># check splitlock from qemu-kvm</span></span><br><span class="line">$ perf kvm <span class="built_in">stat</span> -e sq_misc.split_lock -p 84857 -a -I 1000 </span><br><span class="line"><span class="comment">#           time             counts unit events</span></span><br><span class="line">     1.000627884            373,366      sq_misc.split_lock                                            (100.00%)</span><br><span class="line"></span><br><span class="line"><span class="comment">################## perf kvm record ##########################</span></span><br><span class="line">$ scp root@GuestMachine:/tmp/kallsyms guest-kallsyms</span><br><span class="line">$ scp root@GuestMachine:/tmp/modules guest-modules</span><br><span class="line">$ perf kvm --host --guest --guestkallsyms=guest-kallsyms \</span><br><span class="line">--guestmodules=guest-modules record -a -o perf.data</span><br><span class="line">$ perf kvm --host --guest --guestmodules=guest-modules report -i perf.data.kvm \</span><br><span class="line">--force &gt; analyze</span><br></pre></td></tr></table></figure>
+
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://lwn.net/Articles/790464/?spm=a2c6h.12873639.article-detail.5.69c46386dumCZU">detect split lock</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/perf/" rel="tag"># perf</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/19/linux-performance-faq/" rel="prev" title="linux-performance-faq">
+                  <i class="fa fa-chevron-left"></i> linux-performance-faq
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/07/10/docker-tools/" rel="next" title="docker-tools">
+                  docker-tools <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

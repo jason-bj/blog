@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OverviewHere are some basics about python3 that you should know. if your code is written with python2, convert it to python3 with 2to3 tool.   difference between python2 and python3     12$ 2to3 pytho">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-basics">
+<meta property="og:url" content="http://cyun.tech/2019/11/15/python-basics/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="OverviewHere are some basics about python3 that you should know. if your code is written with python2, convert it to python3 with 2to3 tool.   difference between python2 and python3     12$ 2to3 pytho">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://learntocodewith.me/wp-content/uploads/2014/06/python-2-vs-3-2018.png">
+<meta property="og:image" content="https://files.realpython.com/media/encode-decode.3e665ad9b455.png">
+<meta property="article:published_time" content="2019-11-15T09:43:35.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.172Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="function">
+<meta property="article:tag" content="class">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://learntocodewith.me/wp-content/uploads/2014/06/python-2-vs-3-2018.png">
+
+
+<link rel="canonical" href="http://cyun.tech/2019/11/15/python-basics/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2019/11/15/python-basics/","path":"2019/11/15/python-basics/","title":"python-basics"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>python-basics | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#naming-convention"><span class="nav-number">2.</span> <span class="nav-text">naming convention</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#printing"><span class="nav-number">3.</span> <span class="nav-text">printing</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#built-in-APIS"><span class="nav-number">4.</span> <span class="nav-text">built-in APIS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#constants"><span class="nav-number">5.</span> <span class="nav-text">constants</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#variable"><span class="nav-number">6.</span> <span class="nav-text">variable</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Local-Scope"><span class="nav-number">6.1.</span> <span class="nav-text">Local Scope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Enclosing-Scope"><span class="nav-number">6.2.</span> <span class="nav-text">Enclosing Scope</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nolocal-keyword"><span class="nav-number">6.2.1.</span> <span class="nav-text">nolocal keyword</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Global-Scope"><span class="nav-number">6.3.</span> <span class="nav-text">Global Scope</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Global-keyword"><span class="nav-number">6.3.1.</span> <span class="nav-text">Global keyword</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#types"><span class="nav-number">7.</span> <span class="nav-text">types</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#operators"><span class="nav-number">7.1.</span> <span class="nav-text">operators</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Integer"><span class="nav-number">7.2.</span> <span class="nav-text">Integer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string"><span class="nav-number">7.3.</span> <span class="nav-text">string</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#encoding-and-decoding"><span class="nav-number">7.3.1.</span> <span class="nav-text">encoding and decoding</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list"><span class="nav-number">7.4.</span> <span class="nav-text">list</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pack-x2F-unpack-list"><span class="nav-number">7.4.1.</span> <span class="nav-text">pack&#x2F;unpack list</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dict"><span class="nav-number">7.5.</span> <span class="nav-text">dict</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tuple"><span class="nav-number">7.6.</span> <span class="nav-text">tuple</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set"><span class="nav-number">7.7.</span> <span class="nav-text">set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#range"><span class="nav-number">7.8.</span> <span class="nav-text">range</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#convertion"><span class="nav-number">7.9.</span> <span class="nav-text">convertion</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#function"><span class="nav-number">8.</span> <span class="nav-text">function</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#flow-control"><span class="nav-number">9.</span> <span class="nav-text">flow control</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#if-x2F-elif-x2F-else"><span class="nav-number">9.1.</span> <span class="nav-text">if&#x2F;elif&#x2F;else</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#while-x2F-else"><span class="nav-number">9.2.</span> <span class="nav-text">while&#x2F;else</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-x2F-else"><span class="nav-number">9.3.</span> <span class="nav-text">for&#x2F;else</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#try-x2F-exception"><span class="nav-number">9.4.</span> <span class="nav-text">try&#x2F;exception</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#system-env"><span class="nav-number">10.</span> <span class="nav-text">system env</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#small-tips"><span class="nav-number">11.</span> <span class="nav-text">small tips</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Id-of-object"><span class="nav-number">11.1.</span> <span class="nav-text">Id of object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#None-%E2%80%9C%E2%80%9D"><span class="nav-number">11.2.</span> <span class="nav-text">None () {} [] “”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exec-eval"><span class="nav-number">11.3.</span> <span class="nav-text">exec eval</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#try-x2F-except"><span class="nav-number">11.4.</span> <span class="nav-text">try&#x2F;except</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ref"><span class="nav-number">12.</span> <span class="nav-text">ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2019/11/15/python-basics/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="python-basics | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python-basics
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-11-15 17:43:35" itemprop="dateCreated datePublished" datetime="2019-11-15T17:43:35+08:00">2019-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>Here are some basics about python3 that you should know. if your code is written with python2, convert it to python3 with <code>2to3</code> tool. </p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://sebastianraschka.com/Articles/2014_python_2_3_key_diff.html">difference between python2 and python3</a></li>
+</ul>
+<img src="https://learntocodewith.me/wp-content/uploads/2014/06/python-2-vs-3-2018.png" alt="drawing" width="300"/>
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">2to3 python2_file</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">2to3 python2_dir</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<p>You can also run your app with virtual env, so that different python applications can use different python(python2 or python3) libraries</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">sudo pip3 install virtualenv</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">(python version &gt;= 3.3)</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">python3 -m venv ~/my_app_env</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">(will copy python3 binary(default) and related libs(less) from system, my_app_env is a directory)</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="keyword">if</span> you want to inherit all system sites packages</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">python3 -m venv ~/my_app_env --system-site-packages</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash"><span class="built_in">source</span> ~/my_app_env/bin/activate</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">(<span class="built_in">set</span> python path as ~/my_app_env, run with virtual <span class="built_in">env</span>)</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">(my_new_app)$ </span><span class="language-bash">pip3 install flask</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">(will install flask at ~/my_app_env (<span class="built_in">dir</span>)!!! not system lib directory, so that each <span class="built_in">env</span> can have separate flasks)</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">(my_new_app)$</span><span class="language-bash">deactivate</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>.py, pyc, pyo</strong></p>
+<ul>
+<li>.py:  this is normal input source code that you’ve written.</li>
+<li>.pyc: this is the compiled bytecode. If you <code>import a module(python file)</code>, python will build a *.pyc file that contains the bytecode for importing to make it easier (and faster). <strong><strong>pycache</strong>&#x2F;lib.cpython-39.pyc</strong></li>
+<li>.pyo: this is a another form of *.pyc file that was created while optimizations (-O) was on.</li>
+</ul>
+<p>When the Python interpreter is invoked with the -O flag, optimized code is generated and stored in ‘.pyo’ files.</p>
+<p><font color='red' size=5>.pyo is gone, never use it</font></p>
+<p><strong>A program doesn’t run faster when it is read from a ‘.pyc’ or ‘.pyo’ file than when it is read from a ‘.py’ file</strong>,the only thing that’s <strong><code>faster about &#39;.pyc&#39; or &#39;.pyo&#39; files is the speed with which they are loaded</code></strong>.</p>
+<p><code>When a script is run by giving its name on the command line, the bytecode for the script is never written to a &#39;.pyc&#39; or &#39;.pyo&#39; file automatically</code>. Thus, the startup time of a script may be reduced by moving most of its code to a module and having a small bootstrap script that imports that module.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">generate pyc manually(pyc is generated automatically <span class="keyword">for</span> module when it<span class="string">&#x27;s imported by others)</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="string">python3 -m compileall test.py</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="string">ls __pycache__/</span></span></span><br><span class="line">test.cpython-3.9.pyc</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="string">python3 __pycache__/test.cpython-3.9.pyc</span></span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>generic methods for types</strong></p>
+<p>Each variable has a type, each type has some common methods and specific methods, here are generic rules you should know</p>
+<p><strong>methods for all types(str, list, tuple, range, dict, set)</strong></p>
+<ul>
+<li><code>dir(str)</code> to get methods of type(str) for help, or detail for a specific one <code>help(str.index)</code>.  </li>
+<li><font color='red' size='3'> item in s, item not in s, len(s), max&#x2F;min(except dict, str), for item in s(s must be iterable)</font></li>
+</ul>
+<hr>
+<p><strong>methods for sequence type(str, list, tuple, range)</strong></p>
+<ul>
+<li><font color='red' size='3'> s[i], s[i:j](not include j), s[i:j:k], s + s1, s.count(x)</font></li>
+<li><strong><code>a, b, c = s (size of s must be 3)</code></strong></li>
+<li><strong><code>call func(*s), pass each elem to func, like func(s[0], s[1], s[2])</code></strong></li>
+<li><strong>the first index of sequence is 0</strong></li>
+</ul>
+<p><font color='red' size=4>you can’t declare var with explicit type, the type of var depends on its value, can be changed at runtime!!!</font></p>
+<h1 id="naming-convention"><a href="#naming-convention" class="headerlink" title="naming convention"></a>naming convention</h1><p>python uses underscores to write <code>multiword names</code> like <code>get_name</code>, no capital letter. </p>
+<p><strong>Files</strong>  </p>
+<ul>
+<li>python follows a convention where source <code>files are all lower case with underscore separating multiple words</code>, <span style="color:red">client_log.py</span></li>
+<li>Compound file names are separated with <code>_</code></li>
+</ul>
+<p><strong>Functions and Methods</strong>  </p>
+<ul>
+<li>private functions like this <code>_do_work()</code></li>
+<li>built-in function like this <code>__init__()</code></li>
+<li>If a name consists of multiple words, should write like this <code>get_name()</code>.</li>
+<li>function names are case-sensitive (<code>car, Car and CAR</code> are three different variables).</li>
+</ul>
+<p><strong>Variables</strong></p>
+<ul>
+<li>should not include the name of your type in the name of your variable’s name, <code>tet_list</code></li>
+<li>Generally, use relatively <strong>simple (short) name(lower case), (_ underscore for multiple worlds) long var</strong>.<ul>
+<li><span style="color:red">user to u</span></li>
+<li><span style="color:red">user_id to uid</span></li>
+<li><span style="color:red">server_listener</span></li>
+<li><span style="color:red">lpcfg</span></li>
+</ul>
+</li>
+<li>If variable type is bool, its name should start with <code>has, is, can or allow</code>, etc.</li>
+<li>Single letter represents index: i, j, k</li>
+</ul>
+<p><strong>Constants</strong>  </p>
+<ul>
+<li>Constant should be <code>capitalized all letters</code>. <strong>WORLD</strong></li>
+</ul>
+<p><strong>class</strong>  </p>
+<ul>
+<li>type of class <code>should be capitalized and camel case</code> <strong>Class Person(object):</strong></li>
+<li>private function(<code>_private_f()</code>) and built-in(<code>__eq__()</code>) function can NOT be accessed!</li>
+</ul>
+<p><strong>import package</strong>  </p>
+<ul>
+<li>package(is dir with <strong>init</strong>.py under it) name should be lowercase. like <span style="color:red">import xxx.testhello</span>, xxx is package name</li>
+</ul>
+<h1 id="printing"><a href="#printing" class="headerlink" title="printing"></a>printing</h1><p>Printing is an easy way to show result, there are several ways to print variables.</p>
+<ul>
+<li>print one line</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello&quot;</span></span><br><span class="line">      <span class="string">&quot;jason&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello \</span></span><br><span class="line"><span class="string">       jason&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>print multiple lines</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello \n jason&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#x27;&#x27;hello</span></span><br><span class="line"><span class="string">      jason&#x27;&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>show one parameter at last position</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">&quot;jason&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello&quot;</span>, name) <span class="comment"># a space is added between after &#x27;hello&#x27; automatically</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello %s&quot;</span> % name) <span class="comment"># no auto added space (python2 format)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>show multiple parameters at different positions</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># position parameters</span></span><br><span class="line">msg = <span class="string">&quot;welcome&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello %s msg %s&quot;</span> % (name, msg)) <span class="comment"># python2 format</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># named parameters like &#123;0&#125; or &#123;n&#125;</span></span><br><span class="line"><span class="comment"># format index start from 0</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello &#123;0&#125;, msg &#123;1&#125;&quot;</span>.<span class="built_in">format</span>(name, msg))</span><br><span class="line"><span class="comment"># no need to write index if used with order</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello &#123;&#125;, msg &#123;&#125;&quot;</span>.<span class="built_in">format</span>(name, msg))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello &#123;1&#125;, msg &#123;0&#125;&quot;</span>.<span class="built_in">format</span>(name, msg))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello &#123;n&#125;, msg &#123;m&#125;&quot;</span>.<span class="built_in">format</span>(n=name, m=msg))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>variable can be at any position</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># print add space between different parts!!!</span></span><br><span class="line"><span class="built_in">print</span>(name, <span class="string">&quot;hi&quot;</span>) <span class="comment">#has auto added space before &#x27;hi&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(name, <span class="string">&quot;hi&quot;</span>, name) <span class="comment"># has auto added space before and after &#x27;hi&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(name, <span class="string">&quot;hi %s&quot;</span> % name) <span class="comment"># has auto added space before &#x27;hi&#x27;, python2 format</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>print with string.format()</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#123;&#123; &#123;0&#125;&#x27;</span>.<span class="built_in">format</span>(<span class="string">&#x27;hi&#x27;</span>))</span><br><span class="line"><span class="comment"># &#123;&#123; for escape</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>print with template which is less verbose than format() but need high python version</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># use var directly in template with &#123;&#125;</span></span><br><span class="line">name=<span class="string">&#x27;jason&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;hi<span class="subst">&#123;name&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># more advanced, use var and function directly!!!</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;hi<span class="subst">&#123;<span class="number">2</span>+<span class="number">3</span>&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;hi<span class="subst">&#123;fun1(name)&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Should always use ‘’.format() and f”cool{name}” which python3 style</strong></p>
+<p><a target="_blank" rel="noopener" href="https://pyformat.info/">format() details</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">name=<span class="string">&#x27;jason&#x27;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">msg</span>(<span class="params">name</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;hi &#x27;</span> + name</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;hi <span class="subst">&#123;name&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;hi <span class="subst">&#123;<span class="number">2</span>+<span class="number">3</span>&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;msg(name)&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print in one lines</span></span><br><span class="line">msg=(</span><br><span class="line">    <span class="string">&quot;hello &quot;</span></span><br><span class="line">    <span class="string">&quot;world&quot;</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(msg)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello &quot;</span></span><br><span class="line">      <span class="string">&quot;world&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello &quot;</span> + </span><br><span class="line">      <span class="string">&quot;world&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># write at different lines with \ or ()</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello \</span></span><br><span class="line"><span class="string">world&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print in multiple lines</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello \nworld&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#x27;&#x27;hello</span></span><br><span class="line"><span class="string">world&#x27;&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>hi jason
+hi 5
+hi jason
+hello world
+hello world
+hello world
+hello world
+hello 
+world
+hello
+world
+</code></pre>
+<h1 id="built-in-APIS"><a href="#built-in-APIS" class="headerlink" title="built-in APIS"></a>built-in APIS</h1><p>Python(without library) provides many methods to make it easy to use. here is a list of that.</p>
+<ul>
+<li><strong>Complex</strong><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c1 = <span class="number">4</span> + <span class="number">3j</span></span><br><span class="line">c2 = <span class="built_in">complex</span>(<span class="number">4</span>, <span class="number">3</span>)</span><br><span class="line">c1*c2</span><br></pre></td></tr></table></figure></li>
+<li><strong>Built-in function</strong><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pow</span>(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="built_in">divmod</span>(<span class="number">8</span>, <span class="number">4</span>) <span class="comment"># result: (2, 0)</span></span><br><span class="line"><span class="built_in">abs</span>(-<span class="number">12</span>)</span><br><span class="line"><span class="built_in">sum</span>([<span class="number">1</span>,<span class="number">2</span>]) <span class="built_in">sum</span>([<span class="literal">False</span>, <span class="literal">True</span>])</span><br><span class="line"><span class="built_in">max</span>([<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line"><span class="built_in">min</span>([<span class="number">1</span>,<span class="number">2</span>])</span><br><span class="line"><span class="built_in">round</span>(<span class="number">3.23</span>, <span class="number">1</span>) <span class="comment"># return 3.2</span></span><br><span class="line"><span class="built_in">round</span>(<span class="number">3.26</span>, <span class="number">1</span>) <span class="comment"># return 3.3</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>built-in modules</strong><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line">math.pi</span><br><span class="line">math.sin()</span><br><span class="line">math.cos()</span><br><span class="line">math.<span class="built_in">pow</span>()</span><br><span class="line">math.log2()</span><br><span class="line">math.ceil(<span class="number">2.1</span>) == <span class="number">3</span>   <span class="comment"># rounds up to close integer</span></span><br><span class="line">math.floor(<span class="number">2.1</span>) == <span class="number">2</span>  <span class="comment"># rounds down to close integer</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>assert</strong><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span></span><br><span class="line"><span class="keyword">assert</span> a, <span class="string">&#x27;bad value&#x27;</span>  <span class="comment"># assert true, never raise exception.</span></span><br><span class="line"><span class="keyword">assert</span> <span class="number">0</span>, <span class="string">&#x27;bad value&#x27;</span>  <span class="comment"># assert fail, exception with msg &#x27;bad value&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>argv</strong><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(sys.argv) <span class="comment"># argv is list that includes the app name and parameter</span></span><br><span class="line"><span class="comment"># ./app.py -f xx.text</span></span><br><span class="line"><span class="comment"># sys.argv = [&#x27;./app.py&#x27;, &#x27;-f&#x27;, &#x27;xx.text&#x27;]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="constants"><a href="#constants" class="headerlink" title="constants"></a>constants</h1><ul>
+<li>Python doesn’t have built-in constant types.</li>
+<li>By convention, <strong>Python uses a variable whose name contains all capital letters to define a constant.</strong></li>
+</ul>
+<p><strong>NOTE: someone can go and change the value, even it’s unlikely but possible.</strong></p>
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">MY_CONSTANT = <span class="string">&quot;Whatever&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># trick way</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CONST</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    FOO = <span class="number">1234</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__setattr__</span>(<span class="params">self, *_</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">CONST = CONST()</span><br><span class="line"><span class="built_in">print</span> CONST.FOO    <span class="comment"># 1234</span></span><br><span class="line"></span><br><span class="line">CONST.FOO = <span class="number">4321</span></span><br><span class="line">CONST.BAR = <span class="number">5678</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> CONST.FOO    <span class="comment"># Still 1234!</span></span><br><span class="line"><span class="built_in">print</span> CONST.BAR    <span class="comment"># Oops AttributeError</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># or this way</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Const</span>:</span><br><span class="line"><span class="meta">  @property</span></span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">FOO</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;foo&quot;</span></span><br><span class="line"></span><br><span class="line">CONST = Const()  <span class="comment"># You need an instance</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> something == CONST.FOO:</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="variable"><a href="#variable" class="headerlink" title="variable"></a>variable</h1><p>A variable is a label or a name given to a certain location in memory. This location holds the value you want your program to remember for use later on. What’s great in Python is that you do not have to explicitly state what the type of variable you want to define is - it can be of any type (string, integer, float, list, dict etc.). To create a new variable in Python, you simply use the assignment operator (&#x3D;, a single equals sign) and assign the desired value to it, its type is determined by its value, but if you change the value, the type can be changed as well.</p>
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">first_string_var = <span class="string">&quot;First String&quot;</span>  </span><br><span class="line">first_int_var = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">total = <span class="number">1</span> + <span class="number">2</span> * <span class="number">3</span></span><br><span class="line">total = <span class="string">&quot;hello&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Local-Scope"><a href="#Local-Scope" class="headerlink" title="Local Scope"></a>Local Scope</h2><p>A variable created inside a function belongs to the local scope of that function, and can only be used inside that function.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">print_number</span>():</span><br><span class="line">    first_num = <span class="number">1</span></span><br><span class="line">    <span class="comment"># Print statement 1</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;The first number defined is:&quot;</span>, first_num)</span><br><span class="line"></span><br><span class="line">print_number()</span><br></pre></td></tr></table></figure>
+
+<pre><code>The first number defined is: 1
+</code></pre>
+<h2 id="Enclosing-Scope"><a href="#Enclosing-Scope" class="headerlink" title="Enclosing Scope"></a>Enclosing Scope</h2><p>Inner function can access var defined in outer function directly, while the <code>reverse direction is not allowed.</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">outer</span>():</span><br><span class="line">    first_num = <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>():</span><br><span class="line">        second_num = <span class="number">2</span></span><br><span class="line">        <span class="comment"># Print statement 1 - Scope: Inner</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;first_num from outer:&quot;</span>, first_num)</span><br><span class="line">        <span class="comment"># Print statement 2 - Scope: Inner</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;second_num from inner:&quot;</span>, second_num)</span><br><span class="line">    inner()</span><br><span class="line">    <span class="comment"># Print statement 3 - Scope: Outer</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># this will cause error if uncommented</span></span><br><span class="line">    <span class="comment"># print(&quot;second_num from inner: &quot;, second_num)</span></span><br><span class="line"></span><br><span class="line">outer()</span><br></pre></td></tr></table></figure>
+
+<pre><code>first_num from outer: 1
+second_num from inner: 2
+</code></pre>
+<h3 id="nolocal-keyword"><a href="#nolocal-keyword" class="headerlink" title="nolocal keyword"></a>nolocal keyword</h3><p>The nonlocal keyword is useful in nested functions. <code>It causes the variable to refer to the previously bound variable in the closest enclosing scope</code>. In other words, it will prevent the variable from trying to bind locally first,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">outer</span>():</span><br><span class="line">    first_num = <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>():</span><br><span class="line">        <span class="comment"># try without nonlocal</span></span><br><span class="line">        <span class="comment"># without nonlocal, you can still access first_num, but if you modify it, a new local variable is defined</span></span><br><span class="line">        <span class="keyword">nonlocal</span> first_num</span><br><span class="line">        first_num = <span class="number">0</span></span><br><span class="line">        second_num = <span class="number">1</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;inner - second_num is:&quot;</span>, second_num)</span><br><span class="line">        </span><br><span class="line">    inner()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;outer - first_num is:&quot;</span>, first_num)</span><br><span class="line"></span><br><span class="line">outer()</span><br></pre></td></tr></table></figure>
+
+<pre><code>inner - second_num is: 1
+outer - first_num is: 0
+</code></pre>
+<h2 id="Global-Scope"><a href="#Global-Scope" class="headerlink" title="Global Scope"></a>Global Scope</h2><p>A variable created in the main body of the Python code is a global variable and belongs to the global scope.</p>
+<p><code>Global variables are available from any scope, global and local.</code></p>
+<p>If you need to create a global variable, but are stuck in the local scope, you can use the <code>global</code> keyword.</p>
+<p>The global keyword makes the variable global.</p>
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">gb</span>(<span class="params">new_greeting</span>):</span><br><span class="line">    <span class="comment"># define a global variable from a function.</span></span><br><span class="line">    <span class="keyword">global</span> gt</span><br><span class="line">    gt = new_greeting</span><br><span class="line">    </span><br><span class="line">gb(<span class="string">&quot;cool&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(gt)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">greeting = <span class="string">&quot;Hello&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">greeting_world</span>():</span><br><span class="line">    world = <span class="string">&quot;World&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(greeting, world)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">greeting_name</span>(<span class="params">name</span>):</span><br><span class="line">    <span class="built_in">print</span>(greeting, name)</span><br><span class="line"></span><br><span class="line">greeting_world()</span><br><span class="line">greeting_name(<span class="string">&quot;Samuel&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Hello World
+Hello Samuel
+</code></pre>
+<h3 id="Global-keyword"><a href="#Global-keyword" class="headerlink" title="Global keyword"></a>Global keyword</h3><p>To change the value of a global variable inside a function, refer to the variable by using the <code>global keyword</code>, it’s similar like <code>nolocal</code> keyword.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">greeting = <span class="string">&quot;Hello&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">change_greeting</span>(<span class="params">new_greeting</span>):</span><br><span class="line">    <span class="comment"># try without it</span></span><br><span class="line">    <span class="keyword">global</span> greeting</span><br><span class="line">    greeting = new_greeting</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">greeting_world</span>():</span><br><span class="line">    world = <span class="string">&quot;World&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(greeting, world)</span><br><span class="line"></span><br><span class="line">change_greeting(<span class="string">&quot;Hi&quot;</span>)</span><br><span class="line">greeting_world()</span><br></pre></td></tr></table></figure>
+
+<pre><code>Hi World
+</code></pre>
+<h1 id="types"><a href="#types" class="headerlink" title="types"></a>types</h1><h2 id="operators"><a href="#operators" class="headerlink" title="operators"></a>operators</h2><p><strong>Arithmetic operators</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="left">Meaning</th>
+<th align="left">Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">+</td>
+<td align="left">Add two operands or unary plus</td>
+<td align="left">x + y+ 2</td>
+</tr>
+<tr>
+<td align="left">-</td>
+<td align="left">Subtract right operand from the left or unary minus</td>
+<td align="left">x - y- 2</td>
+</tr>
+<tr>
+<td align="left">*</td>
+<td align="left">Multiply two operands</td>
+<td align="left">x * y</td>
+</tr>
+<tr>
+<td align="left">&#x2F;</td>
+<td align="left">Divide left operand by the right one (always results into float)</td>
+<td align="left">x &#x2F; y</td>
+</tr>
+<tr>
+<td align="left">%</td>
+<td align="left">Modulus - remainder of the division of left operand by the right</td>
+<td align="left">x % y (remainder of x&#x2F;y)</td>
+</tr>
+<tr>
+<td align="left">&#x2F;&#x2F;</td>
+<td align="left">Floor division - division that results into whole number adjusted to the left in the number line</td>
+<td align="left">x &#x2F;&#x2F; y</td>
+</tr>
+<tr>
+<td align="left">**</td>
+<td align="left">Exponent - left operand raised to the power of right</td>
+<td align="left">x**y (x to the power y)</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>Comparison operators</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="left">Meaning</th>
+<th align="left">Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">&gt;</td>
+<td align="left">Greater than - True if left operand is greater than the right</td>
+<td align="left">x &gt; y</td>
+</tr>
+<tr>
+<td align="left">&lt;</td>
+<td align="left">Less than - True if left operand is less than the right</td>
+<td align="left">x &lt; y</td>
+</tr>
+<tr>
+<td align="left">&#x3D;&#x3D;</td>
+<td align="left">Equal to - True if both operands are equal</td>
+<td align="left">x &#x3D;&#x3D; y</td>
+</tr>
+<tr>
+<td align="left">!&#x3D;</td>
+<td align="left">Not equal to - True if operands are not equal</td>
+<td align="left">x !&#x3D; y</td>
+</tr>
+<tr>
+<td align="left">&gt;&#x3D;</td>
+<td align="left">Greater than or equal to - True if left operand is greater than or equal to the right</td>
+<td align="left">x &gt;&#x3D; y</td>
+</tr>
+<tr>
+<td align="left">&lt;&#x3D;</td>
+<td align="left">Less than or equal to - True if left operand is less than or equal to the right</td>
+<td align="left">x &lt;&#x3D; y</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>Logical operators</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="left">Meaning</th>
+<th align="left">Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">and</td>
+<td align="left">True if both the operands are true</td>
+<td align="left">x and y</td>
+</tr>
+<tr>
+<td align="left">or</td>
+<td align="left">True if either of the operands is true</td>
+<td align="left">x or y</td>
+</tr>
+<tr>
+<td align="left">not</td>
+<td align="left">True if operand is false (complements the operand)</td>
+<td align="left">not x</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>Bitwise operators</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="left">Meaning</th>
+<th align="left">Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">&amp;</td>
+<td align="left">Bitwise AND</td>
+<td align="left">x &amp; y &#x3D; 0 (0000 0000)</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">Bitwise OR</td>
+</tr>
+<tr>
+<td align="left">~</td>
+<td align="left">Bitwise NOT</td>
+<td align="left">~x &#x3D; -11 (1111 0101)</td>
+</tr>
+<tr>
+<td align="left">^</td>
+<td align="left">Bitwise XOR</td>
+<td align="left">x ^ y &#x3D; 14 (0000 1110)</td>
+</tr>
+<tr>
+<td align="left">&gt;&gt;</td>
+<td align="left">Bitwise right shift</td>
+<td align="left">x &gt;&gt; 2 &#x3D; 2 (0000 0010)</td>
+</tr>
+<tr>
+<td align="left">&lt;&lt;</td>
+<td align="left">Bitwise left shift</td>
+<td align="left">x &lt;&lt; 2 &#x3D; 40 (0010 1000)</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>Assignment operators</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="left">Example</th>
+<th align="left">Equivalent to</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">&#x3D;</td>
+<td align="left">x &#x3D; 5</td>
+<td align="left">x &#x3D; 5</td>
+</tr>
+<tr>
+<td align="left">+&#x3D;</td>
+<td align="left">x +&#x3D; 5</td>
+<td align="left">x &#x3D; x + 5</td>
+</tr>
+<tr>
+<td align="left">-&#x3D;</td>
+<td align="left">x -&#x3D; 5</td>
+<td align="left">x &#x3D; x - 5</td>
+</tr>
+<tr>
+<td align="left">*&#x3D;</td>
+<td align="left">x *&#x3D; 5</td>
+<td align="left">x &#x3D; x * 5</td>
+</tr>
+<tr>
+<td align="left">&#x2F;&#x3D;</td>
+<td align="left">x &#x2F;&#x3D; 5</td>
+<td align="left">x &#x3D; x &#x2F; 5</td>
+</tr>
+<tr>
+<td align="left">%&#x3D;</td>
+<td align="left">x %&#x3D; 5</td>
+<td align="left">x &#x3D; x % 5</td>
+</tr>
+<tr>
+<td align="left">&#x2F;&#x2F;&#x3D;</td>
+<td align="left">x &#x2F;&#x2F;&#x3D; 5</td>
+<td align="left">x &#x3D; x &#x2F;&#x2F; 5</td>
+</tr>
+<tr>
+<td align="left">**&#x3D;</td>
+<td align="left">x **&#x3D; 5</td>
+<td align="left">x &#x3D; x ** 5</td>
+</tr>
+<tr>
+<td align="left">&amp;&#x3D;</td>
+<td align="left">x &amp;&#x3D; 5</td>
+<td align="left">x &#x3D; x &amp; 5</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">&#x3D;</td>
+<td align="left">x</td>
+</tr>
+<tr>
+<td align="left">^&#x3D;</td>
+<td align="left">x ^&#x3D; 5</td>
+<td align="left">x &#x3D; x ^ 5</td>
+</tr>
+<tr>
+<td align="left">&gt;&gt;&#x3D;</td>
+<td align="left">x &gt;&gt;&#x3D; 5</td>
+<td align="left">x &#x3D; x &gt;&gt; 5</td>
+</tr>
+<tr>
+<td align="left">&lt;&lt;&#x3D;</td>
+<td align="left">x &lt;&lt;&#x3D; 5</td>
+<td align="left">x &#x3D; x &lt;&lt; 5</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>Membership operators</strong></p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Meaning</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>in</td>
+<td>True if value&#x2F;variable is found in the sequence</td>
+<td>5 in x</td>
+</tr>
+<tr>
+<td>not in</td>
+<td>True if value&#x2F;variable is not found in the sequence</td>
+<td>5 not in x</td>
+</tr>
+</tbody></table>
+<hr>
+<p>NOTE: <strong><font color='red'>+, &#x3D;&#x3D;, !&#x3D; works for tuple, list, string as well.</font></strong></p>
+<h2 id="Integer"><a href="#Integer" class="headerlink" title="Integer"></a>Integer</h2><p>Integer supports most operators like C but with less difference, here are the operators it supports.</p>
+<ul>
+<li>+, -, *, &#x2F;, &#x2F;&#x2F;</li>
+<li>**, %<font color='red' size='3'></li>
+<li><strong>x or y (C ||), x and y (C &amp;&amp;), not x (C !)</strong></font></li>
+<li>&lt;, &lt;&#x3D;, &gt;, &gt;&#x3D;, &#x3D;&#x3D;, !&#x3D;</li>
+<li>x | y, x &amp; y, x ^ y, x &gt;&gt; y, x &lt;&lt; y</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">integer_demo</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;convert str to int int(&#x27;12&#x27;) =&quot;</span>, <span class="built_in">int</span>(<span class="string">&#x27;12&#x27;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;convert int to string str(12) =&quot;</span>, <span class="built_in">str</span>(<span class="number">12</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;// only remains interger 5//1.5=&quot;</span>, <span class="number">5</span>//<span class="number">1.5</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;/  result is float 1/2=&quot;</span>, <span class="number">1</span>/<span class="number">2</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;2**3 =&quot;</span>, <span class="number">2</span>**<span class="number">3</span>) <span class="comment"># like pow(2,3)</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;8%4 =&quot;</span>, <span class="number">8</span> % <span class="number">4</span>) <span class="comment"># result: 0 while divmod(8,4)=(2,0)</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">integer_demo()</span><br></pre></td></tr></table></figure>
+
+<pre><code>convert str to int int(&#39;12&#39;) = 12
+convert int to string str(12) = 12
+// only remains interger 5//1.5= 3.0
+/  result is float 1/2= 0.5
+2**3 = 8
+8%4 = 0
+</code></pre>
+<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p><code>string</code> is a kind of sequence, like <code>list, tuple</code>, but <code>its content can&#39;t be modified in place</code>, in order to change its content, you must create a new one. </p>
+<p><font color='red'>no char type in python, that means ‘’ and “” has the same meaning</font></p>
+<hr>
+<p><strong>Create a string</strong></p>
+<ul>
+<li>s &#x3D; “hello”</li>
+<li>s &#x3D; ‘hello’</li>
+<li>s &#x3D; “hi” + “world”</li>
+<li><code>s = r&#39;hello\nworld&#39; # raw literal string now \n is a normal char!!</code></li>
+</ul>
+<hr>
+<p><strong>Ops</strong></p>
+<ul>
+<li>index from 0, last index -1</li>
+<li>len(str), no \0 is there but we count in C.</li>
+<li>count(), index(), isdigit(), islower(), lower(), isupper(), upper(), isspace(), join(), replace(), find(), split(), splitlines(), strip()</li>
+<li><code>str.strip(&#39;hy&#39;)</code> will strip <strong>h or y both from right and left not hy as a whole</strong></li>
+<li>index() and find() return same if found(index), otherwise, <code>exception ValueError for index, -1 returned for find()</code></li>
+<li>slicing [2:5], [2:], [:5], [2:-1] all with default step 1 from left to right</li>
+<li>slicing with steps, [2:5:2] ([start:end:step])</li>
+<li>[::-1](reverse the string)</li>
+<li><code>&quot;hello&quot;.xxx() all such methods do NOT support regular pattern</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">str_demo</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;raw string r\&quot;a\\nb\&quot; = &quot;</span>, <span class="string">r&quot;a\nb&quot;</span>)</span><br><span class="line">    <span class="comment"># very useful when use re as regular pattern may contain special char to python</span></span><br><span class="line">    <span class="comment"># use r before a string to suppress(r means raw literal)</span></span><br><span class="line"></span><br><span class="line">    s1 = <span class="string">&quot;hello boy&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;str=&#x27;hello boy&#x27;&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;reverse s1 by s1[::-1]=&quot;</span>, s1[::-<span class="number">1</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;count sub words, str.count(&#x27;o&#x27;) =&quot;</span>, s1.count(<span class="string">&#x27;o&#x27;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;first element index 0, str[0] =&quot;</span>, s1[<span class="number">0</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;last element index: str[-1] =&quot;</span>, s1[-<span class="number">1</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;not include \\0 len(str) =&quot;</span>, <span class="built_in">len</span>(s1))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;a:b means [a, b)  str[:-1] =&quot;</span>, s1[:-<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        s1[<span class="number">2</span>] = <span class="string">&#x27;a&#x27;</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;can&#x27;t change the content of a string by str[2] = &#x27;a&#x27;&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;create a copy of str by str[:]!&quot;</span>)</span><br><span class="line">    <span class="comment"># newstr = s1[:]#a copy a str.</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;str is: &quot;</span> + s1)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;s1.startswith(&quot;hello&quot;) =&#x27;</span>, s1.startswith(<span class="string">&quot;hello&quot;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;s1.endswith(&quot;bo&quot;) =&#x27;</span>, s1.endswith(<span class="string">&quot;bo&quot;</span>))</span><br><span class="line">    <span class="keyword">if</span> s1.isdigit():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;str is digital&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> s1.islower():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;str is lower&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> s1.isupper():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;str is upper&#x27;</span>)</span><br><span class="line">    <span class="keyword">elif</span> s1.isspace():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;str is space&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;str is&quot;</span>, s1)</span><br><span class="line"></span><br><span class="line">    idx = s1.find(<span class="string">&quot;hello&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> idx != -<span class="number">1</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;find hello at %d in : %s&quot;</span> % (idx, s1))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;replace boy with girl, new str is: &quot;</span> + s1.replace(<span class="string">&quot;boy&quot;</span>, <span class="string">&quot;girl&quot;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;splitlines() == split(&#x27;\\n&#x27;), split() will return a list, but s1 is unchanged s1 = %s s1.split(&#x27; &#x27;) = %s&quot;</span> % (s1, s1.split(<span class="string">&#x27; &#x27;</span>)))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;&#x27;&#x27;strip() removes characters(whitespace by default)</span></span><br><span class="line"><span class="string">             from both left and right based on the argument set of character</span></span><br><span class="line"><span class="string">             while rstrip() only from right&#x27;&#x27;&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;before strip str =&quot;</span>, s1)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;after strip(&#x27;hy&#x27;) str =&quot;</span>, s1.strip(<span class="string">&#x27;hy&#x27;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;join() join each elem in an iterable object with character provided, &#x27;-&#x27;&#x27;.join(&#x27;hello&#x27;) =&quot;</span>, <span class="string">&#x27;-&#x27;</span>.join(<span class="string">&quot;hello&quot;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&#x27;-&#x27;.join([&#x27;hello&#x27;, &#x27;boy&#x27;] =&quot;</span>, <span class="string">&#x27;-&#x27;</span>.join([<span class="string">&quot;hello&quot;</span>, <span class="string">&quot;boy&quot;</span>]))</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str_demo()</span><br></pre></td></tr></table></figure>
+
+<pre><code>raw string r&quot;a\nb&quot; =  a\nb
+str=&#39;hello boy&#39;
+reverse s1 by s1[::-1]= yob olleh
+count sub words, str.count(&#39;o&#39;) = 2
+first element index 0, str[0] = h
+last element index: str[-1] = y
+not include \0 len(str) = 9
+a:b means [a, b)  str[:-1] = hello bo
+can&#39;t change the content of a string by str[2] = &#39;a&#39;
+create a copy of str by str[:]!
+str is: hello boy
+s1.startswith(&quot;hello&quot;) = True
+s1.endswith(&quot;bo&quot;) = False
+str is lower
+find hello at 0 in : hello boy
+replace boy with girl, new str is: hello girl
+splitlines() == split(&#39;\n&#39;), split() will return a list, but s1 is unchanged s1 = hello boy s1.split(&#39; &#39;) = [&#39;hello&#39;, &#39;boy&#39;]
+strip() removes characters(whitespace by default)
+             from both left and right based on the argument set of character
+             while rstrip() only from right
+before strip str = hello boy
+after strip(&#39;hy&#39;) str = ello bo
+join() join each elem in an iterable object with character provided, &#39;-&#39;&#39;.join(&#39;hello&#39;) = h-e-l-l-o
+&#39;-&#39;.join([&#39;hello&#39;, &#39;boy&#39;] = hello-boy
+</code></pre>
+<h3 id="encoding-and-decoding"><a href="#encoding-and-decoding" class="headerlink" title="encoding and decoding"></a>encoding and decoding</h3><p>Python3’s str type is meant to represent human-readable text and can <code>contain any Unicode character</code>.</p>
+<p>The <code>bytes type</code>, conversely, represents <code>binary data or sequences of raw bytes</code>, that do not intrinsically have an encoding attached to it.</p>
+<img src="https://files.realpython.com/media/encode-decode.3e665ad9b455.png" width=380>
+
+
+<p>Python 3 is all-in on Unicode and UTF-8 specifically. Here is what that means:</p>
+<ul>
+<li><p>Python 3 source code is assumed to be UTF-8 by default. This means that <strong>you don’t need # -<em>- coding: UTF-8 -</em>- at the top of .py files in Python 3.</strong></p>
+</li>
+<li><p>All text <code>(str) is Unicode by default</code>. Encoded Unicode text is represented as binary data in memory (bytes). The str type can contain any literal Unicode character, such as “Δv &#x2F; Δt”, all of which will be stored as Unicode.</p>
+</li>
+<li><p>Python’s re module defaults to the re.UNICODE flag rather than re.ASCII. This means, for instance, that r”\w” matches Unicode word characters, not just ASCII letters.</p>
+</li>
+<li><p>The default encoding&#x2F;decoding in <code>str.encode() and bytes.decode() is UTF-8.</code></p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The length of a single Unicode character as a Python str will always be 1</span></span><br><span class="line"><span class="comment"># no matter how many bytes it occupies.</span></span><br><span class="line"><span class="comment"># The length of the same character encoded to bytes</span></span><br><span class="line"><span class="comment"># will be anywhere between 1 and 4.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">encode</span>():</span><br><span class="line">    ibrow = <span class="string">&quot;🤨&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;len of character:&#x27;</span>, <span class="built_in">len</span>(ibrow))</span><br><span class="line">    bs = ibrow.encode(<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;encoded with utf-8:&#x27;</span>, bs)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;len of bytes:&#x27;</span>, <span class="built_in">len</span>(bs))</span><br><span class="line">    </span><br><span class="line">encode()</span><br></pre></td></tr></table></figure>
+
+<pre><code>len of character: 1
+encoded with utf-8: b&#39;\xf0\x9f\xa4\xa8&#39;
+len of bytes: 4
+</code></pre>
+<h2 id="list"><a href="#list" class="headerlink" title="list"></a>list</h2><p>List is a sequence, <code>element can be any type even for the a list. but for sort() method it requires same type of all elements</code>.</p>
+<hr>
+<p><strong>To create a list</strong></p>
+<ul>
+<li>lv &#x3D; list()</li>
+<li><strong>lv &#x3D; [], lv &#x3D;&#x3D; [] True, len(lv)&#x3D;&#x3D;0</strong></li>
+<li>lv &#x3D; <strong>[1, 2]</strong></li>
+<li>lv &#x3D; list(‘abc’) same as lv &#x3D; [‘a’, ‘b’, ‘c’]</li>
+<li>lv &#x3D; list(dt.items()), dt&#x3D;{‘a’:1} same as  lv&#x3D;[(‘a’, 1)]</li>
+<li>lv &#x3D; list(range(3)) same as  lv &#x3D; [0, 1, 2]</li>
+<li>lv &#x3D; <strong>[1, ‘a’, False, [3, 4]]</strong></li>
+<li>lv &#x3D; [1] * 3 same as [1, 1, 1]</li>
+<li><strong>lv &#x3D; old[:] # shadow copy, only the top level is copied</strong></li>
+<li><code>lv = [val+10 for val in arr if val &gt;= 0]</code></li>
+</ul>
+<hr>
+<p><strong>Ops</strong></p>
+<ul>
+<li>append(value), count(value), extend(iterable), index(value, start&#x3D;None, stop&#x3D;None), insert(index, value), pop(index&#x3D;None)(default from last), remove(value), reverse(), sort(key&#x3D;None, reverse&#x3D;False)</li>
+<li>sort() needs all elements have the same type.</li>
+<li><code>for i in range(len(lt)): lt[i]</code></li>
+<li><code>for elem in lt: print(elem)</code></li>
+<li><code>for i in range(len(lt) - 1, -1, -1):lt[i]</code> loop from last</li>
+</ul>
+<hr>
+<p><strong>Note</strong></p>
+<ul>
+<li>reverse() and sort() are <code>in place methods</code>.</li>
+<li>if you pass a list to a function, modification in that function of the list will take place in original</li>
+<li>pop() from last by default —-&gt; pop(0) pop from head.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> copy</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">list_demo</span>():</span><br><span class="line">    la = [<span class="string">&#x27;1&#x27;</span>, <span class="number">5</span>, [<span class="number">3</span>, <span class="number">4</span>], <span class="number">2</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;list element can be any type: &quot;</span>, la)</span><br><span class="line">    la.append(<span class="number">6</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;append only take one element, after list.append(6): &quot;</span>, la)</span><br><span class="line"></span><br><span class="line">    la.extend([<span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;after list.extend([3,4]) = &quot;</span>, la)</span><br><span class="line">    la.insert(<span class="number">1</span>, <span class="number">10</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;after insert 10 at index 1, the previous index 1 move back, list.insert(1,10): &quot;</span>, la)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># la.pop() remove the last</span></span><br><span class="line">    <span class="comment"># la.pop(0) remove the first one</span></span><br><span class="line">    </span><br><span class="line">    la.pop(<span class="number">2</span>) <span class="comment"># same as del la[2] here 2 is index</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;after pop() value at index 2, list=: &quot;</span>, la)</span><br><span class="line">    la.remove(<span class="number">2</span>) <span class="comment"># here 2 is value</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;after remove() element whose value is 2,\</span></span><br><span class="line"><span class="string">           list.remove(2) now list is: &quot;</span>, la)</span><br><span class="line"></span><br><span class="line">    lt = [<span class="number">2</span>, <span class="number">1</span>, <span class="number">4</span>]</span><br><span class="line">    <span class="comment"># please note: to sort, make sure all elements has the same type!!!</span></span><br><span class="line">    lt.sort() <span class="comment"># take in place!!!</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;[2, 1, 4] after sorted , now lt is %s&quot;</span>,lt)</span><br><span class="line">    lt.reverse()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;list.reverse() after reverse now list is: &quot;</span>, lt)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># loop list with index</span></span><br><span class="line">    <span class="keyword">for</span> index, value <span class="keyword">in</span> <span class="built_in">enumerate</span>(lt):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;with index&quot;</span>, (index, value))</span><br><span class="line">    <span class="comment"># another way to loop list with index</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(lt)):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;with index:&quot;</span>, i, lt[i])</span><br><span class="line">    <span class="keyword">for</span> e <span class="keyword">in</span> lt:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;without index:&quot;</span>,e)</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;reverse loop: &#x27;</span>)</span><br><span class="line">    <span class="comment"># loop list from end to start</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(lt) - <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">        <span class="built_in">print</span>(i, lt[i])</span><br><span class="line">    <span class="comment"># shadow copy, only the top level is copied</span></span><br><span class="line">    la = [<span class="string">&#x27;1&#x27;</span>, <span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>], <span class="number">6</span>]</span><br><span class="line">    cla = la[:]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;shadow copy la: %s, cla: %s&quot;</span> %(la, cla))</span><br><span class="line">    cla[<span class="number">1</span>] += <span class="number">10</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;cla[1] += 10, now la:&quot;</span>,la)</span><br><span class="line">    cla[<span class="number">2</span>].append(<span class="number">5</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;cla[2].append(5), la changes as well la:&quot;</span>,la)</span><br><span class="line">    </span><br><span class="line">    la = [<span class="string">&#x27;1&#x27;</span>, <span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>], <span class="number">6</span>]</span><br><span class="line">    dla = copy.deepcopy(la)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;*&quot;</span>*<span class="number">60</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;deep copy la: %s, dla: %s&quot;</span> %(la, dla))</span><br><span class="line">    dla[<span class="number">1</span>] += <span class="number">10</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;dla[1] += 10, now la:&quot;</span>,la)</span><br><span class="line">    dla[<span class="number">2</span>].append(<span class="number">5</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;dla[2].append(5), la changes as well la:&quot;</span>,la)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list_demo()</span><br></pre></td></tr></table></figure>
+
+<pre><code>list element can be any type:  [&#39;1&#39;, 5, [3, 4], 2]
+append only take one element, after list.append(6):  [&#39;1&#39;, 5, [3, 4], 2, 6]
+after list.extend([3,4]) =  [&#39;1&#39;, 5, [3, 4], 2, 6, 3, 4]
+after insert 10 at index 1, the previous index 1 move back, list.insert(1,10):  [&#39;1&#39;, 10, 5, [3, 4], 2, 6, 3, 4]
+after pop() value at index 2, list=:  [&#39;1&#39;, 10, [3, 4], 2, 6, 3, 4]
+after remove() element whose value is 2,           list.remove(2) now list is:  [&#39;1&#39;, 10, [3, 4], 6, 3, 4]
+[2, 1, 4] after sorted , now lt is %s [1, 2, 4]
+list.reverse() after reverse now list is:  [4, 2, 1]
+with index (0, 4)
+with index (1, 2)
+with index (2, 1)
+with index: 0 4
+with index: 1 2
+with index: 2 1
+without index: 4
+without index: 2
+without index: 1
+reverse loop: 
+2 1
+1 2
+0 4
+shadow copy la: [&#39;1&#39;, 2, [3, 4], 6], cla: [&#39;1&#39;, 2, [3, 4], 6]
+cla[1] += 10, now la: [&#39;1&#39;, 2, [3, 4], 6]
+cla[2].append(5), la changes as well la: [&#39;1&#39;, 2, [3, 4, 5], 6]
+************************************************************
+deep copy la: [&#39;1&#39;, 2, [3, 4], 6], dla: [&#39;1&#39;, 2, [3, 4], 6]
+dla[1] += 10, now la: [&#39;1&#39;, 2, [3, 4], 6]
+dla[2].append(5), la changes as well la: [&#39;1&#39;, 2, [3, 4], 6]
+</code></pre>
+<h3 id="pack-x2F-unpack-list"><a href="#pack-x2F-unpack-list" class="headerlink" title="pack&#x2F;unpack list"></a>pack&#x2F;unpack list</h3><p>unpack list to separate elements, while pack from separate elements to a list, this is mostly used for parameter passing.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">list_unpack_pack</span>():</span><br><span class="line">    <span class="comment"># unpack, must have the same elements number</span></span><br><span class="line">    a, b, c = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">    a, *e = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test_unpack</span>(<span class="params">a, b, c</span>):</span><br><span class="line">        <span class="built_in">print</span>(a, b, c)</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># *list in call to unpack list</span></span><br><span class="line">    test_unpack(*[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]) <span class="comment"># same element numbers</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># *list in definition to pack separate ones.</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test_pack</span>(<span class="params">*lt</span>):</span><br><span class="line">        <span class="built_in">print</span>(lt)</span><br><span class="line">    test_pack(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">    </span><br><span class="line">list_unpack_pack()</span><br></pre></td></tr></table></figure>
+
+<pre><code>1 2 3
+(1, 2, 3)
+</code></pre>
+<h2 id="dict"><a href="#dict" class="headerlink" title="dict"></a>dict</h2><p>dict is not sequence type, but we can <code>convert dict to a list</code>.</p>
+<hr>
+<p><strong>to create a dict</strong></p>
+<ul>
+<li>dt &#x3D; {}</li>
+<li>dt &#x3D; dict()</li>
+<li>dt &#x3D; <strong>{“a”:1, “b”:2}</strong></li>
+<li>lt &#x3D; [(‘a’, 1), (‘b’, 2)] dt &#x3D; dict(lt)</li>
+</ul>
+<p><font color='red'>key without <code>&#39;&#39; or &quot;&quot;</code>, treated as variable if not literal must define it firstly</font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># both are valid, but key 2 and &#x27;2&#x27; are different keys!!!!</span></span><br><span class="line">dt = &#123;<span class="number">2</span>: <span class="number">1</span>&#125;</span><br><span class="line">dt = &#123;<span class="string">&#x27;2&#x27;</span>: <span class="number">1</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># must define var a firstly!!!, otherwise error!!!</span></span><br><span class="line">dt = &#123;a: <span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>Ops</strong></p>
+<ul>
+<li><code>dt[newkey] = 12(add a new element)</code></li>
+<li><code>dt[key] (exception if no key), dt.key NOT support it s only valid for class</code></li>
+<li><code>dt.get(key, default=None)</code></li>
+<li>dt.pop(key, default&#x3D;None) # get its value and pop it.</li>
+<li>del dt[key] # only delete it.</li>
+<li>dt.keys()</li>
+<li>dt.values()</li>
+<li><code>dt.items() # each element is a tuple</code></li>
+<li>dt.update(another_dict) # <code>extend a dict or update existing elem</code></li>
+<li><code>dt.copy() # shallow copy!!!</code></li>
+<li>dt.clear() # reset dict</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dict_demo</span>():</span><br><span class="line">    dt = &#123;<span class="string">&quot;a&quot;</span>: <span class="number">1</span>, <span class="string">&quot;b&quot;</span>: <span class="number">2</span>&#125;</span><br><span class="line">    <span class="comment"># different with list as list is []</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;dict now is:&quot;</span>, dt)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># add an element</span></span><br><span class="line">    dt[<span class="string">&#x27;c&#x27;</span>] = <span class="number">3</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;add dt[&#x27;c&#x27;] = 3 now dt is:&quot;</span>, dt)</span><br><span class="line">    dt[<span class="string">&#x27;c&#x27;</span>] += <span class="number">1</span></span><br><span class="line">    dt[<span class="string">&#x27;d&#x27;</span>] = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">    dt[<span class="string">&#x27;e&#x27;</span>] = &#123;<span class="string">&quot;f&quot;</span>: <span class="number">6</span>&#125;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;after added and modifed</span></span><br><span class="line"><span class="string">           dt[&#x27;c&#x27;] += 1</span></span><br><span class="line"><span class="string">           dt[&#x27;d&#x27;] = [1, 2]</span></span><br><span class="line"><span class="string">           dt[&#x27;e&#x27;] = &#123;&quot;f&quot;:6&#125;</span></span><br><span class="line"><span class="string">           now dict:&quot;&quot;&quot;</span>, dt)</span><br><span class="line">    <span class="comment"># access element, you can NOT access elem by dt.key</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;access one element dt[&#x27;e&#x27;][&#x27;f&#x27;] =&quot;</span>, dt[<span class="string">&#x27;e&#x27;</span>][<span class="string">&#x27;f&#x27;</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;get a its value with dt.get():&quot;</span>, dt.get(<span class="string">&#x27;a&#x27;</span>, <span class="string">&quot;doesn&#x27;t exist&quot;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;get f its vlaue with dt.get():&quot;</span>, dt.get(<span class="string">&quot;f&quot;</span>,  <span class="string">&quot;doesn&#x27;t exist&quot;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;pop f from dict with dt.pop():&quot;</span>, dt.pop(<span class="string">&quot;f&quot;</span>, <span class="string">&quot;doesn&#x27;t exist&quot;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;now dic is: &quot;</span>, dt)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># delete an element</span></span><br><span class="line">    dt.pop(<span class="string">&#x27;a&#x27;</span>) <span class="comment"># delete key-value pair, can also be done: del dt[&#x27;a&#x27;]</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;pop a from dict, dt.pop(&#x27;a&#x27;) now dict:&quot;</span>, dt)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;all keys in dict is dt.keys() =&quot;</span>, dt.keys())  <span class="comment"># a list</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;all values in dict is dt.values() =&quot;</span>, dt.values())  <span class="comment"># a list</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;all items in dict is dt.items() =&quot;</span>, dt.items()) <span class="comment"># list, each element is a tuple</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># join two dicts if has duplicated key, use the later one</span></span><br><span class="line">    dt.update(&#123;<span class="string">&quot;c&quot;</span>: <span class="number">100</span>, <span class="string">&quot;g&quot;</span>: <span class="number">100</span>&#125;)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;update dict with &#123;&quot;c&quot;: 100, &quot;g&quot;: 100&#125;, now dt =&#x27;</span>, dt)</span><br><span class="line">    <span class="comment"># iterate all elements with dict</span></span><br><span class="line">    <span class="keyword">for</span> it <span class="keyword">in</span> dt.keys():</span><br><span class="line">        <span class="built_in">print</span>(it, <span class="string">&quot;==&quot;</span>, dt[it])</span><br><span class="line">    dt.clear() <span class="comment"># remove all elements</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;dt is %s after clear()&quot;</span> % dt)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict_demo()</span><br></pre></td></tr></table></figure>
+
+<pre><code>dict now is: &#123;&#39;a&#39;: 1, &#39;b&#39;: 2&#125;
+add dt[&#39;c&#39;] = 3 now dt is: &#123;&#39;a&#39;: 1, &#39;b&#39;: 2, &#39;c&#39;: 3&#125;
+after added and modifed
+           dt[&#39;c&#39;] += 1
+           dt[&#39;d&#39;] = [1, 2]
+           dt[&#39;e&#39;] = &#123;&quot;f&quot;:6&#125;
+           now dict: &#123;&#39;a&#39;: 1, &#39;b&#39;: 2, &#39;c&#39;: 4, &#39;d&#39;: [1, 2], &#39;e&#39;: &#123;&#39;f&#39;: 6&#125;&#125;
+access one element dt[&#39;e&#39;][&#39;f&#39;] = 6
+get a its value with dt.get(): 1
+get f its vlaue with dt.get(): doesn&#39;t exist
+pop f from dict with dt.pop(): doesn&#39;t exist
+now dic is:  &#123;&#39;a&#39;: 1, &#39;b&#39;: 2, &#39;c&#39;: 4, &#39;d&#39;: [1, 2], &#39;e&#39;: &#123;&#39;f&#39;: 6&#125;&#125;
+pop a from dict, dt.pop(&#39;a&#39;) now dict: &#123;&#39;b&#39;: 2, &#39;c&#39;: 4, &#39;d&#39;: [1, 2], &#39;e&#39;: &#123;&#39;f&#39;: 6&#125;&#125;
+all keys in dict is dt.keys() = dict_keys([&#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;])
+all values in dict is dt.values() = dict_values([2, 4, [1, 2], &#123;&#39;f&#39;: 6&#125;])
+all items in dict is dt.items() = dict_items([(&#39;b&#39;, 2), (&#39;c&#39;, 4), (&#39;d&#39;, [1, 2]), (&#39;e&#39;, &#123;&#39;f&#39;: 6&#125;)])
+update dict with &#123;&quot;c&quot;: 100, &quot;g&quot;: 100&#125;, now dt = &#123;&#39;b&#39;: 2, &#39;c&#39;: 100, &#39;d&#39;: [1, 2], &#39;e&#39;: &#123;&#39;f&#39;: 6&#125;, &#39;g&#39;: 100&#125;
+b == 2
+c == 100
+d == [1, 2]
+e == &#123;&#39;f&#39;: 6&#125;
+g == 100
+dt is &#123;&#125; after clear()
+</code></pre>
+<h2 id="tuple"><a href="#tuple" class="headerlink" title="tuple"></a>tuple</h2><p>tuple is similar as list(element can be any type) except it can <code>NOT be modified meaning its top level element can not be changed, but the embedded object can be modified</code>, tuple has <code>no special methods for itself</code>.</p>
+<hr>
+<p><strong>Create a tuple</strong></p>
+<ul>
+<li>tp &#x3D; 1, 2</li>
+<li>tp &#x3D; <strong>(1, 2)</strong></li>
+<li>tp &#x3D; tuple([1, 2])</li>
+</ul>
+<hr>
+<p><strong>Ops</strong></p>
+<ul>
+<li>no special method for itself, has sequence type generic methods</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">tuple_demo</span>():</span><br><span class="line">    tp = (<span class="number">1</span>, <span class="number">2</span>, <span class="string">&#x27;d&#x27;</span>, &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">1</span>&#125;, [<span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;tuple is:&quot;</span>, tp)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;tp[:-1]:&quot;</span>, tp[:-<span class="number">1</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;tp + (6,):&quot;</span>, tp + (<span class="number">6</span>,))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># the top level can NOT change but the embeded type can be modified if possible</span></span><br><span class="line">    tp[<span class="number">3</span>][<span class="string">&#x27;a&#x27;</span>] = <span class="number">2</span> <span class="comment"># good</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;change the value it points tuple is:&quot;</span>, tp)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># tp can NOT modified just means it can&#x27;t change top level.</span></span><br><span class="line">    <span class="comment"># but the value it points can be modified</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tuple_demo()</span><br></pre></td></tr></table></figure>
+
+<pre><code>tuple is: (1, 2, &#39;d&#39;, &#123;&#39;a&#39;: 1&#125;, [3, 4])
+tp[:-1]: (1, 2, &#39;d&#39;, &#123;&#39;a&#39;: 1&#125;)
+tp + (6,): (1, 2, &#39;d&#39;, &#123;&#39;a&#39;: 1&#125;, [3, 4], 6)
+change the value it points tuple is: (1, 2, &#39;d&#39;, &#123;&#39;a&#39;: 2&#125;, [3, 4])
+</code></pre>
+<h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><p><strong><code>Set is like dict without value</code></strong>, only keys and it’s <strong><code>not sequence type but iterable</code></strong> and has its special methods</p>
+<p><strong><code>NO duplicate element in set.</code></strong></p>
+<hr>
+<p><strong>Create a set</strong></p>
+<ul>
+<li>st &#x3D; set()  empty set</li>
+<li>st &#x3D; set(“abc”) &#x3D;&#x3D; st&#x3D;{‘a’, ‘b’, ‘c’}</li>
+<li>st &#x3D; <strong>{‘a’, ‘b’, ‘c’}</strong></li>
+<li>st &#x3D; set([‘a’, ‘b’, ‘c’]) # from list</li>
+</ul>
+<hr>
+<p><strong>Ops</strong></p>
+<ul>
+<li>s1.add()</li>
+<li>s1.remove()</li>
+<li>s1.update()   #extend a set with another one</li>
+<li>s1 | s2  并集</li>
+<li>s1 &amp; s2  交集</li>
+<li>s1 - s2  差集</li>
+<li>s1 ^ st2 对称差</li>
+<li>s1.issubset(s2) s1 is subnet of s2</li>
+<li>s2.issuperset(s1) s2 is subnet of s1</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">set_demo</span>():</span><br><span class="line">    <span class="comment"># &#123;&#125; not []</span></span><br><span class="line">    st = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;st =&quot;</span>, st)</span><br><span class="line">    st.add(<span class="number">3</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;after st.add(3) =&quot;</span>, st)</span><br><span class="line">    st.remove(<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;after st.remove(&#x27;a&#x27;) =&quot;</span>, st)</span><br><span class="line">    <span class="comment"># set is iterable, but not sequence.</span></span><br><span class="line">    <span class="keyword">for</span> elm <span class="keyword">in</span> st:</span><br><span class="line">        <span class="built_in">print</span>(elm)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set_demo()</span><br></pre></td></tr></table></figure>
+
+<pre><code>st = &#123;&#39;a&#39;, &#39;c&#39;, &#39;b&#39;&#125;
+after st.add(3) = &#123;&#39;a&#39;, 3, &#39;c&#39;, &#39;b&#39;&#125;
+after st.remove(&#39;a&#39;) = &#123;3, &#39;c&#39;, &#39;b&#39;&#125;
+3
+c
+b
+</code></pre>
+<h2 id="range"><a href="#range" class="headerlink" title="range"></a>range</h2><p>When you call range() API, it returns an object of range type, but most of time, we <code>convert range to list or tuple implicitly.</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">range_demo</span>():</span><br><span class="line">    <span class="comment"># range(stop)------&gt;[start, stop)</span></span><br><span class="line">    rg = <span class="built_in">range</span>(<span class="number">5</span>) <span class="comment">#[0, 4]</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;range is:&quot;</span>, rg)</span><br><span class="line">    lt = <span class="built_in">list</span>(rg) <span class="comment"># convert range to list explicitly</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;convert range to list:&quot;</span>, lt)</span><br><span class="line">    tp = <span class="built_in">tuple</span>(rg)</span><br><span class="line">    <span class="built_in">print</span>(tp)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>): <span class="comment">#convert range to tuple implicitly!</span></span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># range(start, stop, step)------&gt;[start, stop)</span></span><br><span class="line">    <span class="comment"># a list from large to small</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">5</span>, -<span class="number">1</span>, -<span class="number">1</span>)))</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">range_demo()</span><br></pre></td></tr></table></figure>
+
+<pre><code>range is: range(0, 5)
+convert range to list: [0, 1, 2, 3, 4]
+(0, 1, 2, 3, 4)
+0
+1
+2
+3
+4
+[5, 4, 3, 2, 1, 0]
+</code></pre>
+<h2 id="convertion"><a href="#convertion" class="headerlink" title="convertion"></a>convertion</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># string &lt;--&gt; integer</span></span><br><span class="line">a = <span class="built_in">int</span>(<span class="string">&#x27;12&#x27;</span>)</span><br><span class="line">b = <span class="built_in">str</span>(<span class="number">12</span>)</span><br><span class="line"><span class="built_in">print</span>(a, b)</span><br><span class="line"></span><br><span class="line"><span class="comment"># string &lt;---&gt; list</span></span><br><span class="line">lt = <span class="built_in">list</span>(<span class="string">&#x27;abc2&#x27;</span>)</span><br><span class="line">s = <span class="string">&#x27;&#x27;</span>.join(lt)</span><br><span class="line"><span class="built_in">print</span>(lt, s)</span><br><span class="line"></span><br><span class="line"><span class="comment"># string &lt;--&gt;set</span></span><br><span class="line">st = <span class="built_in">set</span>(<span class="string">&#x27;abc&#x27;</span>)</span><br><span class="line">s = <span class="string">&#x27;&#x27;</span>.join(st)</span><br><span class="line"><span class="built_in">print</span>(st, s)</span><br><span class="line"></span><br><span class="line"><span class="comment"># list &lt;---&gt;dict</span></span><br><span class="line">lt = <span class="built_in">list</span>(&#123;<span class="string">&quot;a&quot;</span>:<span class="number">1</span>, <span class="string">&quot;b&quot;</span>:<span class="number">2</span>&#125;.items())</span><br><span class="line"><span class="built_in">print</span>(lt)</span><br><span class="line">dt = <span class="built_in">dict</span>(lt)</span><br><span class="line"><span class="built_in">print</span>(dt)</span><br></pre></td></tr></table></figure>
+
+<h1 id="function"><a href="#function" class="headerlink" title="function"></a>function</h1><p>variable scope is like C, variable is local by default, if want to <code>change value of global variable, must use keyword global x in function, you can access global variable in function without global keyword, but only for accessing, not modifying</code>.</p>
+<p>variable defined in a function is also visible to the function embedded in it.</p>
+<p><strong>argument can have default value when define it</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">show</span>(<span class="params">x, y=<span class="number">0</span></span>):</span><br><span class="line">    <span class="built_in">print</span>(y)</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>when you call function with named parameter, the order can be any</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">show(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">show(y=<span class="number">2</span>, x=<span class="number">1</span>) <span class="comment">### order can be different with function definition!!!</span></span><br><span class="line">show(<span class="number">1</span>, y=<span class="number">23</span>)</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>For dynamic args(the number of argument is not defined)</strong></p>
+<ul>
+<li>use <code>*arg</code> for list like parameters in function definition</li>
+<li><code>**arg</code> for dict like parameters in function definition</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>(<span class="params">*args</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> args:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;arg: &#x27;</span>, i)</span><br><span class="line">test([<span class="number">1</span>, <span class="number">2</span>])  <span class="comment"># passed args [[1, 2]]</span></span><br><span class="line">test(<span class="number">1</span>, <span class="number">2</span>)    <span class="comment"># passed args [1, 2]</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>Note: &gt;&#x3D;python3.5, python supports define function with type</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">function_demo_python3_5</span>(<span class="params">name: <span class="built_in">str</span>=<span class="string">&#x27;jason&#x27;</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># no global keyword when defines it.</span></span><br><span class="line">g_y = <span class="number">100</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">function_demo</span>():</span><br><span class="line">    x = <span class="number">12</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show_y</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;g_y: &#x27;</span>, g_y)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show_v</span>():</span><br><span class="line">        x = <span class="number">10</span>  <span class="comment"># modified here, define a local x, not impact x outside</span></span><br><span class="line">        <span class="keyword">global</span> g_y  <span class="comment"># no need this line if only access y, not modify it!!!!</span></span><br><span class="line">        g_y = <span class="number">200</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;x in show_v is: &quot;</span>, x)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">show_sub_v</span>():</span><br><span class="line">            <span class="comment"># x defined in show_v is visible in show_sub_v</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;x in show_sub_v is: &quot;</span>, x)</span><br><span class="line">        show_sub_v()</span><br><span class="line">    show_v()</span><br><span class="line">    show_y()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;out of show_v x is: &quot;</span>, x)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;out of show_v y is:&quot;</span>, g_y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># dynamic arguments</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show_arg</span>(<span class="params">x, *argc, **argv</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;x=%d, argc=%s argv=%s&quot;</span> % (x, argc, argv))</span><br><span class="line">    show_arg(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, name=<span class="string">&#x27;jason&#x27;</span>, <span class="built_in">id</span>=<span class="number">12</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">function_demo()</span><br></pre></td></tr></table></figure>
+
+<pre><code>x in show_v is:  10
+x in show_sub_v is:  10
+g_y:  200
+out of show_v x is:  12
+out of show_v y is: 200
+x=1, argc=(2, 3) argv=&#123;&#39;name&#39;: &#39;jason&#39;, &#39;id&#39;: 12&#125;
+</code></pre>
+<h1 id="flow-control"><a href="#flow-control" class="headerlink" title="flow control"></a>flow control</h1><p>Flow control controls the logic of statement, like C, python supports many flow control directives like <code>while/else, for/else, if/elif/else, pass, break/continue, try/except/finally, raise</code></p>
+<p><strong><font color='red'>NO <code>goto, switch/case</code> in python.</font></strong></p>
+<h2 id="if-x2F-elif-x2F-else"><a href="#if-x2F-elif-x2F-else" class="headerlink" title="if&#x2F;elif&#x2F;else"></a>if&#x2F;elif&#x2F;else</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">if_demo</span>():</span><br><span class="line">    con = <span class="number">1</span></span><br><span class="line">    short_out = <span class="string">&#x27;con is 1&#x27;</span> <span class="keyword">if</span> con == <span class="number">1</span> <span class="keyword">else</span> <span class="string">&#x27;con is not 1&#x27;</span> <span class="comment"># shortcut for if/else at same line no &#x27;:&#x27; needed</span></span><br><span class="line">    <span class="built_in">print</span>(short_out)</span><br><span class="line">    </span><br><span class="line">    a = <span class="number">12</span> <span class="keyword">if</span> <span class="literal">False</span> <span class="keyword">else</span> <span class="number">23</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;like: a = 12 if False else 23&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;a =&quot;</span>, a)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;say hi&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">pass</span>  <span class="comment"># nothing</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;say hi&quot;</span>)  <span class="comment"># simple</span></span><br><span class="line">        </span><br><span class="line">if_demo()</span><br></pre></td></tr></table></figure>
+
+<pre><code>con is 1
+like: a = 12 if False else 23
+a = 23
+say hi
+say hi
+</code></pre>
+<h2 id="while-x2F-else"><a href="#while-x2F-else" class="headerlink" title="while&#x2F;else"></a>while&#x2F;else</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">while_demo</span>():</span><br><span class="line">    i = <span class="number">10</span></span><br><span class="line">    <span class="keyword">while</span> i:</span><br><span class="line">        i -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;loop while is out not by break statement&quot;</span>)</span><br><span class="line"></span><br><span class="line">while_demo()</span><br></pre></td></tr></table></figure>
+
+<pre><code>loop while is out not by break statement
+</code></pre>
+<h2 id="for-x2F-else"><a href="#for-x2F-else" class="headerlink" title="for&#x2F;else"></a>for&#x2F;else</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">for_demo</span>():</span><br><span class="line">    lt = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">    <span class="keyword">if</span> lt[<span class="number">0</span>] == <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;equal&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]:</span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">4</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;break from loop&quot;</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;loop for is out not by break statement&quot;</span>)</span><br><span class="line">        </span><br><span class="line">    lt1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">    lines = <span class="string">&#x27;-&#x27;</span>.join([<span class="built_in">str</span>(m) <span class="keyword">for</span> m <span class="keyword">in</span> lt1])</span><br><span class="line">    <span class="built_in">print</span>(lines)</span><br><span class="line">    </span><br><span class="line">for_demo()</span><br></pre></td></tr></table></figure>
+
+<pre><code>equal
+break from loop
+1-2-3-4
+</code></pre>
+<h2 id="try-x2F-exception"><a href="#try-x2F-exception" class="headerlink" title="try&#x2F;exception"></a>try&#x2F;exception</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    fd = <span class="built_in">open</span>(<span class="string">&#x27;/sdaf/b.c&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> error:</span><br><span class="line">    <span class="built_in">print</span>(error)</span><br></pre></td></tr></table></figure>
+
+<h1 id="system-env"><a href="#system-env" class="headerlink" title="system env"></a>system env</h1><p>Sometimes, you may want to get environment from system or set an environ for a process, use <code>from os import environ</code></p>
+<p><strong>note: environ[‘PATH’] is different with os.path which is only used for search .py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">env_demo</span>():</span><br><span class="line">    <span class="keyword">from</span> os <span class="keyword">import</span> environ</span><br><span class="line">    environ[<span class="string">&#x27;HOST&#x27;</span>] = <span class="string">&quot;10.64.32.1&quot;</span></span><br><span class="line">    <span class="comment"># set env</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;get HOST env: &#x27;</span>, environ.get(<span class="string">&#x27;HOST&#x27;</span>, <span class="string">&#x27;HOST default value&#x27;</span>))</span><br><span class="line">    <span class="keyword">for</span> key, v <span class="keyword">in</span> environ.items():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;env-&gt; %s : %s&quot;</span> % (key, v))</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># environ[&#x27;PATH&#x27;] si different with os.path which is only used for seerch .py!!!</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env_demo()</span><br></pre></td></tr></table></figure>
+
+<pre><code>get HOST env:  10.64.32.1
+env-&gt; PATH : /home/data/Anaconda3/envs/py3.9/bin:/opt/llvm/bin:/home/data/Anaconda3/envs/py3.9/bin:/home/data/Anaconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/home/go:/home/go/bin:/root/.yarn_pkg/bin:/usr/lib64:/usr/local/go/bin:/home/data/Anaconda3/envs/py3.9/libexec/git-core:/root/bin:/root/.yarn_pkg/bin:/home/go/bin:/home/go:/usr/local/go/bin
+env-&gt; PWD : /
+env-&gt; LANG : en_US.UTF-8
+env-&gt; SHLVL : 1
+env-&gt; _ : /usr/bin/env
+env-&gt; GO111MODULE : on
+env-&gt; GOMODCACHE : /home/go/pkg/mod
+env-&gt; GOCACHE : /root/.cache/go-build
+env-&gt; GOPATH : /home/go
+env-&gt; PYDEVD_USE_FRAME_EVAL : NO
+env-&gt; JPY_PARENT_PID : 1372
+env-&gt; TERM : xterm-color
+env-&gt; CLICOLOR : 1
+env-&gt; PAGER : cat
+env-&gt; GIT_PAGER : cat
+env-&gt; MPLBACKEND : module://matplotlib_inline.backend_inline
+env-&gt; HOST : 10.64.32.1
+</code></pre>
+<h1 id="small-tips"><a href="#small-tips" class="headerlink" title="small tips"></a>small tips</h1><h2 id="Id-of-object"><a href="#Id-of-object" class="headerlink" title="Id of object"></a>Id of object</h2><p>In python, each object has a unique identifier(memory address), to get it by <code>id(var)</code>, <code>a is b</code> checks the id of them, <code>for integer, string, if content is same, id is same as well, but this is not true for list, tuple, dict</code>. for example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">3</span></span><br><span class="line">b = <span class="number">3</span></span><br><span class="line"><span class="built_in">id</span>(a) == <span class="built_in">id</span>(b) <span class="comment"># True</span></span><br><span class="line">a <span class="keyword">is</span> b <span class="comment"># True</span></span><br><span class="line"></span><br><span class="line">a = [<span class="number">1</span>]</span><br><span class="line">b = [<span class="number">1</span>]</span><br><span class="line">a == b <span class="comment"># True</span></span><br><span class="line">a <span class="keyword">is</span> b <span class="comment"># False</span></span><br></pre></td></tr></table></figure>
+
+<p>while <code>isinstance(var, str)</code> to check if a var is an instance of a class</p>
+<h2 id="None-“”"><a href="#None-“”" class="headerlink" title="None () {} [] “”"></a>None () {} [] “”</h2><p><strong>None () {} [] “” are false when used a condition.</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;None, (), &#123;&#125;, [], &quot;&quot;, &#x27;&#x27; all are false but they are different types&quot;&quot;&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">bool</span>(<span class="literal">None</span>), <span class="built_in">bool</span>(()), <span class="built_in">bool</span>([]), <span class="built_in">bool</span>(&#123;&#125;), <span class="built_in">bool</span>(<span class="string">&quot;&quot;</span>))</span><br><span class="line">msg = <span class="string">&#x27;None == []&#x27;</span> <span class="keyword">if</span> <span class="literal">None</span> == [] <span class="keyword">else</span> <span class="string">&quot;None not equal []&quot;</span></span><br><span class="line"><span class="built_in">print</span>(msg)</span><br></pre></td></tr></table></figure>
+
+<pre><code>None, (), &#123;&#125;, [], &quot;&quot;, &#39;&#39; all are false but they are different types
+False False False False False
+None not equal []
+</code></pre>
+<h2 id="exec-eval"><a href="#exec-eval" class="headerlink" title="exec eval"></a>exec eval</h2><ul>
+<li>exec is used to <code>execute python statements which are stored in a string or file</code></li>
+<li>eval is used to <code>evaluate valid python expression which are stored in a string</code>.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># execute python code from string</span></span><br><span class="line"><span class="built_in">exec</span>(<span class="string">&#x27;print(&quot;hello&quot;)&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># eval python expression from string</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">eval</span>(<span class="string">&#x27;2*3&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<pre><code>hello
+6
+</code></pre>
+<h2 id="try-x2F-except"><a href="#try-x2F-except" class="headerlink" title="try&#x2F;except"></a>try&#x2F;except</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="number">1.0</span> / <span class="number">0</span></span><br><span class="line"><span class="keyword">except</span> ZeroDivisionError:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Error: Division by zero&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> TypeError:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Error: Unsupported operation&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> error:  <span class="comment"># catch all other exception</span></span><br><span class="line">    <span class="built_in">print</span>(error) <span class="comment"># general error, unknown</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>Error: Division by zero
+</code></pre>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-tutorial.html">python basics in Chinese</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/3/tutorial/">python tutorial</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/function/" rel="tag"># function</a>
+              <a href="/tags/class/" rel="tag"># class</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/10/18/docker-faq/" rel="prev" title="docker-faq">
+                  <i class="fa fa-chevron-left"></i> docker-faq
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/11/15/python-class/" rel="next" title="python-class">
+                  python-class <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

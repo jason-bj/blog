@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="HTMLDOMWhen a web page is loaded, the browser creates a Document Object Model of the page, the HTML DOM model is constructed as a tree of Objects  Everything in the DOM is a node(text can be a node as">
+<meta property="og:type" content="article">
+<meta property="og:title" content="html_dom">
+<meta property="og:url" content="http://cyun.tech/2020/07/20/html-dom/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="HTMLDOMWhen a web page is loaded, the browser creates a Document Object Model of the page, the HTML DOM model is constructed as a tree of Objects  Everything in the DOM is a node(text can be a node as">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.w3schools.com/js/pic_htmltree.gif">
+<meta property="article:published_time" content="2020-07-20T01:30:34.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.148Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="dom">
+<meta property="article:tag" content="event">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.w3schools.com/js/pic_htmltree.gif">
+
+
+<link rel="canonical" href="http://cyun.tech/2020/07/20/html-dom/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2020/07/20/html-dom/","path":"2020/07/20/html-dom/","title":"html_dom"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>html_dom | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML"><span class="nav-number">1.</span> <span class="nav-text">HTML</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM"><span class="nav-number">1.1.</span> <span class="nav-text">DOM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Document-object"><span class="nav-number">1.1.1.</span> <span class="nav-text">Document object</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#element-object"><span class="nav-number">1.2.</span> <span class="nav-text">element object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Event"><span class="nav-number">1.3.</span> <span class="nav-text">Event</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NodeList-vs-HTMLCollection"><span class="nav-number">1.4.</span> <span class="nav-text">NodeList vs HTMLCollection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BOM"><span class="nav-number">1.5.</span> <span class="nav-text">BOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JQuery"><span class="nav-number">1.6.</span> <span class="nav-text">JQuery</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AJAX"><span class="nav-number">1.6.1.</span> <span class="nav-text">AJAX</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">1.7.</span> <span class="nav-text">Ref</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2020/07/20/html-dom/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="html_dom | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          html_dom
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-07-20 09:30:34" itemprop="dateCreated datePublished" datetime="2020-07-20T09:30:34+08:00">2020-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/html/" itemprop="url" rel="index"><span itemprop="name">html</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/html/dom/" itemprop="url" rel="index"><span itemprop="name">dom</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><h2 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h2><p>When a web page is loaded, the browser creates a Document Object Model of the page, <code>the HTML DOM model is constructed as a tree of Objects</code></p>
+<p><img src="https://www.w3schools.com/js/pic_htmltree.gif" alt="Dom Tree"></p>
+<p>Everything in the DOM is a node(text can be a node as well)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--document node--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">  &lt;h1                        class=&quot;big&quot;&gt;             hello                     &lt;/h1&gt;</span></span><br><span class="line"><span class="comment">  h1:element node(object)    attribute node(object)   text noe(object)</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;big&quot;</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>The HTML DOM is a standard object model and programming interface for HTML. It defines:</p>
+<ul>
+<li>The HTML elements as objects</li>
+<li>The properties of all HTML elements</li>
+<li>The methods to access all HTML elements</li>
+<li>The events for all HTML elements</li>
+</ul>
+<h3 id="Document-object"><a href="#Document-object" class="headerlink" title="Document object"></a>Document object</h3><p>The document object represents your web page, it’s root node of the tree, Here are methods commonly used.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>document.getElementById(id)</td>
+<td>Find an element by element id</td>
+</tr>
+<tr>
+<td>document.getElementsByTagName(name)</td>
+<td>Find elements by tag name</td>
+</tr>
+<tr>
+<td>document.getElementsByClassName(name)</td>
+<td>Find elements by class name</td>
+</tr>
+<tr>
+<td>element.setAttribute(attribute, value)</td>
+<td>Change the attribute value of an HTML element</td>
+</tr>
+<tr>
+<td>document.createElement(element)</td>
+<td>Create an HTML element</td>
+</tr>
+<tr>
+<td>document.removeChild(element)</td>
+<td>Remove an HTML element</td>
+</tr>
+<tr>
+<td>document.appendChild(element)</td>
+<td>Add an HTML element</td>
+</tr>
+<tr>
+<td>document.replaceChild(new, old)</td>
+<td>Replace an HTML element</td>
+</tr>
+<tr>
+<td>document.write(text)</td>
+<td>Write into the HTML output stream</td>
+</tr>
+<tr>
+<td>document.getElementById(id).onclick &#x3D; function(){code}</td>
+<td>Adding event handler code to an onclick event</td>
+</tr>
+</tbody></table>
+<p>Some attributes of document root you should know</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>document.anchors</td>
+<td>Returns all &lt;a&gt; elements that have a name attribute</td>
+</tr>
+<tr>
+<td>document.cookie</td>
+<td>Returns the document’s cookie</td>
+</tr>
+<tr>
+<td>document.forms</td>
+<td>Returns all &lt;form&gt; elements</td>
+</tr>
+<tr>
+<td>document.images</td>
+<td>Returns all &lt;img&gt; elements</td>
+</tr>
+<tr>
+<td>document.links</td>
+<td>Returns all &lt;area&gt; and &lt;a&gt; elements that have a href attribute</td>
+</tr>
+<tr>
+<td>document.title</td>
+<td>Returns the &lt;title&gt; element</td>
+</tr>
+<tr>
+<td>document.URL</td>
+<td>Returns the complete URL of the document</td>
+</tr>
+</tbody></table>
+<h2 id="element-object"><a href="#element-object" class="headerlink" title="element object"></a>element object</h2><p>Find an element through Document object or another element, if the method is called under an element, it checks child of that element, not root.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>element.getElementById(id)</td>
+<td>Find an element by element id</td>
+</tr>
+<tr>
+<td>element.getElementsByTagName(name)</td>
+<td>Find elements by tag name</td>
+</tr>
+<tr>
+<td>element.getElementsByClassName(name)</td>
+<td>Find elements by class name</td>
+</tr>
+<tr>
+<td>element.hasAttributes()</td>
+<td>Return true if has any attribute</td>
+</tr>
+<tr>
+<td>element.hasAttribute(“class”)</td>
+<td>Return true only if has such attribute</td>
+</tr>
+<tr>
+<td>element.setAttribute(attribute, value)</td>
+<td>Change the attribute value of an HTML element</td>
+</tr>
+<tr>
+<td>element.removeAttribute(attribute)</td>
+<td>Remove a particular attribute</td>
+</tr>
+<tr>
+<td>element.hasChildNodes()</td>
+<td>Return true if has at least one child</td>
+</tr>
+<tr>
+<td>element.insertBefore(new, exist)</td>
+<td>Insert child before another existed child</td>
+</tr>
+<tr>
+<td>element.removeChild(element)</td>
+<td>Remove an HTML element</td>
+</tr>
+<tr>
+<td>element.appendChild(element)</td>
+<td>Add an HTML element</td>
+</tr>
+<tr>
+<td>element.replaceChild(new, old)</td>
+<td>Replace an HTML element</td>
+</tr>
+<tr>
+<td>document.write(text)</td>
+<td>Write into the HTML output stream</td>
+</tr>
+<tr>
+<td>element.getElementById(id).onclick &#x3D; function(){code}</td>
+<td>Adding event handler code to an onclick event</td>
+</tr>
+<tr>
+<td>element.addEventListener(“click”, click_handler)</td>
+<td>Adding event handler for click event</td>
+</tr>
+<tr>
+<td>element.removeEventListener(event_listener)</td>
+<td>Removing event listener</td>
+</tr>
+<tr>
+<td>element.querySelector(“p.intro”)</td>
+<td>Return first element by CSS selector</td>
+</tr>
+<tr>
+<td>element.querySelectorAll(“p.intro”)</td>
+<td>Return all elements by CSS selector</td>
+</tr>
+<tr>
+<td>element.focus()</td>
+<td>Get focus</td>
+</tr>
+</tbody></table>
+<p><strong>add a new element</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;div1&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;p1&quot;</span>&gt;</span>This is a paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;p2&quot;</span>&gt;</span>This is another paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> para = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;p&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> node = <span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(<span class="string">&quot;This is new.&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">para.<span class="title function_">appendChild</span>(node);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> element = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;div1&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">element.<span class="title function_">appendChild</span>(para);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p>Attribute for element</p>
+<table>
+<thead>
+<tr>
+<th>attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>element.attributes</td>
+<td>Return all attributes</td>
+</tr>
+<tr>
+<td>element.className</td>
+<td>Return value of ‘class’ attribute</td>
+</tr>
+<tr>
+<td>element.id</td>
+<td>Return Id attribute</td>
+</tr>
+<tr>
+<td>element.innerHTML</td>
+<td>Return inner HTML</td>
+</tr>
+<tr>
+<td>element.innerText</td>
+<td>Only return value of ALL Text nodes include children</td>
+</tr>
+<tr>
+<td>element.nodeName</td>
+<td>Return tag name like p, iframe</td>
+</tr>
+<tr>
+<td>element.parentNode</td>
+<td>Return parent node</td>
+</tr>
+<tr>
+<td>element.firstChild</td>
+<td>Return first direct child node</td>
+</tr>
+<tr>
+<td>element.lastChild</td>
+<td>Return last direct child node</td>
+</tr>
+<tr>
+<td>element.nextSibling</td>
+<td>Return next sibling node</td>
+</tr>
+<tr>
+<td>element.previousSibling</td>
+<td>Return previous sibling node</td>
+</tr>
+<tr>
+<td>element.childNodes</td>
+<td>Return direct child nodes</td>
+</tr>
+<tr>
+<td>element.style.property</td>
+<td>Set&#x2F;Return css style</td>
+</tr>
+</tbody></table>
+<h2 id="Event"><a href="#Event" class="headerlink" title="Event"></a>Event</h2><p>Event object is passed to event handler when event happens, actually the passed event is not only <code>Event</code> object, but more specific one which is child of <code>Event</code> object, <code>more specific means more meta data about the event</code>, here is the inheritance of events</p>
+<p><a href="/images/web/dom_event_inheritance.png">Event Inheritance</a></p>
+<p>Event object has below attribute</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bubbles</td>
+<td>Return True if event is bubble event</td>
+</tr>
+<tr>
+<td>currentTarget</td>
+<td>Return current Listener target</td>
+</tr>
+<tr>
+<td>target</td>
+<td>Return element who triggered such event</td>
+</tr>
+<tr>
+<td>type</td>
+<td>return type of event</td>
+</tr>
+</tbody></table>
+<p>More specific events, refer to <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Event">Events API</a>.</p>
+<p><strong>Note: as event could bubble, hence currentTarget may not be target</strong></p>
+<p>There are two ways to add event handler, but addEventListener() method attaches an event handler to an element without overwriting existing event handlers. You can add many different types of event handlers to one element. You can also add many event handlers of the same type to one element, i.e two “click” events.<br>The addEventListener() method makes it easier to control how the event reacts to bubbling.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// function only takes event object as the input or nothing</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">myFunction</span>(<span class="params">ev</span>) &#123;</span><br><span class="line">  alert (<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">element.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, myFunction);</span><br><span class="line">element.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, <span class="keyword">function</span>(<span class="params">ev</span>)&#123; <span class="title function_">alert</span>(<span class="string">&quot;Hello World!&quot;</span>); &#125;); </span><br><span class="line">element.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, <span class="keyword">function</span>(<span class="params"></span>)&#123; <span class="title function_">alert</span>(<span class="string">&quot;Hello World!&quot;</span>); &#125;); </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">  pass H1 object to change Text or nothing</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">onclick</span>=<span class="string">&quot;changeText(this)&quot;</span>&gt;</span>Click on this text!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">onclick</span>=<span class="string">&quot;changeText()&quot;</span>&gt;</span>Click on this text!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="NodeList-vs-HTMLCollection"><a href="#NodeList-vs-HTMLCollection" class="headerlink" title="NodeList vs HTMLCollection"></a>NodeList vs HTMLCollection</h2><p>A NodeList object is a list (collection) of nodes extracted from a document, while HTMLCollection is only for HTML element(tag), NodeList is for inner text as well which is also a node object.</p>
+<p><strong>HTMLCollection returned</strong></p>
+<ul>
+<li>getElementsByTagName()</li>
+<li>getElementsByClassName()</li>
+</ul>
+<p><strong>NodeList returned</strong></p>
+<ul>
+<li>All browsers return a NodeList object for the property childNodes. </li>
+<li>Most browsers return a NodeList object for the method querySelectorAll()</li>
+</ul>
+<p><strong>Same</strong></p>
+<ul>
+<li>Both an HTMLCollection object and a NodeList object is an array-like list (collection) of objects.</li>
+<li>Both have a length property defining the number of items in the list (collection).</li>
+<li>Both provide an index (0, 1, 2, 3, 4, …) to access each item like an array.</li>
+</ul>
+<p><strong>Different</strong></p>
+<ul>
+<li>HTMLCollection items can be accessed by their name, id, or index number.</li>
+<li>NodeList items can only be accessed by their index number.</li>
+<li>Only the NodeList object can contain attribute nodes and text nodes.</li>
+</ul>
+<h2 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h2><p>The Browser Object Model (BOM) allows JavaScript to “talk to” the browser, it’s information about browser, it has several objects to represent such info</p>
+<ul>
+<li>window</li>
+<li>window.screen or screen for short</li>
+<li>window.location</li>
+<li>window.history</li>
+<li>window.navigator</li>
+</ul>
+<h2 id="JQuery"><a href="#JQuery" class="headerlink" title="JQuery"></a>JQuery</h2><p>jQuery was designed to handle Browser Incompatibilities and to simplify HTML DOM Manipulation, Event Handling, Animations, and Ajax, it depends on Dom native API above.</p>
+<p><code>JQuery uses CSS selector to find element</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//import jquery first.</span></span><br><span class="line"><span class="keyword">var</span> myElement = $(<span class="string">&quot;#id01&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> all_p = $(<span class="string">&quot;p&quot;</span>)</span><br><span class="line"><span class="keyword">var</span> class_elements = $(<span class="string">&quot;.intro&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Operation(API) on the selected element</p>
+<ul>
+<li>.text   get&#x2F;set the content of selected element $(“#bsd”).text(“new”);</li>
+<li>.html   get&#x2F;set the entire html of selected element $(“#bsd”).html()</li>
+<li>.before add a html element(with tag) before the selected element</li>
+<li>.after  add an element after the selected element</li>
+<li>.append add a html element(with tag) inside the selected element</li>
+<li>.attr   get&#x2F;set the given attr of an html element $(“#bsd”).attr(“given_attr”) $(“$bsd”).attr(“given_attr”, “given_value”);</li>
+<li>.css    get&#x2F;set the style of the selected elements</li>
+<li>.parent get the parent element of the selected element $(“#bsd”).parent().</li>
+<li>.each   callback on each of the selected groups($(“a”), $(“.className”);<h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3>.ajaxSetup()<br>set defaults for AJAx-related parameters such as caching, methods, error handling, among others, this is used for all AJAX call, also you can set them separately by .ajax()</li>
+</ul>
+<p>All subsequent Ajax calls using any function will use the new settings, unless overridden by the individual calls, until the next invocation of $.ajaxSetup().</p>
+<p>.ajax() parameters are map with key:value, specify method(GET,POST etc) the url, callback functions when error, successful, data type and data cache response etc!!</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">load()        get()       post         getJson()</span><br><span class="line">  +             |            |              +</span><br><span class="line">  |             |            |              |</span><br><span class="line">  |             |            |              |</span><br><span class="line">  +-------------+------+-----+--------------+</span><br><span class="line">                       |</span><br><span class="line">                       +</span><br><span class="line">                     ajax()   low level API</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">successFun</span>(<span class="params">data, status</span>) &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">errorFun</span>(<span class="params">request, status, errorthrown</span>)  &#123;</span><br><span class="line">&#125;</span><br><span class="line">$.<span class="title function_">ajax</span>(&#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&quot;GET&quot;</span>,</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&quot;json.php&quot;</span>,</span><br><span class="line">    <span class="attr">dataType</span>: <span class="string">&quot;json&quot;</span>, <span class="comment">//The type of data that you&#x27;re expecting back from the server.</span></span><br><span class="line">    <span class="attr">username</span>: <span class="string">&quot;luo&quot;</span>,</span><br><span class="line">    <span class="attr">password</span>: <span class="string">&quot;ps&quot;</span>,</span><br><span class="line">    <span class="comment">//change headers before send</span></span><br><span class="line">    <span class="attr">beforeSend</span>: <span class="keyword">function</span>(<span class="params"> xhr </span>) &#123;</span><br><span class="line">        xhr.<span class="title function_">overrideMimeType</span>( <span class="string">&quot;text/plain; charset=x-user-defined&quot;</span> );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="attr">success</span>: successFun,</span><br><span class="line">    <span class="attr">error</span>: errorFun,</span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">5000</span>  <span class="comment">//5s</span></span><br><span class="line">);</span><br><span class="line">$.<span class="title function_">ajax</span>(&#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&quot;POST&quot;</span>,</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&quot;url/ds&quot;</span>,</span><br><span class="line">    <span class="attr">contentType</span>: <span class="string">&quot;application/json&quot;</span>,  <span class="comment">//the type of data you send to the server</span></span><br><span class="line">    <span class="attr">data</span>: <span class="string">&#x27;&#123;&quot;a&quot;:1&#125;&#x27;</span>, <span class="comment">//json format as a string</span></span><br><span class="line">    <span class="attr">success</span>: successFun,</span><br><span class="line">    <span class="attr">error</span>: errorFun,</span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">5000</span>  <span class="comment">//5s</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3schools.com/js/default.asp">W3C DOM</a></li>
+<li><a target="_blank" rel="noopener" href="https://htmlcheatsheet.com/jquery/">JQuery cheatsheet</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Event">Dom Event Interface</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3schools.com/jsref/dom_obj_event.asp">W3C ALL Events</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/html/" rel="tag"># html</a>
+              <a href="/tags/dom/" rel="tag"># dom</a>
+              <a href="/tags/event/" rel="tag"># event</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/07/17/html-faq/" rel="prev" title="html-faq">
+                  <i class="fa fa-chevron-left"></i> html-faq
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/20/html-jquery/" rel="next" title="html_jquery">
+                  html_jquery <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

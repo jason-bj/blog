@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="IntroductionSystemTap provides the infrastructure to monitor the running Linux kernel and application for detailed analysis. This can assist administrators and developers in identifying the underlying">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux-performance-systemtap">
+<meta property="og:url" content="http://cyun.tech/2022/01/04/linux-performance-systemtap/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="IntroductionSystemTap provides the infrastructure to monitor the running Linux kernel and application for detailed analysis. This can assist administrators and developers in identifying the underlying">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://taoste.github.io/dirtysalt/html/images/systemtap-prepare-workflow.gif">
+<meta property="article:published_time" content="2022-01-04T00:50:45.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.161Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="systemtap">
+<meta property="article:tag" content="probe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://taoste.github.io/dirtysalt/html/images/systemtap-prepare-workflow.gif">
+
+
+<link rel="canonical" href="http://cyun.tech/2022/01/04/linux-performance-systemtap/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2022/01/04/linux-performance-systemtap/","path":"2022/01/04/linux-performance-systemtap/","title":"linux-performance-systemtap"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>linux-performance-systemtap | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-it-works"><span class="nav-number">2.</span> <span class="nav-text">How it works</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Setup-to-use-systemtap"><span class="nav-number">3.</span> <span class="nav-text">Setup to use systemtap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Probe"><span class="nav-number">4.</span> <span class="nav-text">Probe</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#alias"><span class="nav-number">4.1.</span> <span class="nav-text">alias</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#function"><span class="nav-number">4.2.</span> <span class="nav-text">function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kernel-Probe"><span class="nav-number">4.3.</span> <span class="nav-text">Kernel Probe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User-Probe"><span class="nav-number">4.4.</span> <span class="nav-text">User Probe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tapset"><span class="nav-number">4.5.</span> <span class="nav-text">tapset</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Example-of-User-application-with-systemtap"><span class="nav-number">5.</span> <span class="nav-text">Example of User application with systemtap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dtrace-disable"><span class="nav-number">5.1.</span> <span class="nav-text">dtrace disable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dtrace-enabled"><span class="nav-number">5.2.</span> <span class="nav-text">dtrace enabled</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REF"><span class="nav-number">6.</span> <span class="nav-text">REF</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2022/01/04/linux-performance-systemtap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="linux-performance-systemtap | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux-performance-systemtap
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-01-04 08:50:45" itemprop="dateCreated datePublished" datetime="2022-01-04T08:50:45+08:00">2022-01-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux/systemtap/" itemprop="url" rel="index"><span itemprop="name">systemtap</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>SystemTap provides the infrastructure to <code>monitor the running Linux kernel and application for detailed analysis</code>. This can assist administrators and developers in identifying the underlying cause of a bug or performance problem. SystemTap is designed to eliminate this and allows users to gather the kernel information by running <code>user-written SystemTap scripts.</code>, <strong>you do NOT need to write kernel module, compile it and load it by yourself, you just write systemtap script, then systemtap framework does all other things for you(which actually use kprobe)</strong></p>
+<p>For short， add hooks at point event(function enter, function return etc) for running application or kernel, in hooks print or check something.</p>
+<h1 id="How-it-works"><a href="#How-it-works" class="headerlink" title="How it works"></a>How it works</h1><ol>
+<li>First, SystemTap checks the script against the existing tapset library (normally in &#x2F;usr&#x2F;share&#x2F;systemtap&#x2F;tapset&#x2F; for any tapsets used. SystemTap will then substitute any located tapsets with their corresponding definitions in the tapset library.</li>
+<li>SystemTap then translates the script to C, running the system C compiler to create a kernel module from it. The tools(<code>stap</code>) that perform this step are contained in the systemtap package</li>
+<li>SystemTap loads the module, then enables all the probes (events and handlers) in the script. The <code>staprun</code> in the systemtap-runtime package  provides this functionality.</li>
+<li>As the events occur, their corresponding handlers are executed.</li>
+<li>Once the SystemTap session is terminated, the probes are disabled, and the kernel module is unloaded.</li>
+</ol>
+<p><img src="https://taoste.github.io/dirtysalt/html/images/systemtap-prepare-workflow.gif"></p>
+<span id="more"></span>
+<h1 id="Setup-to-use-systemtap"><a href="#Setup-to-use-systemtap" class="headerlink" title="Setup to use systemtap"></a>Setup to use systemtap</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ yum install systemtap systemtap-runtime</span><br><span class="line"><span class="comment"># install kernel debug info, refer to https://sourceware.org/systemtap/SystemTap_Beginners_Guide/using-systemtap.html</span></span><br><span class="line">$ stap-prep</span><br><span class="line"><span class="comment"># check if systemtap works or not(script from command line)</span></span><br><span class="line">$ stap -v -e <span class="string">&#x27;probe vfs.read &#123;printf(&quot;read performed\n&quot;); exit()&#125;&#x27;</span></span><br><span class="line">Pass 1: parsed user script and 487 library scripts using 299532virt/96108res/3516shr/93332data kb, <span class="keyword">in</span> 940usr/150sys/1278real ms.</span><br><span class="line">Pass 2: analyzed script: 1 probe, 1 <span class="keyword">function</span>, 7 embeds, 0 globals using 468708virt/260648res/4900shr/262508data kb, <span class="keyword">in</span> 2750usr/1330sys/4835real ms.</span><br><span class="line">Pass 3: translated to C into <span class="string">&quot;/tmp/stapYzHqgZ/stap_cde75c591f0c1e1bb6070ad11276b42b_2771_src.c&quot;</span> using 468708virt/260908res/5160shr/262508data kb, <span class="keyword">in</span> 10usr/50sys/69real ms. ----&gt; convert to kernel module(c)</span><br><span class="line">Pass 4: compiled C into <span class="string">&quot;stap_cde75c591f0c1e1bb6070ad11276b42b_2771.ko&quot;</span> <span class="keyword">in</span> 9250usr/2530sys/11991real ms.--------------------compile this custom mode</span><br><span class="line">Pass 5: starting run.----------------------&gt;load this module</span><br><span class="line"></span><br><span class="line"><span class="comment"># command to run systemtap</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># monitor events for any process(script from a file)</span></span><br><span class="line">$ stap -vv -F xx.stp -o output.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># monitor event for this process only </span></span><br><span class="line"><span class="comment"># Sets the SystemTap handler function target() to the specified process ID</span></span><br><span class="line">$ stap -vv -F xx.stp -o output.log -x process_id</span><br></pre></td></tr></table></figure>
+
+<h1 id="Probe"><a href="#Probe" class="headerlink" title="Probe"></a>Probe</h1><p>Probe &#x3D; event + its handler</p>
+<p>The essential idea behind a SystemTap script is <strong>to name events, and to give them handlers</strong>. When SystemTap runs the script, SystemTap monitors for the event; once the event occurs, <code>the Linux kernel then runs the handler as a quick sub-routine, then resumes.</code></p>
+<p>There are several kind of events: <code>entering/exiting a function, timer expiration, session termination</code>, etc. A handler is a series of script language statements that specify the work to be done whenever the event occurs. This work normally includes extracting data from the event context, storing them into internal variables, and printing results. </p>
+<p><strong>FORMAT</strong><br><code>probe PROBEPOINT [, PROBEPOINT] &#123; [STMT ...] &#125;</code></p>
+<p><code>PROBEPOINT</code> supports wildcard match</p>
+<h2 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h2><p>New probe points may be defined using aliases. A probe point alias looks similar to probe definitions, but instead of activating a probe at the given point, it defines a new probe point name as an alias to an existing one. New probe aliases may refer to one or more existing probe aliases. Multiple aliases may share the same underlying probe points</p>
+<p><strong>FORMAT</strong><br><code>probe &lt;alias&gt; = &lt;probepoint&gt; &#123; &lt;prologue_stmts&gt; &#125;</code></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">probe socket.sendmsg = kernel.function (&quot;sock_sendmsg&quot;) &#123; ... &#125;</span><br><span class="line">probe socket.sendmsg &#123;...&#125;</span><br><span class="line">probe socket.sendmsg.return &#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>&#x3D;&#x3D;&#x3D;  </p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">probe kernel.function(&quot;sock_sendmsg&quot;) &#123;...&#125;</span><br><span class="line">probe kernel.function(&quot;sock_sendmsg&quot;).return &#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="function"><a href="#function" class="headerlink" title="function"></a>function</h2><p>SystemTap scripts may define subroutines to factor out common work. Functions may take any number of scalar arguments, and <strong>must return a single scalar value</strong>. Scalars in this context are integers or strings. For more information on scalars.</p>
+<p><strong>FORMAT</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function &lt;name&gt;[:&lt;type&gt;] ( &lt;arg1&gt;[:&lt;type&gt;], ... ) &#123; &lt;stmts&gt; &#125;</span><br><span class="line"></span><br><span class="line">function thisfn (arg1, arg2) &#123;</span><br><span class="line">    return arg1 + arg2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function thatfn:string(arg1:long, arg2) &#123;</span><br><span class="line">    return sprintf(&quot;%d%s&quot;, arg1, arg2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Kernel-Probe"><a href="#Kernel-Probe" class="headerlink" title="Kernel Probe"></a>Kernel Probe</h2><p><strong>ProbePoint</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># these two are actually alias!!</span><br><span class="line">syscall.system_call</span><br><span class="line">vfs.file_operation</span><br><span class="line"></span><br><span class="line">kernel.function(&quot;foo&quot;)</span><br><span class="line">kernel.statement(&quot;func@file:linenumber&quot;)</span><br><span class="line">kernel.function(&quot;foo&quot;).return</span><br><span class="line">module&#123;&quot;ext3&quot;&#125;.function(&quot;ext3_*&quot;)</span><br><span class="line">module(&quot;modname&quot;).statement(&quot;func@file:linenumber&quot;)</span><br><span class="line">kernel.function(&quot;*@net/socket.c&quot;)</span><br><span class="line">timer.ms(5000)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Probe examples</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">probe kernel.function(&quot;sys_mkdir&quot;).call &#123; log (&quot;enter&quot;) &#125;</span><br><span class="line">probe kernel.function(&quot;sys_mkdir&quot;).return &#123; log (&quot;exit&quot;) &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>NOTE</strong><br><code>Kernel has prebuilt probe markers</code> This family of probe points connects to static probe markers inserted into the kernel or a module. These markers are special macro calls in the kernel that make probing faster and more reliable than with DWARF-based probes. DWARF debugging information is not required to use probe markers.</p>
+<h2 id="User-Probe"><a href="#User-Probe" class="headerlink" title="User Probe"></a>User Probe</h2><p><strong>ProbePoint</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># PATH can be binary or library!!!</span><br><span class="line">process.begin</span><br><span class="line">process(&quot;PATH&quot;).begin</span><br><span class="line">process.thread.begin</span><br><span class="line">process(&quot;PATH&quot;).thread.begin</span><br><span class="line">process.end</span><br><span class="line">process(&quot;PATH&quot;).end</span><br><span class="line">process.thread.end</span><br><span class="line">process(&quot;PATH&quot;).thread.end</span><br><span class="line"></span><br><span class="line">process.syscall</span><br><span class="line">process(&quot;PATH&quot;).syscall</span><br><span class="line">process.syscall.return</span><br><span class="line">process(&quot;PATH&quot;).syscall.return</span><br><span class="line"></span><br><span class="line">process(&quot;PATH&quot;).mark(&quot;LABEL&quot;)</span><br><span class="line"></span><br><span class="line">process(&quot;PATH&quot;).function(&quot;NAME&quot;)</span><br><span class="line">process(&quot;PATH&quot;).statement(&quot;*@FILE.c:123&quot;)</span><br><span class="line">process(&quot;PATH&quot;).function(&quot;*&quot;).return</span><br></pre></td></tr></table></figure>
+
+<p><strong>Probe examples</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">probe process(&quot;/usr/lib64/libvirt/connection-driver/libvirt_driver_qemu.so&quot;).function(&quot;qemuMonitorSend&quot;) &#123;&#125;</span><br><span class="line">probe process(&quot;/usr/sbin/libvirtd&quot;).function(&quot;main&quot;) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>static probing</strong><br>You can probe symbolic static instrumentation compiled into programs and shared libraries with the following syntax:<br><code>process(&quot;PATH&quot;).mark(&quot;LABEL&quot;)</code></p>
+<p>Use STAP_PROBE1 for probes with one argument. Use STAP_PROBE2 for probes with 2 arguments, and so on. The arguments of the probe are available in the context variables $arg1, $arg2, and so on.</p>
+<p>As an alternative to the <code>STAP_PROBE </code>macros, you can use the dtrace script to create custom macros. The sdt.h file also provides <code>dtrace compatible markers through DTRACE_PROBE</code> and an associated python dtrace script.</p>
+<p><strong>NOTE</strong>: <code>static probing can probe at any point as it&#39;s programed by user, hence you can pass any args to it, like local var etc, but dynamic probling can only probe and enter and exit of a function</code></p>
+<h2 id="tapset"><a href="#tapset" class="headerlink" title="tapset"></a>tapset</h2><p><strong>Tapset scripts are libraries of probe aliases and auxiliary functions</strong>, refer to <a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/tapsets/">tapset function</a></p>
+<p><code>location: /usr/share/systemtap/tapset/</code></p>
+<p><strong>Frequently used</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">tid()	The id of the current thread.</span><br><span class="line">pid()	The process (task group) id of the current thread.</span><br><span class="line">uid()	The id of the current user.</span><br><span class="line">execname()	The name of the current process.</span><br><span class="line">cpu()	The current cpu number.</span><br><span class="line">gettimeofday_s()	Number of seconds since epoch.</span><br><span class="line">get_cycles()	Snapshot of hardware cycle counter.</span><br><span class="line">pp()	A string describing the probe point being currently handled.</span><br><span class="line">ppfunc()	If known, the the function name in which this probe was placed.</span><br><span class="line">$$vars	If available, a pretty-printed listing of all local variables in scope.</span><br><span class="line">print_backtrace()	If possible, print a kernel backtrace.</span><br><span class="line">print_ubacktrace()	If possible, print a user-space backtrace. </span><br></pre></td></tr></table></figure>
+
+
+<h1 id="Example-of-User-application-with-systemtap"><a href="#Example-of-User-application-with-systemtap" class="headerlink" title="Example of User application with systemtap"></a>Example of User application with systemtap</h1><p>systemtap script has similarity with C language, refer to <a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/langref/langrefse5.html#x7-630005">script syntax</a>, <a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/langref/langrefse5.html#x7-630005">flow control</a>, <a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/langref/langrefse7.html#x9-1150007">array</a></p>
+<p><strong>if you want to use systemtap for user application, make sure application is built with symbol(-g) or install symbol separately when dtrace is not compiled in</strong></p>
+<h2 id="dtrace-disable"><a href="#dtrace-disable" class="headerlink" title="dtrace disable"></a>dtrace disable</h2><p>You must have the symbol table to find the function used in stp.</p>
+<p><strong>test.c</strong>  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">hello</span><span class="params">(<span class="type">char</span> *name)</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello %s\n&quot;</span>, name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    hello(<span class="string">&quot;Tom&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// gcc -o test test.c -g</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>test.stp</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">probe process(&quot;./test&quot;).begin &#123;</span><br><span class="line">    printf(&quot;start to probe\n &quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">probe process(&quot;./test&quot;).function(&quot;hello&quot;) &#123;</span><br><span class="line">    printf(&quot;%s\n&quot;, user_string($name))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">probe process(&quot;./test&quot;).end &#123;</span><br><span class="line">    printf(&quot;probe end\n&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ stap test.stp</span><br><span class="line"><span class="comment"># on another terminal</span></span><br><span class="line">$ ./test</span><br></pre></td></tr></table></figure>
+
+<h2 id="dtrace-enabled"><a href="#dtrace-enabled" class="headerlink" title="dtrace enabled"></a>dtrace enabled</h2><p>No need to build with debug info if only use marker as dtrace stores the address of marker when compiling the code, but if you want to use function name, symbol table is required as well.</p>
+<p><strong>test.c with markder(dtrace probe)</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/sdt.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">hello</span><span class="params">(<span class="type">char</span> *name)</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello %s\n&quot;</span>, name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> age = <span class="number">12</span>;</span><br><span class="line">    <span class="type">char</span> *name = <span class="string">&quot;Tom&quot;</span>;</span><br><span class="line"></span><br><span class="line">    DTRACE_PROBE2(test, hello_marker, age, name);</span><br><span class="line">    hello(name);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// gcc -o test test.c</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>test.stp</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">probe process(&quot;./test&quot;).begin &#123;</span><br><span class="line">    printf(&quot;start to probe\n&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">probe process(&quot;./test&quot;).mark(&quot;hello_marker&quot;) &#123;</span><br><span class="line">    // arg1 is int, not pointer, can access it directly</span><br><span class="line">    printf(&quot;age: %d name: %s\n&quot;, $arg1, user_string($arg2))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">probe process(&quot;./test&quot;).end &#123;</span><br><span class="line">    printf(&quot;probe end\n&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ stap test.stp</span><br><span class="line">$ ./test</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/documentation.html">systemtap docs</a></li>
+<li><a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/tutorial/">systemtap tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/SystemTap_Beginners_Guide/">systemtap beginers guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/tapsets/">systemtap tapset</a></li>
+<li><a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/documentation.html">systemtap docs</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/systemtap/" rel="tag"># systemtap</a>
+              <a href="/tags/probe/" rel="tag"># probe</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/15/virtualization-serverless-computing/" rel="prev" title="virtualization-serverless-computing">
+                  <i class="fa fa-chevron-left"></i> virtualization-serverless-computing
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/01/04/libvirt-performance/" rel="next" title="libvirt-performance">
+                  libvirt-performance <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

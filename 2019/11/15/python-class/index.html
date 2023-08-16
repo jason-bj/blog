@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="ClassPython class is more like C++ class, it supports inheritance, function overridden (not like C++, if you create an instance of child class, you never see parent&#39;s method if child defines metho">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-class">
+<meta property="og:url" content="http://cyun.tech/2019/11/15/python-class/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="ClassPython class is more like C++ class, it supports inheritance, function overridden (not like C++, if you create an instance of child class, you never see parent&#39;s method if child defines metho">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-11-15T09:49:14.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.173Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="python-class">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2019/11/15/python-class/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2019/11/15/python-class/","path":"2019/11/15/python-class/","title":"python-class"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>python-class | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Class"><span class="nav-number">1.</span> <span class="nav-text">Class</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dynamic-attribute"><span class="nav-number">1.1.</span> <span class="nav-text">dynamic attribute</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#function-overloading-x2F-overriding"><span class="nav-number">1.2.</span> <span class="nav-text">function overloading&#x2F;overriding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#operator-overloading"><span class="nav-number">1.3.</span> <span class="nav-text">operator overloading</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setattr-x2F-getattr-x2F-hasattr-x2F-delattr-with-class"><span class="nav-number">1.4.</span> <span class="nav-text">setattr&#x2F;getattr&#x2F;hasattr&#x2F;delattr with class</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#staticmethod-and-classmethod"><span class="nav-number">1.5.</span> <span class="nav-text">staticmethod and classmethod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setter-x2F-getter"><span class="nav-number">1.6.</span> <span class="nav-text">setter&#x2F;getter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enum-class"><span class="nav-number">1.7.</span> <span class="nav-text">enum class</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2019/11/15/python-class/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="python-class | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python-class
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-11-15 17:49:14" itemprop="dateCreated datePublished" datetime="2019-11-15T17:49:14+08:00">2019-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/python/class/" itemprop="url" rel="index"><span itemprop="name">class</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h1><p>Python class is more like C++ class, it supports inheritance, function overridden (<code>not like C++, if you create an instance of child class, you never see parent&#39;s method if child defines method with same name even different signature(argument list)</code>), operator overload, static method etc.</p>
+<hr>
+<p><strong>Overloading vs Overriding</strong><br>Overloading occurs when <code>two or more methods in one class have the same method name but different parameters</code>.</p>
+<p><code>Overriding occurs when two methods have the same method name and parameters</code>. One of the methods is in the parent class, and the other is in the child class. Overriding allows a child class to provide the specific implementation of a method that is already present in its parent class</p>
+<span id="more"></span>
+<hr>
+<ul>
+<li><p><strong>basic rules</strong></p>
+<ul>
+<li><code>&quot;_&quot;</code> is used to indicate that it should be used in a private context, but still can be accessed outside of class</li>
+<li>prefix <font color='red'><code>__show two underscores</code> for private user defined, NO accessable outside of class</font>, exception happens when accesses it.</li>
+<li>prefix <code>__len__</code> for built-in attr, but accessable outside of class</li>
+<li>no prefix for public attribute</li>
+<li><code>def __init__(self)</code> is not need if nothing in it</li>
+<li><code>child must call super().__init__() only if parent needs input</code></li>
+<li><code>self</code> can be other name, but it has to be the first parameter of any function in the class</li>
+<li><code>del instance</code></li>
+</ul>
+</li>
+<li><p><strong>parameter can be class type or other built-in type as well</strong></p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fun_parm_types</span>(<span class="params">fun_n, class_n</span>):</span><br><span class="line">    fun_n()</span><br><span class="line">    t1 = class_n(<span class="string">&#x27;show test&#x27;</span>, <span class="number">12</span>)  <span class="comment"># create an instance of class_n</span></span><br><span class="line">    t1.show()</span><br><span class="line">  </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">factory</span>(<span class="params">n</span>):</span><br><span class="line">    <span class="keyword">return</span> n(<span class="string">&quot;hello&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(factory(<span class="built_in">str</span>)) <span class="comment"># pass str type!!!</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Always use composition not inheritance for python class</strong></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CA</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, company, group</span>):</span><br><span class="line">        self._company = company <span class="comment"># plan to be private, but still acceable outside</span></span><br><span class="line">        self.__group = group    <span class="comment"># private, not acceable outside</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_should_show</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(self._company)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__show</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(self.__group)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># __xx__ is for built-in, internal function</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__say__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">        </span><br><span class="line">c1 = CA(<span class="string">&quot;google&quot;</span>, <span class="string">&#x27;CJ&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(c1._company)</span><br><span class="line">c1.__say__()</span><br><span class="line">c1._should_show()</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    c1.__show()</span><br><span class="line"><span class="keyword">except</span> AttributeError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(e))</span><br><span class="line">    </span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(c1.__group)</span><br><span class="line"><span class="keyword">except</span> AttributeError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(e))</span><br></pre></td></tr></table></figure>
+
+<pre><code>google
+hello
+google
+&#39;CA&#39; object has no attribute &#39;__show&#39;
+&#39;CA&#39; object has no attribute &#39;__group&#39;
+</code></pre>
+<h2 id="dynamic-attribute"><a href="#dynamic-attribute" class="headerlink" title="dynamic attribute"></a>dynamic attribute</h2><p>There is one special feature for python that is different from C++, <code>you can add attribute dynamically</code> that means you can <code>add attribute anytime you want to a class or an instance</code>, but it’s <code>not a good habit</code> as others do not know that attribute at all.</p>
+<p><font color='red'>by default you can add any attribute to an instance, but you can restrict it by <code>__slots__</code>, <strong>but restriction only applies on instance not class</strong>.</font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CA</span>:</span><br><span class="line">    <span class="comment"># attribute allowed to added for instance</span></span><br><span class="line">    __slots__ = (<span class="string">&#x27;new_attr_c&#x27;</span>,<span class="string">&#x27;new_attr_b&#x27;</span>)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">c1 = CA() </span><br><span class="line">CA.new_attr = <span class="number">12</span> <span class="comment"># you can see we can add attr for class even not in __slots__</span></span><br><span class="line"><span class="comment"># this must before print, but can after creating an instance, after this, all instances now have new_attr</span></span><br><span class="line"><span class="built_in">print</span>(c1.new_attr)</span><br><span class="line"></span><br><span class="line">c1.new_attr_c = <span class="number">13</span></span><br><span class="line"><span class="built_in">print</span>(c1.new_attr_c)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    c1.new_attr_d = <span class="number">12</span></span><br><span class="line"><span class="keyword">except</span> AttributeError:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;add new attr not in __slots__, exception happened&quot;</span>)</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<pre><code>12
+13
+add new attr not in __slots__, exception happened
+</code></pre>
+<h2 id="function-overloading-x2F-overriding"><a href="#function-overloading-x2F-overriding" class="headerlink" title="function overloading&#x2F;overriding"></a>function overloading&#x2F;overriding</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">person</span>:</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    this part will be person.__doc__</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        <span class="comment"># constructor!!!</span></span><br><span class="line">        self.__name = name</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">eat</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;I eat from person&quot;</span>)</span><br><span class="line">        self.after()</span><br><span class="line">        <span class="comment"># if self is child class, self.after() will call child&#x27;s after(), if not found, call person.after()</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">after</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;after eat from person&quot;</span>)</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">student</span>(<span class="title class_ inherited__">person</span>): <span class="comment"># inheritance this way</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, sid</span>):</span><br><span class="line">        <span class="comment"># child must call parent init</span></span><br><span class="line">        <span class="built_in">super</span>().__init__(name)</span><br><span class="line">        self.__sid = sid</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">after</span>(<span class="params">self</span>):<span class="comment"># overriding</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;after eat from student&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">teacher</span>(<span class="title class_ inherited__">person</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, tid</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__(name)  <span class="comment"># call parent&#x27;s constructor</span></span><br><span class="line">        self.__tid = tid</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">eat</span>(<span class="params">self, msg</span>): <span class="comment"># overloading</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;i eat %s from teacher&quot;</span> % msg)</span><br><span class="line">        </span><br><span class="line">s1 = student(<span class="string">&quot;s1&quot;</span>, <span class="number">1</span>)</span><br><span class="line">t1 = teacher(<span class="string">&quot;t1&quot;</span>, <span class="number">1</span>)</span><br><span class="line">s1.eat()</span><br><span class="line"></span><br><span class="line"><span class="comment"># t1.eat() called with no parameter</span></span><br><span class="line"><span class="comment"># error as parent function is hiden even with different signatures</span></span><br><span class="line"></span><br><span class="line">t1.eat(<span class="string">&quot;apple&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>I eat from person
+after eat from student
+i eat apple from teacher
+</code></pre>
+<h2 id="operator-overloading"><a href="#operator-overloading" class="headerlink" title="operator overloading"></a>operator overloading</h2><p>In some case, you may want to access <code>user defined class like other built-in type</code>, like <code>len(user_class_instance), user_class_instance[0]</code> what you need to do is to implement <code>special functions</code>, here are a list for such special functions.</p>
+<p><strong>built-in function(descriptor)</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- len           __len__</span><br><span class="line">- str           __str__</span><br><span class="line">- []            __getitem__</span><br><span class="line">- ins.attr      __getattr__</span><br><span class="line">- CLASS()       __call__</span><br><span class="line">- hash          __hash__</span><br><span class="line">- with/as       __enter__/__exit__</span><br></pre></td></tr></table></figure>
+<p><strong>operator</strong></p>
+<table>
+<thead>
+<tr>
+<th>p1 + p2</th>
+<th>__add__</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>p1 - p2</td>
+<td>__sub__</td>
+</tr>
+<tr>
+<td>*,&#x2F;,&#x2F;&#x2F;</td>
+<td>__xx__</td>
+</tr>
+<tr>
+<td>p1 % p2</td>
+<td>__mod__</td>
+</tr>
+<tr>
+<td>&lt;&lt;,&gt;&gt;</td>
+<td>__xx__</td>
+</tr>
+<tr>
+<td>p1 &lt; p2</td>
+<td>__lt__</td>
+</tr>
+<tr>
+<td>&gt;, &lt;&#x3D;, &gt;, &gt;&#x3D;</td>
+<td>__le__, __gt__, __ge__</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Phone</span>:      </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Apple&#x27;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(<span class="string">&#x27;Apple&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">ph1 = Phone()</span><br><span class="line"><span class="built_in">str</span>(ph1)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&#39;Apple&#39;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(ph1))</span><br></pre></td></tr></table></figure>
+
+<pre><code>5
+</code></pre>
+<h2 id="setattr-x2F-getattr-x2F-hasattr-x2F-delattr-with-class"><a href="#setattr-x2F-getattr-x2F-hasattr-x2F-delattr-with-class" class="headerlink" title="setattr&#x2F;getattr&#x2F;hasattr&#x2F;delattr with class"></a>setattr&#x2F;getattr&#x2F;hasattr&#x2F;delattr with class</h2><p>Most of time, class attribute(include function) is defined when defines a class, so we know the name of it, hence we can access it by <code>class_instance.name or class_instance.get_name()</code>, but there are times when you might <strong><code>not know the name of a attribute until runtime as some of them defined by setattr at runtime!!!</code>, that’s where <code>hasattr and getattr</code></strong> (as well as delattr and setattr) come into play.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># must quote attribute</span></span><br><span class="line"><span class="comment"># getattr(class_name, &#x27;attribute&#x27;)</span></span><br><span class="line"><span class="comment"># getattr(instance, &#x27;attribute&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Apple</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># without default value</span></span><br><span class="line">val = <span class="built_in">getattr</span>(Apple, <span class="string">&#x27;name&#x27;</span>)</span><br><span class="line">var = <span class="string">&#x27;name&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># with default value</span></span><br><span class="line">val = <span class="built_in">getattr</span>(Apple, var, <span class="string">&#x27;default value&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_name</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line">f1 = Foo(<span class="string">&#x27;jason&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;all attributes(not include function) for instance are stored at instance._dict__=&quot;</span>, f1.__dict__)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">hasattr</span>(f1, <span class="string">&#x27;id&#x27;</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;class instance doesn&#x27;t have id, use default value &quot;</span>, <span class="built_in">getattr</span>(f1, <span class="string">&#x27;id&#x27;</span>, <span class="string">&#x27;123&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;f1.get_name return &quot;</span>, <span class="built_in">getattr</span>(f1, <span class="string">&#x27;get_name&#x27;</span>)())</span><br></pre></td></tr></table></figure>
+
+<pre><code>all attributes(not include function) for instance are stored at instance._dict__= &#123;&#39;name&#39;: &#39;jason&#39;&#125;
+class instance doesn&#39;t have id, use default value  123
+f1.get_name return  jason
+</code></pre>
+<h2 id="staticmethod-and-classmethod"><a href="#staticmethod-and-classmethod" class="headerlink" title="staticmethod and classmethod"></a>staticmethod and classmethod</h2><p><strong>staticmethod</strong></p>
+<p>staticmethod is used to <code>group functions</code> which <code>have some logical connection within a class</code>. <strong>it knows nothing about the class or instance it was called on</strong>, It just gets the arguments that were passed, <strong><font color='red'>no self argument, just group functions in a class</font></strong>. but it can be called by class or instance as well.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class.<span class="built_in">staticmethod</span>() <span class="comment"># class directly</span></span><br><span class="line">Or even</span><br><span class="line">Class().<span class="built_in">staticmethod</span>() <span class="comment"># instance calls it</span></span><br></pre></td></tr></table></figure>
+
+<p><strong><code>It is basically useless in Python you can just use a module function instead of a staticmethod</code></strong></p>
+<p><strong>classmethod</strong></p>
+<p>A classmethod is a method that is <code>bound to a class rather than its object</code>. It <code>doesn&#39;t require creation of a class instance</code>, much like staticmethod.</p>
+<p>The differences between a static method and a class method are:<br><font color='red'></p>
+<ul>
+<li><strong>Static method knows <code>nothing</code> about the class and just deals with the parameters</strong></li>
+<li><strong>Class method <code>works with the class</code> since its first parameter is always the class type.</strong></li>
+</ul>
+<p>The class method can be called both by the class and its object, both <code>pass class type as first parameter</code>.</font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class.<span class="built_in">classmethod</span>() <span class="comment"># class directly</span></span><br><span class="line">Or even</span><br><span class="line">Class().<span class="built_in">classmethod</span>() <span class="comment"># instance</span></span><br></pre></td></tr></table></figure>
+<p>But no matter what, the <code>class method is always attached to a class with first argument as the class itself cls</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cls is class type!!!</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">classMethod</span>(<span class="params">cls, args...</span>)</span><br></pre></td></tr></table></figure>
+
+<p>This is useful when you want a method to be a factory for the class</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>:</span><br><span class="line">    COUNT = <span class="number">0</span> <span class="comment"># COUNT here means it blongs to CLASS, can access it by class name or instance</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># can use COUNT as without class prefix as parameter</span></span><br><span class="line">    <span class="comment"># but inside function, must add prefix Student.count inside function</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, ct=COUNT</span>):</span><br><span class="line">        self.count_inc_class()  <span class="comment"># even COUNT is increase here,</span></span><br><span class="line">     </span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">count_inc_class</span>(<span class="params">cls</span>): <span class="comment"># pass CLASS, cls is CLASS type, not self!</span></span><br><span class="line">        cls.COUNT += <span class="number">1</span> <span class="comment"># access class COUNT by CLASS name</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_count_static</span>():</span><br><span class="line">        <span class="keyword">return</span> Student.COUNT <span class="comment"># access class COUNT by instance</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_count_class</span>(<span class="params">cls</span>): <span class="comment"># pass CLASS as firt argument, not self</span></span><br><span class="line">        <span class="built_in">print</span>(cls)</span><br><span class="line">        s3 = cls()</span><br><span class="line">        <span class="keyword">return</span> cls.COUNT</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">s1 = Student()</span><br><span class="line">s2 = Student()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(s1.get_count_static(), Student.get_count_static())</span><br><span class="line"><span class="built_in">print</span>(s1.get_count_class(), Student.get_count_class())</span><br><span class="line"><span class="comment">#s1.get_count_class passed CLASS implicitly not self to classmethod</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(s1)</span><br><span class="line"><span class="built_in">print</span>(Student)</span><br></pre></td></tr></table></figure>
+
+<pre><code>2 2
+&lt;class &#39;__main__.Student&#39;&gt;
+&lt;class &#39;__main__.Student&#39;&gt;
+3 4
+&lt;__main__.Student object at 0x7f5e5d055df0&gt;
+&lt;class &#39;__main__.Student&#39;&gt;
+</code></pre>
+<h2 id="setter-x2F-getter"><a href="#setter-x2F-getter" class="headerlink" title="setter&#x2F;getter"></a>setter&#x2F;getter</h2><p>setter&#x2F;getter provide a way that you can <strong>access&#x2F;modify attribute with <code>obj.name</code> but the implementation behind it is a function</strong>, this is very useful in some case, let’s say your old application writing code with <code>obj.name</code>, but after several years, you want to &#x2F;need to <code>return value depends on more logic, but without changing user code</code>, <code>getter</code> comes into play.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>:</span><br><span class="line">    <span class="comment"># two name functions with different decorators</span></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">name</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;getting name&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> self._name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @name.setter </span><span class="comment">#@name must be same with attribute</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">name</span>(<span class="params">self, value</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;setting name %s&#x27;</span> % value)</span><br><span class="line">        self._name = value</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">st1 = Student()</span><br><span class="line"><span class="comment"># behind it, a function is called!!!</span></span><br><span class="line">st1.name = <span class="string">&quot;jason&quot;</span></span><br><span class="line"><span class="built_in">print</span>(st1.name)</span><br></pre></td></tr></table></figure>
+
+<pre><code>setting name jason
+getting name
+jason
+</code></pre>
+<h2 id="enum-class"><a href="#enum-class" class="headerlink" title="enum class"></a>enum class</h2><p>enum is used to group literal together, so that you can use them from class, more specific for its purpose</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> enum <span class="keyword">import</span> Enum</span><br><span class="line"><span class="comment"># Month is the ID of the enum</span></span><br><span class="line">mth = Enum(<span class="string">&#x27;Month&#x27;</span>, (<span class="string">&quot;Jan&quot;</span>, <span class="string">&quot;Feb&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(mth.Jan) <span class="comment"># the resut is a number but can use name like c enum</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>Month.Jan
+</code></pre>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/python-class/" rel="tag"># python-class</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/11/15/python-basics/" rel="prev" title="python-basics">
+                  <i class="fa fa-chevron-left"></i> python-basics
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/11/15/python-function/" rel="next" title="python-function">
+                  python-function <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

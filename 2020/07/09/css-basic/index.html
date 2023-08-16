@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="CSSCSS like a painter, it styles your house to make it beautiful, it allows you to create rules that specify how the content of an element should appear(for box: background, border, margin, padding, w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css_basic">
+<meta property="og:url" content="http://cyun.tech/2020/07/09/css-basic/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="CSSCSS like a painter, it styles your house to make it beautiful, it allows you to create rules that specify how the content of an element should appear(for box: background, border, margin, padding, w">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://cyun.tech/images/web/css/css_simple_selector.png">
+<meta property="og:image" content="http://cyun.tech/images/web/css/css_selector_combinator.png">
+<meta property="og:image" content="http://cyun.tech/images/web/css/css_pseudo_class1.png">
+<meta property="og:image" content="http://cyun.tech/images/web/css/css_pseudo_class2.png">
+<meta property="og:image" content="http://cyun.tech/images/web/css/css_pseudo_element.png">
+<meta property="og:image" content="http://cyun.tech/images/web/css/css_attribute_selectors.png">
+<meta property="og:image" content="http://cyun.tech/images/web/css/margin-border-padding.png">
+<meta property="article:published_time" content="2020-07-09T09:54:39.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.132Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="css selector">
+<meta property="article:tag" content="css property">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cyun.tech/images/web/css/css_simple_selector.png">
+
+
+<link rel="canonical" href="http://cyun.tech/2020/07/09/css-basic/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2020/07/09/css-basic/","path":"2020/07/09/css-basic/","title":"css_basic"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>css_basic | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS"><span class="nav-number">1.</span> <span class="nav-text">CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#how-css-works"><span class="nav-number">1.1.</span> <span class="nav-text">how css works</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS-selector"><span class="nav-number">1.2.</span> <span class="nav-text">CSS selector</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS-property"><span class="nav-number">1.3.</span> <span class="nav-text">CSS property</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Background"><span class="nav-number">1.3.1.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Border"><span class="nav-number">1.3.2.</span> <span class="nav-text">Border</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Margin"><span class="nav-number">1.3.3.</span> <span class="nav-text">Margin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Padding"><span class="nav-number">1.3.4.</span> <span class="nav-text">Padding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Width-and-Height"><span class="nav-number">1.3.5.</span> <span class="nav-text">Width and Height</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OutLine"><span class="nav-number">1.3.6.</span> <span class="nav-text">OutLine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Text"><span class="nav-number">1.3.7.</span> <span class="nav-text">Text</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Font"><span class="nav-number">1.3.8.</span> <span class="nav-text">Font</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Icon"><span class="nav-number">1.3.9.</span> <span class="nav-text">Icon</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-CSS"><span class="nav-number">1.3.10.</span> <span class="nav-text">list CSS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#position-related"><span class="nav-number">1.4.</span> <span class="nav-text">position related</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Media-Queries"><span class="nav-number">1.4.1.</span> <span class="nav-text">Media Queries</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Variable"><span class="nav-number">1.5.</span> <span class="nav-text">Variable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REF"><span class="nav-number">1.6.</span> <span class="nav-text">REF</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2020/07/09/css-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="css_basic | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          css_basic
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-07-09 17:54:39" itemprop="dateCreated datePublished" datetime="2020-07-09T17:54:39+08:00">2020-07-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><p>CSS like a painter, it styles your house to make it beautiful, it allows you to create rules that specify how the content of an element should appear(for box: background, border, margin, padding, width, height etc, TEXT: font, color), <strong>these setting are html element styles, but set outside of html for better management</strong>, that means you need to know</p>
+<ul>
+<li>what to be set (html element style property)</li>
+<li>how to set it (css syntax)</li>
+</ul>
+<span id="more"></span>
+
+<p>html element’s styles(border, color, font) can be set with below order(the first one have the highest priority)</p>
+<ol>
+<li>inline, inside each element(&lt; color&gt;)[used for just one element]</li>
+</ol>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">style</span>=<span class="string">&quot;background-color: linen&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>This is a Heading<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>This is a paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>This is another paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>internal css(style at header)[used for just one page]</li>
+<li>external (css)[used for whole website, many pages can share the same css file]</li>
+<li>browser default setting</li>
+</ol>
+<h2 id="how-css-works"><a href="#how-css-works" class="headerlink" title="how css works"></a>how css works</h2><p>css associates style rules with html elements by SELECTOR DECLARATION</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * selector &#123;property: value&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="selector-tag">h1</span>, <span class="selector-tag">h2</span>&#123; <span class="attribute">color</span>:yellow;&#125;</span><br></pre></td></tr></table></figure>
+<p>two ways to apply CSS</p>
+<p><strong>external</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;path&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> /&gt;</span></span><br><span class="line">  //rel points to the *.css file</span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>internal</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">h1</span>, <span class="selector-tag">h2</span> &#123;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">color</span>: yellow;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">  </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Always use external for production env, the reason is:</p>
+<ol>
+<li>multiple pages can share the same css</li>
+<li>decouple css with html code, easy for maintenance</li>
+<li>client only needs to request file once if shared by pages, fast</li>
+</ol>
+<p>More rules matched, which one should be used?</p>
+<ol>
+<li><p>if two selector are identical, that latter one, that means</p>
+<ul>
+<li>if has inline, always use it</li>
+<li>else see the position of external and internal, use later one</li>
+<li>else use browser default.</li>
+</ul>
+</li>
+<li><p>if one selector is more specific than the others, the more specific rule applies</p>
+</li>
+<li><p>special add !important after property value, just this value used for this property!!</p>
+</li>
+</ol>
+<h2 id="CSS-selector"><a href="#CSS-selector" class="headerlink" title="CSS selector"></a>CSS selector</h2><p><strong>Simple Selectors</strong></p>
+<p><img src="/images/web/css/css_simple_selector.png" alt="simple selector"></p>
+<p><strong>CSS Combinators</strong><br>There are four different combinators in CSS:</p>
+<ul>
+<li>descendant selector (space), son, grandson etc</li>
+<li>child selector (&gt;), direct child, only son</li>
+<li>adjacent sibling selector (+), has same parent</li>
+<li>general sibling selector (~), has same parent</li>
+</ul>
+<p><img src="/images/web/css/css_selector_combinator.png" alt="selector combinator"></p>
+<p><strong>CSS Pseudo-classes</strong></p>
+<p><img src="/images/web/css/css_pseudo_class1.png" alt="pseudo class1 selector"><br><img src="/images/web/css/css_pseudo_class2.png" alt="pseudo class2 selector"></p>
+<ul>
+<li>active state means mouse clicked not freed state</li>
+<li>checked state for input element like check box etc</li>
+<li>enabled state for input element as well.</li>
+<li>focus state for input element when clicked, cursor is there</li>
+<li>invalid state for input element when invalid value, like email but input is not</li>
+<li>out-of-range state for input element when value is out of range, like number with range(1,10), input 11</li>
+<li>first-child and first-of-type both say direct child</li>
+<li>nth-child(n) and nth-of-type(n) both say direct child as n index, index from 1</li>
+<li>only-child and only-of-type both say direct child</li>
+</ul>
+<p>Pseudo-class always combines with selectors, here are some example</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:hover</span> <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="comment">// when mouse moves over a div, all descendant p changes display.</span></span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-class">.highlight</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="comment">// a tag with &#x27;highlight&#x27; class when mouse moves over, change it&#x27;s color</span></span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#ff0000</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Pseudo Elements</strong><br>It’ used to insert content or change first-line or first-letter, the content can be a string or url, more details about the content, refer to <a target="_blank" rel="noopener" href="https://www.w3schools.com/cssref/pr_gen_content.asp">content format</a></p>
+<p><img src="/images/web/css/css_pseudo_element.png" alt="pseudo element selector"></p>
+<p><strong>Attribute Selectors</strong></p>
+<p><img src="/images/web/css/css_attribute_selectors.png" alt="attribute selector"></p>
+<p><strong>Similar attribute selector</strong></p>
+<ul>
+<li><p>[attribute|&#x3D;value] 	[lang|&#x3D;en] 	Selects all elements with a lang attribute value starting with “en”<br><code>en must be attribute value, hence match a whole word</code></p>
+</li>
+<li><p>[attribute^&#x3D;value] 	a[href^&#x3D;”https”] 	Selects every &lt;a&gt; element whose href attribute value begins with “https”<br><code>https can be part of attribute value, part of word</code></p>
+</li>
+<li><p>[attribute<del>&#x3D;value] 	[title</del>&#x3D;flower] 	Selects all elements with a title attribute containing the word “flower”<br><code>flower must be attribute value, hence match a whole word</code></p>
+</li>
+<li><p>[attribute*&#x3D;value] 	a[href*&#x3D;”w3schools”] 	Selects every &lt;a&gt; element whose href attribute value contains the substring “w3schools”<br><code>w3schools can be part of attribute value, part of word</code></p>
+</li>
+</ul>
+<p><code>Note: regular pattern ^, $, * just do matching as a string, |, ~ matching with meaning, it must be an attribute value.</code></p>
+<h2 id="CSS-property"><a href="#CSS-property" class="headerlink" title="CSS property"></a>CSS property</h2><p><strong>CSS Property Groups</strong></p>
+<ul>
+<li>Color</li>
+<li>Background and Borders</li>
+<li>Basic Box</li>
+<li>Flexible Box</li>
+<li>Text</li>
+<li>Text Decoration</li>
+<li>Fonts</li>
+<li>Writing Modes</li>
+<li>Table</li>
+<li>Lists and Counters</li>
+<li>Animation</li>
+<li>Transform</li>
+<li>Transition</li>
+<li>Basic User Interface</li>
+<li>Multi-column</li>
+<li>Paged Media</li>
+<li>Generated Content</li>
+<li>Filter Effects</li>
+<li>Image&#x2F;Replaced Content</li>
+<li>Masking</li>
+<li>Speech</li>
+<li>Marquee</li>
+</ul>
+<p>This is just groups, not specific property, all properties refer to <a target="_blank" rel="noopener" href="https://www.w3schools.com/cssref/">css reference</a></p>
+<h3 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: green;</span><br><span class="line">  <span class="comment">// not transparent</span></span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0.3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Background can be set with an image, but the image may be not so big to fill the full content of view, hence we can set ‘repeat’ or ‘position’, ‘scroll’ for the image.</p>
+<p><strong>background-size</strong><br>The background-size can be specified in lengths, percentages, or by using one of the two keywords: contain or cover.</p>
+<ul>
+<li>Without background-size: img stays its original size, if area is large, some part is not cover, if area is small, the overflow part is hidden</li>
+<li>cover: the cover keyword scales the background image so that the content area is completely covered by the background image, so part of image may out of area.</li>
+<li>contain: the contain keyword scales the background image to be as large as possible (but both <code>its width and its height must fit inside the content area</code>), the part of area may be not covered at all.</li>
+</ul>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">background-image</span>: url(<span class="string">&quot;img_tree.png&quot;</span>);</span><br><span class="line">  <span class="attribute">background-size</span>: cover;</span><br><span class="line">  <span class="attribute">background-repeat</span>: no-repeat; <span class="comment">//repeat-x, repeat-y</span></span><br><span class="line">  <span class="attribute">background-attachment</span>: scroll; <span class="comment">//move when you scroll your view, another value, fixed.</span></span><br><span class="line">  <span class="attribute">background-position</span>: right top;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* Shorthand for background, write a single property to include all values with fixed order</span></span><br><span class="line"><span class="comment">    background-color</span></span><br><span class="line"><span class="comment">    background-image</span></span><br><span class="line"><span class="comment">    background-repeat</span></span><br><span class="line"><span class="comment">    background-attachment</span></span><br><span class="line"><span class="comment">    background-position</span></span><br><span class="line"><span class="comment">  It does not matter if one of the property values is missing, as long as the other ones are in this order</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: url(<span class="string">&quot;img_tree.png&quot;</span>) no-repeat scroll right top;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">The CSS background-origin property specifies where the background image is positioned.</span></span><br><span class="line"><span class="comment">The property takes three different values:</span></span><br><span class="line"><span class="comment">    border-box - the background image starts from the upper left corner of the border</span></span><br><span class="line"><span class="comment">    padding-box - (default) the background image starts from the upper left corner of the padding edge</span></span><br><span class="line"><span class="comment">    content-box - the background image starts from the upper left corner of the content</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>Note: you can set background for every element like <code>body</code>, <code>div</code>, <code>input</code> etc, it’s only <code>applied to that element!!</code></p>
+<h3 id="Border"><a href="#Border" class="headerlink" title="Border"></a>Border</h3><p>Border has four sides, top, right, bottom, left, you can set properties like ‘style’, ‘width’, ‘radius’ for each side separately or define two(top, bottom pair, right, left pair) or four side as same. but with Shorthand, the four sides must be same!!!</p>
+<ul>
+<li>border-xxx-style border-style</li>
+<li>border-xxx-width border-width</li>
+<li>border-xxx-color border-color</li>
+<li>border-radius<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">border-top-style</span>: solid;</span><br><span class="line">  <span class="attribute">border-width</span>: <span class="number">10px</span> <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">border-color</span>: red;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Shorthand does NOT include radius with below order</span></span><br><span class="line"><span class="comment">   border-width</span></span><br><span class="line"><span class="comment">   border-style (required)</span></span><br><span class="line"><span class="comment">   border-color</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">10px</span> solid red;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Margin"><a href="#Margin" class="headerlink" title="Margin"></a>Margin</h3><img src="/images/web/css/margin-border-padding.png" alt="box modal"></li>
+</ul>
+<p>Margin can be set for each side separately with specific property, or set with one property(Shorthand), the values:</p>
+<ul>
+<li>auto - the browser calculates the margin(only works for block element)</li>
+<li>length - specifies a margin in px, pt, cm, etc.</li>
+<li>% - specifies a margin in % of the width of the containing element(mostly % of its parent’s width)</li>
+<li>inherit - specifies that the margin should be inherited from the parent element</li>
+</ul>
+<p><code>Top and bottom margins of elements are sometimes collapsed into a single margin that is equal to the largest of the two margins.</code><br><code>This does not happen on left and right margins! Only top and bottom margins!</code></p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="comment">// margin-top, margin-xx</span></span><br><span class="line">  <span class="comment">//Shorthand with top, right, bottom left order</span></span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">25px</span> <span class="number">50px</span> <span class="number">75px</span> <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>The width of an element does not include padding, borders, or margins by default. but you can include border, padding with  box-sizing: border-box;</code></p>
+<p>For <code>auto</code>, the left margin receives <code>a share of the unused horizontal space</code>, as determined mainly by the layout mode that is used. If the values of margin-left and margin-right are both auto, the calculated space is evenly distributed. if only margin-left set, the unused horizontal space added as margin-left,  move the item right align, more details refer to <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin-left">margin auto</a>.</p>
+<h3 id="Padding"><a href="#Padding" class="headerlink" title="Padding"></a>Padding</h3><p>The CSS padding properties are used to generate space around an element’s content, inside of any defined borders, it has the same format as margin.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="comment">// padding-top, padding-xx</span></span><br><span class="line">  <span class="comment">//Shorthand with top, right, bottom left order</span></span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">25px</span> <span class="number">50px</span> <span class="number">75px</span> <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Width-and-Height"><a href="#Width-and-Height" class="headerlink" title="Width and Height"></a>Width and Height</h3><p>The height and width properties are used to set the height and width of an element.</p>
+<p>The height and width properties do not include padding, borders, or margins. It sets the height&#x2F;width of the area inside the padding, border,and margin of the element.</p>
+<p>The height and width properties may have the following values:</p>
+<ul>
+<li>auto - This is default. The browser calculates the height and width</li>
+<li>length - Defines the height&#x2F;width in px, cm etc.</li>
+<li>% - Defines the height&#x2F;width in percent of the containing block, special for img</li>
+<li>inherit - The height&#x2F;width will be inherited from its parent value</li>
+</ul>
+<p>Note: For img if the max-width property is set to 100%, the image will scale down if it has to, but never scale up to be larger than its original size. same thing for <code>video</code>.</p>
+<p>The max-width property is used to set the maximum width of an element, the element size scroll when window changes, it’s respective, but width has fixed size, hence on small window, some of the element may be out of window.</p>
+<h3 id="OutLine"><a href="#OutLine" class="headerlink" title="OutLine"></a>OutLine</h3><p>An outline is a line that is drawn around elements, <code>OUTSIDE the borders</code>, to make the element “stand out”, it has the same format as border does, ‘style’, ‘color’, ‘width’. but can’t set each side!!!</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="comment">// NO outline-xxx-width like border</span></span><br><span class="line">  <span class="comment">// outline-width: 5px;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//Shorthand</span></span><br><span class="line">  <span class="attribute">outline</span>: <span class="number">5px</span> solid red;</span><br><span class="line">  <span class="comment">// outline offset from border</span></span><br><span class="line">  <span class="attribute">outline-offset</span>: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h3><p>Text has several properties you can set by CSS like color, alignment, decoration, transformation, space, shadow.</p>
+<ul>
+<li>The color property is used to set the color of the text.</li>
+<li>The text-align property is used to set the horizontal alignment of a text<br>justify: each line is <code>stretched so that every line has equal width</code></li>
+<li>The text-transform property is used to specify uppercase and lowercase letters in a text</li>
+<li>The text-indent property is used to specify the indentation of <code>the first line of a text</code></li>
+<li>The text-shadow property adds shadow to text.horizontal shadow  and the vertical shadow<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: white;</span><br><span class="line">  <span class="attribute">color</span>: black;</span><br><span class="line">  <span class="attribute">text-align</span>: left;<span class="comment">//&quot;justify&quot;, each line is stretched so that every line has equal width, and the left and right margins are straight (like in magazines and newspapers)</span></span><br><span class="line">  <span class="attribute">vertical-align</span>: middle;</span><br><span class="line">  <span class="attribute">text-decoration</span>: underline;</span><br><span class="line">  <span class="attribute">text-transform</span>: uppercase; <span class="comment">//capitalize</span></span><br><span class="line">  <span class="attribute">text-indent</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: <span class="number">2px</span>;</span><br><span class="line">  <span class="attribute">word-spacing</span>: <span class="number">3px</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">2</span>;</span><br><span class="line">  <span class="attribute">text-shadow</span>: <span class="number">2px</span> <span class="number">2px</span> red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Font"><a href="#Font" class="headerlink" title="Font"></a>Font</h3>The CSS font properties define the font family, boldness, size, and the style of a text</li>
+</ul>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line"> <span class="attribute">font-style</span>: italic;</span><br><span class="line"> <span class="attribute">font-weight</span>: bold;</span><br><span class="line"> <span class="attribute">font-size</span>: <span class="number">30px</span>; <span class="comment">/* font-size: 2.5em; 40px/16=2.5em */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">The font property is a shorthand property for:</span></span><br><span class="line"><span class="comment">    font-style</span></span><br><span class="line"><span class="comment">    font-variant</span></span><br><span class="line"><span class="comment">    font-weight</span></span><br><span class="line"><span class="comment">    font-size/line-height</span></span><br><span class="line"><span class="comment">    font-family</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">font</span>: italic bold <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Icon"><a href="#Icon" class="headerlink" title="Icon"></a>Icon</h3><p>The simplest way to add an icon to your HTML page, is with an icon library, such as Font Awesome, Bootstrap Icons, Google Icon</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://kit.fontawesome.com/a076d05399.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fas fa-cloud&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="list-CSS"><a href="#list-CSS" class="headerlink" title="list CSS"></a>list CSS</h3><p>The list-style-image property specifies an image as the list item marker.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ul</span><span class="selector-class">.a</span> &#123;</span><br><span class="line">  <span class="attribute">list-style-type</span>: circle; <span class="comment">// or use an image list-style-image: url(&#x27;sqpurple.gif&#x27;);</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">ul</span><span class="selector-class">.b</span> &#123;</span><br><span class="line">  <span class="attribute">list-style-type</span>: square;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="position-related"><a href="#position-related" class="headerlink" title="position related"></a>position related</h2><p><font size="5" color="red">Normal flow(default): every block-level element(start with new line) appears on a new line, causing each item to appear lower down the page than previous one</font>, even if you specify the width of the boxes and there is space for two elements to sit side-by-side, they will not appear next to each other, this is the default behavior!</p>
+<ul>
+<li><p>Relative position<br>This moves an element from the position it would be <code>in normal flow</code>, <code>shift it to the top, right, bottom, or left of where it would have been placed</code>, this <code>doesn&#39;t affect the position of surrounding elements</code>, they stay in the position they would be in normal flow<br>(relative—relative to where they would be in normal flow when set offset top, right, bottom, left), <code>if no shift set, relative position has no difference with default</code>.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-class">.relative</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">10px</span>; <span class="comment">// move left from normal flow</span></span><br><span class="line">  <span class="attribute">border</span>: <span class="number">3px</span> solid <span class="number">#73AD21</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Absolute position<br>This positions the element in [relation to its containing element], It’s taken <code>out of normal flow</code>, it could affect sibling elements, as it has the fixed position in the container.<br>Positioned relative to the nearest <code>positioned ancestor</code> (instead of positioned relative to the viewport, like fixed)<br>However; if an absolute positioned element has no positioned ancestors, it uses the document body, <code>A &quot;positioned&quot; element is one whose position is anything except static</code></p>
+</li>
+<li><p>Fixed position<br>This is a form of absolute positioning that positions the elements in relation to the browser window!!! as opposed to the containing element! they don’t move when user scrolls up or down the page!<br>(absolute—the browser window!!!) it’s always fixed to the window, out of flow, can affect any element in the view!!!</p>
+</li>
+</ul>
+<p><strong>z-index</strong><br>When positioned with three ways, element may overlap each other,t he z-index property specifies the stack order of an element, an element with greater <code>stack order is always in front of an element with a lower stack order</code>.</p>
+<p>Note: z-index only works on positioned elements (position: absolute, position: relative, position: fixed), default 0</p>
+<h3 id="Media-Queries"><a href="#Media-Queries" class="headerlink" title="Media Queries"></a>Media Queries</h3><p>Media queries can be used to check many things, such as:</p>
+<ul>
+<li>width and height of the viewport</li>
+<li>orientation (is the tablet&#x2F;phone in landscape or portrait mode?)</li>
+<li>resolution</li>
+</ul>
+<p>it returns feature of given media type, then we use that result do some expression to define different values of element.</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//When a media query is true, the corresponding style sheet or style rules are applied, following the normal cascading rules</span></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">not</span>|<span class="keyword">only</span> mediatype <span class="keyword">and</span> (expressions) &#123;</span><br><span class="line">  CSS-<span class="selector-tag">Code</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//example:</span></span><br><span class="line"><span class="comment">/* When the width is between 600px and 900px OR above 1100px - change the appearance of &lt;div&gt; */</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">900px</span>) <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">600px</span>), (<span class="attribute">min-width</span>: <span class="number">1100px</span>) &#123;</span><br><span class="line">  <span class="selector-tag">div</span><span class="selector-class">.example</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">50px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">50px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">8px</span> solid black;</span><br><span class="line">    <span class="attribute">background</span>: yellow;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>mediatype:</p>
+<ul>
+<li>screen</li>
+<li>print</li>
+</ul>
+<p>features</p>
+<ul>
+<li>height 	The viewport height</li>
+<li>max-height 	The maximum height of the display area, such as a browser window</li>
+<li>min-height 	The minimum height of the display area, such as a browser window</li>
+<li>min-resolution 	The minimum resolution of the device, using dpi or dpcm</li>
+<li>max-resolution 	The maximum resolution of the device, using dpi or dpcm</li>
+<li>max-width 	The maximum width of the display area, such as a browser window</li>
+<li>min-width 	The minimum width of the display area, such as a browser window</li>
+<li>width 	The viewport width</li>
+</ul>
+<h2 id="Variable"><a href="#Variable" class="headerlink" title="Variable"></a>Variable</h2><p>Variables in CSS should be declared within a CSS selector that defines its scope. For a global scope you can use either the :root or the body selector.<br>The variable name must begin with two dashes (–) and is case sensitive!</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">  <span class="comment">/* global variable */</span></span><br><span class="line">  <span class="attr">--main-bg-color</span>: coral;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#div1</span> &#123;</span><br><span class="line">  <span class="attr">--local-color</span>: red;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="built_in">var</span>(--main-bg-color);</span><br><span class="line">  <span class="attribute">color</span>: <span class="built_in">var</span>(--local-color);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3schools.com/css/default.asp">css w3school tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://htmlcheatsheet.com/css/">css cheatsheet</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/web/" rel="tag"># web</a>
+              <a href="/tags/css/" rel="tag"># css</a>
+              <a href="/tags/css-selector/" rel="tag"># css selector</a>
+              <a href="/tags/css-property/" rel="tag"># css property</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/06/28/k8s-components/" rel="prev" title="k8s_components">
+                  <i class="fa fa-chevron-left"></i> k8s_components
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/09/css-faq/" rel="next" title="css_faq">
+                  css_faq <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

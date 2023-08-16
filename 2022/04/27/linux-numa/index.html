@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OverviewThe NUMA-aware architecture is a hardware design which separates its cores into multiple clusters where each cluster has its own local memory region and still allows cores from one cluster to">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux-numa">
+<meta property="og:url" content="http://cyun.tech/2022/04/27/linux-numa/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="OverviewThe NUMA-aware architecture is a hardware design which separates its cores into multiple clusters where each cluster has its own local memory region and still allows cores from one cluster to">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.boost.org/doc/libs/develop/libs/fiber/doc/NUMA.png">
+<meta property="article:published_time" content="2022-04-27T01:19:43.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.160Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="numa">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.boost.org/doc/libs/develop/libs/fiber/doc/NUMA.png">
+
+
+<link rel="canonical" href="http://cyun.tech/2022/04/27/linux-numa/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2022/04/27/linux-numa/","path":"2022/04/27/linux-numa/","title":"linux-numa"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>linux-numa | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NUma"><span class="nav-number">2.</span> <span class="nav-text">NUma</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU"><span class="nav-number">2.1.</span> <span class="nav-text">CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memory"><span class="nav-number">2.2.</span> <span class="nav-text">Memory</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Debug"><span class="nav-number">3.</span> <span class="nav-text">Debug</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Taskset"><span class="nav-number">3.1.</span> <span class="nav-text">Taskset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numactl"><span class="nav-number">3.2.</span> <span class="nav-text">numactl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numastat"><span class="nav-number">3.3.</span> <span class="nav-text">numastat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numad"><span class="nav-number">3.4.</span> <span class="nav-text">numad</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2022/04/27/linux-numa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="linux-numa | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux-numa
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-04-27 09:19:43" itemprop="dateCreated datePublished" datetime="2022-04-27T09:19:43+08:00">2022-04-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux/numa/" itemprop="url" rel="index"><span itemprop="name">numa</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>The NUMA-aware architecture is a hardware design which separates its cores into multiple clusters where each cluster has its own local memory region and still allows cores from one cluster to access all memory in the system. However, if a processor needs to use memory that is not its own memory region, it will take longer to access that (remote) memory. For applications where performance is crucial, preventing the need to access memory from other clusters is critical.</p>
+<ul>
+<li>A socket refers to the <code>physical location where a processor package plugs into a motherboard</code>. The processor that plugs into the motherboard is also known as a socket.</li>
+<li>A core is an individual execution unit within a processor that can independently execute a software execution thread and maintains its execution state separate from the execution state of any other cores within a processor.</li>
+<li>A thread refers to a hardware-based thread execution capability. For example, the Intel Xeon 7560 has eight cores, each of which has hardware that can effectively execute two software execution threads simultaneously, yielding 16 threads.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ lscpu </span><br><span class="line">Architecture:                    aarch64</span><br><span class="line">CPU op-mode(s):                  32-bit, 64-bit</span><br><span class="line">Byte Order:                      Little Endian</span><br><span class="line">CPU(s):                          128</span><br><span class="line">On-line CPU(s) list:             0-127</span><br><span class="line">Thread(s) per core:              1</span><br><span class="line">Core(s) per socket:              128</span><br><span class="line">Socket(s):                       1</span><br><span class="line">NUMA node(s):                    2</span><br><span class="line">Vendor ID:                       ARM</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p><img src="https://www.boost.org/doc/libs/develop/libs/fiber/doc/NUMA.png" alt="Numa topolgy"></p>
+<p>From the hardware perspective, a NUMA system is a computer platform that comprises multiple components or assemblies each of which may <code>contain 0 or more CPUs, local memory, and/or IO buses</code>.  we’ll call the components&#x2F;assemblies ‘cells’ as well.</p>
+<p>The cells of the NUMA system are connected together with some sort of system interconnect–e.g., a crossbar or point-to-point link are common types of NUMA system interconnects. Both of these types of interconnects can be aggregated to create NUMA platforms with cells at multiple distances from other cells.</p>
+<p>Memory access time and effective memory bandwidth varies depending on how far away the cell containing the CPU or IO bus making the memory access is from the cell containing the target memory.</p>
+<p>Linux divides the system’s hardware resources into multiple software abstractions called “nodes”. Linux maps the nodes onto the physical cells of the hardware platform, abstracting away some of the details for some architectures. As with physical cells, software nodes may contain 0 or more CPUs, memory and&#x2F;or IO buses. And, again, memory accesses to memory on “closer” nodes–nodes that map to closer cells–will generally experience faster access times and higher effective bandwidth than accesses to more remote cells.</p>
+<p>For <code>each node with memory, Linux constructs an independent memory management subsystem</code>, complete with its own free page lists, in-use page lists, usage statistics and locks to mediate access. In addition, Linux <code>constructs for each memory zone [one or more of DMA, DMA32, NORMAL, HIGH_MEMORY, MOVABLE]</code>, an ordered “zonelist”. A zonelist specifies the zones&#x2F;nodes to visit when a selected zone&#x2F;node cannot satisfy the allocation request. This situation, when a zone has no available memory to satisfy a request, is called “overflow” or “fallback”.</p>
+<p>By default, <code>Linux will attempt to satisfy memory allocation requests from the node to which the CPU that executes the request is assigned</code>. Specifically, Linux will attempt to allocate from the first node in the appropriate zonelist for the node where the request originates. This is called “local allocation.” <code>If the “local” node cannot satisfy the request, the kernel will examine other nodes’ zones in the selected zonelist looking for the first zone in the list that can satisfy the request.</code></p>
+<h1 id="NUma"><a href="#NUma" class="headerlink" title="NUma"></a>NUma</h1><h2 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h2><p>each CPU is assigned its own local memory and can access memory from other CPUs in the system.<br>each processor contains many cores with a shared on-chip cache and an off-chip memory and has variable memory access costs across different parts of the memory within a server</p>
+<h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h2><p>In Non-Uniform Memory Access (NUMA), <code>system memory is divided into zones (called nodes)</code>, which are allocated to particular CPUs or sockets. <code>Access to memory that is local to a CPU is faster than memory connected to remote CPUs on that system. </code></p>
+<p>Memory allocation policies defines for Numa system</p>
+<ul>
+<li><p>Default(local allocation): This mode specifies that any nondefault thread memory policy be removed, so that the memory policy “falls back” to the system default policy.  The system default policy is “local allocation”—that is, <code>allocate memory on the node of the CPU that triggered the allocation.</code>  nodemask must be specified as NULL.  <code>If the &quot;local node&quot; contains no free memory, the system will attempt to allocate memory from a &quot;near by&quot; node.</code></p>
+</li>
+<li><p>Bind: This mode defines a strict policy that restricts memory allocation to the nodes specified in nodemask. <code>If nodemask specifies more than one node, page allocations will come from the node with the lowest numeric node ID first, until that node contains no free memory</code>. Allocations will then come from the node with the next highest node ID specified in nodemask and so forth, until none of the specified nodes contain free memory.  Pages will not be allocated from any node not specified in the nodemask.</p>
+</li>
+<li><p>Interleave: <code>This mode interleaves page allocations across the nodes specified in nodemask in numeric node ID order</code>.  This optimizes for bandwidth instead of latency by spreading out pages and memory accesses to those pages across multiple nodes.  However, accesses to a single page will still be limited to the memory bandwidth of a single node.</p>
+</li>
+<li><p>Preferred: This mode sets the preferred node for allocation. The kernel will try to allocate pages from this node first and fall back to “near by” nodes if the preferred node is low on free memory. <code>If nodemask specifies more than one node ID, the first node in the mask will be selected as the preferred node.</code>  If the nodemask and maxnode arguments specify the empty set, then the policy specifies “local allocation” (like the system default policy discussed above).</p>
+</li>
+</ul>
+<h1 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h1><h2 id="Taskset"><a href="#Taskset" class="headerlink" title="Taskset"></a>Taskset</h2><p>The taskset command is considered the most portable Linux way of <code>setting or retrieving the CPU affinity (binding)</code> of a running process (thread). it only sets cpu affinity of running process, not touch memory allocation.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># start process on given cpu</span></span><br><span class="line">$ taskset -c 0 ./app</span><br><span class="line"></span><br><span class="line"><span class="comment"># change process to run on given cpu</span></span><br><span class="line">$ taskset -p -c 0 <span class="variable">$pid</span></span><br><span class="line">$ taskset -c 0 -p <span class="variable">$pid</span> <span class="comment"># error!!!</span></span><br><span class="line"></span><br><span class="line">$ taskset -p -c 0,2 <span class="variable">$pid</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># get process affinity</span></span><br><span class="line">$ taskset -<span class="built_in">cp</span> <span class="variable">$pid</span></span><br><span class="line">$ taskset -p <span class="variable">$pid</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="numactl"><a href="#numactl" class="headerlink" title="numactl"></a>numactl</h2><p>numactl can be used to <code>control the NUMA policy for processes, shared memory, or both</code>. One key thing about numactl is that, unlike taskset, you <strong><code>can’t use it to change the policy of a running application</code>.</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ yum install -y numactl</span><br><span class="line"></span><br><span class="line"><span class="comment"># show nodes topology and free/total numa node memory</span></span><br><span class="line">$ numactl -H</span><br><span class="line">available: 2 nodes (0-1)</span><br><span class="line">node 0 cpus: 0 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30</span><br><span class="line">node 0 size: 65442 MB</span><br><span class="line">node 0 free: 1903 MB</span><br><span class="line">node 1 cpus: 1 3 5 7 9 11 13 15 17 19 21 23 25 27 29 31</span><br><span class="line">node 1 size: 65536 MB</span><br><span class="line">node 1 free: 17423 MB</span><br><span class="line">node distances:</span><br><span class="line">node   0   1 </span><br><span class="line">  0:  10  21 </span><br><span class="line">  1:  21  10 </span><br><span class="line"></span><br><span class="line"><span class="comment"># show policy</span></span><br><span class="line">$ numactl --show</span><br><span class="line">policy: default</span><br><span class="line">preferred node: current</span><br><span class="line">physcpubind: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 </span><br><span class="line">cpubind: 0 1 </span><br><span class="line">nodebind: 0 1 </span><br><span class="line">membind: 0 1 </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>--interleave=&lt;nodes&gt;</code> policy has the application allocate memory in a round-robin fashion on “nodes.” With only two NUMA nodes, this means memory will be allocated first on node 0, followed by node 1, node 0, node 1, and so on. If the memory allocation cannot work on the current interleave target node (node x), it falls back to other nodes, but in the same round-robin fashion. You can control which nodes are used for memory interleaving or use them all</p>
+<blockquote>
+<p><code>--interleave=0,1 or --interleave=all</code></p>
+</blockquote>
+</li>
+<li><p><code>--membind=&lt;nodes&gt;</code> policy forces memory to be allocated from the list of provided nodes</p>
+<blockquote>
+<p><code>--membind=0 or --menbind=all</code></p>
+</blockquote>
+</li>
+<li><p><code>--preferred=&lt;node&gt;</code> policy causes memory allocation on the node you specify, but if it can’t, it will fall back to using memory from other nodes.</p>
+<blockquote>
+<p><code>--preferred=1</code></p>
+</blockquote>
+</li>
+<li><p><code>--localalloc</code> policy forces allocation of memory on the current node</p>
+<blockquote>
+<p><code>--localalloc</code></p>
+</blockquote>
+</li>
+<li><p><code>--cpunodebind=&lt;nodes&gt;</code> option causes processes to run only on the CPUs of the specified node(s)</p>
+<blockquote>
+<p><code>--cpunodebind=0</code></p>
+</blockquote>
+</li>
+<li><p><code>--physcpubind=&lt;CPUs&gt;</code> policy executes the process(es) on the list of CPUs provided</p>
+<blockquote>
+<p><code>--physcpubind=+0-4,8-12</code></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="numastat"><a href="#numastat" class="headerlink" title="numastat"></a>numastat</h2><p>The numastat tool is provided by the numactl package, and <strong>displays memory statistics (such as allocation hits and misses) for processes</strong> and the operating system on a per-NUMA-node basis. The default tracking categories for the numastat command are outlined as follows: </p>
+<ul>
+<li>numa_hit<blockquote>
+<p><code>The number of pages</code> that were successfully allocated to this node. </p>
+</blockquote>
+</li>
+<li>numa_miss<blockquote>
+<p>The <code>number of pages that were allocated on this node because of low memory on the intended node</code>. Each numa_miss event has a corresponding numa_foreign event on another node. </p>
+</blockquote>
+</li>
+<li>numa_foreign<blockquote>
+<p>The <code>number of pages initially intended for this node that were allocated to another node instead</code>. Each numa_foreign event has a corresponding numa_miss event on another node. </p>
+</blockquote>
+</li>
+<li>interleave_hit<blockquote>
+<p>The number of interleave policy pages successfully allocated to this node. </p>
+</blockquote>
+</li>
+<li>local_node<blockquote>
+<p>The number of pages successfully allocated on this node, <code>by a process on this node.</code></p>
+</blockquote>
+</li>
+<li>other_node<blockquote>
+<p>The number of pages allocated on this node, by a process on another node.</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>Options</strong></p>
+<ul>
+<li><code>-m</code> Displays system-wide memory usage information on a per-node basis, similar to the information found in &#x2F;proc&#x2F;meminfo</li>
+<li><code>-p pattern</code> Displays per-node memory information for the specified pattern. If the value for pattern is comprised of digits, numastat assumes that it is a numerical process identifier</li>
+<li><code>-s</code> Sorts the displayed data in descending order so that the biggest memory consumers (according to the total column) are listed first</li>
+<li><code>-v</code> Displays more verbose information. Namely, process information for multiple processes will display detailed information for each process</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># system wide view of each numa node</span></span><br><span class="line">$ numastat -m</span><br><span class="line"><span class="comment"># more info about system wide view</span></span><br><span class="line">$ numastat -<span class="built_in">mv</span></span><br><span class="line"></span><br><span class="line">Per-node system memory usage (<span class="keyword">in</span> MBs):</span><br><span class="line">                          Node 0          Node 1           Total</span><br><span class="line">                 --------------- --------------- ---------------</span><br><span class="line">MemTotal                65442.34        65536.00       130978.34</span><br><span class="line">MemFree                  2073.16        17484.08        19557.24</span><br><span class="line">MemUsed                 63369.18        48051.92       111421.10</span><br><span class="line">Active                  28696.10        29089.88        57785.98</span><br><span class="line">Inactive                31393.39        15842.16        47235.55</span><br><span class="line">Active(anon)             1541.27         1925.21         3466.48</span><br><span class="line">Inactive(anon)           9547.17         1200.94        10748.11</span><br><span class="line">Active(file)            27154.82        27164.67        54319.50</span><br><span class="line">Inactive(file)          21846.21        14641.22        36487.43</span><br><span class="line">Unevictable                 0.00            0.00            0.00</span><br><span class="line">Mlocked                     0.00            0.00            0.00</span><br><span class="line">Dirty                       0.13            0.02            0.15</span><br><span class="line">Writeback                   0.00            0.00            0.00</span><br><span class="line">FilePages               58718.86        43096.30       101815.16</span><br><span class="line">Mapped                    101.45          222.64          324.10</span><br><span class="line">AnonPages                1370.99         1835.88         3206.87</span><br><span class="line">Shmem                    9712.72         1288.01        11000.73</span><br><span class="line">KernelStack                 9.66            8.83           18.48</span><br><span class="line">PageTables                 18.27           18.41           36.68</span><br><span class="line">NFS_Unstable                0.00            0.00            0.00</span><br><span class="line">Bounce                      0.00            0.00            0.00</span><br><span class="line">WritebackTmp                0.00            0.00            0.00</span><br><span class="line">Slab                     1441.85         1498.11         2939.95</span><br><span class="line">SReclaimable             1312.22         1387.39         2699.61</span><br><span class="line">SUnreclaim                129.62          110.72          240.34</span><br><span class="line">AnonHugePages             140.00         1238.00         1378.00</span><br><span class="line">HugePages_Total             0.00            0.00            0.00</span><br><span class="line">HugePages_Free              0.00            0.00            0.00</span><br><span class="line">HugePages_Surp              0.00            0.00            0.00</span><br><span class="line"></span><br><span class="line"><span class="comment"># systemwid view in MB unit</span></span><br><span class="line">$ numastat -c</span><br><span class="line"></span><br><span class="line">Per-node numastat info (<span class="keyword">in</span> MBs):</span><br><span class="line">                    Node 0     Node 1       Total</span><br><span class="line">                ---------- ---------- -----------</span><br><span class="line">Numa_Hit        6889434917 6552564429 13441999346</span><br><span class="line">Numa_Miss         19506824   18047982    37554806</span><br><span class="line">Numa_Foreign      18047982   19506824    37554806</span><br><span class="line">Interleave_Hit         232        230         462</span><br><span class="line">Local_Node      6889391241 6552564755 13441955995</span><br><span class="line">Other_Node        19550500   18047656    37598156</span><br><span class="line"></span><br><span class="line"><span class="comment"># show numa memory used by process who has command qemu-kvm</span></span><br><span class="line">$ numastat -p qemu-kvm</span><br><span class="line">$ numastat -p <span class="variable">$pid</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># sort by total</span></span><br><span class="line">$ numastat -s -p qemu-kvm</span><br><span class="line">Per-node process memory usage (<span class="keyword">in</span> MBs)</span><br><span class="line">PID                         Node 0          Node 1           Total</span><br><span class="line">-----------------  --------------- --------------- ---------------</span><br><span class="line">116345 (qemu-kvm)            73.78           47.09          120.87</span><br><span class="line">37545 (qemu-kvm)              3.90          106.01          109.91</span><br><span class="line">117212 (qemu-kvm)            74.95           16.20           91.15</span><br><span class="line">114870 (qemu-kvm)            74.74            8.19           82.93</span><br><span class="line">20080 (qemu-kvm)              5.45           76.87           82.32</span><br><span class="line">134180 (qemu-kvm)            59.51           22.23           81.73</span><br><span class="line">131889 (qemu-kvm)            76.20            4.18           80.38</span><br><span class="line">50070 (qemu-kvm)             50.39           26.17           76.57</span><br><span class="line">60596 (qemu-kvm)             22.01           50.14           72.14</span><br><span class="line">16097 (qemu-kvm)             68.00            4.11           72.12</span><br><span class="line">131511 (qemu-kvm)            44.75           26.11           70.87</span><br><span class="line">-----------------  --------------- --------------- ---------------</span><br><span class="line">Total                       553.68          387.30          940.98</span><br><span class="line"></span><br><span class="line"><span class="comment"># more detail about of each process</span></span><br><span class="line"><span class="comment"># numastat  -v -p qemu-kvm</span></span><br><span class="line">Per-node process memory usage (<span class="keyword">in</span> MBs) <span class="keyword">for</span> PID 16097 (qemu-kvm)</span><br><span class="line">                           Node 0          Node 1           Total</span><br><span class="line">                  --------------- --------------- ---------------</span><br><span class="line">Huge                         4.00            0.00            4.00</span><br><span class="line">Heap                        45.83            0.00           45.83</span><br><span class="line">Stack                        0.04            0.00            0.04</span><br><span class="line">Private                     18.14            4.11           22.25</span><br><span class="line">----------------  --------------- --------------- ---------------</span><br><span class="line">Total                       68.00            4.11           72.12</span><br><span class="line"></span><br><span class="line">Per-node process memory usage (<span class="keyword">in</span> MBs) <span class="keyword">for</span> PID 20080 (qemu-kvm)</span><br><span class="line">                           Node 0          Node 1           Total</span><br><span class="line">                  --------------- --------------- ---------------</span><br><span class="line">Huge                         0.00            4.00            4.00</span><br><span class="line">Heap                         2.00           54.64           56.64</span><br><span class="line">Stack                        0.00            0.04            0.04</span><br><span class="line">Private                      3.44           18.20           21.64</span><br><span class="line">----------------  --------------- --------------- ---------------</span><br><span class="line">Total                        5.45           76.88           82.32</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h2 id="numad"><a href="#numad" class="headerlink" title="numad"></a>numad</h2><p>numad is an <code>automatic NUMA affinity management daemon. It monitors NUMA topology and resource usage within a system in order to dynamically improve NUMA resource allocation and management.</code>, it scans all processes of the system within period of time.</p>
+<p>Note that when numad is enabled, <strong>its behavior overrides the default behavior of automatic NUMA balancing(scheduler)</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ yum install numad</span><br><span class="line">$ service nuamd start</span><br><span class="line"></span><br><span class="line"><span class="comment"># log file</span></span><br><span class="line">$ <span class="built_in">ls</span> /var/log/numad.log</span><br><span class="line">/var/log/numad.log</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cat</span> /etc/numad.conf </span><br><span class="line"><span class="comment"># Config file for numad</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Default INTERVAL is 15</span></span><br><span class="line"><span class="comment"># modify below to change it</span></span><br><span class="line">INTERVAL=15</span><br></pre></td></tr></table></figure>
+
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.kernel.org/doc/html/v4.19/vm/numa.html">numa introduction</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.kernel.org/doc/Documentation/admin-guide/mm/numa_memory_policy.rst">numa memory policy</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/developer/articles/training/pmem-learn-more-series-part-2.html">cpu cache hierarchy</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/numa/" rel="tag"># numa</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/04/15/qemu-kvm-security/" rel="prev" title="qemu-kvm-security">
+                  <i class="fa fa-chevron-left"></i> qemu-kvm-security
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/04/29/http-cdn/" rel="next" title="http-cdn">
+                  http-cdn <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="SetupYarnYarn is a superset of NPM that solves many problems that NPM has, NPM stands for Node Package Manage , It keeps track of all the packages and their versions and allows the developer to easily">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react_setup">
+<meta property="og:url" content="http://cyun.tech/2020/07/23/react-setup/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="SetupYarnYarn is a superset of NPM that solves many problems that NPM has, NPM stands for Node Package Manage , It keeps track of all the packages and their versions and allows the developer to easily">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-23T07:24:00.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:02:01.175Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="react">
+<meta property="article:tag" content="Yarn">
+<meta property="article:tag" content="enzyme">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2020/07/23/react-setup/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2020/07/23/react-setup/","path":"2020/07/23/react-setup/","title":"react_setup"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>react_setup | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Setup"><span class="nav-number">1.</span> <span class="nav-text">Setup</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Yarn"><span class="nav-number">1.1.</span> <span class="nav-text">Yarn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#create-react-app"><span class="nav-number">1.2.</span> <span class="nav-text">create react app</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#use-json-mock-server-from-vs-code"><span class="nav-number">1.3.</span> <span class="nav-text">use json mock server from vs code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#debug-react-app-with-chrome"><span class="nav-number">1.4.</span> <span class="nav-text">debug react app with chrome</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REF"><span class="nav-number">1.5.</span> <span class="nav-text">REF</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2020/07/23/react-setup/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="react_setup | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          react_setup
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-07-23 15:24:00" itemprop="dateCreated datePublished" datetime="2020-07-23T15:24:00+08:00">2020-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/react/" itemprop="url" rel="index"><span itemprop="name">react</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/react/setup/" itemprop="url" rel="index"><span itemprop="name">setup</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h1><h2 id="Yarn"><a href="#Yarn" class="headerlink" title="Yarn"></a>Yarn</h2><p>Yarn is a superset of NPM that solves many problems that NPM has, NPM stands for Node Package Manage , It keeps track of all the packages and their versions and allows the developer to easily update or remove these dependencies. All of these external dependencies are being stored inside a file called called package.json. when you have a node project, as package.json has all dependencies and version, you can easilier to setup a same env as the development.</p>
+<span id="more"></span>
+<p>Yarn is a package manager that uses NPM registry as its backend, but it’s more than npm, say NPM installs packages sequentially. This slows down the performance significantly. Yarn solves this problem by installing these packages in <strong>parallel</strong>.</p>
+<p>you can install pkg into global or particular project, for global part, there are several configs that control where to install, the <code>global dir</code> is used to store installed packages the <code>global bin</code> are symbol links to binary file installed at <code>global dir</code>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">$ yarn config list</span><br><span class="line"></span><br><span class="line"><span class="comment"># show global dir and bin path</span></span><br><span class="line">$ yarn global <span class="built_in">dir</span></span><br><span class="line">$ yarn global bin</span><br><span class="line"></span><br><span class="line"><span class="comment"># change bin path: $prefix/bin</span></span><br><span class="line">$ yarn config <span class="built_in">set</span> prefix /root/yarn</span><br><span class="line"><span class="comment"># change global dir, make sure check it again</span></span><br><span class="line">$ yarn config <span class="built_in">set</span> global-folder /root/yarn</span><br><span class="line"><span class="comment"># but this will not change global-folder in .yarnrc if has</span></span><br><span class="line"><span class="comment"># you should change that file manually</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># add/del package globally</span></span><br><span class="line">$ yarn global list  --depth=0</span><br><span class="line">$ yarn global add package</span><br><span class="line">$ yarn global remove package</span><br><span class="line"></span><br><span class="line"><span class="comment"># goto project dir show package for that project</span></span><br><span class="line">$ yarn list  --depth=0</span><br><span class="line">$ yarn add package</span><br><span class="line">$ yarn remove package</span><br><span class="line"></span><br><span class="line"><span class="comment"># show config of yarn</span></span><br><span class="line">$ yarn config list</span><br><span class="line"></span><br><span class="line"><span class="comment"># set repository taobao</span></span><br><span class="line">$ yarn config <span class="built_in">set</span> registry https://registry.npm.taobao.org -g</span><br><span class="line">$ yarn config <span class="built_in">set</span> disturl https://npm.taobao.org/dist --global</span><br><span class="line"></span><br><span class="line"><span class="comment"># reset to default repo</span></span><br><span class="line">$ yarn config <span class="built_in">set</span> registry https://registry.yarnpkg.com</span><br></pre></td></tr></table></figure>
+
+<p>More command, refer to <a target="_blank" rel="noopener" href="https://www.yarnpkg.com/en/docs/cli/">Yarn CLI</a>.</p>
+<h2 id="create-react-app"><a href="#create-react-app" class="headerlink" title="create react app"></a>create react app</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">$ yarn global add create-react-app</span><br><span class="line">$ yarn create react-app test_app</span><br><span class="line"><span class="comment"># Starts the development server.</span></span><br><span class="line">$ <span class="built_in">cd</span> test_app</span><br><span class="line">$ yarn start</span><br><span class="line"><span class="comment"># Starts the test runner.</span></span><br><span class="line">$ yarn <span class="built_in">test</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># at last all things seems ok, passed all test</span></span><br><span class="line"><span class="comment"># Bundles the app into static files for production, so that you can deploy this on your wbserver</span></span><br><span class="line"><span class="comment"># this will create a build dir with static files, deploy that</span></span><br><span class="line">$ yarn build</span><br><span class="line"></span><br><span class="line"><span class="comment"># ==========================================deploy with online static server===========================</span></span><br><span class="line"><span class="comment"># For test only, you can deploy bundles file to surge which hosts static website for free with couples of days</span></span><br><span class="line"><span class="comment"># so that someone else outside can see what the website should be when it&#x27;s deployed.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># install surge cli to deploy weserver on surge server http://surge.sh/</span></span><br><span class="line">$ yarn global add surge</span><br><span class="line"></span><br><span class="line"><span class="comment"># at the project dir run below commands (p means the path, -d means domain, the very first time need you configure email/password</span></span><br><span class="line">$ surge -p build -d your-domain.surge.sh</span><br><span class="line"><span class="comment"># but the subsequent call, this is not required)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Later after the first call edit package.json, under “scripts”:</span></span><br><span class="line"><span class="comment"># so that you add a new command to yar</span></span><br><span class="line"><span class="string">&quot;deploy&quot;</span>: <span class="string">&quot;yarn run build &amp;&amp; surge -p build -d jason_lkm.surge.sh&quot;</span></span><br><span class="line">$ yarn deploy</span><br><span class="line"><span class="comment"># ==========================================deploy local with static server===========================</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> test_app</span><br><span class="line">$ yarn global add serve</span><br><span class="line">$ serve -s build</span><br></pre></td></tr></table></figure>
+
+<h2 id="use-json-mock-server-from-vs-code"><a href="#use-json-mock-server-from-vs-code" class="headerlink" title="use json mock server from vs code"></a>use json mock server from vs code</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># edit prj/package.json</span></span><br><span class="line"><span class="string">&quot;proxy&quot;</span>: <span class="string">&quot;http://localhost:8080&quot;</span>,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h2 id="debug-react-app-with-chrome"><a href="#debug-react-app-with-chrome" class="headerlink" title="debug react app with chrome"></a>debug react app with chrome</h2><ul>
+<li>Install Chrome debugger for VS code</li>
+<li>Use the following config for your launch.jsonfile to configure the VS Code debugger and put it inside .vscode in your root folder<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;Chrome&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;chrome&quot;,</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;url&quot;: &quot;http://localhost:3000&quot;,</span><br><span class="line">            &quot;webRoot&quot;: &quot;$&#123;workspaceRoot&#125;/src&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Start your React app by running yarn start in another terminal<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ BROWSER=none yarn start</span><br></pre></td></tr></table></figure></li>
+<li>Start debugging in VS Code by pressing F5or by clicking the green debug icon<h2 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h2><a target="_blank" rel="noopener" href="https://blog.usejournal.com/creating-a-react-app-from-scratch-f3c693b84658">Behide react-create-app</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/react/" rel="tag"># react</a>
+              <a href="/tags/Yarn/" rel="tag"># Yarn</a>
+              <a href="/tags/enzyme/" rel="tag"># enzyme</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/07/22/javascript-basic/" rel="prev" title="javascript_basic">
+                  <i class="fa fa-chevron-left"></i> javascript_basic
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/23/react-faq/" rel="next" title="react_faq">
+                  react_faq <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
