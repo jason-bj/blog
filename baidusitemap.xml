@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://cyun.tech/2021/07/14/yum-rpm-pkg/</loc>
+    <lastmod>2023-08-16</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2019/11/25/linux-tips-daily/</loc>
+    <lastmod>2023-08-16</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2020/11/17/linux-tproxy/</loc>
+    <lastmod>2023-08-16</lastmod>
+  </url>
+  <url>
     <loc>http://cyun.tech/2019/09/27/debugging-application/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
@@ -14,10 +26,6 @@
   </url>
   <url>
     <loc>http://cyun.tech/2022/04/07/virtualization-virtio/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2021/07/14/yum-rpm-pkg/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -205,19 +213,11 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2020/11/17/linux-tproxy/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
     <loc>http://cyun.tech/2020/11/26/nginx-advanced-structure/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
     <loc>http://cyun.tech/2021/04/13/load-balancer-markert-solution/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2019/11/25/linux-tips-daily/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>

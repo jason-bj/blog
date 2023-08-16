@@ -1114,7 +1114,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2023-08-17 00:36:45" itemprop="dateModified" datetime="2023-08-17T00:36:45+08:00">2023-08-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1243,6 +1243,10 @@
 
 <h2 id="prevent-rpmbuild-to-strip-symbol"><a href="#prevent-rpmbuild-to-strip-symbol" class="headerlink" title="prevent rpmbuild to strip symbol"></a>prevent rpmbuild to strip symbol</h2><p>You can add <code>%global __os_install_post %&#123;nil&#125;</code> at the top line of <code>xx.spec</code> file.</p>
 <h2 id="remove-multiple-package-with-wildcard"><a href="#remove-multiple-package-with-wildcard" class="headerlink" title="remove multiple package with wildcard"></a>remove multiple package with wildcard</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># remove dependency as well</span></span><br><span class="line">$ yum remove <span class="string">&#x27;libvirt*&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># only remove package, their dependency is kept</span></span><br><span class="line"><span class="variable">$rpm</span> -e $(rpm -qa <span class="string">&#x27;libvirt*&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="rpm-command-hangs"><a href="#rpm-command-hangs" class="headerlink" title="rpm command hangs"></a>rpm command hangs</h2><p>rpm may be waiting for a lock to be freed.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ps -ef | grep rpm </span><br><span class="line">$ <span class="built_in">kill</span> -9 <span class="variable">$output_above</span></span><br><span class="line">$/bin/rm -rf /var/lib/rpm/__db.0*</span><br><span class="line"></span><br><span class="line"><span class="comment"># Then try your rpm command again. If it still doesn&#x27;t work, repeat as above</span></span><br><span class="line"><span class="comment"># but then also run rpm --rebuilddb before trying your rpm command again.</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
 
