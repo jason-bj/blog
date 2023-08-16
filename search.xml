@@ -1902,7 +1902,7 @@ It&#39;s there
 <p><strong>$ arp -a</strong></p>
 </div>
 
-<h2 id="save-tcpdump-captured-packet-to-file"><a href="#save-tcpdump-captured-packet-to-file" class="headerlink" title="save tcpdump captured packet to file"></a>save tcpdump captured packet to file</h2><div class="note success"><p><strong>$ tcpdump -i eth0 -s 0 -w &#x2F;home&#x2F;lzq&#x2F;pt.pcap</strong><br>-s limits the size of packet<br>-o indicates no limition!</p>
+<h3 id="save-tcpdump-captured-packet-to-file"><a href="#save-tcpdump-captured-packet-to-file" class="headerlink" title="save tcpdump captured packet to file"></a>save tcpdump captured packet to file</h3><div class="note success"><p><strong>$ tcpdump -i eth0 -s 0 -w &#x2F;home&#x2F;lzq&#x2F;pt.pcap</strong><br>-s limits the size of packet<br>-o indicates no limition!</p>
 </div>
 
 <h3 id="packet-shows-as-tcp-segment-of-a-reassembled-pdu-in-wireshark"><a href="#packet-shows-as-tcp-segment-of-a-reassembled-pdu-in-wireshark" class="headerlink" title="packet shows as tcp segment of a reassembled pdu in wireshark"></a>packet shows as tcp segment of a reassembled pdu in wireshark</h3><div class="note success"><p>This is due to application message(PDU) is larger than MSS, tcp splits it into several tcp segments, but tcp segment has no Fragment flag, how does wireshark know several tcp segments belong to same PDU?</p>
