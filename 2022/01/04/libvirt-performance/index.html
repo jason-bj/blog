@@ -31,7 +31,7 @@
 <meta property="og:description" content="IntroductionFor performance issue, like a rpc all takes long time, you want to know which function takes much time without modifying source code and restart libvirt, also you want to collect stats of">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-01-04T08:43:15.000Z">
-<meta property="article:modified_time" content="2023-08-16T15:02:01.158Z">
+<meta property="article:modified_time" content="2023-08-17T13:27:28.300Z">
 <meta property="article:author" content="Jason">
 <meta property="article:tag" content="libvirt">
 <meta property="article:tag" content="dtrace">
@@ -263,7 +263,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2023-08-17 21:27:28" itemprop="dateModified" datetime="2023-08-17T21:27:28+08:00">2023-08-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -292,7 +292,7 @@
         <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>For performance issue, like a rpc all takes long time, you want to know which function takes much time without modifying source code and restart libvirt, also you want to collect stats of libvirt, here I will share the way to meet this reqirement, the core tool is <code>systemtap</code>, you can also refer to <a href="https://cyun.tech/linux-performance-systemtapl/">linux systemtap guide</a> which shows how to enable systemtap and write probes. <code>with systemtap, you can insert any code outside application without restarting it or rebuilding it</code></p>
 <span id="more"></span>
 
-<h1 id="systemtap"><a href="#systemtap" class="headerlink" title="systemtap"></a>systemtap</h1><p>Systemtap is a scripting language and tool for dynamically probing or tracing in Linux kernel space or user space. libvirt already has built in markers(static probes) and tapset to simpple your use, this feature can be enabled when compile libvirt</p>
+<h1 id="systemtap"><a href="#systemtap" class="headerlink" title="systemtap"></a>systemtap</h1><p>Systemtap is a scripting language and tool for dynamically probing or tracing in Linux kernel space or user space. libvirt already has built in markers(static probes) and tapset to simple your use, this feature can be enabled when compile libvirt</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ../configure --with-dtrace</span><br><span class="line">$ make</span><br></pre></td></tr></table></figure>
 <p>The tapset is installed at <code>/usr/share/systemtap/tapset/libvirt_*</code> if enabled.</p>
 <p><strong>NOTE:</strong></p>

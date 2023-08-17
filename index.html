@@ -350,7 +350,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2023-08-17 21:27:28" itemprop="dateModified" datetime="2023-08-17T21:27:28+08:00">2023-08-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1131,7 +1131,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2023-08-17 21:27:28" itemprop="dateModified" datetime="2023-08-17T21:27:28+08:00">2023-08-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1159,7 +1159,8 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><h1 id="socket"><a href="#socket" class="headerlink" title="socket"></a>socket</h1><p>There are two popular tools for <code>inspecting the socket states (netstat and ss)</code></p>
 <p><a target="_blank" rel="noopener" href="https://docs.oracle.com/cd/E18752_01/html/816-4554/ipconfig-142.html">netstat</a> gets its information from <code>/proc/net</code> directly. It parses the file and prints out information based on it.</p>
-<p><code>ss</code> was written more recently to <code>use the netlink API</code> (it will fall back to proc&#x2F;net if netlink is unavailable). The information in both systems is essentially the same, but <code>netlink API</code> exposes more information than <code>procfs</code>. so try to use <code>ss</code> if it’s available.</p>
+<p><code>ss</code> was written more recently to <code>use the netlink API</code> (it will fall back to proc&#x2F;net if netlink is unavailable). The information in both systems is essentially the same, but <code>netlink API</code> exposes more information than <code>procfs</code>. so try to use <code>ss</code> for socket stats if it’s available.</p>
+<p>NOTE: netstat provides other info except socket statistics, like routing table etc.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/20/linux-network-performance/#more" rel="contents">
