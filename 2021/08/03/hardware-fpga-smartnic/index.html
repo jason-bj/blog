@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://hardwarebee.com/wp-content/uploads/2018/04/img_5ac9babce4aed.png">
 <meta property="og:image" content="https://cyun.tech/images/cloud/smartnic-table.jpg">
 <meta property="article:published_time" content="2021-08-03T08:59:21.000Z">
-<meta property="article:modified_time" content="2023-08-16T15:02:01.146Z">
+<meta property="article:modified_time" content="2023-08-17T13:47:59.086Z">
 <meta property="article:author" content="Jason">
 <meta property="article:tag" content="fpga">
 <meta property="article:tag" content="smartnic">
@@ -265,7 +265,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2023-08-17 21:47:59" itemprop="dateModified" datetime="2023-08-17T21:47:59+08:00">2023-08-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -319,7 +319,7 @@
 <li>FPGA-based SmartNICs</li>
 <li>FPGA-augmented SmartNICs, which <code>combine hardware-programmable FPGAs with ASIC network controllers</code></li>
 </ul>
-<h2 id="Multicore-SmartNIC"><a href="#Multicore-SmartNIC" class="headerlink" title="Multicore SmartNIC"></a>Multicore SmartNIC</h2><p>A multicore SmartNIC design likely includes an ASIC that incorporates many software-programmable microprocessor cores. These cores are typically higher performance Arm processors, which process packets and offload from the main (and expensive) server CPUs. Multicore SmartNIC ASICs may also incorporate fixedfunction hardware engines that can offload well-defined tasks such as standardized security and storage protocols.</p>
+<h2 id="Multicore-SmartNIC"><a href="#Multicore-SmartNIC" class="headerlink" title="Multicore SmartNIC"></a>Multicore SmartNIC</h2><p>A multicore SmartNIC design likely includes an ASIC that incorporates many software-programmable microprocessor cores. These cores are typically higher performance Arm processors, which process packets and offload from the main (and expensive) server CPUs. Multicore SmartNIC ASICs may also incorporate fixed function hardware engines that can offload well-defined tasks such as standardized security and storage protocols.</p>
 <p>However, multicore SmartNICs suffer from at least two limitations:</p>
 <ul>
 <li>They are based on software-programmable processors which are slower when used for network processing due to a lack of processor parallelism.</li>
@@ -327,9 +327,9 @@
 </ul>
 <h2 id="FPGA-based-SmartNIC"><a href="#FPGA-based-SmartNIC" class="headerlink" title="FPGA-based SmartNIC"></a>FPGA-based SmartNIC</h2><p>An FPGA-based SmartNIC employs the expanded hardware programmability of FPGAs to build any data-plane functions required by the tasks offloaded to the SmartNIC. Because FPGAs are reprogrammable, the data-plane functions implemented by the FPGA can be torn down and reconfigured at will and in real time. <strong>All such offloaded functions operate at hardware – not software – speeds.</strong></p>
 <p>FPGA-based SmartNIC designs can accelerate network functions by several orders of magnitude over implementations based purely on software. Use of FPGAs in SmartNIC designs delivers the wire-speed performance and power efficiency of custom hardware with the ability to create deep packet&#x2F;network processing pipelines that support complex offload tasks and improve single-flow network performance. Replicating these pipelines by exploiting the large amount of hardware parallelism inherent in FPGAs improves megaflow performance enough to meet the high-performance, high-bandwidth, high-throughput needs of next-generation data-center architectures based on speedier Ethernet networks.</p>
-<p>Price is very high, expensive!!!</p>
+<p><strong>Price is very high, expensive!!!</strong></p>
 <h2 id="FPGA-Augmented-SmartNIC-also-called-system-on-chip-SoC"><a href="#FPGA-Augmented-SmartNIC-also-called-system-on-chip-SoC" class="headerlink" title="FPGA-Augmented SmartNIC(also called system-on chip (SoC))"></a>FPGA-Augmented SmartNIC(also called system-on chip (SoC))</h2><p>It adds FPGA capabilities to the NIC. The on-board FPGA in a FPGA-augmented SmartNIC design enables significantly higher performance and feature expansion.</p>
-<p>More refer to <a target="_blank" rel="noopener" href="https://www.design-reuse.com/articles/46833/how-to-design-smartnics-using-fpgas-to-increase-server-compute-capacity.html">SmartNIC design</a> and <a target="_blank" rel="noopener" href="https://www.nextplatform.com/2018/08/06/living-in-the-smartnic-future/">mellanox SmartNIC</a></p>
+<p>More refer to <a target="_blank" rel="noopener" href="https://www.design-reuse.com/articles/46833/how-to-design-smartnics-using-fpgas-to-increase-server-compute-capacity.html">SmartNIC design</a> and <a target="_blank" rel="noopener" href="https://www.nextplatform.com/2018/08/06/living-in-the-smartnic-future/">Mellanox SmartNIC</a></p>
 <h2 id="SmartNIC-Market"><a href="#SmartNIC-Market" class="headerlink" title="SmartNIC Market"></a>SmartNIC Market</h2><p><a target="_blank" rel="noopener" href="https://www.nextplatform.com/2020/02/03/vertical-integration-is-eating-the-datacenter-part-two/">SmartNIC vendor</a></p>
 <table>
 <thead>
