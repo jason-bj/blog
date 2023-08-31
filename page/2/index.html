@@ -160,13 +160,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-count">139</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -209,6 +209,105 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2022/05/20/linux-network-performance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/05/20/linux-network-performance/" class="post-title-link" itemprop="url">linux-network-performance</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-05-20 17:54:39" itemprop="dateCreated datePublished" datetime="2022-05-20T17:54:39+08:00">2022-05-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-17 21:27:28" itemprop="dateModified" datetime="2023-08-17T21:27:28+08:00">2023-08-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux/network/" itemprop="url" rel="index"><span itemprop="name">network</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><h1 id="socket"><a href="#socket" class="headerlink" title="socket"></a>socket</h1><p>There are two popular tools for <code>inspecting the socket states (netstat and ss)</code></p>
+<p><a target="_blank" rel="noopener" href="https://docs.oracle.com/cd/E18752_01/html/816-4554/ipconfig-142.html">netstat</a> gets its information from <code>/proc/net</code> directly. It parses the file and prints out information based on it.</p>
+<p><code>ss</code> was written more recently to <code>use the netlink API</code> (it will fall back to proc&#x2F;net if netlink is unavailable). The information in both systems is essentially the same, but <code>netlink API</code> exposes more information than <code>procfs</code>. so try to use <code>ss</code> for socket stats if it’s available.</p>
+<p>NOTE: netstat provides other info except socket statistics, like routing table etc.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/05/20/linux-network-performance/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1076,111 +1175,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/01/04/libvirt-performance/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2022/01/04/linux-performance-systemtap/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.gif">
-      <meta itemprop="name" content="Jason">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CYun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CYun">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/04/linux-performance-systemtap/" class="post-title-link" itemprop="url">linux-performance-systemtap</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-01-04 08:50:45" itemprop="dateCreated datePublished" datetime="2022-01-04T08:50:45+08:00">2022-01-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-17 21:27:28" itemprop="dateModified" datetime="2023-08-17T21:27:28+08:00">2023-08-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/linux/systemtap/" itemprop="url" rel="index"><span itemprop="name">systemtap</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>SystemTap provides the infrastructure to <code>monitor the running Linux kernel and application for detailed analysis</code>. This can assist administrators and developers in identifying the underlying cause of a bug or performance problem. SystemTap is designed to eliminate this and allows users to gather the kernel information by running <code>user-written SystemTap scripts.</code>, <strong>you do NOT need to write kernel module, compile it and load it by yourself, you just write systemtap script, then systemtap framework does all other things for you(which actually use kprobe)</strong></p>
-<p>For short， add hooks at point event(function enter, function return etc) for running application or kernel, in hooks print or check something.</p>
-<h1 id="How-it-works"><a href="#How-it-works" class="headerlink" title="How it works"></a>How it works</h1><ol>
-<li>First, SystemTap checks the script against the existing tapset library (normally in &#x2F;usr&#x2F;share&#x2F;systemtap&#x2F;tapset&#x2F; for any tapsets used. SystemTap will then substitute any located tapsets with their corresponding definitions in the tapset library.</li>
-<li>SystemTap then translates the script to C, running the system C compiler to create a kernel module from it. The tools(<code>stap</code>) that perform this step are contained in the systemtap package</li>
-<li>SystemTap loads the module, then enables all the probes (events and handlers) in the script. The <code>staprun</code> in the systemtap-runtime package  provides this functionality.</li>
-<li>As the events occur, their corresponding handlers are executed.</li>
-<li>Once the SystemTap session is terminated, the probes are disabled, and the kernel module is unloaded.</li>
-</ol>
-<p><img src="https://taoste.github.io/dirtysalt/html/images/systemtap-prepare-workflow.gif"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/04/linux-performance-systemtap/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>

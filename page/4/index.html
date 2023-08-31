@@ -160,13 +160,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">138</span>
+        <span class="site-state-item-count">139</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -209,6 +209,102 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/08/18/virtualization-IO-deep-passthrough/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/08/18/virtualization-IO-deep-passthrough/" class="post-title-link" itemprop="url">virtualization-IO-deep-passthrough</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-08-18 09:49:39" itemprop="dateCreated datePublished" datetime="2021-08-18T09:49:39+08:00">2021-08-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/" itemprop="url" rel="index"><span itemprop="name">virtualization</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/io/" itemprop="url" rel="index"><span itemprop="name">io</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>For IO virtualization, A MM supports two well known models: <code>Emulation of devices or Paravirtualization.</code>, like we see Qemu for emulation and virtio for paravirtualization, but both have performance issue, as guest os(guest driver) can’t access physical device directly, it must send IO to intermediate layer(VMM) firstly which reduces performance. there is another voice comes up:<br><code>Can we assign HW resources directly to the VM?</code> if we do, what extra work should support by CPU?</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/08/18/virtualization-IO-deep-passthrough/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1053,200 +1149,6 @@
             </div>
           <!--/noindex-->
         
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/07/14/yum-rpm-pkg/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.gif">
-      <meta itemprop="name" content="Jason">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CYun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CYun">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/07/14/yum-rpm-pkg/" class="post-title-link" itemprop="url">yum-rpm-pkg</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-07-14 12:01:00" itemprop="dateCreated datePublished" datetime="2021-07-14T12:01:00+08:00">2021-07-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-17 00:36:45" itemprop="dateModified" datetime="2023-08-17T00:36:45+08:00">2023-08-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/pkg/" itemprop="url" rel="index"><span itemprop="name">pkg</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/pkg/rpm/" itemprop="url" rel="index"><span itemprop="name">rpm</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>YUM is the primary package management tool for <code>installing, updating, removing, and managing software packages in Red Hat Enterprise Linux</code>. YUM performs dependency resolution when installing, updating, and removing software packages.</p>
-<p>RPM is a popular package management tool in Red Hat Enterprise Linux-based distros. Using RPM, you can install, uninstall, and query individual software packages. Still, it <code>cannot manage dependency resolution like YUM</code>. RPM does provide you useful output, including a list of required packages. An RPM package consists of an archive of files and metadata. Metadata includes helper scripts, file attributes, and information about packages.</p>
-<h2 id="Yum"><a href="#Yum" class="headerlink" title="Yum"></a>Yum</h2><p>Yum is much more useful than rpm as it resolves dependencies of the package and installs them all!, First yum download meta data of packages from enalbed repo, rpm is downloaded only when it’s installing. any another command like search, list only check the meta data.</p>
-<h3 id="Useful-command"><a href="#Useful-command" class="headerlink" title="Useful command"></a>Useful command</h3><p><strong>conf</strong></p>
-<ul>
-<li>&#x2F;etc&#x2F;yum.conf: global conf</li>
-<li>&#x2F;etc&#x2F;yum.repos.d&#x2F;: each repos</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># show all repos, disabled and enabled</span></span><br><span class="line">$ yum repolist all </span><br><span class="line"></span><br><span class="line"><span class="comment"># yum cache</span></span><br><span class="line">$ yum clean all</span><br><span class="line">$ yum makecache</span><br><span class="line"></span><br><span class="line"><span class="comment"># show packages from local cache, no auto cache update</span></span><br><span class="line">$ yum list                   <span class="comment"># installed and not</span></span><br><span class="line">$ yum list libvirt           <span class="comment"># installed and not of given package</span></span><br><span class="line">$ yum list installed         <span class="comment"># installed only</span></span><br><span class="line">$ yum list installed libvirt <span class="comment"># installed only of given package</span></span><br><span class="line"><span class="comment"># shell-style glob</span></span><br><span class="line">$ yum list mysql*    <span class="comment"># installed and not pkg with prefix mysql</span></span><br><span class="line"></span><br><span class="line">$ yum install yum-utils <span class="comment"># can trigger cache update</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># show latest version of ipvsadm(will trigger cache update) of repo</span></span><br><span class="line">$ repoquery ipvsadm</span><br><span class="line"></span><br><span class="line"><span class="comment"># show files of given pkgs from local cache and will trigger cache update</span></span><br><span class="line"><span class="comment"># bash can be installed or not(list files of given packages)</span></span><br><span class="line">$ repoquery --list bash</span><br><span class="line"></span><br><span class="line">mysql++.x86_64  3.1.0-12.el7    epel  <span class="comment"># not install available from epel repo</span></span><br><span class="line">ipvsadm.x86_64  1.27-8.el7      @base <span class="comment"># installed from base repo: @ indicate installed</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># check all packages contains ipvs in its name(package name)</span></span><br><span class="line">$ yum search ipvs <span class="comment"># wildcard searching</span></span><br><span class="line"></span><br><span class="line">$ yum info ipvsadm        <span class="comment"># show basic info of a package installed or not, no auto cache update</span></span><br><span class="line">$ yum provides /etc/fstab <span class="comment"># show which package(installed or not) has such file from local cache, no auto cache update</span></span><br><span class="line">$ yum provides <span class="built_in">rm</span>         <span class="comment"># show which package(installed or not) has rm binary from local cache, no auto cache update</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install, will trigger cache update</span></span><br><span class="line">$ yum install -y ipvsadm</span><br><span class="line">$ yum remove ipvsadm</span><br><span class="line"></span><br><span class="line">$ yum grouplist</span><br><span class="line">$ yum groupinfo <span class="string">&quot;Development tools&quot;</span> <span class="comment"># show what packages in this group</span></span><br><span class="line">$ yum groupinstall -y <span class="string">&quot;Development Tools&quot;</span> <span class="comment"># install group of packages</span></span><br><span class="line">$ yum groupremove</span><br><span class="line"></span><br><span class="line"><span class="comment">######################## Download file of given rpm #########################</span></span><br><span class="line">$ yumdownloader ipvsadm                                 <span class="comment"># save at current dir</span></span><br><span class="line">$ yum install --downloadonly ipvsadm                    <span class="comment"># saved at /var/cache/yum/x86_64/</span></span><br><span class="line">$ yum install --downloadonly --downloaddir=/tmp ipvsadm</span><br><span class="line">$ yumdownloader --<span class="built_in">source</span> ipvsadm                        <span class="comment"># download ipvsadm-xxx-src.rpm</span></span><br><span class="line"><span class="comment">######################## Download file of given rpm #########################</span></span><br><span class="line"></span><br><span class="line">$ yum <span class="built_in">history</span> <span class="comment"># show what operations happened</span></span><br><span class="line">$ yum <span class="built_in">history</span> undo &lt;<span class="built_in">id</span>&gt; <span class="comment"># undo an operation</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#####################upgrade and downgrade####################################</span></span><br><span class="line"><span class="comment"># list all possible version of given packet from local cache</span></span><br><span class="line">$ yum provides ipvsadm</span><br><span class="line"></span><br><span class="line"><span class="comment"># check current installed version</span></span><br><span class="line">$ rpm -qa | grep ipvsadm</span><br><span class="line"></span><br><span class="line"><span class="comment"># upgrade to latest or specific version</span></span><br><span class="line"><span class="comment"># NOTE for upgrade, package must be installed before!!!</span></span><br><span class="line">$ yum upgrade libvirt</span><br><span class="line">Package(s) libvirt available, but not installed.</span><br><span class="line"></span><br><span class="line"><span class="comment"># upgrade does not run daemon-reload and service restart!!!</span></span><br><span class="line">$ yum upgrade -y ipvsadm <span class="comment"># can trigger local cache update</span></span><br><span class="line">$ yum upgrade -y ipvsadm-1.27-7.el7.x86_64 <span class="comment"># can trigger local cache update</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># yum upgrade return 0 (OK) !!!</span></span><br><span class="line"><span class="comment"># if packet does not exist </span></span><br><span class="line"><span class="comment"># or upgrade to specific version or latest</span></span><br><span class="line"></span><br><span class="line">$ yum upgrade -y no-exist-package</span><br><span class="line">Loaded plugins: fastestmirror, langpacks, priorities</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line">47 packages excluded due to repository priority protections</span><br><span class="line">No Match <span class="keyword">for</span> argument: no-exist-package</span><br><span class="line">No package no-exist-package available.</span><br><span class="line">No packages marked <span class="keyword">for</span> update</span><br><span class="line">$ <span class="built_in">echo</span> $?</span><br><span class="line"></span><br><span class="line"><span class="comment"># downgrade to previous version or specific version</span></span><br><span class="line"><span class="comment"># NOTE for upgrade, package must be installed before!!!</span></span><br><span class="line">$ yum downgrade ipvsadm</span><br><span class="line">$ yum downgrade ipvsadm-1.27-7.el7.x86_64</span><br><span class="line"><span class="comment">#####################upgrade and downgrade####################################</span></span><br></pre></td></tr></table></figure>
-<h2 id="RPM"><a href="#RPM" class="headerlink" title="RPM"></a>RPM</h2><p>Name Format of RPM <code>name-version-release.os.arch.</code>, example: bash-4.3.2-5.el6.x86_64.rpm</p>
-<ul>
-<li>name: package name</li>
-<li>version: package version</li>
-<li>release: identifier of RPM itself, not related to package</li>
-<li>os: operation system</li>
-<li>arch：i686、x86_64、amd64、ppc（power-pc）、noarch</li>
-</ul>
-<p><strong>RPM repo</strong></p>
-<ul>
-<li><a target="_blank" rel="noopener" href="http://mirrors.sohu.com/">http://mirrors.sohu.com</a></li>
-<li><a target="_blank" rel="noopener" href="http://rpmfind.net/">http://rpmfind.net</a></li>
-<li><a target="_blank" rel="noopener" href="http://rpm.pbone.net/">http://rpm.pbone.net/</a></li>
-</ul>
-<p><code>epel: extended packages provided by RedHat, Maintained by Fedora.</code></p>
-<h3 id="Useful-command-for-rpm"><a href="#Useful-command-for-rpm" class="headerlink" title="Useful command for rpm"></a>Useful command for rpm</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install</span></span><br><span class="line">$ rpm -ivh xx.rpm</span><br><span class="line">$ rpm -ivh https://xxx.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># rebuild xx.rpm from source, then install it</span></span><br><span class="line">$ rpm -rebuild *.src.rpm</span><br><span class="line">$ rpm -ivh /usr/src/dist/RPMS/xx.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query</span></span><br><span class="line">$ rpm -qa                   <span class="comment"># check all installed packages</span></span><br><span class="line">$ rpm -q ipvsadm            <span class="comment"># check if ipvsadm installed or not</span></span><br><span class="line"></span><br><span class="line">$ rpm -qi ipvsadm           <span class="comment"># check basic info of this installed rpm</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># this requires ipvsadm must be installed!!!</span></span><br><span class="line">$ rpm -qlv ipvsadm          <span class="comment"># check all installed files of given installed rpm</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># preinstall scriptlet – this will run before a package is installed</span></span><br><span class="line"><span class="comment"># postinstall scriptlet – this will run after a package is installed</span></span><br><span class="line"><span class="comment"># preuninstall scriptlet – this will run before a package is uninstalled</span></span><br><span class="line"><span class="comment"># postuninstall scriptlet – this will run after a package is uninstalled</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># check scripts of the installed rpm, post/pre etc</span></span><br><span class="line">$ rpm -q --scripts libvirt</span><br><span class="line">preinstall scriptlet (using /bin/sh):</span><br><span class="line"><span class="comment"># &#x27;libvirt&#x27; group is just to allow password-less polkit access to</span></span><br><span class="line"><span class="comment"># libvirtd. The uid number is irrelevant, so we use dynamic allocation</span></span><br><span class="line"><span class="comment"># described at the above link.</span></span><br><span class="line">getent group libvirt &gt;/dev/null || groupadd -r libvirt</span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line">postinstall scriptlet (using /bin/sh):</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$1</span> -eq 1 ] ; <span class="keyword">then</span> </span><br><span class="line">        <span class="comment"># Initial installation </span></span><br><span class="line">        systemctl preset virtlockd.socket virtlogd.socket libvirtd.service &gt;/dev/null 2&gt;&amp;1 || : </span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">preuninstall scriptlet (using /bin/sh):</span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$1</span> -eq 0 ] ; <span class="keyword">then</span> </span><br><span class="line">        <span class="comment"># Package removal, not upgrade </span></span><br><span class="line">        systemctl --no-reload <span class="built_in">disable</span> libvirtd.service virtlogd.socket virtlogd.service virtlockd.socket virtlockd.service &gt; /dev/null 2&gt;&amp;1 || : </span><br><span class="line">        systemctl stop libvirtd.service virtlogd.socket virtlogd.service virtlockd.socket virtlockd.service &gt; /dev/null 2&gt;&amp;1 || : </span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">postuninstall scriptlet (using /bin/sh):</span><br><span class="line">/bin/systemctl daemon-reload &gt;/dev/null 2&gt;&amp;1 || :</span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$1</span> -ge 1 ] ; <span class="keyword">then</span></span><br><span class="line">    /bin/systemctl reload-or-try-restart virtlockd.service &gt;/dev/null 2&gt;&amp;1 || :</span><br><span class="line">    /bin/systemctl reload-or-try-restart virtlogd.service &gt;/dev/null 2&gt;&amp;1 || :</span><br><span class="line">    /bin/systemctl try-restart libvirtd.service &gt;/dev/null 2&gt;&amp;1 || :</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># In upgrade scenario we must explicitly enable virtlockd/virtlogd</span></span><br><span class="line"><span class="comment"># sockets, if libvirtd is already enabled and start them if</span></span><br><span class="line"><span class="comment"># libvirtd is running, otherwise you&#x27;ll get failures to start</span></span><br><span class="line"><span class="comment"># guests</span></span><br><span class="line"></span><br><span class="line">$ rpm -qf /usr/sbin/ipvsadm <span class="comment"># check which rpm this file belongs to</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Uninstall</span></span><br><span class="line">$ rpm -e ipvsadm</span><br><span class="line"></span><br><span class="line"><span class="comment"># Extract rpm files</span></span><br><span class="line">$ rpm2cpio ./packagecloud-test-1.1-1.x86_64.rpm | cpio -idmv</span><br><span class="line"></span><br><span class="line"><span class="comment">############################ For uninstalled package ###########################################################</span></span><br><span class="line"><span class="comment"># -p, --package PACKAGE_FILE</span></span><br><span class="line"><span class="comment">#    Query  an (uninstalled) package PACKAGE_FILE.  The PACKAGE_FILE may be specified as an ftp or http style URL</span></span><br><span class="line"><span class="comment">############################ For uninstalled package ###########################################################</span></span><br><span class="line"><span class="comment"># show files of given rpm</span></span><br><span class="line">$ rpm -qlp ./ipvsadm.x86_64 0:1.27-8.el7</span><br><span class="line"></span><br><span class="line"><span class="comment"># Rebuild rpm from installed files then deploy it with rebuild rpm</span></span><br><span class="line"><span class="comment"># edit some conf files then rebuild it</span></span><br><span class="line">$ rpmrebuild ipvsadm</span><br><span class="line"></span><br><span class="line"><span class="comment"># with editing ipvsadm.spec prompt, then rebuild</span></span><br><span class="line">$ rpmrebuild -e ipvsadm</span><br></pre></td></tr></table></figure>
-
-<p><strong><a target="_blank" rel="noopener" href="https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/#_syntax">rpm scriptlets</a></strong></p>
-<blockquote>
-<p>When scriptlets are called, they will be supplied with an argument. This argument, accessed via $1 (for shell scripts) is the number of packages of this name which will be left on the system when the action completes. So for the common case of install, upgrade, and uninstall we have:</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td>install</td>
-<td>upgrade</td>
-<td>uninstall</td>
-</tr>
-<tr>
-<td>%pretrans</td>
-<td>$1 &#x3D;&#x3D; 1</td>
-<td>$1 &#x3D;&#x3D; 2</td>
-<td>(N&#x2F;A)</td>
-</tr>
-<tr>
-<td>%pre</td>
-<td>$1 &#x3D;&#x3D; 1</td>
-<td>$1 &#x3D;&#x3D; 2</td>
-<td>(N&#x2F;A)</td>
-</tr>
-<tr>
-<td>%post</td>
-<td>$1 &#x3D;&#x3D; 1</td>
-<td>$1 &#x3D;&#x3D; 2</td>
-<td>(N&#x2F;A)</td>
-</tr>
-<tr>
-<td>%preun</td>
-<td>(N&#x2F;A)</td>
-<td>$1 &#x3D;&#x3D; 1</td>
-<td>$1 &#x3D;&#x3D; 0</td>
-</tr>
-<tr>
-<td>%postun</td>
-<td>(N&#x2F;A)</td>
-<td>$1 &#x3D;&#x3D; 1</td>
-<td>$1 &#x3D;&#x3D; 0</td>
-</tr>
-<tr>
-<td>%posttrans</td>
-<td>$1 &#x3D;&#x3D; 1</td>
-<td>$1 &#x3D;&#x3D; 1</td>
-<td>(N&#x2F;A)</td>
-</tr>
-</tbody></table>
-<p>Note: even some scripts in rpm(built-in, no such files after installation) come from <code>.spec</code>, there is <strong>NO spec file</strong> in <code>xxx.rpm</code> but <code>xxx.src.rpm</code>.</p>
-<h1 id="Build-rpm"><a href="#Build-rpm" class="headerlink" title="Build rpm"></a>Build rpm</h1><p>Refer to <a target="_blank" rel="noopener" href="https://rpm-packaging-guide.github.io/">RPM guideline</a></p>
-<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ?"></a>FAQ?</h1><h2 id="does-service-auto-start-after-rpm-i-xx-rpm"><a href="#does-service-auto-start-after-rpm-i-xx-rpm" class="headerlink" title="does service auto start after rpm -i xx.rpm?"></a>does service auto start after rpm -i xx.rpm?</h2><p>It depends on the xx.rpm, as RPM allows to add scripts, hence you can do this there, but most of time, service is not started automatically after installation.</p>
-<h2 id="show-all-services-with-systemctl"><a href="#show-all-services-with-systemctl" class="headerlink" title="show all services with systemctl"></a>show all services with systemctl</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># show all active systemd service</span></span><br><span class="line">$ systemctl --<span class="built_in">type</span>=service</span><br><span class="line"></span><br><span class="line"><span class="comment"># show all active/inactive systemd service</span></span><br><span class="line">$ systemctl --<span class="built_in">type</span>=service --all</span><br><span class="line"><span class="comment"># enable means start at boot time</span></span><br><span class="line"></span><br><span class="line">$ systemctl <span class="built_in">enable</span> htg</span><br></pre></td></tr></table></figure>
-
-<h2 id="yum-upgrade-vs-yum-install"><a href="#yum-upgrade-vs-yum-install" class="headerlink" title="yum upgrade vs yum install"></a>yum upgrade vs yum install</h2><ul>
-<li>yum upgrade needs the package installed before</li>
-<li>yum upgrade does NOT touch conf file, it remains what changed, actually, this depends on rpm.spec file<blockquote>
-<p>with noreplace, if it exists, no replace</p>
-</blockquote>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> libvirtd.spec</span><br><span class="line">...</span><br><span class="line">%config(noreplace) %&#123;_sysconfdir&#125;/sysconfig/libvirtd                            </span><br><span class="line">%config(noreplace) %&#123;_sysconfdir&#125;/sysconfig/virtlogd                            </span><br><span class="line">%config(noreplace) %&#123;_sysconfdir&#125;/sysconfig/virtlockd                           </span><br><span class="line">%config(noreplace) %&#123;_sysconfdir&#125;/libvirt/libvirtd.conf                         </span><br><span class="line">%config(noreplace) %&#123;_sysconfdir&#125;/libvirt/virtlogd.conf                         </span><br><span class="line">%config(noreplace) %&#123;_sysconfdir&#125;/libvirt/virtlockd.conf                        </span><br><span class="line">%config(noreplace) %&#123;_prefix&#125;/lib/sysctl.d/60-libvirtd.conf                     </span><br><span class="line">                                                                                </span><br><span class="line">%config(noreplace) %&#123;_sysconfdir&#125;/logrotate.d/libvirtd                          </span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>yum install copy conf rom rpm and backup existing conf suffixed with xx.rpmsave(like libivrtd.conf.rpmsave)</li>
-</ul>
-<h2 id="list-rpm-installation-date"><a href="#list-rpm-installation-date" class="headerlink" title="list rpm installation date"></a>list rpm installation date</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$rpm</span> -qa --last</span><br><span class="line">libreport-filesystem-2.1.11-38.el7.centos.x86_64 Wed 11 Sep 2019 05:22:55 PM CST</span><br><span class="line">grub2-common-2.02-0.64.el7.centos.noarch      Wed 11 Sep 2019 05:22:55 PM CST</span><br><span class="line">filesystem-3.2-21.el7.x86_64                  Wed 11 Sep 2019 05:22:55 PM CST</span><br><span class="line">centos-release-7-4.1708.el7.centos.x86_64     Wed 11 Sep 2019 05:22:55 PM CST</span><br><span class="line">libgcc-4.8.5-16.el7.x86_64                    Wed 11 Sep 2019 05:22:54 PM CST</span><br><span class="line">microcode_ctl-2.1-22.2.el7.centos.x86_64      Wed 11 Sep 2019 09:33:20 AM CST</span><br></pre></td></tr></table></figure>
-
-<h2 id="prevent-rpmbuild-to-strip-symbol"><a href="#prevent-rpmbuild-to-strip-symbol" class="headerlink" title="prevent rpmbuild to strip symbol"></a>prevent rpmbuild to strip symbol</h2><p>You can add <code>%global __os_install_post %&#123;nil&#125;</code> at the top line of <code>xx.spec</code> file.</p>
-<h2 id="remove-multiple-package-with-wildcard"><a href="#remove-multiple-package-with-wildcard" class="headerlink" title="remove multiple package with wildcard"></a>remove multiple package with wildcard</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># remove dependency as well</span></span><br><span class="line">$ yum remove <span class="string">&#x27;libvirt*&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># only remove package, their dependency is kept</span></span><br><span class="line"><span class="variable">$rpm</span> -e $(rpm -qa <span class="string">&#x27;libvirt*&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="rpm-command-hangs"><a href="#rpm-command-hangs" class="headerlink" title="rpm command hangs"></a>rpm command hangs</h2><p>rpm may be waiting for a lock to be freed.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ps -ef | grep rpm </span><br><span class="line">$ <span class="built_in">kill</span> -9 <span class="variable">$output_above</span></span><br><span class="line">$/bin/rm -rf /var/lib/rpm/__db.0*</span><br><span class="line"></span><br><span class="line"><span class="comment"># Then try your rpm command again. If it still doesn&#x27;t work, repeat as above</span></span><br><span class="line"><span class="comment"># but then also run rpm --rebuilddb before trying your rpm command again.</span></span><br></pre></td></tr></table></figure>
-
       
     </div>
 

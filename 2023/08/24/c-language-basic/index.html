@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="C 变量的声明和定义在c语言中是不同的，声明不开辟空间，而是告诉编译器该变量在其他地方定义了，而定义则是要给变量开辟空间 c语言中式没有引用类型 虽然C语言中有const，但是const不可以修饰函数属性, const 只能修饰变量和参数 C 不支持函数重置，不同的函数必须使用不同的函数名！！！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c-language-basic">
+<meta property="og:url" content="http://cyun.tech/2023/08/24/c-language-basic/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="C 变量的声明和定义在c语言中是不同的，声明不开辟空间，而是告诉编译器该变量在其他地方定义了，而定义则是要给变量开辟空间 c语言中式没有引用类型 虽然C语言中有const，但是const不可以修饰函数属性, const 只能修饰变量和参数 C 不支持函数重置，不同的函数必须使用不同的函数名！！！">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-08-24T02:33:59.000Z">
+<meta property="article:modified_time" content="2023-08-28T16:40:15.874Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="c language">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cyun.tech/2023/08/24/c-language-basic/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2023/08/24/c-language-basic/","path":"2023/08/24/c-language-basic/","title":"c-language-basic"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>c-language-basic | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C"><span class="nav-number">1.</span> <span class="nav-text">C</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#printf"><span class="nav-number">1.1.</span> <span class="nav-text">printf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pointer"><span class="nav-number">1.2.</span> <span class="nav-text">pointer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pointer-pointer"><span class="nav-number">1.2.1.</span> <span class="nav-text">pointer pointer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const-with-pointer"><span class="nav-number">1.2.2.</span> <span class="nav-text">const with pointer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NULL-and-0"><span class="nav-number">1.2.3.</span> <span class="nav-text">NULL and 0</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#integer-type"><span class="nav-number">1.3.</span> <span class="nav-text">integer type</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#range"><span class="nav-number">1.3.1.</span> <span class="nav-text">range</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#what-is-the-reason-for-explicitly-declaring-L-or-UL-for-long-values"><span class="nav-number">1.3.2.</span> <span class="nav-text">what is the reason for explicitly declaring L or UL for long values</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Integral-Promotion"><span class="nav-number">1.3.3.</span> <span class="nav-text">Integral Promotion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Integral-Conversions"><span class="nav-number">1.3.4.</span> <span class="nav-text">Integral Conversions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arithmetic-Conversions"><span class="nav-number">1.3.5.</span> <span class="nav-text">Arithmetic Conversions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#examples"><span class="nav-number">1.3.6.</span> <span class="nav-text">examples</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#constant"><span class="nav-number">1.4.</span> <span class="nav-text">constant</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#type-of-constant"><span class="nav-number">1.4.1.</span> <span class="nav-text">type of constant</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#variable"><span class="nav-number">1.5.</span> <span class="nav-text">variable</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#static-var"><span class="nav-number">1.5.1.</span> <span class="nav-text">static var</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var-address"><span class="nav-number">1.5.2.</span> <span class="nav-text">var address</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#struct"><span class="nav-number">1.6.</span> <span class="nav-text">struct</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#padding"><span class="nav-number">1.6.1.</span> <span class="nav-text">padding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bit-of-member"><span class="nav-number">1.6.2.</span> <span class="nav-text">bit of member</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#function"><span class="nav-number">1.7.</span> <span class="nav-text">function</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#argument-passing"><span class="nav-number">1.7.1.</span> <span class="nav-text">argument passing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#variable-parameters"><span class="nav-number">1.7.2.</span> <span class="nav-text">variable parameters</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#operator-priority-and-combination"><span class="nav-number">1.8.</span> <span class="nav-text">operator priority and combination</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bit-operation"><span class="nav-number">1.9.</span> <span class="nav-text">bit operation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bit-move"><span class="nav-number">1.9.1.</span> <span class="nav-text">bit move</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#amp-and"><span class="nav-number">1.9.2.</span> <span class="nav-text">&amp; and |</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FAQ"><span class="nav-number">2.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#what-does-include-header-do"><span class="nav-number">2.1.</span> <span class="nav-text">what does include header  do</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#evaluation-order"><span class="nav-number">2.2.</span> <span class="nav-text">evaluation order</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#operand"><span class="nav-number">2.2.1.</span> <span class="nav-text">operand</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#function-argument"><span class="nav-number">2.2.2.</span> <span class="nav-text">function argument</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#i-and-i"><span class="nav-number">2.3.</span> <span class="nav-text">++i and i++</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#and-expression"><span class="nav-number">2.4.</span> <span class="nav-text">, and ? expression</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ref"><span class="nav-number">3.</span> <span class="nav-text">ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">139</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2023/08/24/c-language-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="c-language-basic | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          c-language-basic
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-08-24 10:33:59" itemprop="dateCreated datePublished" datetime="2023-08-24T10:33:59+08:00">2023-08-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-29 00:40:15" itemprop="dateModified" datetime="2023-08-29T00:40:15+08:00">2023-08-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/c/" itemprop="url" rel="index"><span itemprop="name">c</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/c/language/" itemprop="url" rel="index"><span itemprop="name">language</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><ul>
+<li>变量的声明和定义在c语言中是不同的，<strong>声明不开辟空间</strong>，而是告诉编译器该变量在其他地方定义了，而<strong>定义则是要给变量开辟空间</strong></li>
+<li>c语言中式<strong>没有引用类型</strong></li>
+<li>虽然C语言中有const，但是const不可以修饰函数属性, <strong>const 只能修饰变量和参数</strong></li>
+<li>C 不支持函数重置，<code>不同的函数必须使用不同的函数名！！！</code></li>
+</ul>
+<span id="more"></span>
+
+<h2 id="printf"><a href="#printf" class="headerlink" title="printf"></a>printf</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">%o  八进制整数(无论<span class="type">char</span>,<span class="type">short</span>,<span class="type">int</span>, <span class="type">long</span> ）</span><br><span class="line">%x  <span class="number">16</span>进制整数(无论<span class="type">char</span>,<span class="type">short</span>,<span class="type">int</span>, <span class="type">long</span> ）</span><br><span class="line">%d  有符号<span class="number">10</span>机制输出（singed <span class="type">char</span>, <span class="type">short</span>, <span class="type">int</span> 都可以使用）</span><br><span class="line">%u  无符号<span class="number">10</span>机制输出（<span class="type">unsigned</span> <span class="type">char</span>, <span class="type">unsigned</span> <span class="type">short</span>, <span class="type">unsigned</span> <span class="type">int</span> 都可以使用）</span><br><span class="line">%ld 有符号长整数</span><br><span class="line">%lu 无符号长整数</span><br><span class="line">%f  浮点数输出</span><br><span class="line">%c  字符输出，输出表面字符，而不是字符的对应值!</span><br><span class="line">%s  字符串输出</span><br><span class="line"></span><br><span class="line"><span class="comment">// NO %l at all!!!</span></span><br><span class="line"><span class="comment">// print uint64_t</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __STDC_FORMAT_MACROS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;inttypes.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">uint64_t</span> i = <span class="number">10</span>;</span><br><span class="line"><span class="type">int64_t</span> n = <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%&quot;</span>PRId64<span class="string">&quot;\n&quot;</span>, n);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%&quot;</span>PRIu64<span class="string">&quot;\n&quot;</span>, i);</span><br></pre></td></tr></table></figure>
+<p><strong><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/c/types/integer">C99 printf format</a></strong></p>
+<h2 id="pointer"><a href="#pointer" class="headerlink" title="pointer"></a>pointer</h2><ul>
+<li><code>void*</code>是无类型的指针，该类指针可以和其他指针完成相互转换! 但是<code>它(void*)无法进行指针运算</code></li>
+<li>不同类型的指针转化是有危险的！！可能导致数据的丢失和非预期的访问</li>
+</ul>
+<h3 id="pointer-pointer"><a href="#pointer-pointer" class="headerlink" title="pointer pointer"></a>pointer pointer</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a, b, c;</span><br><span class="line"><span class="type">int</span>* p[<span class="number">3</span>]; <span class="comment">//pointer array</span></span><br><span class="line">p[<span class="number">0</span>] = &amp;a;</span><br><span class="line">p[<span class="number">1</span>] = &amp;b;</span><br><span class="line">p[<span class="number">2</span>] = &amp;c;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(*ftype)</span><span class="params">(<span class="type">int</span> a)</span>; <span class="comment">//ftype 是一个函数指针类型</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">hello</span><span class="params">(<span class="type">int</span> a)</span>;</span><br><span class="line">ftype pfun = hello;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可变参数的函数指针</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(*PTR)</span><span class="params">(...)</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="comment">//和无参函数指针一样</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(*PTR)</span><span class="params">()</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="const-with-pointer"><a href="#const-with-pointer" class="headerlink" title="const with pointer"></a>const with pointer</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> a = <span class="number">12</span>;              <span class="comment">//(这是定义一个只读类型的变量！)</span></span><br><span class="line"><span class="type">const</span> <span class="type">char</span> *p; === <span class="type">char</span> <span class="type">const</span> *p;   <span class="comment">//那么p指向的内存区的内容不可以更改, 但是p可以指向不同内存区.</span></span><br><span class="line"><span class="type">int</span>*<span class="type">const</span> p = &amp;a;             <span class="comment">//p初始化以后不可更改(定义的时候必须初始化)！但p所指向的内容可以更改</span></span><br><span class="line">````</span><br><span class="line"></span><br><span class="line">##<span class="meta"># pointer operation</span></span><br><span class="line">![](https:<span class="comment">//cyun.tech/images/C/pointer_ops.png)</span></span><br><span class="line"></span><br><span class="line">```c</span><br><span class="line"><span class="type">int</span> a[<span class="number">2</span>];</span><br><span class="line"><span class="type">int</span> *p = a;   <span class="comment">// p+1 == address(a) + 4      ----&gt;sizeof(int) == 4</span></span><br><span class="line"><span class="type">int</span> **pp = &amp;p; <span class="comment">// pp + 1 == address(p) + 8    ----&gt;sizeof(int*) == 8</span></span><br></pre></td></tr></table></figure>
+<p>p+1就是<code>下一个元素的地址</code>，p是int*,因此下一个元素就是在上个元素的地址上加+sizeof(int).</p>
+<p><code>指针的减法表示的地址之间的该类型元素的个数</code>，而不是地址之间的字节数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">3</span>];</span><br><span class="line">&amp;a[<span class="number">2</span>]-&amp;a[<span class="number">0</span>] = <span class="number">2</span> <span class="comment">// 而不是2*sizeof(int)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="NULL-and-0"><a href="#NULL-and-0" class="headerlink" title="NULL and 0"></a>NULL and 0</h3><p>空指针和0是不同的，但是当一个变量是指针变量的时候，指针变量和0的<code>赋值，比较操作</code>编译器会把0转化为NULL<br>也就是说下面的代码编译后的结果是相同的</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> * p;</span><br><span class="line"></span><br><span class="line"><span class="comment">//一样</span></span><br><span class="line"><span class="keyword">if</span> (p!=<span class="literal">NULL</span>)</span><br><span class="line"><span class="keyword">if</span> (p!=<span class="number">0</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment">//一样</span></span><br><span class="line">p = <span class="number">0</span>;</span><br><span class="line">p = <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="integer-type"><a href="#integer-type" class="headerlink" title="integer type"></a>integer type</h2><p><strong>On major 32-bit platforms:</strong></p>
+<ul>
+<li>int is 32 bits</li>
+<li>long is 32 bits as well</li>
+<li>long long is 64 bits</li>
+</ul>
+<hr>
+<p><strong>On major 64-bit platforms:</strong></p>
+<ul>
+<li>int is 32 bits</li>
+<li><strong>long is either 32 or 64 bits</strong></li>
+<li>long long is 64 bits as well</li>
+</ul>
+<hr>
+<p><strong>Explicit type</strong></p>
+<hr>
+<ul>
+<li>int32_t, int64_t, int16_t, int8_t</li>
+<li>u_int32_t, u_int64_t, u_int16_t, u_int8_t</li>
+</ul>
+<h3 id="range"><a href="#range" class="headerlink" title="range"></a>range</h3><p><code>有符号数是有符号位的，无符号数是没有符号位的！</code><br>不同类型的变量，长度可能是不同的，因此它所表示的数值范围也是有限制的，而同一种类型的变量，根据是否有无符号，范围也是不同的下面列举几种常见类型的大小.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">类型		长度			     无				有</span><br><span class="line">char		1				255				-128---127</span><br><span class="line">short		2				65535			-32768—32767</span><br><span class="line">int			4				4294967295		-2147483648---2147483647</span><br></pre></td></tr></table></figure>
+
+<p>符号影响了不同类型的表示范围，而更为严重的是，<code>编译器在比较和赋值的时候可能会有类型的隐式转化！！</code></p>
+<h3 id="what-is-the-reason-for-explicitly-declaring-L-or-UL-for-long-values"><a href="#what-is-the-reason-for-explicitly-declaring-L-or-UL-for-long-values" class="headerlink" title="what is the reason for explicitly declaring L or UL for long values"></a>what is the reason for explicitly declaring L or UL for long values</h3><p>When a <code>suffix L or UL is not used ,compiler uses the first type that can contain the constant from a list</code> (see details in C99 standard, clause 6.4.4:5. For a decimal constant, <code>the list is int, long, long long</code>).</p>
+<p>As a consequence, most of the times, it is not necessary to use the suffix. It does not change the meaning of the program. It does not change the meaning of your example initialization of x for most architectures, although it would if you had chosen a number that could not be represented as a long long.</p>
+<p>There are a couple of circumstances when the programmer may want to set the type of the constant explicitly. One example is when using a variadic function:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>, <span class="number">1LL</span>); <span class="comment">// correct</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>, <span class="number">1</span>);   <span class="comment">// undefined behavior 1 type is int!! but use lld format.</span></span><br></pre></td></tr></table></figure>
+<p>A common reason to use a suffix is ensuring that the result of a computation doesn’t overflow. Two examples are:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">long</span> x = <span class="number">10000L</span> * <span class="number">4096L</span>;</span><br><span class="line"><span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> y = <span class="number">1ULL</span> &lt;&lt; <span class="number">36</span>;</span><br></pre></td></tr></table></figure>
+<p>In both examples, <strong><code>without suffixes, the constants would have type int and the computation would be made as int</code></strong>. In each example this incurs a risk of overflow. Using the suffixes means that the computation will be done in a larger type instead, which has sufficient range for the result.</p>
+<p>As Lightness Races in Orbit puts it, the litteral’s suffix comes before the assignment. In the two examples above, simply declaring x as long and y as unsigned long long is not enough to prevent the overflow in the computation of the expressions assigned to them.</p>
+<p>Another example is the comparison x &lt; 12U where variable x has type int. Without the U suffix, the compiler types the constant 12 as an int, and the comparison is therefore a comparison of signed ints.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x = <span class="number">-3</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, x &lt; <span class="number">12</span>); <span class="comment">// prints 1 because it&#x27;s true that -3 &lt; 12</span></span><br></pre></td></tr></table></figure>
+
+<p>With the U suffix, the comparison becomes a comparison of unsigned ints. “Usual arithmetic conversions” mean that -3 is converted to a large unsigned int:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printf(&quot;%d\n&quot;, x &lt; 12U); // prints 0 because (unsigned int)-3 is large</span><br></pre></td></tr></table></figure>
+
+<p>In fact, the type of a constant may even change the result of an arithmetic computation, again because of the way “usual arithmetic conversions” work.</p>
+<h3 id="Integral-Promotion"><a href="#Integral-Promotion" class="headerlink" title="Integral Promotion"></a>Integral Promotion</h3><p><code>(char,short,enum----&gt;promoted to int or uint)</code></p>
+<p>A character, a short integer, or an integer bit-field, all either signed or not, or an object of enumeration type, may be used in an expression wherever an integer may be used. <code>If an int can represent all the values of the original type, then the value is converted to int; otherwise the value is converted to unsigned int. This process is called integral promotion.</code></p>
+<p><strong>有无符号的char,short,位域整数，枚举当使用在需要整数的地方的时候，会进行类型的提升</strong>，值的大小决定了到底转化为有符号int,还是无符号int.</p>
+<p><code>char,short,enum----&gt;promoted to int or uint</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">short</span> a = <span class="number">0x7fff</span>;</span><br><span class="line"><span class="type">short</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="type">short</span> c = (a*b)/(<span class="type">short</span>)<span class="number">2</span>; a*b提升为整数 </span><br><span class="line">(中间值都是<span class="type">int</span> or <span class="type">unsigned</span> <span class="type">int</span>)</span><br><span class="line"><span class="built_in">printf</span> (<span class="string">&quot;%x\n&quot;</span>, a); <span class="comment">//==0x7fff</span></span><br><span class="line"><span class="comment">// gcc -o test  a.c -g  -Wconversion</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">short</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="type">short</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="type">short</span> c = a+b; <span class="comment">//类型转换。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Integral-Conversions"><a href="#Integral-Conversions" class="headerlink" title="Integral Conversions"></a>Integral Conversions</h3><p>Any integer is converted to a given unsigned type by finding the smallest non-negative value that is congruent to that integer, modulo one more than the largest value that can be represented in the unsigned type. In a two’s complement representation, this is equivalent to left-truncation if the bit pattern of the unsigned type is narrower, and to zero-filling unsigned values and sign-extending signed values if the unsigned type is wider.<br>When any integer is converted to a signed type, the value is unchanged if it can be represented in the new type and is implementation-defined otherwise.</p>
+<p><strong>整数(short,char,int,unsigned,long)转换</strong></p>
+<ul>
+<li>转换为有符号的类型，如果值能够用新类型表示，那么值不变，如果值太大，那么结果是未定义的，根据具体的实现，<br>  然后把最高位当符号为看待。然后就可以给你补码规则知道具体的值。</li>
+<li>转换为无符号的类型，如果新类型比较宽，用符号位填充，如果新类型比较‘窄’，<strong>截取最左端！也就是丢弃左端！！保留低字节位</strong>，而不管big-endian和little-endian。<br>例如：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> var = <span class="number">0xff12</span>; <span class="comment">//在big-endian和little-endian的结果都是0x12</span></span><br><span class="line"><span class="comment">// 然后 没有了符号位，计算新的结果。</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Arithmetic-Conversions"><a href="#Arithmetic-Conversions" class="headerlink" title="Arithmetic Conversions"></a>Arithmetic Conversions</h3><p>Many operators cause conversions and yield result types in a similar way. The effect is to bring operands into a common type, which is also the type of the result. This pattern is called the usual arithmetic conversions. </p>
+<p><strong>如果决定转化的目标类型: 按照下面顺序</strong></p>
+<ul>
+<li>First, if either operand is long double, the other is converted to long double. </li>
+<li>Otherwise, if either operand is double, the other is converted to double. </li>
+<li>Otherwise, if either operand is float, the other is converted to float.</li>
+</ul>
+<p><font color='red' size=5><strong>integer operation must has the same type!!!</strong></font></p>
+<ul>
+<li>Otherwise, the integral promotions are performed on both operands; then, if either operand is unsigned long int, the other is converted to unsigned long int. </li>
+<li>Otherwise, if one operand is long int and the other is unsigned int, the effect depends on whether a long int can represent all values of an unsigned int; if so, the unsigned int operand is converted to long int; if not, both are converted to unsigned long int. </li>
+<li>Otherwise, if one operand is long int, the other is converted to long int. </li>
+<li>Otherwise, if either operand is unsigned int, the other is converted to unsigned int. </li>
+<li>Otherwise, both operands have type int。</li>
+</ul>
+<h3 id="examples"><a href="#examples" class="headerlink" title="examples"></a>examples</h3><p><strong>有符号和无符号的数，运算和比较的话，有符号数要向无符号数转化！</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (a &gt; <span class="number">12u</span>) <span class="comment">// 12u type: unsigned int</span></span><br><span class="line">    &#123; <span class="comment">// a转化为无符号数  a prompted to unsigned int</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;greater\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 同符号数运算结果仍然是同符号数</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> c = <span class="number">1</span>;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> d = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (c - d &gt; <span class="number">0</span>) &#123; <span class="comment">// 0提升为无符号数！</span></span><br><span class="line">                     <span class="comment">//说明c-d&gt;0 也不能保证c是大于d的！</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;greater\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> e = <span class="number">-1</span>;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> f = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (e &lt; f) &#123; <span class="comment">// f prompted to int!!!</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;e is smaller than f\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>greater
+greater
+e is smaller than f
+</code></pre>
+<h2 id="constant"><a href="#constant" class="headerlink" title="constant"></a>constant</h2><p><strong>Ways to define</strong></p>
+<ul>
+<li>常量字符</li>
+<li>常量字符串</li>
+<li><code>enum定义的常量（其中的值类型是int) can be used to define array</code></li>
+<li><code>define定义的常量(可以为常量数也可以是字符串) can be used to define array</code></li>
+<li><strong>const 定义的常量数和字符串(其实是变量，只读属性，can NOT be used to define array)</strong><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span> * p = <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="keyword">enum</span> day&#123;mon=<span class="number">2</span>, tus=<span class="number">1</span>,wed&#125;;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> 	A	12</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>	B 	<span class="string">&quot;hello&quot;</span></span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> &#123;</span>size=<span class="number">10</span>&#125;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> c_size = <span class="number">10</span>; <span class="comment">// actually c_size is a variable with read only attribute!!!!</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="type">int</span> a[size];<span class="comment">//right</span></span><br><span class="line"><span class="type">int</span> b[c_size];<span class="comment">//wrong</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="type-of-constant"><a href="#type-of-constant" class="headerlink" title="type of constant"></a>type of constant</h3><ul>
+<li><code>integer constant</code>: The type of an integer constant <code>depends on its form, value and suffix</code><ul>
+<li><p>If it is <code>not suffixed and decimal</code>, it has the first of these types in which its value can be represented: <code>int, long int, unsigned long int</code></p>
+</li>
+<li><p>If it is <code>not suffixed, octal or hexadecimal</code>, it has the first possible of these types: <code>int, unsigned int, long int, unsigned long int</code></p>
+</li>
+<li><p>If it is <code>suffixed by u or U</code>, then<code> unsigned int, unsigned long int</code></p>
+</li>
+<li><p>If it is <code>suffixed by l or L</code>, then <code>long int, unsigned long int</code></p>
+</li>
+<li><p>If an integer constant is suffixed by UL, it is unsigned long</p>
+</li>
+</ul>
+</li>
+<li><code>枚举常量类型是int</code></li>
+<li><code>字符常量类型是char</code></li>
+</ul>
+<h2 id="variable"><a href="#variable" class="headerlink" title="variable"></a>variable</h2><h3 id="static-var"><a href="#static-var" class="headerlink" title="static var"></a>static var</h3><ul>
+<li>初始化为 0</li>
+<li>static定义的变量的存储空间是开辟在 data segment if initialized by user, otherwise in BSS segment, 只有在程序退出的时候才消失</li>
+<li>如果定义在函数内，反复调用也不会重新初始化。</li>
+</ul>
+<h3 id="var-address"><a href="#var-address" class="headerlink" title="var address"></a>var address</h3><p>变量是有类型的，而不同的类型的长度也是不同的，因此<code>当为一个变量分配多个字节的时候（显然这些字节是连续的！</code>），该用哪个字节的地址表示变量的地址呢，显然最合理的就是用地址最小的那个字节！</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a;</span><br></pre></td></tr></table></figure>
+
+<p>那么a的地址是A，想要取得所有分片(one byte one slot)内的内容，就需要按照字节访问， 方法就是定义一个char*，指向a</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> * p = (<span class="type">char</span>*)&amp;a</span><br></pre></td></tr></table></figure>
+<p>这样就可以按照字节访问一个int每个byte了.</p>
+<h2 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h2><p>按照常理，结构体的长度就是所有变量的长度之和，但是为了对存取快捷，硬件也规定了不同类型的地址是有规律的！例如short虚拟地址必须是2的倍数，int的虚拟地址必须是4的倍数，因此导致了编译器会对结构体做调整，使其变长了，虽然浪费了空间，但是提高了内存的存取速度！</p>
+<p>每种类型的都有其对齐模数(k),也就是该类型变量的地址必须是k的整数倍，而<code>基本类型的对齐模数一般都是其本身长度 结构体类型的对齐模数一般则是所有成员中最大的(基本类型)成员对齐模数</code>。对齐模数和地址紧密相关.</p>
+<p>x86-64</p>
+<h3 id="padding"><a href="#padding" class="headerlink" title="padding"></a>padding</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ms</span>&#123;</span></span><br><span class="line"><span class="type">char</span> c;</span><br><span class="line"><span class="comment">//pading here</span></span><br><span class="line"><span class="type">int</span> b;</span><br><span class="line">&#125;;```</span><br><span class="line"></span><br><span class="line">由于<span class="class"><span class="keyword">struct</span> <span class="title">ms</span>能够保证变量的地址是必须是<span class="title">max</span>(<span class="title">sizeof</span>(<span class="title">char</span>),<span class="title">sizeof</span>(<span class="title">int</span>))=</span>=<span class="number">4</span>的倍数，但是也要保证内部变量的地址满足其自身要求。因此需要在 两成员之间 填充<span class="number">3</span>字节！，保证b的地址为<span class="number">4</span>的倍数，因此<span class="keyword">sizeof</span>(<span class="keyword">struct</span> ms)==<span class="number">8</span></span><br><span class="line"></span><br><span class="line">```c</span><br><span class="line"><span class="keyword">struct</span> ms1&#123;</span><br><span class="line"><span class="type">int</span> b;</span><br><span class="line"><span class="type">char</span> c;<span class="comment">//类型的模数是关键！</span></span><br><span class="line"><span class="comment">//pading here</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>还是按照上述分析对于单个变量而言，情况满足，那么sizeof(struct ms1)&#x3D;&#x3D;5?,其实并非如此，因为当定义数组的时候标准规定任何类型(包括自定义结构类型)的数组所占空间的大小一定等于一个单独的该类型数据的大小乘以数组元素的个数，也就是数组的每个元素都是紧密相邻的。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ms1</span> <span class="title">array</span>[2];</span></span><br></pre></td></tr></table></figure>
+<p>对于第2个元素，显然无法保证b的地址为4的倍数！因此<strong>结构体需要在尾部填充</strong>！<br>那么尾部该填充多少呢？一般而言在中间对齐之后，如果结果不是对齐模数的倍数则提升到倍数就可以了。<strong>也就是结构体的长度一定是对齐模数的倍数!</strong></p>
+<p><strong>对齐模数编译器是可以配置的，因此结构体的长度是和操作系统和编译器相关的</strong></p>
+<h3 id="bit-of-member"><a href="#bit-of-member" class="headerlink" title="bit of member"></a>bit of member</h3><p>规定<code>位域不能跨同类型的两个地址</code>.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">test</span>&#123;</span></span><br><span class="line"><span class="type">int</span> a:<span class="number">30</span>; </span><br><span class="line"><span class="type">int</span> b:<span class="number">3</span>; <span class="comment">// in next 4 bytes, not same with a to avoid cross two variables for b</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// sizeof(struct test) == 8</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">test</span>&#123;</span></span><br><span class="line"><span class="type">int</span> a:<span class="number">30</span>; </span><br><span class="line"><span class="type">int</span> b:<span class="number">1</span>; <span class="comment">// in the same 4 bytes as a</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// sizeof(struct test) == 4</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="function"><a href="#function" class="headerlink" title="function"></a>function</h2><h3 id="argument-passing"><a href="#argument-passing" class="headerlink" title="argument passing"></a>argument passing</h3><p>参数中的变量都是实参的一个副本!!</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">print</span><span class="params">(<span class="type">char</span> *str)</span></span><br><span class="line">&#123;</span><br><span class="line">    str++; <span class="comment">//str is another variable(address are different with p) that points to hello as well!!</span></span><br><span class="line">    <span class="comment">// *str = *(str+1); as str points to readonly memory, so this will cause segment fault!!!</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// p points to hello</span></span><br><span class="line">    <span class="type">char</span> * p = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    print(p);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, p); <span class="comment">// result: hello</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<pre><code>hello
+</code></pre>
+<h3 id="variable-parameters"><a href="#variable-parameters" class="headerlink" title="variable parameters"></a>variable parameters</h3><p>Whenever a function is declared to have an indeterminate number of arguments, in place of the last argument you should place an ellipsis (which looks like ‘…’), so, <code>int a_function (int x, ... )</code>; would tell the compiler the function should accept however many arguments that the programmer uses, as long as it is equal to at least one, the one being the first, x.</p>
+<ul>
+<li><p><code>va_start</code>, which initializes the list</p>
+<blockquote>
+<p>va_start is a macro which accepts two arguments, <code>a va_list and the name of the variable</code> that directly precedes the ellipsis (“…”).</p>
+</blockquote>
+</li>
+<li><p><code>va_arg</code>, which returns the next argument in the list, </p>
+<blockquote>
+<p>va_arg takes a va_list and a variable type, and returns the next argument in the list in the form of whatever variable type it is told. It then moves down the list to the next argument, Note that you <strong>need to know the type of each argument</strong>–that’s part of why printf requires a format string.</p>
+</blockquote>
+</li>
+<li><p><code>va_end</code>, which cleans up the variable argument list.</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="comment">/* this function will take the number of values to average</span></span><br><span class="line"><span class="comment">   followed by all of the numbers to average */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// the first parameter can be any type, in case you have a way to know how many parameters passed in.</span></span><br><span class="line"><span class="comment">// see below example.</span></span><br><span class="line"><span class="type">double</span> <span class="title function_">average</span> <span class="params">( <span class="type">int</span> num, ... )</span></span><br><span class="line">&#123;</span><br><span class="line">    va_list arguments;                     </span><br><span class="line">    <span class="type">double</span> sum = <span class="number">0</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/* Initializing arguments to store all values after num */</span></span><br><span class="line">    va_start ( arguments, num );   <span class="comment">// num is the name of the list!!!         </span></span><br><span class="line">    <span class="comment">/* Sum all the inputs; we still rely on the function caller to tell us how</span></span><br><span class="line"><span class="comment">     * many there are */</span></span><br><span class="line">    <span class="keyword">for</span> ( <span class="type">int</span> x = <span class="number">0</span>; x &lt; num; x++ )        </span><br><span class="line">    &#123;</span><br><span class="line">        sum += va_arg ( arguments, <span class="type">double</span> ); <span class="comment">// must know type for each argument!!!</span></span><br><span class="line">    &#125;</span><br><span class="line">    va_end ( arguments );                  <span class="comment">// Cleans up the list</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> sum / num;                      </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* this computes the average of 13.2, 22.3 and 4.5 (3 indicates the number of values to average) */</span></span><br><span class="line">    <span class="built_in">printf</span>( <span class="string">&quot;%f\n&quot;</span>, average ( <span class="number">3</span>, <span class="number">12.2</span>, <span class="number">22.3</span>, <span class="number">4.5</span> ) );</span><br><span class="line">    <span class="comment">/* here it computes the average of the 5 values 3.3, 2.2, 1.1, 5.5 and 3.3 */</span></span><br><span class="line">    <span class="built_in">printf</span>( <span class="string">&quot;%f\n&quot;</span>, average ( <span class="number">5</span>, <span class="number">3.3</span>, <span class="number">2.2</span>, <span class="number">1.1</span>, <span class="number">5.5</span>, <span class="number">3.3</span> ) );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<pre><code>13.000000
+3.080000
+</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">print</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* format, ...)</span></span><br><span class="line">&#123;</span><br><span class="line">    va_list arguments;</span><br><span class="line">    va_start(arguments, format);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> ival;</span><br><span class="line">    <span class="type">char</span>* sval;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// support format takes 2 chars: like %d, %s</span></span><br><span class="line">    <span class="keyword">while</span> (*format) &#123;</span><br><span class="line">        <span class="keyword">if</span> (*format == <span class="string">&#x27;%&#x27;</span>) &#123;</span><br><span class="line">            format++;</span><br><span class="line">            <span class="keyword">switch</span> (*format) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;d&#x27;</span>:</span><br><span class="line">                ival = va_arg(arguments, <span class="type">int</span>);</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, ival);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;s&#x27;</span>:</span><br><span class="line">                sval = va_arg(arguments, <span class="type">char</span>*);</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, sval);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        format++;</span><br><span class="line">    &#125;</span><br><span class="line">    va_end(arguments); <span class="comment">// Cleans up the list</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    print(<span class="string">&quot;%d %s&quot;</span>, <span class="number">12</span>, <span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<pre><code>12
+hello
+</code></pre>
+<h2 id="operator-priority-and-combination"><a href="#operator-priority-and-combination" class="headerlink" title="operator priority and combination"></a>operator priority and combination</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">括号第一，单目2，</span><br><span class="line">乘除余3，加减4，</span><br><span class="line">移5，系6，逻于7（一股细流落于齐）</span><br><span class="line">位8，问9，赋逗到底</span><br><span class="line">(位8是与异位，问号，赋值，逗到底)</span><br><span class="line">单右，双左</span><br><span class="line">问同右</span><br><span class="line"></span><br><span class="line">*s++，*s--, get the value, then pointer + or -</span><br><span class="line">*++s，*--s, point+ or -, then get the value.</span><br></pre></td></tr></table></figure>
+
+<p><strong>NOTE</strong></p>
+<p><code>Always use () for clear</code></p>
+<h2 id="bit-operation"><a href="#bit-operation" class="headerlink" title="bit operation"></a>bit operation</h2><p><code>左移&lt;&lt;和右移&gt;&gt;也会移动符号位, 有符号的正数可能变成负数</code>, <code>&amp;，|，~是对数的每一位都做这样的操作，因此它是不区分符号位的！！</code></p>
+<p>因此要想&amp;，|，~操作的话就必须知道数在计算机中的表示</p>
+<ul>
+<li>对应无符号数补码就是其原码</li>
+<li>而对于正整数补码也是其原码！</li>
+<li>而对于负整数补码取绝对值的原码，然后对该原码取反，然后加1，就是负数的补码！</li>
+</ul>
+<p>简单起见，<code>实际应用中 &amp;， |， ~ 只操作无符号数</code></p>
+<h3 id="bit-move"><a href="#bit-move" class="headerlink" title="bit move"></a>bit move</h3><ul>
+<li>操作数必须是integer！如果不是进行integral promotion.</li>
+</ul>
+<p><code>The result is undefined if the right operand is negative, or greater than or equal to the number of bits in the left expression&#39;s type, the type of the result is that of the promoted left operand.</code></p>
+<p>移位是位操作，<strong>每位都要移动包括符号位</strong>。左移都是填充0，<strong>右移对应有无符号数是不同的，无符号数右移填充0，有符号数右移可能填充符号位【一般这么做】</strong>，也可能填充0！移位后的表达式的类型是左侧操作数提升后的类型.</p>
+<h3 id="amp-and"><a href="#amp-and" class="headerlink" title="&amp; and |"></a>&amp; and |</h3><ul>
+<li><p>操作数必须是integer！如果不是进行integral promotion.</p>
+</li>
+<li><p><code>&amp; 按位与，常见的操作就是把某些位置0</code></p>
+</li>
+<li><p><code>| 按位或，常见的操作就是把某些位置1</code></p>
+</li>
+<li><p>~ 按位取反！</p>
+</li>
+</ul>
+<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><h2 id="what-does-include-header-do"><a href="#what-does-include-header-do" class="headerlink" title="what does include header  do"></a>what does <code>include header </code> do</h2><p><code>Copy all contents</code> of the file to which includes it when <code>building a .c file</code>. To avoid multiple copy of it, define header file like this. </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> IPNET_CONFIG_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> IPNET_CONFIG_H</span></span><br><span class="line"><span class="meta"># contents</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Can we define(not declare) variable and function in header file as it’s copied to each .c file?</strong></p>
+<p>Yes, you can, but it’s not a usual way, as it may cause conflict or multiple definitions if you don’t handle it properly.</p>
+<p>example which causes multiple definition</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#test.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> TEST_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TEST_H</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">say</span><span class="params">()</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># In a.c</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> “test.h” # copy test.h</span></span><br><span class="line"><span class="meta"># test.h is copied when building a.o as no defined before</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># In b.c</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> “test.h” # copy test.h here</span></span><br><span class="line"><span class="meta"># test.h is copied when building b.o as no defined before</span></span><br></pre></td></tr></table></figure>
+
+<p>Makefile</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">program:</span><br><span class="line">    a.o b.o #multiple definition as say() defined in a.o and b.o!</span><br><span class="line">    # as both a.o and b.o define say(), multiple definitions.</span><br></pre></td></tr></table></figure>
+
+
+<p>Another example</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">test.h</span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> TEST_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TEST_H</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">say</span><span class="params">()</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">In a.c</span><br><span class="line"><span class="type">void</span> <span class="title function_">say</span><span class="params">(<span class="type">int</span> b)</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In b.c</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> “test.h”  copy test.h here</span></span><br></pre></td></tr></table></figure>
+
+
+<p>Makefile</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">program:</span><br><span class="line">    a.o b.o <span class="meta">#definition conflict as say() defined in a.o and b.o! but it<span class="string">&#x27;s different!</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Guide line</strong></p>
+<ul>
+<li>If you define variable and function in header, make sure, add <code>static</code> keyword and the function is short</li>
+</ul>
+<h2 id="evaluation-order"><a href="#evaluation-order" class="headerlink" title="evaluation order"></a>evaluation order</h2><p>Function calls, nested assignment statements, and increment and decrement operators cause <code>side effects</code>, some variable is changed as a by-product of the evaluation of an expression. In any expression involving side effects, there can be subtle dependencies on the order in which variables taking part in the expression are updated.</p>
+<p><font color='red' size=4>evaluation order is not defined for arithmetic operator(like +, -, *, &#x2F;) and function arguments.</font></p>
+<h3 id="operand"><a href="#operand" class="headerlink" title="operand"></a>operand</h3><p>C，does <code>not specify the order in which the operands of an operator are evaluated</code>. (<strong>exceptions are &amp;&amp;, ||, ?:, and ‘,’</strong>) For example, in a statement like</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = f() + g();</span><br></pre></td></tr></table></figure>
+<p>f may be evaluated before g or vice versa; thus if either f or g alters a variable on which the other depends, x can depend on the order of evaluation, it’s hard to say the value of x.</p>
+<h3 id="function-argument"><a href="#function-argument" class="headerlink" title="function argument"></a>function argument</h3><p>The order in which <code>function arguments are evaluated is not specified</code>, so the statement below.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>, ++n, power(<span class="number">2</span>, n)); <span class="comment">/* WRONG */</span></span><br></pre></td></tr></table></figure>
+<p>It can produce different results with different compilers, depending on whether n is incremented before power is called.</p>
+<h2 id="i-and-i"><a href="#i-and-i" class="headerlink" title="++i and i++"></a>++i and i++</h2><p>i++ is post-increment and ++i is pre-increment. Post-increment means that the <code>previous value is returned after incrementing the object</code>. pre-increment means that the object is incremented and then returned. Either way, <code>the object is incremented when its expression is evaluated before any other next code</code>.</p>
+<h2 id="and-expression"><a href="#and-expression" class="headerlink" title=", and ? expression"></a><code>, and ?</code> expression</h2><p>The value of <code>,</code> is the last expression but <code>?</code> if condition is true, use value is first expression, otherwise the second expression.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">d = (a, b, c);</span><br><span class="line">e = a? b: c;</span><br></pre></td></tr></table></figure>
+
+<p><strong>NOTE</strong>  </p>
+<ul>
+<li><strong><code>? ,</code> has lowest priority then <code>, + - * / %</code> which is from low to high</strong></li>
+<li><strong><code>,</code> execute from left to right for each expression</strong></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="type">int</span> c;</span><br><span class="line">c = a, b;    <span class="comment">// c == a</span></span><br><span class="line">c = (a, b);  <span class="comment">// c == b</span></span><br><span class="line"></span><br><span class="line">c = a &gt; b? <span class="number">10</span>: <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">c = a &gt; b? <span class="number">10</span>: <span class="number">20</span> + <span class="number">30</span>;  <span class="comment">// + has the high priority c== 20 + 30</span></span><br><span class="line">c = a &gt; b? <span class="number">10</span>: (<span class="number">20</span> + <span class="number">30</span>); <span class="comment">// c == 20 + 30, same as above</span></span><br><span class="line">    </span><br><span class="line">c = <span class="number">2</span> + a &gt; b? <span class="number">10</span>: <span class="number">20</span>; <span class="comment">// + has high priority NOT----&gt;2 + (a&gt;b? 10 : 20)</span></span><br><span class="line">c = (<span class="number">2</span> + a) &gt; b? <span class="number">10</span>: <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cprogramming.com/tutorial/c-tutorial.html?inl=nv">C tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.interviewbit.com/c-interview-questions/">C FAQ</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/c-language/" rel="tag"># c language</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/07/10/docker-tools/" rel="prev" title="docker-tools">
+                  <i class="fa fa-chevron-left"></i> docker-tools
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
