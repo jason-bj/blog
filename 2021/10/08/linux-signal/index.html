@@ -31,7 +31,7 @@
 <meta property="og:description" content="IntroductionSignals are software interrupts sent to a program to indicate that an important event has occurred. The events can vary from user requests to illegal memory access errors. Some signals, su">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-10-08T01:31:41.000Z">
-<meta property="article:modified_time" content="2023-08-16T15:02:01.162Z">
+<meta property="article:modified_time" content="2023-09-17T07:46:42.115Z">
 <meta property="article:author" content="Jason">
 <meta property="article:tag" content="singal">
 <meta name="twitter:card" content="summary">
@@ -151,7 +151,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#signal-table"><span class="nav-number">2.</span> <span class="nav-text">signal table</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#signal-table-x86"><span class="nav-number">2.</span> <span class="nav-text">signal table(x86)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -261,7 +261,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2023-09-17 15:46:42" itemprop="dateModified" datetime="2023-09-17T15:46:42+08:00">2023-09-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -306,7 +306,7 @@
 </ul>
 </li>
 </ul>
-<h1 id="signal-table"><a href="#signal-table" class="headerlink" title="signal table"></a>signal table</h1><p><strong>Action</strong></p>
+<h1 id="signal-table-x86"><a href="#signal-table-x86" class="headerlink" title="signal table(x86)"></a>signal table(x86)</h1><p><strong>Default Action for signal!!!</strong></p>
 <ul>
 <li>Term   Default action is to terminate the process.</li>
 <li>Ign    Default action is to ignore the signal.</li>
@@ -339,6 +339,27 @@
 <td>Quit from keyboard</td>
 </tr>
 <tr>
+<td>5</td>
+<td>SIGTRAP</td>
+<td></td>
+<td>CORE</td>
+<td>Trace&#x2F;breakpoint trap</td>
+</tr>
+<tr>
+<td>18</td>
+<td>SIGCON</td>
+<td></td>
+<td>Cont</td>
+<td>Continue if stopped</td>
+</tr>
+<tr>
+<td>19</td>
+<td>SIGSTOP</td>
+<td></td>
+<td>STOP</td>
+<td>Stop process</td>
+</tr>
+<tr>
 <td>20</td>
 <td>SIGTSTP</td>
 <td>ctrl + z</td>
@@ -354,6 +375,10 @@
 </tr>
 </tbody></table>
 <p>After ctrl + Z, current process is stopped, then you can call <code>$fg</code> to run it again</p>
+<p><strong>important signal</strong>  </p>
+<ul>
+<li>A SIGTRAP signal is a type of signal that is sent to a process when it encounters a trap instruction, this signal is used <code>mainly from within debuggers and program tracers</code></li>
+</ul>
 <h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
 <li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man7/signal.7.html">signal man</a></li>
 <li><a target="_blank" rel="noopener" href="https://www-uxsup.csx.cam.ac.uk/courses/moved.Building/signals.pdf">signal summary</a></li>
