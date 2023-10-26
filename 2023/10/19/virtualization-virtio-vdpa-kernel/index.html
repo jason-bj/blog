@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Microsoft+YaHei+UI:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -25,35 +25,34 @@
 
     <meta name="description" content="IntroductionFor IO virtualization, A MM supports two well known models: Emulation of devices or Paravirtualization., like we see Qemu for emulation and virtio for paravirtualization, but both have per">
 <meta property="og:type" content="article">
-<meta property="og:title" content="virtualization-IO-deep-passthrough">
-<meta property="og:url" content="http://cyun.tech/2021/08/18/virtualization-IO-deep-passthrough/index.html">
+<meta property="og:title" content="virtualization-virtio-vdpa">
+<meta property="og:url" content="http://cyun.tech/2023/10/19/virtualization-virtio-vdpa-kernel/index.html">
 <meta property="og:site_name" content="CYun">
 <meta property="og:description" content="IntroductionFor IO virtualization, A MM supports two well known models: Emulation of devices or Paravirtualization., like we see Qemu for emulation and virtio for paravirtualization, but both have per">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://software.intel.com/content/dam/develop/external/us/en/images/5658-aspose-words-demos-001-139035.png">
-<meta property="og:image" content="https://cyun.tech/images/virt/iommu.png">
-<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/1/1c/Example_PCI_Express_Topology.svg">
+<meta property="og:image" content="https://vdpa-dev.gitlab.io/img/vdpa_overview.png">
 <meta property="og:image" content="https://www.redhat.com/cms/managed-files/2020-08-12-vdpa-kernel-fig1.png">
 <meta property="og:image" content="https://www.redhat.com/cms/managed-files/2020-08-12-vdpa-kernel-fig2.png">
 <meta property="og:image" content="https://www.redhat.com/cms/managed-files/2020-08-12-vdpa-kernel-fig4.jpg">
 <meta property="og:image" content="https://www.redhat.com/cms/managed-files/2020-08-17-kernel-fig4.png">
-<meta property="article:published_time" content="2021-08-18T01:49:39.000Z">
-<meta property="article:modified_time" content="2023-08-16T15:02:01.177Z">
+<meta property="article:published_time" content="2023-10-19T10:08:51.000Z">
+<meta property="article:modified_time" content="2023-10-26T14:02:53.531Z">
 <meta property="article:author" content="Jason">
-<meta property="article:tag" content="io virtualization">
-<meta property="article:tag" content="iommu">
+<meta property="article:tag" content="virtualization">
+<meta property="article:tag" content="virtio">
+<meta property="article:tag" content="passthrough">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://software.intel.com/content/dam/develop/external/us/en/images/5658-aspose-words-demos-001-139035.png">
+<meta name="twitter:image" content="https://vdpa-dev.gitlab.io/img/vdpa_overview.png">
 
 
-<link rel="canonical" href="http://cyun.tech/2021/08/18/virtualization-IO-deep-passthrough/">
+<link rel="canonical" href="http://cyun.tech/2023/10/19/virtualization-virtio-vdpa-kernel/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2021/08/18/virtualization-IO-deep-passthrough/","path":"2021/08/18/virtualization-IO-deep-passthrough/","title":"virtualization-IO-deep-passthrough"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2023/10/19/virtualization-virtio-vdpa-kernel/","path":"2023/10/19/virtualization-virtio-vdpa-kernel/","title":"virtualization-virtio-vdpa"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>virtualization-IO-deep-passthrough | CYun</title>
+<title>virtualization-virtio-vdpa | CYun</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
@@ -160,7 +159,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IOMMU"><span class="nav-number">2.</span> <span class="nav-text">IOMMU</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DMA-remapping"><span class="nav-number">2.1.</span> <span class="nav-text">DMA remapping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Interrupt-remapping"><span class="nav-number">2.2.</span> <span class="nav-text">Interrupt remapping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IOMMU-groups"><span class="nav-number">2.3.</span> <span class="nav-text">IOMMU groups</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vDPA"><span class="nav-number">2.4.</span> <span class="nav-text">vDPA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vDPA-kernel-framework"><span class="nav-number">2.4.1.</span> <span class="nav-text">vDPA kernel framework</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REF"><span class="nav-number">3.</span> <span class="nav-text">REF</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vDPA"><span class="nav-number">1.1.</span> <span class="nav-text">vDPA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vDPA-kernel-framework"><span class="nav-number">1.1.1.</span> <span class="nav-text">vDPA kernel framework</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FAQ"><span class="nav-number">2.</span> <span class="nav-text">FAQ</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -175,18 +174,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">139</span>
+        <span class="site-state-item-count">141</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-count">148</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -234,7 +233,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/08/18/virtualization-IO-deep-passthrough/">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2023/10/19/virtualization-virtio-vdpa-kernel/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.gif">
@@ -247,12 +246,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="virtualization-IO-deep-passthrough | CYun">
+      <meta itemprop="name" content="virtualization-virtio-vdpa | CYun">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          virtualization-IO-deep-passthrough
+          virtualization-virtio-vdpa
         </h1>
 
         <div class="post-meta-container">
@@ -263,14 +262,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2021-08-18 09:49:39" itemprop="dateCreated datePublished" datetime="2021-08-18T09:49:39+08:00">2021-08-18</time>
+      <time title="Created: 2023-10-19 18:08:51" itemprop="dateCreated datePublished" datetime="2023-10-19T18:08:51+08:00">2023-10-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2023-10-26 22:02:53" itemprop="dateModified" datetime="2023-10-26T22:02:53+08:00">2023-10-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -282,7 +281,7 @@
         </span>
           , 
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/virtualization/io/" itemprop="url" rel="index"><span itemprop="name">io</span></a>
+          <a href="/categories/virtualization/vdpa/" itemprop="url" rel="index"><span itemprop="name">vdpa</span></a>
         </span>
     </span>
 
@@ -302,32 +301,22 @@
 <p>When a VM or a Guest is launched over the VMM, the address space that the Guest OS is provided as its physical address range, known as <strong>Guest Physical Address (GPA)</strong>, may not be the same as the real Host Physical Address (HPA). <strong>DMA capable devices need HPA to transfer the data to and from physical memory locations</strong>, <strong>we need CPU can translate GPA to HPA when DMA happens</strong>, that’s what IOMMU does, DMA remapping(similar thing for interrupt as well, Interrupt remapping)</p>
 <p>The VT-d DMA-remapping hardware logic in the chipset sits between the DMA capable peripheral I&#x2F;O devices and the computer’s physical memory.</p>
 <p>IOMMU allows virtual machines to have direct access to hardware I&#x2F;O devices, such as network cards, storage controllers (HBAs), and GPUs.</p>
-<h1 id="IOMMU"><a href="#IOMMU" class="headerlink" title="IOMMU"></a>IOMMU</h1><h2 id="DMA-remapping"><a href="#DMA-remapping" class="headerlink" title="DMA remapping"></a>DMA remapping</h2><p>In a direct assignment model(Direct&#x2F;IO), the <code>guest OS device driver is in control of the device</code> and is providing GPA instead of HPA required by the DMA capable device. DMA remapping hardware can be used to do the appropriate conversion. Since the GPA is provided by the VMM it knows the conversion from the GPA to the HPA. The <strong>VMM programs the DMA remapping hardware with the GPA to HPA conversion information so the DMA remapping hardware can perform the necessary translation</strong>. Using the remapping, the data can now be transferred directly to the appropriate buffer of the guests rather than going through an intermediate software emulation layer.</p>
-<p><img src="https://software.intel.com/content/dam/develop/external/us/en/images/5658-aspose-words-demos-001-139035.png" alt="IOMMU ARCH"></p>
-<p>The basic idea of IOMMU DMA remapping is the same as the MMU for address translation. When the physical IO device do DMA, the address for DMA is called IOVA, <strong>IOMMU first using the device’s address(PCI BDF address) provided by PCI-E when raising interrupt(PCI device does not include this!!!) to find a page table(page table of domain) then using the the IOVA to walk this page table and finally get the host physical address</strong>. This is very like that how the MMU work to translate a virtual address to a physical address. Following figure show the basic idea of DMA remapping, this is the legacy mode, there is also a scalable mode, though the detail differs, the idea is the same.</p>
-<p><img src="https://cyun.tech/images/virt/iommu.png" alt="iommu"></p>
-<p>The device’s bus is useds to index in Root Table, the root table is 4-KByte in size and contains 256 root-entries. The root-table-entry contains the context-table pointer which references the context-table for all the devices on the bus identified by the root-entry.</p>
-<p><strong>A context-entry maps a specific I&#x2F;O device on a bus to the domain to which it is assigned</strong>, and, in turn, to the address translation structures for the domain. Each context-table contains 256 entries, with each entry corresponding to a PCI device function on the bus. For a PCI device, the device and function numbers (lower 8-bits) are used to index into the context-table.</p>
-<p><strong>The root-table and context table is setup by the IOMMU driver, the page table is usually setup by the VMM</strong>. Of course, any process can do setup this page table. The IOVA is used as the input for the IOMMU translation, this address is device’s view address. The IOVA can be any address that is meaning for for the guest or process. For example, the qemu&#x2F;kvm uses the GPA as the IOVA and also you can uses another address as the IOVA. The VFIO uses IOMMU to do the translation from GPA to HPA.</p>
-<h2 id="Interrupt-remapping"><a href="#Interrupt-remapping" class="headerlink" title="Interrupt remapping"></a>Interrupt remapping</h2><h2 id="IOMMU-groups"><a href="#IOMMU-groups" class="headerlink" title="IOMMU groups"></a>IOMMU groups</h2><p><img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Example_PCI_Express_Topology.svg" alt="pci-e topology"></p>
-<p>VFIO uses IOMMU groups to isolate devices and prevent unintentional Direct Memory Access (DMA) between two devices running on the same host physical machine, which would impact host and guest functionality.</p>
-<p>An IOMMU group is defined as the smallest set of devices that can be considered isolated from the IOMMU’s perspective, <strong>devices in the same group can be only assigned to same VM, devices in the same group use the same BDF as request ID when interrupted happens</strong>, VMM uses this request ID to identify VM and set proper IO page table of that VM, if devices in the same group are assigned to different machine, VMM can NOT know which IO page table to use to translated GPA to HPA.</p>
-<p><strong>With the exception of bridges, root ports, and switches (all examples of interconnect fabric), all devices within an IOMMU group must be bound to a VFIO device driver or known safe stub driver</strong>, For PCI, these drivers are vfio-pci and pci-stub, then you can assign to VM by passthrough.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># show all pci devices(bridges, root ports, switches)</span></span><br><span class="line">$ virsh nodedev-list pci</span><br><span class="line">...</span><br><span class="line">pci_0000_00_1c_3</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># show which iommu groups it belongs to and devices in the same group</span></span><br><span class="line"><span class="comment"># all iommu groups /sys/kernel/iommu_groups/ </span></span><br><span class="line">$ virsh nodedev-dumpxml pci_0000_00_1c_3</span><br><span class="line">&lt;device&gt;</span><br><span class="line">  &lt;name&gt;pci_0000_00_1c_3&lt;/name&gt;</span><br><span class="line">  &lt;path&gt;/sys/devices/pci0000:00/0000:00:1c.3&lt;/path&gt;</span><br><span class="line">  &lt;parent&gt;computer&lt;/parent&gt;</span><br><span class="line">  &lt;driver&gt;</span><br><span class="line">    &lt;name&gt;pcieport&lt;/name&gt;</span><br><span class="line">  &lt;/driver&gt;</span><br><span class="line">  &lt;capability <span class="built_in">type</span>=<span class="string">&#x27;pci&#x27;</span>&gt;</span><br><span class="line">    &lt;domain&gt;0&lt;/domain&gt;</span><br><span class="line">    &lt;bus&gt;0&lt;/bus&gt;</span><br><span class="line">    &lt;slot&gt;28&lt;/slot&gt;</span><br><span class="line">    &lt;<span class="keyword">function</span>&gt;3&lt;/function&gt;</span><br><span class="line">    &lt;product <span class="built_in">id</span>=<span class="string">&#x27;0x8d16&#x27;</span>&gt;C610/X99 series chipset PCI Express Root Port <span class="comment">#4&lt;/product&gt;</span></span><br><span class="line">    &lt;vendor <span class="built_in">id</span>=<span class="string">&#x27;0x8086&#x27;</span>&gt;Intel Corporation&lt;/vendor&gt;</span><br><span class="line">    &lt;capability <span class="built_in">type</span>=<span class="string">&#x27;pci-bridge&#x27;</span>/&gt;</span><br><span class="line">    &lt;iommuGroup number=<span class="string">&#x27;40&#x27;</span>&gt;</span><br><span class="line">      &lt;address domain=<span class="string">&#x27;0x0000&#x27;</span> bus=<span class="string">&#x27;0x00&#x27;</span> slot=<span class="string">&#x27;0x1c&#x27;</span> <span class="keyword">function</span>=<span class="string">&#x27;0x3&#x27;</span>/&gt;</span><br><span class="line">    &lt;/iommuGroup&gt;</span><br><span class="line">    &lt;numa node=<span class="string">&#x27;0&#x27;</span>/&gt;</span><br><span class="line">    &lt;pci-express&gt;</span><br><span class="line">      &lt;<span class="built_in">link</span> validity=<span class="string">&#x27;cap&#x27;</span> port=<span class="string">&#x27;4&#x27;</span> speed=<span class="string">&#x27;5&#x27;</span> width=<span class="string">&#x27;1&#x27;</span>/&gt;</span><br><span class="line">      &lt;<span class="built_in">link</span> validity=<span class="string">&#x27;sta&#x27;</span> speed=<span class="string">&#x27;2.5&#x27;</span> width=<span class="string">&#x27;1&#x27;</span>/&gt;</span><br><span class="line">    &lt;/pci-express&gt;</span><br><span class="line">  &lt;/capability&gt;</span><br><span class="line">&lt;/device&gt;</span><br><span class="line"><span class="comment"># PCI-E device assigned to VM must be bound with vfio-pci driver!!!</span></span><br><span class="line">$ lspci -s 00:1c.3 -v</span><br><span class="line">00:1c.3 PCI bridge: Intel Corporation C610/X99 series chipset PCI Express Root Port <span class="comment">#4 (rev d5) (prog-if 00 [Normal decode])</span></span><br><span class="line">        Flags: bus master, fast devsel, latency 0, IRQ 31, NUMA node 0</span><br><span class="line">        Bus: primary=00, secondary=06, subordinate=07, sec-latency=0</span><br><span class="line">        I/O behind bridge: 00005000-00005fff</span><br><span class="line">        Memory behind bridge: cf000000-d00fffff</span><br><span class="line">        Capabilities: [40] Express Root Port (Slot+), MSI 00</span><br><span class="line">        Capabilities: [80] MSI: Enable+ Count=1/1 Maskable- 64bit-</span><br><span class="line">        Capabilities: [90] Subsystem: Super Micro Computer Inc Device 0852</span><br><span class="line">        Capabilities: [a0] Power Management version 3</span><br><span class="line">        Kernel driver <span class="keyword">in</span> use: pcieport</span><br><span class="line">        Kernel modules: shpchp</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://youtu.be/qQiMMeVNw-o">iommu example</a></p>
+<!--more-->
+
 <h2 id="vDPA"><a href="#vDPA" class="headerlink" title="vDPA"></a>vDPA</h2><p>Virtual data path acceleration (vDPA) in essence is an approach to standardize the NIC SRIOV data plane using the virtio ring layout and <strong>placing a single standard virtio driver in the guest</strong> decoupled from any vendor implementation, while adding a generic control plane and SW infrastructure to support it.</p>
 <p>with vDPA, <strong>Data plane goes directly from the NIC to the guest using the virtio ring layout(need IOMMU support from CPU)</strong>. However each NIC vendor can now continue using its own driver (with a small vDPA add-on) and a generic vDPA driver is added to the kernel to translate the vendor NIC driver&#x2F;control-plane to the virtio control plane.</p>
 <p>A “vDPA device” means a type of device whose datapath complies with the virtio specification, but whose control path is vendor specific. like smartNIC(Mellox Bluefield).</p>
-<p><img src="https://www.redhat.com/cms/managed-files/2020-08-12-vdpa-kernel-fig1.png"></p>
-<p>Passthrough with vDPA framework in kernel(can work also with vDPA in DPDK) and virtio-net-pmd can moved to guest kernel as well, it’s virtio-net</p>
+<p>vDPA devices can be both physically located on the hardware or emulated by software</p>
+<p><img src="https://vdpa-dev.gitlab.io/img/vdpa_overview.png"></p>
 <hr>
-<p><img src="https://www.redhat.com/cms/managed-files/2020-08-12-vdpa-kernel-fig2.png"></p>
-<p>Passthrough with vDPA framework for container!!!</p>
+<p><strong>Passthrough with vDPA framework in kernel(can work also with vDPA in DPDK) and virtio-net-pmd can moved to guest kernel as well, it’s virtio-net</strong></p>
+<p><img src="https://www.redhat.com/cms/managed-files/2020-08-12-vdpa-kernel-fig1.png"></p>
 <ul>
-<li><p>In the VM use case since the QEMU exposes a virtio PCI device to the guest, the virtio-net-pmd will use PCI commands on the control plane and the QEMU will translate them to the vDPA kernel APIs (system calls).</p>
-</li>
-<li><p>In the container use case the virtio-net-pmd will invoke the vDPA kernel APIs (system calls) directly.</p>
-</li>
+<li>In the VM use case since the QEMU exposes a virtio PCI device to the guest, the virtio-net-pmd will use PCI commands on the control plane and the QEMU will translate them to the vDPA kernel APIs (system calls).</li>
+</ul>
+<p><strong>Passthrough with vDPA framework for container!!!</strong><br><img src="https://www.redhat.com/cms/managed-files/2020-08-12-vdpa-kernel-fig2.png"></p>
+<ul>
+<li>In the container use case the virtio-net-pmd will invoke the vDPA kernel APIs (system calls) directly.</li>
 </ul>
 <h3 id="vDPA-kernel-framework"><a href="#vDPA-kernel-framework" class="headerlink" title="vDPA kernel framework"></a>vDPA kernel framework</h3><p>Here are some more details about vDPA kernel framework(actually vDPA firstly introduced in DPDK), Basic introduction about vDPA, please refer to <a href="https://cyun.tech/virtualization-IO/#more">vDPA basics</a>.</p>
 <p>Why vDPA kernel approach is required even DPDK already implement it?<br>Because there are a number of limitations for DPDK approach:</p>
@@ -373,12 +362,30 @@
 </li>
 </ul>
 <p><strong>NOTE: a vdpa device can be bound to only one bus driver</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># check all vdpa device(each VF is an vdpa device)</span></span><br><span class="line">$ <span class="built_in">ls</span> /sys/bus/vdpa/devices</span><br><span class="line"><span class="comment"># check bus driver of a vdpa device</span></span><br><span class="line">$  <span class="built_in">ls</span> -l /sys/bus/vdpa/devices/vdpa0/driver</span><br><span class="line"></span><br><span class="line"><span class="comment"># switch bus driver</span></span><br><span class="line">$ <span class="built_in">echo</span> vdpa0 &gt; /sys/bus/vdpa/drivers/vhost_vdpa/unbind</span><br><span class="line">$ <span class="built_in">echo</span> vdpa0 &gt; /sys/bus/vdpa/drivers/virtio_vdpa/bind</span><br><span class="line"></span><br><span class="line"><span class="comment"># check all bus drivers(virtio, vhost)</span></span><br><span class="line">$ <span class="built_in">ls</span>  /sys/bus/vdpa/drivers</span><br></pre></td></tr></table></figure>
-
-<h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><ul>
-<li><p><a target="_blank" rel="noopener" href="https://software.intel.com/content/www/us/en/develop/articles/intel-virtualization-technology-for-directed-io-vt-d-enhancing-intel-platforms-for-efficient-virtualization-of-io-devices.html">VT-d from intel</a></p>
+<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><p><strong>Which hardware vDPA devices are supported in Linux?</strong><br>Currently upstream Linux contains drivers for the following vDPA devices:(these two drivers are also exported to dpdk(user driver) as well)</p>
+<ul>
+<li>virtio-net<ul>
+<li>Intel IFC VF vDPA driver (CONFIG_IFCVF)</li>
+<li>Mellanox ConnectX vDPA driver (CONFIG_MLX5_VDPA_NET)</li>
+</ul>
 </li>
-<li><p><a target="_blank" rel="noopener" href="https://terenceli.github.io/%E6%8A%80%E6%9C%AF/2019/08/04/iommu-introduction">IOMMU Introduction</a></p>
+</ul>
+<p><strong>What are in-kernel vDPA device simulators useful for?</strong><br>The vDPA device simulators are useful for testing, prototyping, and development of the vDPA software stack. Starting with layers in the kernel (e.g. vhost-vdpa), up to the VMMs.</p>
+<p>The following kernel modules are currently available:</p>
+<ul>
+<li><p>vdpa-sim-net (CONFIG_VDPA_SIM_NET)</p>
+<ul>
+<li>vDPA networking device simulator which loops TX traffic back to RX</li>
+</ul>
+</li>
+<li><p>vdpa-sim-blk (CONFIG_VDPA_SIM_BLK)</p>
+<ul>
+<li>vDPA block device simulator which terminates I&#x2F;O requests in a memory buffer (i.e. ramdisk)<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1></li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://vdpa-dev.gitlab.io/">vdpa dev</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://software.intel.com/content/www/us/en/develop/articles/intel-virtualization-technology-for-directed-io-vt-d-enhancing-intel-platforms-for-efficient-virtualization-of-io-devices.html">VT-d from intel</a></p>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://www.redhat.com/en/blog/introduction-vdpa-kernel-framework">vDPA kernel framework</a></p>
 </li>
@@ -410,21 +417,22 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/io-virtualization/" rel="tag"># io virtualization</a>
-              <a href="/tags/iommu/" rel="tag"># iommu</a>
+              <a href="/tags/virtualization/" rel="tag"># virtualization</a>
+              <a href="/tags/virtio/" rel="tag"># virtio</a>
+              <a href="/tags/passthrough/" rel="tag"># passthrough</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/08/18/virtualization-IO-deep-virtio/" rel="prev" title="virtualization-IO-deep-virtio">
-                  <i class="fa fa-chevron-left"></i> virtualization-IO-deep-virtio
+                <a href="/2023/10/18/virtualization-vfio-sriov/" rel="prev" title="virtualization-vfio-sriov">
+                  <i class="fa fa-chevron-left"></i> virtualization-vfio-sriov
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/08/24/libvirt-design/" rel="next" title="libvirt-design">
-                  libvirt-design <i class="fa fa-chevron-right"></i>
+                <a href="/2023/10/19/virtualization-virtio-vdpa-dpdk/" rel="next" title="virtualization-virtio-vdpa-dpdk">
+                  virtualization-virtio-vdpa-dpdk <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

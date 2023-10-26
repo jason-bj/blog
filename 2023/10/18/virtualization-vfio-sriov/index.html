@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <meta name="google-site-verification" content="xitt2fbphh1nTeWLiTWc0lCggHuxJ5heMcAzkHW2vno">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Microsoft+YaHei+UI:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="VFIOVirtual Function I&#x2F;O is a framework for userspace I&#x2F;O, it’s not limited to SRIOV, but SRIOV VF is the common use case. The VFIO driver is an IOMMU&#x2F;device agnostic framework for expo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="virtualization-vfio-sriov">
+<meta property="og:url" content="http://cyun.tech/2023/10/18/virtualization-vfio-sriov/index.html">
+<meta property="og:site_name" content="CYun">
+<meta property="og:description" content="VFIOVirtual Function I&#x2F;O is a framework for userspace I&#x2F;O, it’s not limited to SRIOV, but SRIOV VF is the common use case. The VFIO driver is an IOMMU&#x2F;device agnostic framework for expo">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://access.redhat.com/webassets/avalon/d/Red_Hat_Enterprise_Linux-9-Configuring_and_managing_virtualization-fr-FR/images/2ca7c118cafe8e2cd184b16620b18393/virt_SR-IOV.png">
+<meta property="og:image" content="https://software.intel.com/content/dam/develop/external/us/en/images/5658-aspose-words-demos-001-139035.png">
+<meta property="og:image" content="https://cyun.tech/images/virt/iommu.png">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/1/1c/Example_PCI_Express_Topology.svg">
+<meta property="article:published_time" content="2023-10-18T06:55:25.000Z">
+<meta property="article:modified_time" content="2023-10-20T15:03:30.378Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="virtualization">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://access.redhat.com/webassets/avalon/d/Red_Hat_Enterprise_Linux-9-Configuring_and_managing_virtualization-fr-FR/images/2ca7c118cafe8e2cd184b16620b18393/virt_SR-IOV.png">
+
+
+<link rel="canonical" href="http://cyun.tech/2023/10/18/virtualization-vfio-sriov/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2023/10/18/virtualization-vfio-sriov/","path":"2023/10/18/virtualization-vfio-sriov/","title":"virtualization-vfio-sriov"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>virtualization-vfio-sriov | CYun</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?a510d1f580c8231f8f867d14f42bb8ea"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">CYun</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#VFIO"><span class="nav-number">1.</span> <span class="nav-text">VFIO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.1.</span> <span class="nav-text">Summary  </span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SRIOV"><span class="nav-number">2.</span> <span class="nav-text">SRIOV</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SRIOV-driver"><span class="nav-number">2.1.</span> <span class="nav-text">SRIOV driver</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IOMMU"><span class="nav-number">3.</span> <span class="nav-text">IOMMU</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DMA-remapping"><span class="nav-number">3.1.</span> <span class="nav-text">DMA remapping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Interrupt-remapping"><span class="nav-number">3.2.</span> <span class="nav-text">Interrupt remapping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IOMMU-groups"><span class="nav-number">3.3.</span> <span class="nav-text">IOMMU groups</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason"
+      src="/uploads/avatar.gif">
+  <p class="site-author-name" itemprop="name">Jason</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">149</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">141</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">148</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jason-cyun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason-cyun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jason_lkm@163.com" title="E-Mail → mailto:jason_lkm@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2023/10/18/virtualization-vfio-sriov/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="virtualization-vfio-sriov | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          virtualization-vfio-sriov
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-10-18 14:55:25" itemprop="dateCreated datePublished" datetime="2023-10-18T14:55:25+08:00">2023-10-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-10-20 23:03:30" itemprop="dateModified" datetime="2023-10-20T23:03:30+08:00">2023-10-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/" itemprop="url" rel="index"><span itemprop="name">virtualization</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/io/" itemprop="url" rel="index"><span itemprop="name">io</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="VFIO"><a href="#VFIO" class="headerlink" title="VFIO"></a>VFIO</h1><p>Virtual Function I&#x2F;O is a framework for userspace I&#x2F;O, it’s not limited to SRIOV, but SRIOV VF is the common use case.</p>
+<p>The VFIO driver is an IOMMU&#x2F;device agnostic framework for exposing direct device access to userspace, in a secure, IOMMU protected environment. In other words, this allows safe non-privileged, userspace drivers.</p>
+<p>Why do we want that? Virtual machines often make use of direct device access (“device assignment”) when configured for the highest possible I&#x2F;O performance. <code>From a device and host perspective, this simply turns the VM into a userspace driver</code>, with the benefits of significantly reduced latency, higher bandwidth, and direct use of bare-metal device drivers.</p>
+<span id="more"></span>
+
+
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary  "></a><strong>Summary</strong>  </h2><ul>
+<li>Userspace driver interface(VFIO kernel module[vfio_pci] exposes PCI device resource to user by ioctl)</li>
+<li>Hardware IOMMU based DMA mapping and isolation<ul>
+<li>IOMMU group based</li>
+</ul>
+</li>
+<li>Modular IOMMU and bus driver support<ul>
+<li>PCI and platform devices supported</li>
+<li>IOMMU API(type1) and ppc64 models</li>
+</ul>
+</li>
+<li>Full device access, DMA and interrupt support<ul>
+<li>read&#x2F;write &amp; mmap support of device resources</li>
+<li>Mapping of user memory to I&#x2F;O virtual address</li>
+<li>eventfd and irqfd based signaling mechanisms</li>
+</ul>
+</li>
+</ul>
+<h1 id="SRIOV"><a href="#SRIOV" class="headerlink" title="SRIOV"></a>SRIOV</h1><p><strong>What is SR-IOV?</strong><br>Single-root I&#x2F;O virtualization (SR-IOV) is a specification that enables a single PCI Express (PCIe) device to present multiple separate PCI devices, called virtual functions (VFs), to the host system. Each of these devices:</p>
+<ul>
+<li>Is able to provide the same or similar service as the original PCIe device.</li>
+<li>Appears at a different address on the host PCI bus.</li>
+<li>Can be assigned to a different VM using VFIO assignment.<br>For example, a single SR-IOV capable network device can present VFs to multiple VMs. While all of the VFs use the same physical card, the same network connection, and the same network cable, each of the VMs directly controls its own hardware network device, and uses no extra resources from the host.</li>
+</ul>
+<hr>
+<p><strong>How SR-IOV works</strong></p>
+<p>The SR-IOV functionality is possible thanks to the introduction of the following PCIe functions:</p>
+<ul>
+<li>Physical functions (PFs) - A PCIe function that provides the functionality of its device (for example networking) to the host, but can also create and manage a set of VFs. Each SR-IOV capable device has one or more PFs.</li>
+<li>Virtual functions (VFs) - Lightweight PCIe functions that behave as independent devices. Each VF is derived from a PF. The maximum number of VFs a device can have depends on the device hardware. Each VF can be assigned only to a single VM at a time, but a VM can have multiple VFs assigned to it.<br>VMs recognize VFs as virtual devices. For example, a VF created by an SR-IOV network device appears as a network card to a VM to which it is assigned, in the same way as a physical network card appears to the host system.</li>
+</ul>
+<p><img src="https://access.redhat.com/webassets/avalon/d/Red_Hat_Enterprise_Linux-9-Configuring_and_managing_virtualization-fr-FR/images/2ca7c118cafe8e2cd184b16620b18393/virt_SR-IOV.png"></p>
+<hr>
+<p><strong>Advantages</strong></p>
+<p>The primary advantages of using SR-IOV VFs rather than emulated devices are:</p>
+<ul>
+<li>Improved performance</li>
+<li>Reduced use of host CPU and memory resources<br>For example, a VF attached to a VM as a vNIC performs at almost the same level as a physical NIC, and much better than paravirtualized or emulated NICs. In particular, when multiple VFs are used simultaneously on a single host, the performance benefits can be significant.</li>
+</ul>
+<hr>
+<p><strong>Inconvenient</strong></p>
+<ul>
+<li>To modify the configuration of a PF, you must first change the number of VFs exposed by the PF to zero. Therefore, you also need to remove the devices provided by these VFs from the VM to which they are assigned.</li>
+<li>A VM with an VFIO-assigned devices attached, including SR-IOV VFs, cannot be migrated to another host. In some cases, you can work around this limitation by pairing the assigned device with an emulated device. For example, you can bond an assigned networking VF to an emulated vNIC, and remove the VF before the migration.</li>
+<li>In addition, VFIO-assigned devices require pinning of VM memory, which increases the memory consumption of the VM and prevents the use of memory ballooning on the VM.</li>
+</ul>
+<hr>
+<p><strong>examples</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># if a device has SRIOV and we already set max vf number</span></span><br><span class="line">$ lspci -s 0000:4b:00.1 -v | grep IOV</span><br><span class="line">	Capabilities: [180] Single Root I/O Virtualization (SR-IOV)</span><br><span class="line"></span><br><span class="line"><span class="comment"># if 0000:4b:00.1 is ethernet device and attached with PF driver</span></span><br><span class="line"><span class="comment"># you will see ethernet device on system</span></span><br><span class="line"><span class="comment"># ens9f1 is the device name as it&#x27;s pci device is 0000:4b:00.1</span></span><br><span class="line">$ <span class="built_in">ls</span> -al  /sys/class/net/ens9f1</span><br><span class="line">lrwxrwxrwx 1 root root 0 Oct 16 17:40 /sys/class/net/ens9f1 -&gt; ../../devices/pci0000:4a/0000:4a:02.0/0000:4b:00.1/net/ens9f1</span><br><span class="line"></span><br><span class="line"><span class="variable">$ethtool</span> -i ens9f1</span><br><span class="line">driver: mlx5_core</span><br><span class="line">version: 5.5-1.0.3</span><br><span class="line">firmware-version: 24.98.1401 (MT_0000000539)</span><br><span class="line">expansion-rom-version: </span><br><span class="line">bus-info: 0000:4b:00.1   ---&gt; bus info</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># check support max vf number and current set number</span></span><br><span class="line">$ <span class="built_in">cat</span>  /sys/class/net/ens9f1/device/sriov_totalvfs </span><br><span class="line">127</span><br><span class="line">$ <span class="built_in">cat</span>  /sys/class/net/ens9f1/device/sriov_numvfs </span><br><span class="line">127</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> 127 &gt; /sys/class/net/ens9f1/device/sriov_numvfs </span><br><span class="line"></span><br><span class="line"><span class="comment"># create udev rule /etc/udev/rules.d/ens9f1.rules to auto configure vf</span></span><br><span class="line">ACTION==<span class="string">&quot;add&quot;</span>, SUBSYSTEM==<span class="string">&quot;net&quot;</span>, ENV&#123;ID_NET_DRIVER&#125;==<span class="string">&quot;mlx5_core&quot;</span>, ATTR&#123;device/sriov_numvfs&#125;=<span class="string">&quot;127&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># check VF number and it&#x27;s pci bus</span></span><br><span class="line">$ <span class="built_in">ls</span> -al  /sys/class/net/ens9f1/device/virtfn*</span><br><span class="line">lrwxrwxrwx 1 root root 0 Oct 16 18:50 /sys/class/net/ens9f1/device/virtfn0 -&gt; ../0000:4b:10.3</span><br><span class="line">lrwxrwxrwx 1 root root 0 Oct 16 18:50 /sys/class/net/ens9f1/device/virtfn1 -&gt; ../0000:4b:10.4</span><br><span class="line">lrwxrwxrwx 1 root root 0 Oct 16 18:50 /sys/class/net/ens9f1/device/virtfn10 -&gt; ../0000:4b:11.5</span><br><span class="line">lrwxrwxrwx 1 root root 0 Oct 16 18:50 /sys/class/net/ens9f1/device/virtfn100 -&gt; ../0000:4b:1c.7</span><br><span class="line">lrwxrwxrwx 1 root root 0 Oct 16 18:50 /sys/class/net/ens9f1/device/virtfn101 -&gt; ../0000:4b:1d.0</span><br><span class="line">lrwxrwxrwx 1 root root 0 Oct 16 18:50 /sys/class/net/ens9f1/device/virtfn102 -&gt; ../0000:4b:1d.1</span><br><span class="line">lrwxrwxrwx 1 root root 0 Oct 16 18:50 /sys/class/net/ens9f1/device/virtfn103 -&gt; ../0000:4b:1d.2</span><br><span class="line">lrwxrwxrwx 1 root root 0 Oct 16 18:50 /sys/class/net/ens9f1/device/virtfn104 -&gt; ../0000:4b:1d.3</span><br><span class="line">lrwxrwxrwx 1 root root 0 Oct 16 18:50 /sys/class/net/ens9f1/device/virtfn105 -&gt; ../0000:4b:1d.4</span><br><span class="line">lrwxrwxrwx 1 root root 0 Oct 16 18:50 /sys/class/net/ens9f1/device/virtfn106 -&gt; ../0000:4b:1d.5</span><br><span class="line">lrwxrwxrwx 1 root root 0 Oct 16 18:50 /sys/class/net/ens9f1/device/virtfn107 -&gt; ../0000:4b:1d.6</span><br><span class="line">lrwxrwxrwx 1 root root 0 Oct 16 18:50 /sys/class/net/ens9f1/device/virtfn108 -&gt; ../0000:4b:1d.7</span><br><span class="line">lrwxrwxrwx 1 root root 0 Oct 16 18:50 /sys/class/net/ens9f1/device/virtfn109 -&gt; ../0000:4b:1e.0</span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="SRIOV-driver"><a href="#SRIOV-driver" class="headerlink" title="SRIOV driver"></a><strong>SRIOV driver</strong></h2><p>The SR-IOV drivers are implemented in the kernel. The core implementation is contained in the PCI subsystem, but there must also be driver support for both the Physical Function (PF) and Virtual Function (VF) devices.</p>
+<ul>
+<li>Intel 82599ES 10 Gigabit Ethernet Controller - uses the ixgbe driver</li>
+<li>Mellanox ConnectX-5 Ethernet Adapter Cards - use the mlx5_core driver</li>
+<li>Broadcom NetXtreme II BCM57810 - uses the bnx2x driver</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># Intel 82599ES 10 Gigabit Ethernet Controller - uses the ixgbe driver</span></span><br><span class="line"><span class="comment"># em2 is PF</span></span><br><span class="line"><span class="variable">$ethtool</span> -i em2</span><br><span class="line">driver: ixgbe</span><br><span class="line">bus-info: 0000:01:00.1</span><br><span class="line">....</span><br><span class="line"></span><br><span class="line"><span class="comment"># 01:00.1 is PF PCI device, as you can see driver is ixgbe</span></span><br><span class="line"><span class="variable">$lspci</span> -s 0000:01:00.1 -v</span><br><span class="line">01:00.1 Ethernet controller: Intel Corporation 82599ES 10-Gigabit SFI/SFP+ Network Connection (rev 01)</span><br><span class="line">	Subsystem: Dell Ethernet 10G 4P X520/I350 rNDC</span><br><span class="line">  ...</span><br><span class="line">	Capabilities: [160] Single Root I/O Virtualization (SR-IOV)</span><br><span class="line">	Kernel driver <span class="keyword">in</span> use: ixgbe</span><br><span class="line"></span><br><span class="line"><span class="comment"># enable VF on this PF</span></span><br><span class="line"><span class="variable">$cat</span> /sys/class/net/em2/device/sriov_totalvfs </span><br><span class="line">63</span><br><span class="line"><span class="variable">$echo</span> 1 &gt; /sys/class/net/em2/device/sriov_numvfs </span><br><span class="line"></span><br><span class="line"><span class="comment"># 01:10.1 is VF PCI device, as you can see driver is ixgbevf</span></span><br><span class="line"><span class="variable">$lspci</span> -s 01:10.1 -v</span><br><span class="line">01:10.1 Ethernet controller: Intel Corporation 82599 Ethernet Controller Virtual Function (rev 01)</span><br><span class="line">	Subsystem: Dell Device 1f72</span><br><span class="line">	Flags: bus master, fast devsel, latency 0</span><br><span class="line">  ...</span><br><span class="line">	[virtual] Memory at 30000200000 (64-bit, prefetchable) [size=16K]</span><br><span class="line">	[virtual] Memory at 30000300000 (64-bit, prefetchable) [size=16K]</span><br><span class="line">	Kernel driver <span class="keyword">in</span> use: ixgbevf</span><br><span class="line"></span><br><span class="line"><span class="comment"># VF network device with ixgbevf</span></span><br><span class="line"><span class="variable">$ethtool</span> -i em2_0</span><br><span class="line">driver: ixgbevf</span><br><span class="line">bus-info: 0000:01:10.1</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># MAC is auto generate, if you disable and enable it again, the MAC can change</span></span><br><span class="line"><span class="variable">$ifconfig</span> em2_0</span><br><span class="line">em2_0: flags=4098&lt;BROADCAST,MULTICAST&gt;  mtu 1500</span><br><span class="line">        ether ba:5b:24:6e:27:39  txqueuelen 1000  (Ethernet)</span><br><span class="line"></span><br><span class="line"><span class="comment"># VF with no MAC set</span></span><br><span class="line"><span class="variable">$ip</span> <span class="built_in">link</span> show em2</span><br><span class="line">5: em2: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 2000 qdisc mq state UP mode DEFAULT qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether ec:f4:bb:e9:06:62 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    vf 0 MAC 00:00:00:00:00:00, spoof checking on, link-state auto</span><br></pre></td></tr></table></figure>
+
+<p><strong>NOTE</strong></p>
+<ul>
+<li>SR-IOV VF network devices do not have permanent unique MAC addresses, then host reboot, mac is gone</li>
+<li>each vendor has it own SR-IOV VF driver</li>
+<li>SR-IOV not tight with vDPA(virtio Datapath Acceleration), vDPA device is a device that has virtio datapath support, SR-IOV can be enabled or disable(mostly enabled)</li>
+<li>vDPA device usually has SR-IOV capability, but device that has SR-IOV cap may not be a vDPA device.</li>
+</ul>
+<h1 id="IOMMU"><a href="#IOMMU" class="headerlink" title="IOMMU"></a>IOMMU</h1><p>Roles:</p>
+<ul>
+<li>Translation: I&#x2F;O Virtual Address(IOVA) space</li>
+<li>Isolation: per device translation and invalid accesses blocked</li>
+</ul>
+<h2 id="DMA-remapping"><a href="#DMA-remapping" class="headerlink" title="DMA remapping"></a>DMA remapping</h2><p>In a direct assignment model(Direct&#x2F;IO), the <code>guest OS device driver is in control of the device</code> and is providing GPA instead of HPA required by the DMA capable device. DMA remapping hardware can be used to do the appropriate conversion. Since the GPA is provided by the VMM it knows the conversion from the GPA to the HPA. The <strong>VMM programs the DMA remapping hardware with the GPA to HPA conversion information so the DMA remapping hardware can perform the necessary translation</strong>. Using the remapping, the data can now be transferred directly to the appropriate buffer of the guests rather than going through an intermediate software emulation layer.</p>
+<p><img src="https://software.intel.com/content/dam/develop/external/us/en/images/5658-aspose-words-demos-001-139035.png" alt="IOMMU ARCH"></p>
+<p>The basic idea of IOMMU DMA remapping is the same as the MMU for address translation. When the physical IO device do DMA, the address for DMA is called IOVA, <strong>IOMMU first using the device’s address(PCI BDF address) provided by PCI-E when raising interrupt(PCI device does not include this!!!) to find a page table(page table of domain) then using the the IOVA to walk this page table and finally get the host physical address</strong>. This is very like that how the MMU work to translate a virtual address to a physical address. Following figure show the basic idea of DMA remapping, this is the legacy mode, there is also a scalable mode, though the detail differs, the idea is the same.</p>
+<p><img src="https://cyun.tech/images/virt/iommu.png" alt="iommu"></p>
+<p>The device’s bus is useds to index in Root Table, the root table is 4-KByte in size and contains 256 root-entries. The root-table-entry contains the context-table pointer which references the context-table for all the devices on the bus identified by the root-entry.</p>
+<p><strong>A context-entry maps a specific I&#x2F;O device on a bus to the domain to which it is assigned</strong>, and, in turn, to the address translation structures for the domain. Each context-table contains 256 entries, with each entry corresponding to a PCI device function on the bus. For a PCI device, the device and function numbers (lower 8-bits) are used to index into the context-table.</p>
+<p><strong>The root-table and context table is setup by the IOMMU driver, the page table is usually setup by the VMM</strong>. Of course, any process can do setup this page table. The IOVA is used as the input for the IOMMU translation, this address is device’s view address. The IOVA can be any address that is meaning for for the guest or process. For example, the qemu&#x2F;kvm uses the GPA as the IOVA and also you can uses another address as the IOVA. The VFIO uses IOMMU to do the translation from GPA to HPA.</p>
+<h2 id="Interrupt-remapping"><a href="#Interrupt-remapping" class="headerlink" title="Interrupt remapping"></a>Interrupt remapping</h2><h2 id="IOMMU-groups"><a href="#IOMMU-groups" class="headerlink" title="IOMMU groups"></a>IOMMU groups</h2><p><img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Example_PCI_Express_Topology.svg" alt="pci-e topology"></p>
+<p>VFIO uses IOMMU groups to isolate devices and prevent unintentional Direct Memory Access (DMA) between two devices running on the same host physical machine, which would impact host and guest functionality.</p>
+<p>An IOMMU group is defined as the smallest set of devices that can be considered isolated from the IOMMU’s perspective, <strong>devices in the same group can be only assigned to same VM, devices in the same group use the same BDF as request ID when interrupted happens</strong>, VMM uses this request ID to identify VM and set proper IO page table of that VM, if devices in the same group are assigned to different machine, VMM can NOT know which IO page table to use to translated GPA to HPA.</p>
+<p>Each IOMMU group may contain one or more devices. When multiple devices are present, <code>all endpoints within the IOMMU group must be claimed for any device within the group to be assigned to a guest</code>. This can be accomplished either by also assigning the extra endpoints to the guest or by detaching them from the host driver. Devices contained within a single group <code>may not be split between multiple guests or split between host and guest</code>. <strong>Non-endpoint devices such as PCIe root ports, switch ports, and bridges should not be detached from the host drivers and will not interfere with assignment of endpoints.</strong></p>
+<hr>
+<p>For <strong>endpoint devices</strong> within on IOMMU group, they must be in three cases</p>
+<ol>
+<li>all sits in host</li>
+<li>all assigned to only one vm</li>
+<li>part assigned to vm, the left detached from host driver</li>
+</ol>
+<hr>
+<p><strong>enable IOMMU steps for intel cpu</strong></p>
+<p>First make sure, intel cpu has vt-d support by looking lookup user guide.</p>
+<ol>
+<li>turn it on from BIOS as there is on vt-d switch there</li>
+<li>Then add ‘iommu&#x3D;pt intel_iommu&#x3D;on’ to boot parameter</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ dmesg | grep IOMMU</span><br><span class="line">[    0.000000] Intel-IOMMU: enabled</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># list all iommu groups and devices of one group</span></span><br><span class="line"><span class="variable">$ls</span> /sys/kernel/iommu_groups</span><br><span class="line"></span><br><span class="line"><span class="variable">$ls</span> /sys/kernel/iommu_groups/10/devices</span><br></pre></td></tr></table></figure>
+
+<p><strong>NOTE</strong></p>
+<ul>
+<li>Devices assigned(PCI passthrough) need IOMMU supported, but no SRIOV required by that device</li>
+<li>In guest kernel, we should install proper driver for any passthrough device to make it work</li>
+<li>for normal device, we should install vendor specific driver, for VF device, we should install VF driver from that vendor, but if VF device(vdpa device) has virtio support from hardware, we can use virtio-net for it with vDPA framework to make it work.</li>
+<li>before we pass through a pci device, we should detach it from host(unbind it from original driver and bind it with <code>vfio-pci</code> driver)</li>
+</ul>
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.kernel.org/driver-api/vfio.html">VFIO kernel-api</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=uOQ5POP8hCs">VFIO vs UIO</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mmisono/vfio-e1000">VFIO driver for e1000</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/blog/red-hat-enterprise-linux-openstack-platform-6-sr-iov-networking-part-i-understanding-basics">SRIOV Overview</a></li>
+<li><a target="_blank" rel="noopener" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-pci_devices-pci_passthrough#sect-SR_IOV-Using_SR_IOV">libvirt uses SRIOV</a></li>
+<li><a target="_blank" rel="noopener" href="https://terenceli.github.io/%E6%8A%80%E6%9C%AF/2019/08/04/iommu-introduction">IOMMU Introduction</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/virtualization/" rel="tag"># virtualization</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/24/c-language-basic/" rel="prev" title="c-language-basic">
+                  <i class="fa fa-chevron-left"></i> c-language-basic
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/10/19/virtualization-virtio-vdpa-kernel/" rel="next" title="virtualization-virtio-vdpa">
+                  virtualization-virtio-vdpa <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cyun All rights reserved</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"jason-bj/blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

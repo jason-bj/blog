@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Microsoft+YaHei+UI:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -160,18 +160,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">139</span>
+        <span class="site-state-item-count">141</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-count">148</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -209,6 +209,560 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2023/10/20/virtualization-virtio-vhost-user/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/20/virtualization-virtio-vhost-user/" class="post-title-link" itemprop="url">virtualization-virtio-vhost-user</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-10-20 10:20:10 / Modified: 23:03:30" itemprop="dateCreated datePublished" datetime="2023-10-20T10:20:10+08:00">2023-10-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/" itemprop="url" rel="index"><span itemprop="name">virtualization</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/virtio/" itemprop="url" rel="index"><span itemprop="name">virtio</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="vhost-user"><a href="#vhost-user" class="headerlink" title="vhost-user"></a>vhost-user</h1><p>In the DPDK architecture the devices are accessed by constant polling. This avoids the context switching and interrupt processing overhead at the cost of dedicating 100% of part of the CPU cores to handle packet processing.</p>
+<p>In practice DPDK offers a series of poll mode drivers (PMDs) that enable direct transfer of packets between user space and the  physical interfaces which bypass the kernel network stack all together. This approach provides a significant performance boost over  the kernel forwarding by eliminating interrupt handling and bypassing the kernel stack.</p>
+<p>So we want to implement Virtio Backend(dataplane) in dpdk leverage vhost protocol, that’s vhost-user</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/10/20/virtualization-virtio-vhost-user/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2023/10/20/virtualization-virtio-vhost-net/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/20/virtualization-virtio-vhost-net/" class="post-title-link" itemprop="url">virtualization-virtio-vhost-net</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-10-20 10:20:06 / Modified: 23:03:30" itemprop="dateCreated datePublished" datetime="2023-10-20T10:20:06+08:00">2023-10-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/" itemprop="url" rel="index"><span itemprop="name">virtualization</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/virtio/" itemprop="url" rel="index"><span itemprop="name">virtio</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="vhost-net"><a href="#vhost-net" class="headerlink" title="vhost-net"></a>vhost-net</h1><p>Virtio Backend(dataplane) in host kernel leverage vhost protocol.</p>
+<p>The vhost-net is a kernel driver that implements the handler side of the vhost protocol to implement an efficient data plane, i.e., packet forwarding. In this implementation, qemu and the vhost-net kernel driver (handler) use ioctls to exchange vhost messages and a couple of eventfd-like file descriptors called <strong>irqfd and ioeventfd(created by Qemu process with ioctl with kvm, then pass it with ioctl with vhost-net)</strong> are used to exchange notifications with the guest.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/10/20/virtualization-virtio-vhost-net/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2023/10/20/virtualization-virtio-vdpa-hands-on/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/20/virtualization-virtio-vdpa-hands-on/" class="post-title-link" itemprop="url">virtualization-virtio-vdpa-hands-on</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-10-20 09:56:04 / Modified: 23:03:30" itemprop="dateCreated datePublished" datetime="2023-10-20T09:56:04+08:00">2023-10-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/" itemprop="url" rel="index"><span itemprop="name">virtualization</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/vdpa/" itemprop="url" rel="index"><span itemprop="name">vdpa</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="hands-on-with-vDPA-device-simulator"><a href="#hands-on-with-vDPA-device-simulator" class="headerlink" title="hands on with vDPA device simulator"></a>hands on with vDPA device simulator</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">The vdpa management tool(from iproute2) can be used to communicate with the vDPA framework <span class="keyword">in</span> the kernel using netlink vDPA API. It allows to create and destroy new devices, and control their parameters.</span><br><span class="line"></span><br><span class="line">An example using the in-kernel simulators:</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load vDPA net and block simulators kernel modules</span></span><br><span class="line">$ modprobe vdpa-sim-net</span><br><span class="line">$ modprobe vdpa-sim-blk</span><br><span class="line"></span><br><span class="line"><span class="comment"># List vdpa management device attributes</span></span><br><span class="line">$ vdpa mgmtdev show</span><br><span class="line">vdpasim_blk: </span><br><span class="line">  supported_classes block</span><br><span class="line">vdpasim_net: </span><br><span class="line">  supported_classes net</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add `vdpa-net1` device through `vdpasim_net` management device</span></span><br><span class="line">$ vdpa dev add name vdpa-net1 mgmtdev vdpasim_net</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add `vdpa-blk1` device through `vdpasim_blk` management device</span></span><br><span class="line">$ vdpa dev add name vdpa-blk1 mgmtdev vdpasim_blk</span><br><span class="line"></span><br><span class="line"><span class="comment"># List all vdpa devices on the system</span></span><br><span class="line">$ vdpa dev show</span><br><span class="line">vdpa-net1: <span class="built_in">type</span> network mgmtdev vdpasim_net vendor_id 0 max_vqs 2 max_vq_size 256</span><br><span class="line">vdpa-blk1: <span class="built_in">type</span> block mgmtdev vdpasim_blk vendor_id 0 max_vqs 1 max_vq_size 256</span><br><span class="line"></span><br><span class="line"><span class="comment"># As above, but using pretty[-p] JSON[-j] output</span></span><br><span class="line">$ vdpa dev show -jp</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;dev&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;vdpa-net1&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;type&quot;</span>: <span class="string">&quot;network&quot;</span>,</span><br><span class="line">            <span class="string">&quot;mgmtdev&quot;</span>: <span class="string">&quot;vdpasim_net&quot;</span>,</span><br><span class="line">            <span class="string">&quot;vendor_id&quot;</span>: 0,</span><br><span class="line">            <span class="string">&quot;max_vqs&quot;</span>: 2,</span><br><span class="line">            <span class="string">&quot;max_vq_size&quot;</span>: 256</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;vdpa-blk1&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;type&quot;</span>: <span class="string">&quot;block&quot;</span>,</span><br><span class="line">            <span class="string">&quot;mgmtdev&quot;</span>: <span class="string">&quot;vdpasim_blk&quot;</span>,</span><br><span class="line">            <span class="string">&quot;vendor_id&quot;</span>: 0,</span><br><span class="line">            <span class="string">&quot;max_vqs&quot;</span>: 1,</span><br><span class="line">            <span class="string">&quot;max_vq_size&quot;</span>: 256</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># check all vdpa device(each VF is an vdpa device)</span></span><br><span class="line">$ <span class="built_in">ls</span> /sys/bus/vdpa/devices</span><br><span class="line"><span class="comment"># check bus driver of a vdpa device</span></span><br><span class="line">$  <span class="built_in">ls</span> -l /sys/bus/vdpa/devices/vdpa0/driver</span><br><span class="line"></span><br><span class="line"><span class="comment"># switch bus driver</span></span><br><span class="line">$ <span class="built_in">echo</span> vdpa0 &gt; /sys/bus/vdpa/drivers/vhost_vdpa/unbind</span><br><span class="line">$ <span class="built_in">echo</span> vdpa0 &gt; /sys/bus/vdpa/drivers/virtio_vdpa/bind</span><br><span class="line"></span><br><span class="line"><span class="comment"># check all bus drivers(virtio, vhost)</span></span><br><span class="line">$ <span class="built_in">ls</span>  /sys/bus/vdpa/drivers</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2023/10/19/virtualization-virtio-vdpa-dpdk/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/19/virtualization-virtio-vdpa-dpdk/" class="post-title-link" itemprop="url">virtualization-virtio-vdpa-dpdk</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-10-19 18:21:26" itemprop="dateCreated datePublished" datetime="2023-10-19T18:21:26+08:00">2023-10-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-10-20 23:03:30" itemprop="dateModified" datetime="2023-10-20T23:03:30+08:00">2023-10-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/" itemprop="url" rel="index"><span itemprop="name">virtualization</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/vdpa/" itemprop="url" rel="index"><span itemprop="name">vdpa</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 06:00.3 is intel vDPA device or simulated vDPA devices</span></span><br><span class="line"><span class="comment"># qemu as vhost-user server, dpdk as client</span></span><br><span class="line">$ ./dpdk-vdpa -c 0x2 -n 4 --socket-mem 1024,1024 \</span><br><span class="line">        -a 0000:06:00.4,vdpa=1 \</span><br><span class="line">        -- --client --iface=/tmp/qemu-vhost-user-net.sock</span><br><span class="line"></span><br><span class="line">$ modprobe vfio-pci</span><br><span class="line">$ ./usertools/dpdk-devbind.py -b vfio-pci 06:00.4</span><br><span class="line"></span><br><span class="line"><span class="comment"># start vm TODO</span></span><br><span class="line">$ qemu-system-x86_64 -cpu host -enable-kvm \</span><br><span class="line">-mem-prealloc \</span><br><span class="line">-chardev socket,<span class="built_in">id</span>=char0,path=/tmp/qemu-vhost-user-net.sock \</span><br><span class="line">-netdev <span class="built_in">type</span>=vhost-user,<span class="built_in">id</span>=vdpa,chardev=char0 \</span><br><span class="line">-device virtio-net-pci,netdev=vdpa,mac=00:aa:bb:cc:<span class="built_in">dd</span>:ee,page-per-vq=on \</span><br><span class="line"></span><br><span class="line"><span class="comment"># ==================== more options==========================================================</span></span><br><span class="line"><span class="comment"># 0000:ca:0f.5 is VF NET PCI device created by ConnectX-6, bind with vfio-pci kernel driver</span></span><br><span class="line"><span class="comment"># vhost-user-net-server.sock is created by qemu</span></span><br><span class="line">$/usr/local/bin/vdpa-dpdk --lcore 0@(0-127) -n 4 --huge-dir=/mnt/huge_2MB --log-level=9 -w 0000:ca:0f.5,class=vdpa,event_mode=2 --log-level=pmd.vdpa.mlx5:7 --log-level=pmd:8 --file-prefix=vfnet1 -- --client --iface=vhost-user-net-server.sock</span><br></pre></td></tr></table></figure>
+
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://doc.dpdk.org/guides-21.11/vdpadevs/mlx5.html">mlx vf driver for virtio control</a></li>
+<li><a target="_blank" rel="noopener" href="https://doc.dpdk.org/guides-21.11/vdpadevs/ifc.html">intel fpga vf driver for virtio control</a></li>
+<li><a target="_blank" rel="noopener" href="https://doc.dpdk.org/guides/sample_app_ug/vdpa.html">vdpa sample application from dpdk</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2023/10/19/virtualization-virtio-vdpa-kernel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/19/virtualization-virtio-vdpa-kernel/" class="post-title-link" itemprop="url">virtualization-virtio-vdpa</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-10-19 18:08:51" itemprop="dateCreated datePublished" datetime="2023-10-19T18:08:51+08:00">2023-10-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-10-26 22:02:53" itemprop="dateModified" datetime="2023-10-26T22:02:53+08:00">2023-10-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/" itemprop="url" rel="index"><span itemprop="name">virtualization</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/vdpa/" itemprop="url" rel="index"><span itemprop="name">vdpa</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>For IO virtualization, A MM supports two well known models: <code>Emulation of devices or Paravirtualization.</code>, like we see Qemu for emulation and virtio for paravirtualization, but both have performance issue, as guest os(guest driver) can’t access physical device directly, it must send IO to intermediate layer(VMM) firstly which reduces performance. there is another voice comes up:<br><code>Can we assign HW resources directly to the VM?</code> if we do, what extra work should support by CPU?</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/10/19/virtualization-virtio-vdpa-kernel/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2023/10/18/virtualization-vfio-sriov/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/18/virtualization-vfio-sriov/" class="post-title-link" itemprop="url">virtualization-vfio-sriov</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-10-18 14:55:25" itemprop="dateCreated datePublished" datetime="2023-10-18T14:55:25+08:00">2023-10-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-10-20 23:03:30" itemprop="dateModified" datetime="2023-10-20T23:03:30+08:00">2023-10-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/" itemprop="url" rel="index"><span itemprop="name">virtualization</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/io/" itemprop="url" rel="index"><span itemprop="name">io</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="VFIO"><a href="#VFIO" class="headerlink" title="VFIO"></a>VFIO</h1><p>Virtual Function I&#x2F;O is a framework for userspace I&#x2F;O, it’s not limited to SRIOV, but SRIOV VF is the common use case.</p>
+<p>The VFIO driver is an IOMMU&#x2F;device agnostic framework for exposing direct device access to userspace, in a secure, IOMMU protected environment. In other words, this allows safe non-privileged, userspace drivers.</p>
+<p>Why do we want that? Virtual machines often make use of direct device access (“device assignment”) when configured for the highest possible I&#x2F;O performance. <code>From a device and host perspective, this simply turns the VM into a userspace driver</code>, with the benefits of significantly reduced latency, higher bandwidth, and direct use of bare-metal device drivers.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/10/18/virtualization-vfio-sriov/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -562,615 +1116,6 @@
     
     <div class="post-body" itemprop="articleBody">
           
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2022/09/30/linux-ansible-guide/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.gif">
-      <meta itemprop="name" content="Jason">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CYun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CYun">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/09/30/linux-ansible-guide/" class="post-title-link" itemprop="url">linux-ansible-guide</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-09-30 15:26:11" itemprop="dateCreated datePublished" datetime="2022-09-30T15:26:11+08:00">2022-09-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>Ansible is an open source IT automation engine that automates provisioning, configuration management, application deployment, orchestration, and many other IT processes.</p>
-<p><img src="https://docs.ansible.com/ansible/latest/_images/ansible_basic.svg" alt="basic arch"></p>
-<p>Ansible works by connecting to your nodes and pushing out small programs—called modules—to these nodes. Modules are used to accomplish automation tasks in Ansible. These programs are written to be resource models of the desired state of the system. Ansible then executes these modules and removes them when finished.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/09/30/linux-ansible-guide/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2022/09/21/systemd-resource-control/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.gif">
-      <meta itemprop="name" content="Jason">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CYun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CYun">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/09/21/systemd-resource-control/" class="post-title-link" itemprop="url">systemd_resource_control</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-09-21 14:27:43" itemprop="dateCreated datePublished" datetime="2022-09-21T14:27:43+08:00">2022-09-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/linux/systemd/" itemprop="url" rel="index"><span itemprop="name">systemd</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>systemd is a Linux initialization system and service manager that includes features like on-demand starting of daemons, mount and automount point maintenance, snapshot support, and processes tracking using Linux control groups. systemd provides a logging daemon and other tools and utilities to help with common system administration tasks.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/09/21/systemd-resource-control/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2022/08/04/linux-selinux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.gif">
-      <meta itemprop="name" content="Jason">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CYun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CYun">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/04/linux-selinux/" class="post-title-link" itemprop="url">linux-selinux</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-08-04 18:49:03" itemprop="dateCreated datePublished" datetime="2022-08-04T18:49:03+08:00">2022-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://wiki.centos.org/HowTos/SELinux">selinux tool</a></li>
-<li><a target="_blank" rel="noopener" href="https://wiki.centos.org/HowTos/SELinux">Selinux Overview</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2022/08/03/libvirt-vnc-spice/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.gif">
-      <meta itemprop="name" content="Jason">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CYun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CYun">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/03/libvirt-vnc-spice/" class="post-title-link" itemprop="url">libvirt-vnc-spice</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-08-03 16:09:00" itemprop="dateCreated datePublished" datetime="2022-08-03T16:09:00+08:00">2022-08-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id=""><a href="#" class="headerlink" title=""></a></h1><table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td>SPICE</td>
-<td>VNC</td>
-<td>RDP</td>
-</tr>
-<tr>
-<td>BIOS screen display</td>
-<td>can</td>
-<td>can</td>
-<td>Can’t</td>
-</tr>
-<tr>
-<td>Full color support</td>
-<td>can</td>
-<td>can</td>
-<td>can</td>
-</tr>
-<tr>
-<td>Change resolution</td>
-<td>can</td>
-<td>can</td>
-<td>can</td>
-</tr>
-<tr>
-<td>Multi-display</td>
-<td>Multi-monitor support (up to 4 screens)</td>
-<td>Only one screen</td>
-<td>Multi-monitor support</td>
-</tr>
-<tr>
-<td>Image transmission</td>
-<td>Image and graphics transmission</td>
-<td>Image transmission</td>
-<td>Image and graphics transmission</td>
-</tr>
-<tr>
-<td>Video playback support</td>
-<td>GPU acceleration support</td>
-<td>Can’t</td>
-<td>GPU acceleration support</td>
-</tr>
-<tr>
-<td>Audio transmission</td>
-<td>Two-way voice can be controlled</td>
-<td>Can’t</td>
-<td>Two-way voice can be controlled</td>
-</tr>
-<tr>
-<td>Mouse control</td>
-<td>Both client and server can be controlled</td>
-<td>Server-side control</td>
-<td>Server-side control</td>
-</tr>
-<tr>
-<td>USB transfer</td>
-<td>USB can be transmitted over the network</td>
-<td>Can’t</td>
-<td>USB can be transmitted over the network</td>
-</tr>
-</tbody></table>
-<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><p>- </p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.spice-space.org/spice-for-newbies.html">spice for newbies</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.spice-space.org/spice-user-manual.html">spice user manual</a></li>
-<li><a target="_blank" rel="noopener" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-spice_agent#doc-wrapper">spice agent</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.spice-space.org/usbredir.html">usbredir</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2022/07/01/go-lib/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.gif">
-      <meta itemprop="name" content="Jason">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CYun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CYun">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/01/go-lib/" class="post-title-link" itemprop="url">go-lib</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-07-01 15:44:51" itemprop="dateCreated datePublished" datetime="2022-07-01T15:44:51+08:00">2022-07-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/go-program/" itemprop="url" rel="index"><span itemprop="name">go program</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="std"><a href="#std" class="headerlink" title="std"></a>std</h1><h2 id="strings"><a href="#strings" class="headerlink" title="strings"></a>strings</h2><p>Package strings implements simple functions to manipulate UTF-8 encoded strings. </p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">Contains</span><span class="params">(s, substr <span class="type">string</span>)</span></span> <span class="type">bool</span></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">ContainsAny</span><span class="params">(s, chars <span class="type">string</span>)</span></span> <span class="type">bool</span> any Unicode code points in chars are within s. </span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">Count</span><span class="params">(s, substr <span class="type">string</span>)</span></span> <span class="type">int</span></span><br><span class="line"></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">Fields</span><span class="params">(s <span class="type">string</span>)</span></span> []<span class="type">string</span>   splited by whitespace</span><br><span class="line"></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">HasPrefix</span><span class="params">(s, prefix <span class="type">string</span>)</span></span> <span class="type">bool</span> whether the <span class="type">string</span> s begins with prefix.</span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">HasSuffix</span><span class="params">(s, suffix <span class="type">string</span>)</span></span> <span class="type">bool</span></span><br><span class="line"></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">Index</span><span class="params">(s, substr <span class="type">string</span>)</span></span> first instance of substr in s, or <span class="number">-1</span> <span class="keyword">if</span> substr is not present in s. </span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">IndexAny</span><span class="params">(s, chars <span class="type">string</span>)</span></span> <span class="type">int</span></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">LastIndex</span><span class="params">(s, substr <span class="type">string</span>)</span></span> <span class="type">int</span></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">LastIndexAny</span><span class="params">(s, chars <span class="type">string</span>)</span></span> <span class="type">int</span></span><br><span class="line"></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">Join</span><span class="params">(elems []<span class="type">string</span>, sep <span class="type">string</span>)</span></span> <span class="type">string</span></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">Split</span><span class="params">(s, sep <span class="type">string</span>)</span></span> []<span class="type">string</span> any separator!!!</span><br><span class="line"></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">Map</span><span class="params">(mapping <span class="keyword">func</span>(<span class="type">rune</span>)</span></span> <span class="type">rune</span>, s <span class="type">string</span>) <span class="type">string</span> </span><br><span class="line"><span class="comment">//Map returns a copy of the string s with all its characters modified according to the mapping function. If mapping returns a negative value, the character is dropped from the string with no replacement.**  </span></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">Replace</span><span class="params">(s, old, <span class="built_in">new</span> <span class="type">string</span>, n <span class="type">int</span>)</span></span> <span class="type">string</span></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">ReplaceAll</span><span class="params">(s, old, <span class="built_in">new</span> <span class="type">string</span>)</span></span> <span class="type">string</span></span><br><span class="line"></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">ToLower</span><span class="params">(s <span class="type">string</span>)</span></span> <span class="type">string</span></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">ToUpper</span><span class="params">(s <span class="type">string</span>)</span></span> <span class="type">string</span></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">Trim</span><span class="params">(s, cutset <span class="type">string</span>)</span></span> <span class="type">string</span></span><br><span class="line"><span class="comment">// // Trim returns a slice of the string s with all leading and trailing Unicode code points contained in cutset removed</span></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">TrimLeft</span><span class="params">(s, cutset <span class="type">string</span>)</span></span> <span class="type">string</span></span><br><span class="line"><span class="comment">//returns a slice of the string s with all leading Unicode code(check one by one) points contained in cutset removed.**</span></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">TrimRight</span><span class="params">(s, cutset <span class="type">string</span>)</span></span> <span class="type">string</span></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">TrimSpace</span><span class="params">(s <span class="type">string</span>)</span></span> <span class="type">string</span></span><br><span class="line"></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">TrimSuffix</span><span class="params">(s, suffix <span class="type">string</span>)</span></span> <span class="type">string</span></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">TrimPrefix</span><span class="params">(s, prefix <span class="type">string</span>)</span></span> <span class="type">string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//prefix as a whole to check</span></span><br><span class="line"></span><br><span class="line">- <span class="function"><span class="keyword">func</span> <span class="title">TrimSpace</span><span class="params">(s <span class="type">string</span>)</span></span> <span class="type">string</span></span><br><span class="line"><span class="comment">//TrimSpace returns a slice of the string s, with all leading and trailing white space removed, as defined by Unicode.</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>Note</strong></p>
-<ul>
-<li>Trim, TrimLeft, TrimRight, check ‘each character’ in the cutset</li>
-<li>TrimSuffix, TrimPrefix check ‘suffix and prefix’ as a whole not a set”</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/07/01/go-lib/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2022/06/30/go-advanced/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.gif">
-      <meta itemprop="name" content="Jason">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CYun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CYun">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/30/go-advanced/" class="post-title-link" itemprop="url">go-advanced</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-06-30 17:13:40" itemprop="dateCreated datePublished" datetime="2022-06-30T17:13:40+08:00">2022-06-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/go/program/" itemprop="url" rel="index"><span itemprop="name">program</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Advanced"><a href="#Advanced" class="headerlink" title="Advanced"></a>Advanced</h1><h2 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h2><h3 id="tags"><a href="#tags" class="headerlink" title="tags"></a>tags</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;reflect&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="type">string</span> <span class="string">`k1:&quot;v1&quot; k2:&quot;v2&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> p Person</span><br><span class="line">    tp := reflect.TypeOf(p)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; tp.NumField(); i++ &#123;</span><br><span class="line">        f := tp.Field(i)</span><br><span class="line">        fmt.Println(f.Tag.Get(<span class="string">&quot;k1&quot;</span>))</span><br><span class="line">        fmt.Println(f.Tag.Get(<span class="string">&quot;k2&quot;</span>))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">main()</span><br><span class="line">v1</span><br><span class="line">v2</span><br></pre></td></tr></table></figure>
-
-<p><strong>Rules for writing tag</strong></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/06/30/go-advanced/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 

@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Microsoft+YaHei+UI:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -23,23 +23,31 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="CYun">
-<meta property="og:url" content="http://cyun.tech/tags/iommu/index.html">
+    <meta name="description" content="vhost-userIn the DPDK architecture the devices are accessed by constant polling. This avoids the context switching and interrupt processing overhead at the cost of dedicating 100% of part of the CPU c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="virtualization-virtio-vhost-user">
+<meta property="og:url" content="http://cyun.tech/2023/10/20/virtualization-virtio-vhost-user/index.html">
 <meta property="og:site_name" content="CYun">
+<meta property="og:description" content="vhost-userIn the DPDK architecture the devices are accessed by constant polling. This avoids the context switching and interrupt processing overhead at the cost of dedicating 100% of part of the CPU c">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.redhat.com/cms/managed-files/2019-09-20-virtio-and-dpdk-fig3.jpg">
+<meta property="article:published_time" content="2023-10-20T02:20:10.000Z">
+<meta property="article:modified_time" content="2023-10-20T15:03:30.394Z">
 <meta property="article:author" content="Jason">
+<meta property="article:tag" content="virtualization">
+<meta property="article:tag" content="virtio">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.redhat.com/cms/managed-files/2019-09-20-virtio-and-dpdk-fig3.jpg">
 
 
-<link rel="canonical" href="http://cyun.tech/tags/iommu/">
+<link rel="canonical" href="http://cyun.tech/2023/10/20/virtualization-virtio-vhost-user/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"en","comments":"","permalink":"","path":"tags/iommu/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2023/10/20/virtualization-virtio-vhost-user/","path":"2023/10/20/virtualization-virtio-vhost-user/","title":"virtualization-virtio-vhost-user"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Tag: iommu | CYun</title>
+<title>virtualization-virtio-vhost-user | CYun</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
@@ -133,7 +141,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -146,6 +154,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vhost-user"><span class="nav-number">1.</span> <span class="nav-text">vhost-user</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ovs-vswitchd-and-vhost-user"><span class="nav-number">1.1.</span> <span class="nav-text">ovs-vswitchd and vhost-user</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">2.</span> <span class="nav-text">Ref</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -160,18 +169,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">139</span>
+        <span class="site-state-item-count">141</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-count">148</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -208,51 +217,147 @@
 </noscript>
 
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">iommu
-          <small>Tag</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2023/10/20/virtualization-virtio-vhost-user/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="virtualization-virtio-vhost-user | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          virtualization-virtio-vhost-user
         </h1>
-      </div>
 
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+
+      <time title="Created: 2023-10-20 10:20:10 / Modified: 23:03:30" itemprop="dateCreated datePublished" datetime="2023-10-20T10:20:10+08:00">2023-10-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/" itemprop="url" rel="index"><span itemprop="name">virtualization</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/virtio/" itemprop="url" rel="index"><span itemprop="name">virtio</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="vhost-user"><a href="#vhost-user" class="headerlink" title="vhost-user"></a>vhost-user</h1><p>In the DPDK architecture the devices are accessed by constant polling. This avoids the context switching and interrupt processing overhead at the cost of dedicating 100% of part of the CPU cores to handle packet processing.</p>
+<p>In practice DPDK offers a series of poll mode drivers (PMDs) that enable direct transfer of packets between user space and the  physical interfaces which bypass the kernel network stack all together. This approach provides a significant performance boost over  the kernel forwarding by eliminating interrupt handling and bypassing the kernel stack.</p>
+<p>So we want to implement Virtio Backend(dataplane) in dpdk leverage vhost protocol, that’s vhost-user</p>
+<span id="more"></span>
+<p>vhost-user library. This library, built in DPDK, is a userspace implementation of the vhost protocol that allows qemu to offload the virtio device packet processing to any DPDK application (such as Open vSwitch). The main difference between the vhost-user library and the vhost-net kernel driver is the communication channel. While the vhost-net kernel driver implements this channel using ioctls, the vhost-user library defines the structure of messages that are sent over a unix socket.</p>
+<p>The vhost-user library allows the primary to configure the dataplane offloading by performing the following important actions:</p>
+<ul>
+<li>Feature negotiation: Both the virtio features and the vhost-user-specific features are negotiated in a similar way: First the primary “gets” the handler’s supported features bitmask and then it “sets” the subset of them it also supports.</li>
+<li>Memory region configuration: The master sets the memory map regions so the handler can mmap() them.</li>
+<li>Vring configuration: The primary sets the number of virtqueues to use and their addresses within the memory regions. Note that vhost-user supports multiqueue so more than one virtqueue can be configured to improve performance.</li>
+<li>Kick and Call file descriptors sending: Usually, the irqfd and the ioeventfd mechanisms are used.</li>
+</ul>
+<h2 id="ovs-vswitchd-and-vhost-user"><a href="#ovs-vswitchd-and-vhost-user" class="headerlink" title="ovs-vswitchd and vhost-user"></a>ovs-vswitchd and vhost-user</h2><p><img src="https://www.redhat.com/cms/managed-files/2019-09-20-virtio-and-dpdk-fig3.jpg"></p>
+<ol>
+<li><p>vhost-user (backend) - Running on the host userspace as part of the OVSDPDK userspace application. As mentioned DPDK is a library and the vhostuser module are additional APIs inside that library. The OVS-DPDK is the actual application linked with this library and invoking the APIs. For each guest VM created on the host, another vhost-user backend will be<br>instantiated to communicate with the guest’s virtio frontend.</p>
+</li>
+<li><p>virtio-pmd (frontend) - Running on the guest userspace and is a poll mode driver consuming dedicated cores and performing polling with no interrupts. For an application running on the user space to consume the virtio-pmd it needs to be linked with the DPDK library as well</p>
+</li>
+</ol>
+<p><strong>We can replace virtio-pmd with virtio-net in guest kernel for another solution</strong></p>
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/blog/how-vhost-user-came-being-virtio-networking-and-dpdk">why vhost-user</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/blog/journey-vhost-users-realm">vhost-user realm</a></li>
+</ul>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-08-18T09:49:39+08:00"
-              content="2021-08-18">
-          08-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/18/virtualization-IO-deep-passthrough/" itemprop="url">
-            <span itemprop="name">virtualization-IO-deep-passthrough</span>
-          </a>
-      </div>
-
+    
+    
+    
       
-    </header>
-  </article>
 
-    </div>
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="Jason WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
   </div>
-  
-  
-  
+</div>
 
+          <div class="post-tags">
+              <a href="/tags/virtualization/" rel="tag"># virtualization</a>
+              <a href="/tags/virtio/" rel="tag"># virtio</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/10/20/virtualization-virtio-vhost-net/" rel="prev" title="virtualization-virtio-vhost-net">
+                  <i class="fa fa-chevron-left"></i> virtualization-virtio-vhost-net
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
 </div>
   </main>
 

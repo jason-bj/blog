@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Microsoft+YaHei+UI:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -25,34 +25,31 @@
 
     <meta name="description" content="OverviewWhen talking about virtio-networking we can separate the discussion into two layers:  Control plane - Used for capability exchange negotiation between the host and guest both for establishing">
 <meta property="og:type" content="article">
-<meta property="og:title" content="virtualization-IO-deep-virtio">
-<meta property="og:url" content="http://cyun.tech/2021/08/18/virtualization-IO-deep-virtio/index.html">
+<meta property="og:title" content="virtualization-virtio">
+<meta property="og:url" content="http://cyun.tech/2021/08/18/virtualization-virtio/index.html">
 <meta property="og:site_name" content="CYun">
 <meta property="og:description" content="OverviewWhen talking about virtio-networking we can separate the discussion into two layers:  Control plane - Used for capability exchange negotiation between the host and guest both for establishing">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.redhat.com/cms/managed-files/2019-09-12-virtio-networking-fig1.png">
 <meta property="og:image" content="https://www.redhat.com/cms/managed-files/2019-09-12-virtio-networking-fig2.png.jpg">
-<meta property="og:image" content="https://www.redhat.com/cms/managed-files/2019-09-10-virtio-intro-fig3.jpg">
-<meta property="og:image" content="https://www.redhat.com/cms/managed-files/2019-09-10-virtio-intro-fig4.jpg">
-<meta property="og:image" content="https://www.redhat.com/cms/managed-files/2019-09-12-virtio-networking-fig4.png">
-<meta property="og:image" content="https://www.redhat.com/cms/managed-files/2019-09-12-virtio-networking-fig5.png">
-<meta property="og:image" content="https://www.redhat.com/cms/managed-files/2019-09-24-virtio-networking-fig1.png">
-<meta property="og:image" content="https://www.redhat.com/cms/managed-files/2019-09-20-virtio-and-dpdk-fig3.jpg">
+<meta property="og:image" content="https://vdpa-dev.gitlab.io/img/vdpa_overview.png">
 <meta property="article:published_time" content="2021-08-18T00:47:58.000Z">
-<meta property="article:modified_time" content="2023-08-16T15:02:01.177Z">
+<meta property="article:modified_time" content="2023-10-20T15:03:30.394Z">
 <meta property="article:author" content="Jason">
+<meta property="article:tag" content="virtualization">
+<meta property="article:tag" content="virtio">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.redhat.com/cms/managed-files/2019-09-12-virtio-networking-fig1.png">
 
 
-<link rel="canonical" href="http://cyun.tech/2021/08/18/virtualization-IO-deep-virtio/">
+<link rel="canonical" href="http://cyun.tech/2021/08/18/virtualization-virtio/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2021/08/18/virtualization-IO-deep-virtio/","path":"2021/08/18/virtualization-IO-deep-virtio/","title":"virtualization-IO-deep-virtio"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://cyun.tech/2021/08/18/virtualization-virtio/","path":"2021/08/18/virtualization-virtio/","title":"virtualization-virtio"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>virtualization-IO-deep-virtio | CYun</title>
+<title>virtualization-virtio | CYun</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148730544-1"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-148730544-1","only_pageview":false}</script>
@@ -159,7 +156,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#virtio-specification"><span class="nav-number">2.</span> <span class="nav-text">virtio specification</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#virtio-in-Qemu-virtio-backend-implement-in-Qemu"><span class="nav-number">2.1.</span> <span class="nav-text">virtio in Qemu(virtio backend implement in Qemu)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vhost-virtio-backend-in-kernel"><span class="nav-number">2.2.</span> <span class="nav-text">vhost(virtio backend in kernel)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#without-dpdk-vhost-net"><span class="nav-number">2.2.1.</span> <span class="nav-text">without dpdk(vhost-net)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#with-dpdk-vhost-user"><span class="nav-number">2.2.2.</span> <span class="nav-text">with dpdk(vhost-user)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FAQ"><span class="nav-number">3.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#virtio-pci-vs-vfio-pci"><span class="nav-number">3.1.</span> <span class="nav-text">virtio-pci vs vfio-pci</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REF"><span class="nav-number">4.</span> <span class="nav-text">REF</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#virtio-specification"><span class="nav-number">2.</span> <span class="nav-text">virtio specification</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#virtio-in-Qemu-virtio-backend-dataplane-implement-in-Qemu"><span class="nav-number">2.1.</span> <span class="nav-text">virtio in Qemu(virtio backend(dataplane) implement in Qemu)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vhost"><span class="nav-number">2.2.</span> <span class="nav-text">vhost</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vDPA"><span class="nav-number">2.3.</span> <span class="nav-text">vDPA</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REF"><span class="nav-number">3.</span> <span class="nav-text">REF</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -174,18 +171,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">139</span>
+        <span class="site-state-item-count">141</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-count">148</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -233,7 +230,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/08/18/virtualization-IO-deep-virtio/">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/08/18/virtualization-virtio/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.gif">
@@ -246,12 +243,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="virtualization-IO-deep-virtio | CYun">
+      <meta itemprop="name" content="virtualization-virtio | CYun">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          virtualization-IO-deep-virtio
+          virtualization-virtio
         </h1>
 
         <div class="post-meta-container">
@@ -269,7 +266,20 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2023-10-20 23:03:30" itemprop="dateModified" datetime="2023-10-20T23:03:30+08:00">2023-10-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/" itemprop="url" rel="index"><span itemprop="name">virtualization</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virtualization/virtio/" itemprop="url" rel="index"><span itemprop="name">virtio</span></a>
+        </span>
     </span>
 
   
@@ -291,7 +301,7 @@
 <p><strong>Fundamentally the data plane is required to be as efficient as possible for moving the packets fast while the control plane is required to be as flexible as possible for supporting different devices and vendors in future architectures.</strong></p>
 <span id="more"></span>
 
-<h1 id="virtio-specification"><a href="#virtio-specification" class="headerlink" title="virtio specification"></a>virtio specification</h1><p><strong>virtio spec defines virtual device(like a device from vendor)</strong><br>Virtio is an open specification for virtual machines’ data I&#x2F;O communication, offering a straightforward, efficient, standard and extensible mechanism for virtual devices, rather than boutique per-environment or per-OS mechanisms. It uses the fact that the guest can share memory with the host for I&#x2F;O to implement that.</p>
+<h1 id="virtio-specification"><a href="#virtio-specification" class="headerlink" title="virtio specification"></a>virtio specification</h1><p><strong>virtio spec defines virtual device(like a device from vendor)</strong><br>Virtio is an open specification for virtual machines’ data I&#x2F;O communication, offering a straightforward, efficient, standard and extensible mechanism for virtual devices, rather than boutique per-environment or per-OS mechanisms. <code>It uses the fact that the guest can share memory with the host for I/O to implement that.</code></p>
 <p>The virtio specification is based on two elements: devices and drivers. In a typical implementation, the hypervisor(qemu) exposes the virtio devices to the guest through a number of transport methods. By design they look like physical devices to the guest within the virtual machine.</p>
 <p>The most common transport method is PCI or PCIe bus. However, <strong>the device can be available at some predefined guest’s memory address (MMIO transport)</strong>. These devices can be completely virtual with no physical counterpart or physical ones exposing a compatible interface.</p>
 <p>The typical (and easiest) way to expose a virtio device is through a PCI port since we can leverage the fact that PCI is a mature and well supported protocol in QEMU and Linux drivers. Real PCI hardware exposes its configuration space using a specific physical memory address range (i.e., the driver can read or write the device’s registers by accessing that memory range) and&#x2F;or special processor instructions. In the VM world, <strong>the hypervisor captures accesses to that memory range and performs device emulation, exposing the same memory layout that a real machine would have and offering the same responses. The virtio specification also defines the layout of its PCI Configuration space, so implementing it is straightforward.</strong></p>
@@ -316,11 +326,11 @@
 <li>Zero or more virtqueues</li>
 <li>Transport specific interface to the device</li>
 </ul>
-<h2 id="virtio-in-Qemu-virtio-backend-implement-in-Qemu"><a href="#virtio-in-Qemu-virtio-backend-implement-in-Qemu" class="headerlink" title="virtio in Qemu(virtio backend implement in Qemu)"></a>virtio in Qemu(virtio backend implement in Qemu)</h2><p>Implement data plan in Qemu is the first(early) way, easy to understand, but low performance!!!</p>
+<h2 id="virtio-in-Qemu-virtio-backend-dataplane-implement-in-Qemu"><a href="#virtio-in-Qemu-virtio-backend-dataplane-implement-in-Qemu" class="headerlink" title="virtio in Qemu(virtio backend(dataplane) implement in Qemu)"></a>virtio in Qemu(virtio backend(dataplane) implement in Qemu)</h2><p>Implement data plan in Qemu is the first(early) way, easy to understand, but low performance, not used in production env at all.<br>As backend in qemu, so no vhost protocol is used.</p>
 <p><img src="https://www.redhat.com/cms/managed-files/2019-09-12-virtio-networking-fig1.png"></p>
 <p><strong>Sending data diagram</strong>  </p>
 <p><img src="https://www.redhat.com/cms/managed-files/2019-09-12-virtio-networking-fig2.png.jpg"></p>
-<h2 id="vhost-virtio-backend-in-kernel"><a href="#vhost-virtio-backend-in-kernel" class="headerlink" title="vhost(virtio backend in kernel)"></a>vhost(virtio backend in kernel)</h2><p>vhost protocol enables us to implement a data plane going directly from the kernel (host) to the guest bypassing the qemu process. </p>
+<h2 id="vhost"><a href="#vhost" class="headerlink" title="vhost"></a>vhost</h2><p>vhost protocol enables us to implement a data plane going directly from the kernel (host) to the guest bypassing the qemu process. </p>
 <p><strong>The vhost protocol itself only describes how to establish the data plane</strong>, however. Whoever implements it is also expected to implement the ring layout for describing the data buffers (both host and guest) and the actual send&#x2F;receive packets.  </p>
 <p>The vhost API is a message based protocol that allows the hypervisor(it says qemu) to offload the data plane to another component (handler) that performs data forwarding more efficiently. Using this protocol, <strong>the master sends the following configuration information to the handler:</strong></p>
 <ul>
@@ -329,30 +339,20 @@
 </ul>
 <p>After this process, the hypervisor(here it says qemu) will no longer process packets (read or write to&#x2F;from the virtqueues). Instead, the dataplane will be completely offloaded to the handler, which can now access the virtqueues’ memory region directly as well as send and receive notifications directly to and from the guest.</p>
 <p>The vhost messages can be exchanged in any host-local transport protocol, such as Unix sockets or character devices and the hypervisor can act as a server or as a client (in the context of the communication channel). The hypervisor is the leader of the protocol, the offloading device is a handler and any of them can send messages.</p>
-<h3 id="without-dpdk-vhost-net"><a href="#without-dpdk-vhost-net" class="headerlink" title="without dpdk(vhost-net)"></a>without dpdk(vhost-net)</h3><p><img src="https://www.redhat.com/cms/managed-files/2019-09-10-virtio-intro-fig3.jpg"></p>
-<p>Above described how the guest can pass the packets to the host kernel using the virtio-networking interface. In order to forward these packets to other guest running on the same host or outside the hosts (such as the internet) we use OVS</p>
-<p><img src="https://www.redhat.com/cms/managed-files/2019-09-10-virtio-intro-fig4.jpg"></p>
-<p>The vhost-net is a kernel driver that implements the handler side of the vhost protocol to implement an efficient data plane, i.e., packet forwarding. In this implementation, qemu and the vhost-net kernel driver (handler) use ioctls to exchange vhost messages and a couple of eventfd-like file descriptors called <strong>irqfd and ioeventfd(created by Qemu process with ioctl with kvm, then pass it with ioctl with vhost-net)</strong> are used to exchange notifications with the guest.</p>
-<p>When vhost-net kernel driver is loaded, it exposes a character device on &#x2F;dev&#x2F;vhost-net. When qemu is launched with vhost-net support it opens it and initializes the vhost-net instance with several ioctl(2) calls. These are necessary to associate the hypervisor(qemu) process with the vhost-net instance, prepare for virtio feature negotiation and pass the guest physical memory mapping to the vhost-net driver by this fd with ioctl.</p>
-<p>During the initialization the vhost-net kernel driver <code>creates a kernel thread called vhost-$pid</code>, where $pid is the hypervisor(qemu) process pid. This thread is called the “vhost worker thread”.</p>
-<p>A tap device is still used to communicate the VM with the host but now the worker thread handles the I&#x2F;O events i.e. it polls for driver notifications or tap events, and forwards data.</p>
-<p><strong>Qemu allocates one eventfd and registers it to both vhost and KVM in order to achieve the notification bypass</strong>. The vhost-$pid kernel thread polls it, and KVM writes to it when the guest writes in a specific address. This mechanism is named ioeventfd. This way, a simple read&#x2F;write operation to a specific guest memory address does not need to go through the expensive QEMU process wakeup and can be routed to the vhost worker thread directly. This also has the advantage of being asynchronous, no need for the vCPU to stop (so no need to do an immediate context switch).</p>
-<p>On the other hand, qemu allocates another eventfd and registers it to both KVM and vhost again for direct vCPU interruption injection. This mechanism is called irqfd, and <strong>it allows any process in the host to inject vCPU interrupts to the guest by writing to it</strong>, with the same advantages (asynchronous, no need for immediate context switching, etc).</p>
-<p>Note that such changes in the virtio packet processing backend are completely transparent to the guest who still uses the standard virtio interface.</p>
-<p><strong>Sending pkt diagram</strong>  </p>
-<p><img src="https://www.redhat.com/cms/managed-files/2019-09-12-virtio-networking-fig4.png"></p>
-<p><strong>More detail with OVS(add tap interface to ovs or create ovs port by ovs-tool)</strong></p>
-<p><img src="https://www.redhat.com/cms/managed-files/2019-09-12-virtio-networking-fig5.png"></p>
-<h3 id="with-dpdk-vhost-user"><a href="#with-dpdk-vhost-user" class="headerlink" title="with dpdk(vhost-user)"></a>with dpdk(vhost-user)</h3><p><strong>Solution 1 Guest use virtio-net</strong>  </p>
-<p><img src="https://www.redhat.com/cms/managed-files/2019-09-24-virtio-networking-fig1.png"></p>
-<p><strong>Solution 2 Guest use virtio-PMD</strong>  </p>
-<p><img src="https://www.redhat.com/cms/managed-files/2019-09-20-virtio-and-dpdk-fig3.jpg"></p>
-<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><h2 id="virtio-pci-vs-vfio-pci"><a href="#virtio-pci-vs-vfio-pci" class="headerlink" title="virtio-pci vs vfio-pci"></a>virtio-pci vs vfio-pci</h2><h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><ul>
+<p><strong>The handler can be in kernel (vhost-net) or in user application(vhost-user)</strong></p>
+<h2 id="vDPA"><a href="#vDPA" class="headerlink" title="vDPA"></a>vDPA</h2><p>Virtio Backend(data plane) in hardware</p>
+<p>Virtio data path acceleration (vDPA) in essence is an approach to standardize the NIC SRIOV data plane using the virtio ring layout and <strong>placing a single standard virtio driver in the guest</strong> decoupled from any vendor implementation, while adding a generic control plane and SW infrastructure to support it.</p>
+<p>with vDPA, <strong>Data plane goes directly from the NIC to the guest using the virtio ring layout(need IOMMU support from CPU)</strong>. However each NIC vendor can now continue using its own driver (with a small vDPA add-on) and a generic vDPA driver is added to the kernel to translate the vendor NIC driver&#x2F;control-plane to the virtio control plane.</p>
+<p>A “vDPA device” means a type of device whose datapath complies with the virtio specification, but whose control path is vendor specific. like smartNIC(Mellox Bluefield). virtio dataplane implemented in hardware.</p>
+<p>vDPA devices can be both physically located on the hardware or emulated by software</p>
+<p><img src="https://vdpa-dev.gitlab.io/img/vdpa_overview.png"></p>
+<h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><ul>
 <li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/blog/introduction-virtio-networking-and-vhost-net">vhost-net from redhat</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/blog/deep-dive-virtio-networking-and-vhost-net">deep dive vhost-net </a></li>
 <li><a target="_blank" rel="noopener" href="http://blog.vmsplice.net/2011/09/qemu-internals-vhost-architecture.html">how vhost-net works</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/blog/journey-vhost-users-realm">vhost-user details</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/blog/how-vhost-user-came-being-virtio-networking-and-dpdk">vhost-user introduction</a></li>
+<li><a target="_blank" rel="noopener" href="https://projectacrn.github.io/latest/developer-guides/hld/hld-virtio-devices.html">vhost-net inside</a></li>
 </ul>
 
     </div>
@@ -378,6 +378,10 @@
   </div>
 </div>
 
+          <div class="post-tags">
+              <a href="/tags/virtualization/" rel="tag"># virtualization</a>
+              <a href="/tags/virtio/" rel="tag"># virtio</a>
+          </div>
 
         
 
@@ -388,8 +392,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/08/18/virtualization-IO-deep-passthrough/" rel="next" title="virtualization-IO-deep-passthrough">
-                  virtualization-IO-deep-passthrough <i class="fa fa-chevron-right"></i>
+                <a href="/2021/08/24/libvirt-design/" rel="next" title="libvirt-design">
+                  libvirt-design <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

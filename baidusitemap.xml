@@ -1,12 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://cyun.tech/2023/10/19/virtualization-virtio-vdpa-kernel/</loc>
+    <lastmod>2023-10-26</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2021/07/14/yum-rpm-pkg/</loc>
+    <lastmod>2023-10-26</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2019/12/03/git-command/</loc>
+    <lastmod>2023-10-26</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2023/10/19/virtualization-virtio-vdpa-dpdk/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2023/10/20/virtualization-virtio-vdpa-hands-on/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2023/10/20/virtualization-virtio-vhost-user/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2023/10/20/virtualization-virtio-vhost-net/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2021/08/18/virtualization-virtio/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2019/10/11/docker-core-tech-aufs/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
     <loc>http://cyun.tech/2019/09/27/debugging-application/</loc>
-    <lastmod>2023-09-17</lastmod>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2019/10/14/docker-core-tech-cgroups/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2019/10/11/docker-core-tech-chroot/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2019/10/14/docker-create-image/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2019/10/18/docker-faq/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2019/10/14/docker-core-tech-ns/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2019/10/11/docker-frequently-used-commands/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2019/10/11/docker-image-container-on-disk/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2019/10/14/docker-network/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2019/10/14/docker-persist-data/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2019/10/11/docker-storage-driver/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2021/07/08/libvirt-debug/</loc>
+    <lastmod>2023-10-20</lastmod>
   </url>
   <url>
     <loc>http://cyun.tech/2019/11/25/linux-tips-daily/</loc>
-    <lastmod>2023-09-17</lastmod>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2019/11/15/python-basics/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2021/11/02/qemu-kvm/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2021/08/18/virtualization-IO/</loc>
+    <lastmod>2023-10-20</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2023/10/18/virtualization-vfio-sriov/</loc>
+    <lastmod>2023-10-20</lastmod>
   </url>
   <url>
     <loc>http://cyun.tech/2019/11/29/benchmark-tools/</loc>
@@ -17,20 +113,12 @@
     <lastmod>2023-09-17</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2021/06/15/distribute-HA-keepalived/</loc>
-    <lastmod>2023-09-14</lastmod>
-  </url>
-  <url>
     <loc>http://cyun.tech/2021/08/03/hardware-fpga-smartnic/</loc>
     <lastmod>2023-09-14</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2021/11/02/qemu-kvm/</loc>
-    <lastmod>2023-08-28</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2021/07/08/libvirt-debug/</loc>
-    <lastmod>2023-08-28</lastmod>
+    <loc>http://cyun.tech/2021/06/15/distribute-HA-keepalived/</loc>
+    <lastmod>2023-09-14</lastmod>
   </url>
   <url>
     <loc>http://cyun.tech/2020/01/02/c-language-tips/</loc>
@@ -46,6 +134,10 @@
   </url>
   <url>
     <loc>http://cyun.tech/2021/08/05/hardware-gpu/</loc>
+    <lastmod>2023-08-17</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2020/11/17/linux-tproxy/</loc>
     <lastmod>2023-08-17</lastmod>
   </url>
   <url>
@@ -69,27 +161,7 @@
     <lastmod>2023-08-17</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2021/07/14/yum-rpm-pkg/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2020/11/17/linux-tproxy/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
     <loc>http://cyun.tech/2021/08/18/virtualization-memory/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2021/12/15/virtualization-serverless-computing/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2022/04/07/virtualization-virtio/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2021/08/18/virtualization-IO/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -98,14 +170,6 @@
   </url>
   <url>
     <loc>http://cyun.tech/2022/04/07/virtualization-mem-balloon/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2021/08/18/virtualization-IO-deep-passthrough/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2021/08/18/virtualization-IO-deep-virtio/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -125,15 +189,11 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2020/07/23/react-faq/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
     <loc>http://cyun.tech/2020/07/23/react-basic/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2020/07/24/react-testing/</loc>
+    <loc>http://cyun.tech/2020/07/23/react-faq/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -141,11 +201,11 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2022/04/15/qemu-kvm-security/</loc>
+    <loc>http://cyun.tech/2020/07/24/react-testing/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2022/04/14/qemu-kvm-command-options/</loc>
+    <loc>http://cyun.tech/2022/04/15/qemu-kvm-security/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -157,11 +217,15 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
+    <loc>http://cyun.tech/2022/04/14/qemu-kvm-command-options/</loc>
+    <lastmod>2023-08-16</lastmod>
+  </url>
+  <url>
     <loc>http://cyun.tech/2019/11/15/python-advance/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2019/11/15/python-basics/</loc>
+    <loc>http://cyun.tech/2021/04/22/prototol-gre/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -173,15 +237,11 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2021/04/22/prototol-gre/</loc>
+    <loc>http://cyun.tech/2020/10/09/oauth-basic/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
     <loc>http://cyun.tech/2019/11/21/pip-deep/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2020/10/09/oauth-basic/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -209,19 +269,19 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2020/11/24/nginx-shared-memory-layout/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
     <loc>http://cyun.tech/2020/12/01/nginx-request-conf-finding/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2020/11/24/nginx-shared-memory-slab/</loc>
+    <loc>http://cyun.tech/2020/11/24/nginx-shared-memory-layout/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
     <loc>http://cyun.tech/2020/11/24/nginx-shared-memory-lock/</loc>
+    <lastmod>2023-08-16</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2020/11/24/nginx-shared-memory-slab/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -233,11 +293,11 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2020/12/17/nginx-process-request-and-response-body/</loc>
+    <loc>http://cyun.tech/2020/12/07/nginx-process-headers/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2020/12/07/nginx-process-headers/</loc>
+    <loc>http://cyun.tech/2020/12/17/nginx-process-request-and-response-body/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -249,11 +309,11 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2020/12/01/nginx-http-request-upstream-close/</loc>
+    <loc>http://cyun.tech/2020/12/09/nginx-http-log/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2020/12/09/nginx-http-log/</loc>
+    <loc>http://cyun.tech/2020/12/01/nginx-http-request-upstream-close/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -261,19 +321,19 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2020/12/01/nginx-event-framework/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
     <loc>http://cyun.tech/2020/12/01/nginx-conf-layout/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2020/11/26/nginx-advanced-structure/</loc>
+    <loc>http://cyun.tech/2020/12/01/nginx-event-framework/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
     <loc>http://cyun.tech/2021/04/13/load-balancer-markert-solution/</loc>
+    <lastmod>2023-08-16</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2020/11/26/nginx-advanced-structure/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -297,19 +357,19 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2021/06/22/linux-kernel-vxlan/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
     <loc>http://cyun.tech/2022/09/30/linux-ansible-guide/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2021/11/10/linux-kernel-boot/</loc>
+    <loc>http://cyun.tech/2021/06/22/linux-kernel-vxlan/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
     <loc>http://cyun.tech/2020/11/10/linux-iptables-inside/</loc>
+    <lastmod>2023-08-16</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2021/11/10/linux-kernel-boot/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -325,11 +385,11 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2021/06/08/k8s-service-deep/</loc>
+    <loc>http://cyun.tech/2021/06/08/k8s-schedule-inside/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2021/06/08/k8s-schedule-inside/</loc>
+    <loc>http://cyun.tech/2021/06/08/k8s-service-deep/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -345,11 +405,11 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2021/06/08/k8s-network-cni/</loc>
+    <loc>http://cyun.tech/2021/06/08/k8s-operator/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2021/06/08/k8s-operator/</loc>
+    <loc>http://cyun.tech/2021/06/08/k8s-network-cni/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -361,15 +421,19 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2020/06/28/k8s-faq/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
     <loc>http://cyun.tech/2021/06/08/k8s-ha/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
+    <loc>http://cyun.tech/2020/06/28/k8s-faq/</loc>
+    <lastmod>2023-08-16</lastmod>
+  </url>
+  <url>
     <loc>http://cyun.tech/2021/06/09/k8s-kata-container/</loc>
+    <lastmod>2023-08-16</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2020/06/28/k8s-concept/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -381,15 +445,11 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2020/06/28/k8s-concept/</loc>
+    <loc>http://cyun.tech/2021/06/08/k8s-apiserver-access/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
     <loc>http://cyun.tech/2020/07/22/javascript-basic/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2021/06/08/k8s-apiserver-access/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -409,11 +469,11 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2019/12/16/http-protocol-connection/</loc>
+    <loc>http://cyun.tech/2019/12/13/http-protocol-cache/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2019/12/13/http-protocol-cookie/</loc>
+    <loc>http://cyun.tech/2019/12/16/http-protocol-connection/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -421,19 +481,11 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2019/12/13/http-protocol-cache/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2021/09/15/html-websocket/</loc>
+    <loc>http://cyun.tech/2019/12/13/http-protocol-cookie/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
     <loc>http://cyun.tech/2020/07/20/html-jquery/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2020/08/19/html-sse/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -442,6 +494,14 @@
   </url>
   <url>
     <loc>http://cyun.tech/2022/04/29/http-cdn/</loc>
+    <lastmod>2023-08-16</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2020/08/19/html-sse/</loc>
+    <lastmod>2023-08-16</lastmod>
+  </url>
+  <url>
+    <loc>http://cyun.tech/2021/09/15/html-websocket/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -481,10 +541,6 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2019/12/03/git-command/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
     <loc>http://cyun.tech/2022/06/30/go-advanced/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
@@ -501,47 +557,7 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2019/10/11/docker-storage-driver/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
     <loc>http://cyun.tech/2023/07/10/docker-tools/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2019/10/11/docker-image-container-on-disk/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2019/10/14/docker-network/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2019/10/14/docker-persist-data/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2019/10/18/docker-faq/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2019/10/14/docker-create-image/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2019/10/11/docker-frequently-used-commands/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2019/10/14/docker-core-tech-ns/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2019/10/11/docker-core-tech-chroot/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2019/10/11/docker-core-tech-aufs/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
@@ -549,19 +565,15 @@
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2019/10/14/docker-core-tech-cgroups/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
     <loc>http://cyun.tech/2020/07/30/css-reponsive-web/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2020/07/09/css-faq/</loc>
+    <loc>http://cyun.tech/2020/07/09/css-sass-basic/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>
-    <loc>http://cyun.tech/2020/07/09/css-sass-basic/</loc>
+    <loc>http://cyun.tech/2020/07/09/css-faq/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>

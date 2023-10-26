@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Microsoft+YaHei+UI:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -23,17 +23,17 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Image and Container ConceptThe major difference between a container and an image is the top writable layer. All writes to the container that add new or modify existing data are stored in this writable">
+    <meta name="description" content="Image and Container ConceptThe major difference between a container(runtime) and an image(static) is the top writable layer. All writes to the container that add new or modify existing data are stored">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker-image-container-on-disk">
 <meta property="og:url" content="http://cyun.tech/2019/10/11/docker-image-container-on-disk/index.html">
 <meta property="og:site_name" content="CYun">
-<meta property="og:description" content="Image and Container ConceptThe major difference between a container and an image is the top writable layer. All writes to the container that add new or modify existing data are stored in this writable">
+<meta property="og:description" content="Image and Container ConceptThe major difference between a container(runtime) and an image(static) is the top writable layer. All writes to the container that add new or modify existing data are stored">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://docs.docker.com/storage/storagedriver/images/sharing-layers.jpg">
 <meta property="og:image" content="https://cyun.tech/images/docker/image-on-disk.png">
 <meta property="article:published_time" content="2019-10-11T07:36:22.000Z">
-<meta property="article:modified_time" content="2023-08-16T15:02:01.138Z">
+<meta property="article:modified_time" content="2023-10-20T15:03:30.378Z">
 <meta property="article:author" content="Jason">
 <meta property="article:tag" content="docker">
 <meta property="article:tag" content="docker image">
@@ -170,18 +170,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">139</span>
+        <span class="site-state-item-count">141</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-count">148</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -265,7 +265,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2023-10-20 23:03:30" itemprop="dateModified" datetime="2023-10-20T23:03:30+08:00">2023-10-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -291,8 +291,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="Image-and-Container-Concept"><a href="#Image-and-Container-Concept" class="headerlink" title="Image and Container Concept"></a>Image and Container Concept</h1><p>The major difference between a container and an image is the <code>top writable layer</code>. All writes to the container that add new or modify existing data are stored in this writable layer. When the container is deleted, the writable layer is also deleted. The underlying image layers remain unchanged.</p>
-<p>Because each container has its own writable container layer, and all changes are stored in this container layer, multiple containers can share access to the same underlying image and yet have their own data state</p>
+        <h1 id="Image-and-Container-Concept"><a href="#Image-and-Container-Concept" class="headerlink" title="Image and Container Concept"></a>Image and Container Concept</h1><p>The major difference between a container(runtime) and an image(static) is the <code>top writable layer</code>. All writes to the container that add new or modify existing data are stored in this writable layer. <code>When the container is deleted, the writable layer is also deleted. The underlying image layers remain unchanged.</code></p>
+<p>Because each container has its own writable container layer, and all changes are stored in this container layer, multiple containers can share access to the same underlying image and yet have their own data state.</p>
 <p><img src="https://docs.docker.com/storage/storagedriver/images/sharing-layers.jpg"></p>
 <span id="more"></span>
 <ul>
@@ -321,8 +321,9 @@
 <li><strong>imagedb&#x2F;content&#x2F;sha256&#x2F;$image_id</strong>: content of the image like env, volume, layers used by this image etc</li>
 <li><strong>imagedb&#x2F;content&#x2F;metadata&#x2F;sha256&#x2F;$image_id</strong>: metadata for this image</li>
 <li><strong>layerdb&#x2F;mounts&#x2F;$container_id</strong>: mount point for this container</li>
-<li><strong>layerdb&#x2F;sha256&#x2F;$chain_id</strong>: content of this layer(layer id is stored at $cache_id&#x2F;diff), content is compressed,<br>the uncompressed data is stored at &#x2F;var&#x2F;lib&#x2F;docker&#x2F;aufs&#x2F;diff&#x2F;sha256&#x2F;$cache_id for this layer, cache_id at $chain_id&#x2F;cache-id</li>
+<li><strong>layerdb&#x2F;sha256&#x2F;$chain_id</strong>: content of this layer(layer id is stored at $cache_id&#x2F;diff), content is compressed,</li>
 </ul>
+<p>The uncompressed data is stored at &#x2F;var&#x2F;lib&#x2F;docker&#x2F;aufs&#x2F;diff&#x2F;sha256&#x2F;$cache_id for this layer, cache_id at $chain_id&#x2F;cache-id</p>
 <h3 id="file-changes-when-create-a-container"><a href="#file-changes-when-create-a-container" class="headerlink" title="file changes when create a container"></a>file changes when create a container</h3><p>what changes happens when create a container, please refer to <a href="/2019/10/11/docker-storage-driver/" title="docker-storage-driver">storage driver</a></p>
 
     </div>

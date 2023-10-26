@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Microsoft+YaHei+UI:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://cyun.tech/images/docker/cgroup-kernel-view1.jpg">
 <meta property="og:image" content="http://cyun.tech/images/docker/cgroup-kernel-view2.jpg">
 <meta property="article:published_time" content="2019-10-14T09:00:58.000Z">
-<meta property="article:modified_time" content="2023-08-16T15:02:01.135Z">
+<meta property="article:modified_time" content="2023-10-20T15:03:30.378Z">
 <meta property="article:author" content="Jason">
 <meta property="article:tag" content="cgroups">
 <meta property="article:tag" content="resource controller">
@@ -171,18 +171,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">139</span>
+        <span class="site-state-item-count">141</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-count">148</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -266,7 +266,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2023-10-20 23:03:30" itemprop="dateModified" datetime="2023-10-20T23:03:30+08:00">2023-10-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -298,8 +298,10 @@
 <li>Prioritization (i.e. groups may have larger share of CPU)</li>
 <li>Isolation (i.e. isolate GPUs for particular processes)</li>
 <li><strong>Accounting (i.e. monitor resource usage for processes)</strong></li>
-<li>Control (i.e. suspending and resuming processes)<span id="more"></span></li>
+<li>Control (i.e. suspending and resuming processes)</li>
 </ul>
+<span id="more"></span>
+
 <p>Definitions:</p>
 <ul>
 <li><p>A <mark><em>cgroup</em></mark> associates a set of tasks with a set of parameters(control resource) for one<br>or more subsystems.</p>
@@ -309,7 +311,6 @@
 <li><p>A <mark><em>hierarchy</em></mark> is a set of cgroups arranged in a tree, such that<br><strong>every task in the system is in exactly one of the cgroups in the<br>hierarchy, and a set of subsystems(CPU, Memory)</strong>; each subsystem has system-specific<br>state attached to each cgroup in the hierarchy.  Each hierarchy has<br>an instance of the cgroup virtual filesystem associated with it.</p>
 </li>
 </ul>
-<!--more-->
 <h2 id="cgroup-pseudo-filesystem"><a href="#cgroup-pseudo-filesystem" class="headerlink" title="cgroup pseudo filesystem"></a>cgroup pseudo filesystem</h2><p><img src="/images/docker/cgroup-user-view.jpg" alt="cgroup uv"></p>
 <p><strong>Here are most cgroups(subsys) supported by linux</strong></p>
 <div class="note info"><ul>
@@ -416,7 +417,7 @@
 <p>  Tuning vm.swappiness incorrectly may hurt performance or may have a different impact between light and heavy workloads. <strong>Changes to this parameter should be made in small increments and should be tested under the same conditions that the system normally operates.</strong></p>
 </li>
 </ul>
-<p>&lt;font color&#x3D;’red’, size&#x3D;4&gt;NOTE</font></p>
+<p><font color='red' size=4>NOTE</font></p>
 <p>if <code>soft_limit_in_bytes</code> is unlimited while <code>limit_in_bytes</code> is set, when processes in this group reach  <code>limit_in_bytes</code>, kernel will try to swap some memory of the processes to disk, so that it may be below the limit, but if there is no swap left of the system or it reaches <code>memsw.limit_in_bytes</code>, in these case, one of the process(high score) should be killed by OOM killer.</p>
 <h2 id="cgroup-subsystem-kernel"><a href="#cgroup-subsystem-kernel" class="headerlink" title="cgroup subsystem kernel"></a>cgroup subsystem kernel</h2><p>Here is the source code for each subsystem</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cpuset_subsys - defined <span class="keyword">in</span> kernel/cpuset.c.</span><br><span class="line">freezer_subsys - defined <span class="keyword">in</span> kernel/cgroup_freezer.c.</span><br><span class="line">mem_cgroup_subsys - defined <span class="keyword">in</span> mm/memcontrol.c; Aka memcg - memory control <span class="built_in">groups</span>.</span><br><span class="line">blkio_subsys - defined <span class="keyword">in</span> block/blk-cgroup.c.</span><br><span class="line">net_cls_subsys - defined <span class="keyword">in</span> net/sched/cls_cgroup.c ( can be built as a kernel module)</span><br><span class="line">net_prio_subsys - defined <span class="keyword">in</span> net/core/netprio_cgroup.c ( can be built as a kernel module)</span><br><span class="line">devices_subsys - defined <span class="keyword">in</span> security/device_cgroup.c.</span><br><span class="line">perf_subsys (perf_event) - defined <span class="keyword">in</span> kernel/events/core.c</span><br><span class="line">hugetlb_subsys - defined <span class="keyword">in</span> mm/hugetlb_cgroup.c.</span><br><span class="line">cpu_cgroup_subsys - defined <span class="keyword">in</span> kernel/sched/core.c</span><br><span class="line">cpuacct_subsys - defined <span class="keyword">in</span> kernel/sched/core.c</span><br></pre></td></tr></table></figure>
@@ -440,7 +441,7 @@
 <h3 id="check-root-node-of-particular-cgroup-subsystem"><a href="#check-root-node-of-particular-cgroup-subsystem" class="headerlink" title="check root node of particular cgroup(subsystem)"></a>check root node of particular cgroup(subsystem)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ls /sys/fs/cgroup/xx</span></span><br></pre></td></tr></table></figure>
 <h3 id="create-cgroup-sub-group-of-a-given-cgroup-subsystem"><a href="#create-cgroup-sub-group-of-a-given-cgroup-subsystem" class="headerlink" title="create cgroup(sub group of a given cgroup subsystem)"></a>create cgroup(sub group of a given cgroup subsystem)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create a cpu control group, you can create cgroup alone without process, later on add process to it</span><br><span class="line"><span class="comment"># cd /sys/fs/cgroup/cpu/</span></span><br><span class="line"><span class="comment"># mkdir test_cg</span></span><br><span class="line">after this system will add attributes files(control files) automatically, <span class="keyword">then</span> you can change</span><br><span class="line">parameters <span class="keyword">for</span> this group to control cpu etc</span><br></pre></td></tr></table></figure>
 <p><mark>the created cgroup will be deleted after reboot!!!, when created, there is no process in this group</mark></p>
-<p><strong>when you delete a cgroup, all its processes move to its parent group.</strong></p>
+<p><strong>when you delete a cgroup, all its processes are moved to their parent group.</strong></p>
 <h3 id="run-a-program-in-a-given-cgroup"><a href="#run-a-program-in-a-given-cgroup" class="headerlink" title="run a program in a given cgroup"></a>run a program in a given cgroup</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cgexec</span> -g controllers:path_to_cgroup <span class="built_in">command</span> arguments </span><br><span class="line"><span class="comment"># must create cgroup before!!!</span></span><br><span class="line"><span class="comment"># path: -g memory:test/sub</span></span><br><span class="line"><span class="variable">$cgexec</span> -g memory:<span class="built_in">test</span> stress-ng -m 1 --vm-bytes 128M -t 10s --metrics-brief</span><br><span class="line"><span class="variable">$cgexec</span> -g memory:<span class="built_in">test</span> -g cpu:<span class="built_in">test</span> stress-ng -m 1 --vm-bytes 128M -t 10s --metrics-brief</span><br></pre></td></tr></table></figure>
     </div>
 

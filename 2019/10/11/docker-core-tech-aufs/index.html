@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Microsoft+YaHei+UI:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -23,15 +23,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="AUFSIntroduction - advanced multi layered unification filesystem Aufs is a stackable unification filesystem such as Union fs  which unifies several directories and provides a merged single directory.">
+    <meta name="description" content="AUFSIntroduction - advanced multi layered unification filesystem Aufs is a stackable unification filesystem such as Union fs which unifies several directories and provides a merged single directory.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker-core-tech-aufs">
 <meta property="og:url" content="http://cyun.tech/2019/10/11/docker-core-tech-aufs/index.html">
 <meta property="og:site_name" content="CYun">
-<meta property="og:description" content="AUFSIntroduction - advanced multi layered unification filesystem Aufs is a stackable unification filesystem such as Union fs  which unifies several directories and provides a merged single directory.">
+<meta property="og:description" content="AUFSIntroduction - advanced multi layered unification filesystem Aufs is a stackable unification filesystem such as Union fs which unifies several directories and provides a merged single directory.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-10-11T05:38:42.000Z">
-<meta property="article:modified_time" content="2023-08-16T15:02:01.135Z">
+<meta property="article:modified_time" content="2023-10-20T15:03:30.378Z">
 <meta property="article:author" content="Jason">
 <meta property="article:tag" content="aufs">
 <meta property="article:tag" content="filesystem">
@@ -167,18 +167,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">139</span>
+        <span class="site-state-item-count">141</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-count">148</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -262,7 +262,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2023-10-20 23:03:30" itemprop="dateModified" datetime="2023-10-20T23:03:30+08:00">2023-10-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -289,17 +289,19 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="AUFS"><a href="#AUFS" class="headerlink" title="AUFS"></a>AUFS</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2> - advanced multi layered unification filesystem
-<p>Aufs is a stackable unification filesystem such as Union fs  which unifies several directories and provides a merged single directory.</p>
+<p>Aufs is a stackable unification filesystem such as Union fs which <code>unifies several directories and provides a merged single directory.</code></p>
 <ul>
 <li>overlay2 is the preferred storage driver, for all currently supported Linux distributions, and requires no extra configuration.</li>
 <li>aufs was the preferred storage driver for Docker 18.06 and older, when running on Ubuntu 14.04 on kernel 3.13 which had no support for overlay2</li>
 </ul>
-<p>AUFS is not merged into linux main branch, only ubuntu&#x2F;debian support it!!!</p>
+<p><font color='red' size=4>AUFS is not merged into linux main branch, only ubuntu&#x2F;debian support it!!!</font></p>
 <span id="more"></span>
 
 <h2 id="Core-Concept"><a href="#Core-Concept" class="headerlink" title="Core Concept"></a>Core Concept</h2><p>Here is an example to merge two dirs into a single one, let’s explain it in details.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mount -t aufs -o br=/tmp/dir1:/tmp/dir2 none /tmp/uniondir</span></span><br></pre></td></tr></table></figure>
-<p>This is the basic usage for aufs, more options refer to <br>each dir is called branch, the dir has order, the first one call top branch(br0), the later called bottom branch(brX)<br><strong>Order is important as</strong></p>
+
+<p>This is the basic usage for aufs, more options refer to <br>each dir is called branch, the dir has order, the first one call top branch(br0), the later called bottom branch(brX)</p>
+<p><strong>Order is important as</strong></p>
 <ul>
 <li><mark class="label success">if same file(with path) exists in different branches, the top branch wins</mark></li>
 <li><mark class="label success">Only top branch has RW attribute, others has RO if not set explicitly</mark></li>

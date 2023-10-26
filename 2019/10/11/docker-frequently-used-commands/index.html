@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Microsoft+YaHei+UI:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -23,16 +23,16 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Docker CLIBefore going into docker cli, let’s see how docker client, daemon and registry works, here is an overview of these two part and how they work with each other.">
+    <meta name="description" content="Docker CLIBefore going into docker cli, let’s see how docker client, daemon and registry works, here is an overview of these parts and how they work with each other.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker-frequently-used-commands">
 <meta property="og:url" content="http://cyun.tech/2019/10/11/docker-frequently-used-commands/index.html">
 <meta property="og:site_name" content="CYun">
-<meta property="og:description" content="Docker CLIBefore going into docker cli, let’s see how docker client, daemon and registry works, here is an overview of these two part and how they work with each other.">
+<meta property="og:description" content="Docker CLIBefore going into docker cli, let’s see how docker client, daemon and registry works, here is an overview of these parts and how they work with each other.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://cyun.tech/images/docker/client-daemon-registry.JPG">
 <meta property="article:published_time" content="2019-10-11T07:36:59.000Z">
-<meta property="article:modified_time" content="2023-08-16T15:02:01.137Z">
+<meta property="article:modified_time" content="2023-10-20T15:03:30.378Z">
 <meta property="article:author" content="Jason">
 <meta property="article:tag" content="docker">
 <meta property="article:tag" content="docker command">
@@ -169,18 +169,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">139</span>
+        <span class="site-state-item-count">141</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-count">148</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -264,7 +264,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2023-10-20 23:03:30" itemprop="dateModified" datetime="2023-10-20T23:03:30+08:00">2023-10-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -290,24 +290,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="Docker-CLI"><a href="#Docker-CLI" class="headerlink" title="Docker CLI"></a>Docker CLI</h1><p>Before going into docker cli, let’s see how docker client, daemon and registry works, here is an overview of these two part and how they work with each other.</p>
+        <h1 id="Docker-CLI"><a href="#Docker-CLI" class="headerlink" title="Docker CLI"></a>Docker CLI</h1><p>Before going into docker cli, let’s see how docker client, daemon and registry works, here is an overview of these parts and how they work with each other.</p>
 <span id="more"></span>
 <p><img src="https://cyun.tech/images/docker/client-daemon-registry.JPG" alt="client-daemon-registry"></p>
 <p>As you can see client, daemon, registry are three different parts, they can run in <mark>one machine or different machines</mark>, by default, <mark class="label success">daemon listens on Unix socket, CLI connects with that socket, registry can be your company registry or docker official hub</mark>, </p>
 <p>You can use docker cli or call REST API to communicate with docker daemon, <strong><mark>docker cli is just a wrapper of rest api</mark></strong></p>
 <p>All docker commands are available here </p>
 <h2 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h2><p><font color='red'><strong>Frequently used one</strong></font></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># run with bridge mode with specific address</span></span><br><span class="line">$ docker run --name mycentos --restart=always -p 6000:22 --hostname <span class="built_in">test</span> --ip 172.16.0.2 --privileged=<span class="literal">true</span> -itd centos /usr/sbin/init</span><br><span class="line"></span><br><span class="line"><span class="comment"># run with host network</span></span><br><span class="line">$ docker run --name mycentos --restart=always -p 6000:22 --hostname <span class="built_in">test</span> --net=host  --privileged=<span class="literal">true</span> -itd centos /usr/sbin/init</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># run with bridge mode(vethpair) with specific address</span></span><br><span class="line">$ docker run --name mycentos --restart=always -p 6000:22 --hostname <span class="built_in">test</span> --ip 172.16.0.2 --privileged=<span class="literal">true</span> -itd centos /usr/sbin/init</span><br><span class="line"></span><br><span class="line"><span class="comment"># run with host network</span></span><br><span class="line">$ docker run --name mycentos --restart=always -p 6000:22 --hostname <span class="built_in">test</span> --net=host  --privileged=<span class="literal">true</span> -itd centos /usr/sbin/init</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>Run a container in interactive mode with tty</p>
+<li>Run a container in interactive mode with tty</li>
+</ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker run = docker create + docker start</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -t: Allocate a pseudo-TTY, When set to true Docker can allocate a pseudo-tty and attach to the standard input of any container</span></span><br><span class="line"><span class="comment"># -i: Keep STDIN open even if not attached.</span></span><br><span class="line">$ docker run -it nginx bash</span><br><span class="line"><span class="comment"># this will pull nginx(image) and create a container and start it with bash command</span></span><br><span class="line"><span class="comment"># Note: bash overwrite CMD provide in nginx so nginx daemon is not started in this docker</span></span><br><span class="line"></span><br><span class="line">$ docker run --<span class="built_in">rm</span> -it nginx bash</span><br><span class="line">control + C</span><br><span class="line"><span class="comment"># --rm means this docker will be removed when it exited</span></span><br><span class="line">$ docker ps -a <span class="comment"># will not show it as it&#x27;s removed</span></span><br></pre></td></tr></table></figure>
-</li>
+
+<ul>
 <li><p>Run a container in detached mode or non-detached mode</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># detach(run in background) then later on you attach to it</span></span><br><span class="line">$ docker run --name my-nginx -d nginx</span><br><span class="line">$ docker attach <span class="variable">$container_id</span></span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">$ docker run nginx</span><br><span class="line"><span class="comment"># both will run nginx image from CMD provided in docker image CMD [&quot;nginx&quot; &quot;-g&quot; &quot;daemon&quot;]</span></span><br><span class="line"><span class="comment"># as docker run will create container if not exist(user docker create) so it&#x27;s also</span></span><br><span class="line"><span class="comment"># has lots of args like create provide https://docs.docker.com/engine/reference/commandline/run/</span></span><br></pre></td></tr></table></figure></li>
 <li><p>Check start logs of a specific container</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker logs <span class="variable">$container_id</span>(name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># if docker failed to write such log, check syslog as well</span></span><br><span class="line"><span class="comment"># /var/log/syslog</span></span><br></pre></td></tr></table></figure></li>
-<li><p>List containers and its size(disk used)</p>
+<li><p>List containers and its disk usage</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker ps <span class="comment"># only active containers</span></span><br><span class="line">$ docker ps -a <span class="comment"># all containers even it&#x27;s stopped.</span></span><br><span class="line">$ docker ps --size</span><br><span class="line">$ docker stats <span class="comment"># show running stats CPU, MEM, IO, NET</span></span><br></pre></td></tr></table></figure></li>
 <li><p>create&#x2F;stop&#x2F;start&#x2F;restart&#x2F;rm container</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ docker create --name my-nginx nginx</span><br><span class="line">$ docker start <span class="variable">$container_id</span>(name)</span><br><span class="line">$ docker stop <span class="variable">$container_id</span>(name)</span><br><span class="line">$ docker restart <span class="variable">$container_id</span>(name)</span><br><span class="line">$ docker <span class="built_in">rm</span> <span class="variable">$container_id</span>(name)</span><br><span class="line"><span class="comment"># Actually create provides lots of args when create a docker to set it config</span></span><br><span class="line"><span class="comment"># like volume, mount points, cpu, entrypoint, CMD, env etc</span></span><br><span class="line"><span class="comment"># https://docs.docker.com/engine/reference/commandline/create/</span></span><br></pre></td></tr></table></figure></li>

@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Microsoft+YaHei+UI:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -23,15 +23,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="ChrootIntroductionEvery process&#x2F;command in Linux&#x2F;Unix like systems has a current working directory called root directory. chroot changes the root directory for currently running processes as">
+    <meta name="description" content="ChrootIntroductionEvery process&#x2F;command in Linux&#x2F;Unix like systems has a current working directory called root directory. chroot changes the root directory for current running process as well as">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker-core-tech-chroot">
 <meta property="og:url" content="http://cyun.tech/2019/10/11/docker-core-tech-chroot/index.html">
 <meta property="og:site_name" content="CYun">
-<meta property="og:description" content="ChrootIntroductionEvery process&#x2F;command in Linux&#x2F;Unix like systems has a current working directory called root directory. chroot changes the root directory for currently running processes as">
+<meta property="og:description" content="ChrootIntroductionEvery process&#x2F;command in Linux&#x2F;Unix like systems has a current working directory called root directory. chroot changes the root directory for current running process as well as">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-10-11T02:17:18.000Z">
-<meta property="article:modified_time" content="2023-08-16T15:02:01.136Z">
+<meta property="article:modified_time" content="2023-10-20T15:03:30.378Z">
 <meta property="article:author" content="Jason">
 <meta property="article:tag" content="chroot">
 <meta property="article:tag" content="docker">
@@ -167,18 +167,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">139</span>
+        <span class="site-state-item-count">141</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-count">148</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -262,7 +262,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2023-10-20 23:03:30" itemprop="dateModified" datetime="2023-10-20T23:03:30+08:00">2023-10-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -288,10 +288,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="Chroot"><a href="#Chroot" class="headerlink" title="Chroot"></a>Chroot</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Every process&#x2F;command in Linux&#x2F;Unix like systems has a current working directory called root directory. <mark>chroot changes the root directory for currently running processes as well as its child processes.</mark></p>
+        <h1 id="Chroot"><a href="#Chroot" class="headerlink" title="Chroot"></a>Chroot</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><code>Every process/command</code> in Linux&#x2F;Unix like systems has a <code>current working directory called root directory</code>. <mark>chroot changes the root directory for current running process as well as its children.</mark></p>
 <p>it creates a virtualized environment in a Unix(linux) operating system, separating it from the main operating system’s directory structure. This process essentially generates a confined space with <mark class="label success">its own root directory, to run software programs</mark>. This virtual environment runs separately from the main operating system&#39;s root directory.</p>
 <p>Any software program run in this environment can only access files within its own directory tree. It <mark>cannot access files outside of that directory tree</mark>. This confined virtual environment is often called a <mark class="label success">"chroot jail".</mark></p>
 <span id="more"></span>
+
 <p><strong>Use cases</strong></p>
 <ul>
 <li>Privilege separation for unprivileged process such as Web-server or DNS server.</li>
@@ -303,15 +304,14 @@
 </ul>
 <h2 id="Example-to-use-chroot"><a href="#Example-to-use-chroot" class="headerlink" title="Example to use chroot"></a>Example to use chroot</h2><p><strong>Two ways to change root directory</strong></p>
 <ul>
-<li>chroot() system call(binary with CAP_SYS_CHROOT capability)</li>
-<li>chroot linux command (super user)</li>
+<li><code>chroot()</code> system call(binary with CAP_SYS_CHROOT capability)</li>
+<li><code>chroot linux command</code> (super user)</li>
 </ul>
-<p>let&#39;s use chroot as the example to show how we should do on linux(ubuntu)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">format:</span><br><span class="line"><span class="comment"># chroot /path/to/new/root command (must run with super user)</span></span><br><span class="line"><span class="built_in">command</span> is the <span class="built_in">command</span>(<span class="keyword">in</span> new root) that will run after <span class="built_in">chroot</span>, <span class="keyword">if</span> not provided /bin/sh by default</span><br></pre></td></tr></table></figure>
+<p>let&#39;s use chroot as the example to show how we should do on linux</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># format:</span></span><br><span class="line"><span class="comment"># command is the command(in new root) that will run after chroot, if not provided /bin/sh by default</span></span><br><span class="line">$ <span class="built_in">chroot</span> /path/to/new/root <span class="built_in">command</span> (must run with super user)</span><br></pre></td></tr></table></figure>
 <mark class="label warning">Note: in order to run this command in new root dir, the new root dir must have such command and its dependency before chroot !!!</mark>
 
-<p><mark>tested on ubuntu16.04</mark></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mkdir /tmp/new_root</span></span><br><span class="line"><span class="comment"># mkdir -p /tmp/new_root/&#123;bin,lib64,lib/x86_64-linux-gnu&#125;</span></span><br><span class="line"><span class="comment"># cp /bin/bash /tmp/new_root/bin</span></span><br><span class="line"></span><br><span class="line">check bash depends</span><br><span class="line"><span class="comment"># ldd /bin/bash</span></span><br><span class="line">        linux-vdso.so.1 =&gt;  (0x00007ffc6cd67000)</span><br><span class="line">        libtinfo.so.5 =&gt; /lib/x86_64-linux-gnu/libtinfo.so.5 (0x00007f9bf4c85000)</span><br><span class="line">        libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f9bf4a81000)</span><br><span class="line">        libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f9bf46b7000)</span><br><span class="line">        /lib64/ld-linux-x86-64.so.2 (0x00007f9bf4eae000)</span><br><span class="line"></span><br><span class="line">Copy required libs to new root</span><br><span class="line"><span class="comment"># cp /lib/x86_64-linux-gnu/libtinfo.so.5  /lib/x86_64-linux-gnu/libdl.so.2 /tmp/new_root/lib/x86_64-linux-gnu</span></span><br><span class="line"><span class="comment"># cp /lib/x86_64-linux-gnu/libc.so.6 /tmp/new_root/lib/x86_64-linux-gnu</span></span><br><span class="line"><span class="comment"># cp /lib64/ld-linux-x86-64.so.2 /tmp/new_root/lib64</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># chroot /tmp/new_root /bin/bash</span></span><br><span class="line">bash-4.3<span class="comment">#</span></span><br><span class="line"></span><br><span class="line">bash-4.3<span class="comment"># ls</span></span><br><span class="line">\<span class="built_in">command</span> not found</span><br><span class="line"></span><br><span class="line">bash-4.4<span class="comment"># echo $PATH</span></span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">mkdir</span> /tmp/new_root</span><br><span class="line">$ <span class="built_in">mkdir</span> -p /tmp/new_root/&#123;bin,lib64,lib/x86_64-linux-gnu&#125;</span><br><span class="line">$ <span class="built_in">cp</span> /bin/bash /tmp/new_root/bin</span><br><span class="line"></span><br><span class="line"><span class="comment"># check bash depends</span></span><br><span class="line">$ ldd /bin/bash</span><br><span class="line">        linux-vdso.so.1 =&gt;  (0x00007ffc6cd67000)</span><br><span class="line">        libtinfo.so.5 =&gt; /lib/x86_64-linux-gnu/libtinfo.so.5 (0x00007f9bf4c85000)</span><br><span class="line">        libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f9bf4a81000)</span><br><span class="line">        libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f9bf46b7000)</span><br><span class="line">        /lib64/ld-linux-x86-64.so.2 (0x00007f9bf4eae000)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy required libs to new root</span></span><br><span class="line">$ <span class="built_in">cp</span> /lib/x86_64-linux-gnu/libtinfo.so.5  /lib/x86_64-linux-gnu/libdl.so.2 /tmp/new_root/lib/x86_64-linux-gnu</span><br><span class="line">$ <span class="built_in">cp</span> /lib/x86_64-linux-gnu/libc.so.6 /tmp/new_root/lib/x86_64-linux-gnu</span><br><span class="line">$ <span class="built_in">cp</span> /lib64/ld-linux-x86-64.so.2 /tmp/new_root/lib64</span><br><span class="line">$</span><br><span class="line">$ <span class="built_in">chroot</span> /tmp/new_root /bin/bash</span><br><span class="line"></span><br><span class="line">bash-4.3<span class="comment">#</span></span><br><span class="line"></span><br><span class="line">bash-4.3<span class="comment"># ls</span></span><br><span class="line">\<span class="built_in">command</span> not found</span><br><span class="line"></span><br><span class="line">bash-4.4<span class="comment"># echo $PATH</span></span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin</span><br></pre></td></tr></table></figure>
 <p><mark> here we just copy bash, if you run ls, you need to copy ls and it dependency as well</mark></p>
 
     </div>

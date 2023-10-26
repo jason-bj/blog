@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Microsoft+YaHei+UI:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://www.redhat.com/cms/managed-files/2019-10-02-vdpa-figure3.jpg">
 <meta property="og:image" content="https://www.redhat.com/cms/managed-files/2019-10-02-vdpa-figure5.jpg">
 <meta property="article:published_time" content="2021-08-18T00:46:27.000Z">
-<meta property="article:modified_time" content="2023-08-16T15:02:01.179Z">
+<meta property="article:modified_time" content="2023-10-20T15:03:30.378Z">
 <meta property="article:author" content="Jason">
 <meta property="article:tag" content="virtualization">
 <meta property="article:tag" content="virtio">
@@ -156,7 +156,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Virtual-Devices"><span class="nav-number">2.</span> <span class="nav-text">Virtual Devices</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Paravirtulization"><span class="nav-number">2.1.</span> <span class="nav-text">Paravirtulization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Passthrough"><span class="nav-number">2.2.</span> <span class="nav-text">Passthrough</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-one"><span class="nav-number">2.2.1.</span> <span class="nav-text">Solution one</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#solution-two"><span class="nav-number">2.2.2.</span> <span class="nav-text">solution two</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Virtual-Devices"><span class="nav-number">2.</span> <span class="nav-text">Virtual Devices</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Paravirtulization"><span class="nav-number">2.1.</span> <span class="nav-text">Paravirtulization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Passthrough"><span class="nav-number">2.2.</span> <span class="nav-text">Passthrough</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-one-vendoer-specific-driver-in-guest"><span class="nav-number">2.2.1.</span> <span class="nav-text">Solution one(vendoer specific driver in guest)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#solution-two"><span class="nav-number">2.2.2.</span> <span class="nav-text">solution two</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -171,18 +171,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">139</span>
+        <span class="site-state-item-count">141</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-count">148</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -266,7 +266,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2023-10-20 23:03:30" itemprop="dateModified" datetime="2023-10-20T23:03:30+08:00">2023-10-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -303,7 +303,7 @@
 <span id="more"></span>
 
 <h1 id="Virtual-Devices"><a href="#Virtual-Devices" class="headerlink" title="Virtual Devices"></a>Virtual Devices</h1><h2 id="Paravirtulization"><a href="#Paravirtulization" class="headerlink" title="Paravirtulization"></a>Paravirtulization</h2><p>Some paravirtualized devices decrease I&#x2F;O latency and increase I&#x2F;O throughput to near bare-metal levels, while other paravirtualized devices add functionality to virtual machines that is not otherwise available.  </p>
-<p>All virtio devices have two parts: the host device(backend) and the guest driver(front end). Paravirtualized device drivers allow the guest operating system access to physical devices on the host system. to use this device, the paravirtualized device drivers must be installed on the guest operating system and set the virtual device with such driver.</p>
+<p>All virtio devices have two parts: the host device(backend) and the guest driver(frontend).</p>
 <p><strong>Front end driver for different type of virtual device</strong></p>
 <ul>
 <li><p><strong>The paravirtualized network device (virtio-net)</strong><br>  The paravirtualized network device is a virtual network device that provides network access to virtual machines with increased I&#x2F;O performance and lower latency. </p>
@@ -312,21 +312,21 @@
 </li>
 <li><p><strong>The paravirtualized controller device (virtio-scsi)</strong><br>  The paravirtualized SCSI controller device provides a more flexible and scalable alternative to virtio-blk. A virtio-scsi guest is capable of inheriting the feature set of the target device, and can handle hundreds of devices compared to virtio-blk, which can only handle 28 devices. </p>
 </li>
-<li><p><strong>The paravirtualized serial device (virtio-serial)</strong><br>  The paravirtualized serial device is a bytestream-oriented, character stream device, and provides a simple communication interface between the host’s user space and the guest’s user space. </p>
-</li>
 <li><p><strong>The paravirtualized serial device (virtio-serial)</strong><br>  The paravirtualized serial device is a bytestream-oriented, character stream device, and provides <strong>a simple communication interface between the host’s user space and the guest’s user space.</strong></p>
 </li>
 </ul>
 <p>Requires:</p>
 <ul>
 <li>Guest: Must install virtio-xx front end driver(most linux already install it)</li>
-<li>Host: Must install vhost-xxx backend driver in host(Should install for KVM enabled machine), Host also needs to install driver for physical device, but Guest never access it directly. but backend driver in KVM accesses it.</li>
+<li>Host: Must install vhost-xxx backend driver in host(Should install for KVM enabled machine), Host also needs to install driver for physical device, but Guest never accesses it directly. but backend driver in KVM accesses it.</li>
 </ul>
 <h2 id="Passthrough"><a href="#Passthrough" class="headerlink" title="Passthrough"></a>Passthrough</h2><p>VFIO attaches PCI devices on the host system directly to virtual machines, <strong>providing guests with exclusive access to PCI devices</strong> for a range of tasks. This enables PCI devices to appear and behave as if they were physically attached to the guest virtual machine.  </p>
 <p>VFIO improves on previous PCI device assignment architecture by moving device assignment out of the KVM hypervisor, and <strong>enforcing device isolation at the kernel level</strong>.</p>
-<p>With VFIO and IOMMU from hardware, Hypervisor can assign physical device to VM directly, like GPU to a VM, <strong>but in cloud environment, we usually we do not assign the whole physical device(GPU, network card, block device) to one VM directly, as we want to share physical device by different VMs, but still need isolation, this what SR-IOV does,  SR-IOR is a feature provided by PIC-E device, it’s virtualization from hardware.</strong></p>
+<p>With VFIO and IOMMU from hardware, Hypervisor can assign physical device to VM directly, like GPU to a VM, <strong>but in cloud environment, we usually we do not assign the whole physical device(GPU, network card, block device) to one VM directly, as we want to share physical device by different VMs, but still need isolation, this what SR-IOV does, SR-IOR is a feature provided by PIC-E device, it’s virtualization from hardware.</strong></p>
+<hr>
+<p><strong>SR-IOV</strong></p>
 <blockquote>
-<p>SR-IOV (Single Root I&#x2F;O Virtualization) is a PCI Express (PCI-e) standard that extends a single physical PCI function to share its PCI resources as separate virtual functions (VFs). Each function can be used by a different virtual machine via PCI device assignment.<br>An SR-IOV-capable PCI-e device provides a Single Root function (for example, a single Ethernet port) and presents multiple, separate virtual devices as unique PCI device functions. Each virtual device may have its own unique PCI configuration space, memory-mapped registers, and individual MSI-based interrupts. </p>
+<p>SR-IOV (Single Root I&#x2F;O Virtualization) is a PCI Express (PCI-e) standard that extends a single physical PCI function to share its PCI resources as separate virtual functions (VFs). Each function can be used by a different virtual machine via PCI device assignment. An SR-IOV-capable PCI-e device provides a Single Root function (for example, a single Ethernet port) and presents multiple, separate virtual devices as unique PCI device functions. Each virtual device may have its own unique PCI configuration space, memory-mapped registers, and individual MSI-based interrupts. </p>
 </blockquote>
 <p>SR-IOV has two main functions:</p>
 <ul>
@@ -335,8 +335,8 @@
 <li><p>Virtual functions (VFs) are simple PCI functions that only control part of the device and are derived from physical functions. Multiple VFs can reside on the same NIC.</p>
 </li>
 </ul>
-<p>There are two solutions for pass through, the solution two wins!!!</p>
-<h3 id="Solution-one"><a href="#Solution-one" class="headerlink" title="Solution one"></a>Solution one</h3><p>There are two cases for solution one vendor specific driver in Guest os</p>
+<p>There are two solutions for device pass through, the solution two wins if two solutions are available for the device, <code>as for second solution, it needs virtio data plane supported in hardware.</code></p>
+<h3 id="Solution-one-vendoer-specific-driver-in-guest"><a href="#Solution-one-vendoer-specific-driver-in-guest" class="headerlink" title="Solution one(vendoer specific driver in guest)"></a>Solution one(vendoer specific driver in guest)</h3><p>There are <code>two cases</code> for solution one: <code>vendor specific driver in Guest os</code></p>
 <ul>
 <li><p>Using the guest kernel driver: In this approach we use the NIC (vendor specific) driver in the kernel of the guest, while directly mapping the IO memory, so that the HW device can directly access the memory on the guest kernel.</p>
 </li>
@@ -350,27 +350,26 @@
 <ul>
 <li><p>The data plane is vendor specific and goes directly to the VF.</p>
 </li>
-<li><p>For SRIOV, Vendor NIC specific drivers are required both in the host kernel (PF driver) and the guest userspace (VF PMD) to enable this solution.</p>
+<li><p>For SRIOV, Vendor NIC specific drivers are required both in the host kernel (PF driver) and the guest userspace (VF driver) to enable this solution.</p>
 </li>
-<li><p>The host kernel driver(for PF) and the guest userspace PMD driver don’t communicate directly. The PF&#x2F;VF drivers are configured through other interfaces (e.g. the host PF driver can be configured by libvirt).</p>
+<li><p>The host kernel driver(for PF) and the guest userspace VF driver don’t communicate directly. The PF&#x2F;VF drivers are configured through other interfaces (e.g. the host PF driver can be configured by libvirt).</p>
 </li>
-<li><p>The vendor-VF-pmd in the guest userspace is responsible for configuring the NICs VF while the vendor-PF-driver in the host kernel space is managing the full NIC.</p>
+<li><p>The vendor-VF in the guest is responsible for configuring the NICs VF while the vendor-PF-driver in the host kernel space is managing the full NIC.</p>
 </li>
-<li><p>Host: IOMMU support from hardware and must install VFIO driver and vendor driver for PF.</p>
+<li><p>Host: IOMMU support from hardware and must install VFIO driver for VF and vendor driver for PF.</p>
 </li>
 </ul>
 <p><strong>Installed vendor driver in guest has many drawbacks</strong></p>
 <ul>
 <li>It requires a match between the drivers running in the guest and the actual physical NIC. </li>
 <li>If the NIC firmware is upgraded, the guest application driver may need to be upgraded as well.</li>
-<li>If the NIC is replaced with a NIC from another vendor, the guest must use another drive the NIC.</li>
+<li>If the NIC is replaced with a NIC from another vendor, the guest must use another driver the NIC.</li>
 <li>Migration of a VM can only be done to a host with the exact same configuration.</li>
 </ul>
-<h3 id="solution-two"><a href="#solution-two" class="headerlink" title="solution two"></a>solution two</h3><p>Use generic driver(virtio) in Guest OS</p>
-<p><strong>Can we still use virtio driver in guest os to operate VF directly?</strong><br>Without hardware support, NO, as VF is vendor specific, different vendors use different formats for data transferring, it does not know data sent by virtio driver, so VF vendor in hardware must implement virtio spec(ring layout), so that for datapplane, it can know data sent with virtio format and send it on wire!!!, this is only for dataplane, in order to send, we need control plan for VF to prepare sending setting like set register etc, if we use virtio, there must be a guy in middle to convert virtio control to vendor specific, that’s virtio data path acceleration (vDPA) does, it’s only for control plane, In summary, offload dataplane to hardware, use vDPA for control plane.</p>
-<p>Why not offload control plan to HW as well?<br>Control plan supports the virtio control spec including discovery, feature negotiation, establishing&#x2F;terminating the data plane, and so on,it is more complicated and requires interactions with memory management units, hence it’s not offload to HW.</p>
-<p>Virtual data path acceleration (vDPA) in essence is an approach to standardize the NIC SRIOV data plane using the virtio ring layout and placing a single standard virtio driver in the guest decoupled from any vendor implementation, while adding a generic control plane and SW infrastructure to support it.</p>
-<p>with vDPA, Data plane goes directly from the NIC to the guest using the virtio ring layout. However each NIC vendor can now continue using its own driver (with a small vDPA add-on) and a generic vDPA driver is added to the kernel to translate the vendor NIC driver&#x2F;control-plane to the virtio control plane.</p>
+<h3 id="solution-two"><a href="#solution-two" class="headerlink" title="solution two"></a>solution two</h3><p>Use generic driver(virtio) in Guest OS, <strong>but this required virtio data plane supported from hardware(VF)</strong></p>
+<p><strong>Can we still use virtio driver in guest os to operate VF directly?</strong><br>Without hardware support, NO, as VF is vendor specific, different vendors use different formats for data transferring, it does not know data sent by virtio driver, so VF vendor in hardware must implement virtio spec(ring layout), so that for datapplane, it can know data sent with virtio format and send it on wire!!!, this is only for dataplane, in order to send, we need control plan for VF to prepare sending setting like set register etc, if we use virtio, there must be a guy in middle to convert virtio control to vendor specific, that’s virtio data path acceleration (vDPA) framework does, it’s only for control plane, In summary, offload dataplane to hardware, use vDPA framework for control plane.</p>
+<p><strong>Why not offload control plan to HW as well?</strong><br>Control plan supports the virtio control spec including discovery, feature negotiation, establishing&#x2F;terminating the data plane, and so on,it is more complicated and requires interactions with memory management units, hence it’s not offload to HW.</p>
+<p>with vDPA, Data plane goes directly from the NIC to the guest using the virtio ring layout. a generic vDPA driver is added to the kernel which calls vendor specific driver(vendor vDPA driver) for virtio control plane.</p>
 <p><img src="https://www.redhat.com/cms/managed-files/2019-10-02-vdpa-figure5.jpg"></p>
 <mark class="label danger">virtio-net-pmd can be replaced with virtio-net in guest kernel and vDPA can be in DPDK as well(actually vDPA framework in kernel merged March 2020, while in DPDK, it's April 2018! and deployed in production environment)</mark>
 
@@ -382,7 +381,6 @@
 <p><strong>Cons</strong></p>
 <ul>
 <li>Live migration—Providing live migration between different vendor NICs and versions given the ring layout is now standard in the guest.</li>
-<li>Providing a standard <strong>accelerated interface for containers</strong></li>
 <li>The bare-metal vision—a single generic NIC driver—Forward looking, the <strong>virtio-net driver can be enabled as a bare-metal driver</strong>, while using the vDPA SW infrastructure in the kernel to enable a single generic NIC driver to drive different HW NICs (similar, e.g. to the NVMe driver for storage devices).</li>
 </ul>
 <h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
@@ -428,8 +426,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/08/18/virtualization-IO-deep-virtio/" rel="next" title="virtualization-IO-deep-virtio">
-                  virtualization-IO-deep-virtio <i class="fa fa-chevron-right"></i>
+                <a href="/2021/08/18/virtualization-virtio/" rel="next" title="virtualization-virtio">
+                  virtualization-virtio <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
