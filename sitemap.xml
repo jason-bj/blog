@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://cyun.tech/2021/03/24/k8s-minikube/</loc>
+    
+    <lastmod>2024-07-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://cyun.tech/2021/03/24/k8s-tools/</loc>
     
     <lastmod>2024-07-28</lastmod>
@@ -41,15 +50,6 @@
     <loc>http://cyun.tech/2024/07/26/k8s-device-plugin/</loc>
     
     <lastmod>2024-07-26</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://cyun.tech/2021/03/24/k8s-minikube/</loc>
-    
-    <lastmod>2024-07-25</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
