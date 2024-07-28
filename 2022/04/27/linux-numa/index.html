@@ -32,7 +32,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.boost.org/doc/libs/develop/libs/fiber/doc/NUMA.png">
 <meta property="article:published_time" content="2022-04-27T01:19:43.000Z">
-<meta property="article:modified_time" content="2023-08-16T15:02:01.160Z">
+<meta property="article:modified_time" content="2024-07-25T06:44:03.421Z">
 <meta property="article:author" content="Jason">
 <meta property="article:tag" content="numa">
 <meta name="twitter:card" content="summary">
@@ -153,7 +153,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NUma"><span class="nav-number">2.</span> <span class="nav-text">NUma</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU"><span class="nav-number">2.1.</span> <span class="nav-text">CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memory"><span class="nav-number">2.2.</span> <span class="nav-text">Memory</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Debug"><span class="nav-number">3.</span> <span class="nav-text">Debug</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Taskset"><span class="nav-number">3.1.</span> <span class="nav-text">Taskset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numactl"><span class="nav-number">3.2.</span> <span class="nav-text">numactl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numastat"><span class="nav-number">3.3.</span> <span class="nav-text">numastat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numad"><span class="nav-number">3.4.</span> <span class="nav-text">numad</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NUMA"><span class="nav-number">2.</span> <span class="nav-text">NUMA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU"><span class="nav-number">2.1.</span> <span class="nav-text">CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memory"><span class="nav-number">2.2.</span> <span class="nav-text">Memory</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Debug"><span class="nav-number">3.</span> <span class="nav-text">Debug</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Taskset"><span class="nav-number">3.1.</span> <span class="nav-text">Taskset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numactl"><span class="nav-number">3.2.</span> <span class="nav-text">numactl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numastat"><span class="nav-number">3.3.</span> <span class="nav-text">numastat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numad"><span class="nav-number">3.4.</span> <span class="nav-text">numad</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lstopo"><span class="nav-number">3.5.</span> <span class="nav-text">lstopo</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -168,7 +168,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">149</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -263,7 +263,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2024-07-25 14:44:03" itemprop="dateModified" datetime="2024-07-25T14:44:03+08:00">2024-07-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -306,7 +306,7 @@
 <p>Linux divides the system’s hardware resources into multiple software abstractions called “nodes”. Linux maps the nodes onto the physical cells of the hardware platform, abstracting away some of the details for some architectures. As with physical cells, software nodes may contain 0 or more CPUs, memory and&#x2F;or IO buses. And, again, memory accesses to memory on “closer” nodes–nodes that map to closer cells–will generally experience faster access times and higher effective bandwidth than accesses to more remote cells.</p>
 <p>For <code>each node with memory, Linux constructs an independent memory management subsystem</code>, complete with its own free page lists, in-use page lists, usage statistics and locks to mediate access. In addition, Linux <code>constructs for each memory zone [one or more of DMA, DMA32, NORMAL, HIGH_MEMORY, MOVABLE]</code>, an ordered “zonelist”. A zonelist specifies the zones&#x2F;nodes to visit when a selected zone&#x2F;node cannot satisfy the allocation request. This situation, when a zone has no available memory to satisfy a request, is called “overflow” or “fallback”.</p>
 <p>By default, <code>Linux will attempt to satisfy memory allocation requests from the node to which the CPU that executes the request is assigned</code>. Specifically, Linux will attempt to allocate from the first node in the appropriate zonelist for the node where the request originates. This is called “local allocation.” <code>If the “local” node cannot satisfy the request, the kernel will examine other nodes’ zones in the selected zonelist looking for the first zone in the list that can satisfy the request.</code></p>
-<h1 id="NUma"><a href="#NUma" class="headerlink" title="NUma"></a>NUma</h1><h2 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h2><p>each CPU is assigned its own local memory and can access memory from other CPUs in the system.<br>each processor contains many cores with a shared on-chip cache and an off-chip memory and has variable memory access costs across different parts of the memory within a server</p>
+<h1 id="NUMA"><a href="#NUMA" class="headerlink" title="NUMA"></a>NUMA</h1><h2 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h2><p>each CPU is assigned its own local memory and can access memory from other CPUs in the system.<br>each processor contains many cores with a shared on-chip cache and an off-chip memory and has variable memory access costs across different parts of the memory within a server</p>
 <h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h2><p>In Non-Uniform Memory Access (NUMA), <code>system memory is divided into zones (called nodes)</code>, which are allocated to particular CPUs or sockets. <code>Access to memory that is local to a CPU is faster than memory connected to remote CPUs on that system. </code></p>
 <p>Memory allocation policies defines for Numa system</p>
 <ul>
@@ -396,6 +396,8 @@
 <h2 id="numad"><a href="#numad" class="headerlink" title="numad"></a>numad</h2><p>numad is an <code>automatic NUMA affinity management daemon. It monitors NUMA topology and resource usage within a system in order to dynamically improve NUMA resource allocation and management.</code>, it scans all processes of the system within period of time.</p>
 <p>Note that when numad is enabled, <strong>its behavior overrides the default behavior of automatic NUMA balancing(scheduler)</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ yum install numad</span><br><span class="line">$ service nuamd start</span><br><span class="line"></span><br><span class="line"><span class="comment"># log file</span></span><br><span class="line">$ <span class="built_in">ls</span> /var/log/numad.log</span><br><span class="line">/var/log/numad.log</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cat</span> /etc/numad.conf </span><br><span class="line"><span class="comment"># Config file for numad</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Default INTERVAL is 15</span></span><br><span class="line"><span class="comment"># modify below to change it</span></span><br><span class="line">INTERVAL=15</span><br></pre></td></tr></table></figure>
+<h2 id="lstopo"><a href="#lstopo" class="headerlink" title="lstopo"></a>lstopo</h2><p><code>lstopo</code> and <code>lstopo-no-graphics</code> are capable of displaying a <strong>topological map of the system</strong> in a variety of different output formats.  The only difference between lstopo and lstopo-no-graphics is that <code>graphical outputs are only supported by lstopo</code>, to reduce dependencies on external libraries. <code>hwloc-ls</code> is identical to lstopo-no-graphics.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ lstopo-no-graphics</span><br><span class="line">$ lstopo-no-graphics -.ascii</span><br><span class="line">$ lstopo topo.png</span><br></pre></td></tr></table></figure>
 
 <h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
 <li><a target="_blank" rel="noopener" href="https://www.kernel.org/doc/html/v4.19/vm/numa.html">numa introduction</a></li>

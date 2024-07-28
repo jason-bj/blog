@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">149</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -209,6 +209,106 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/06/09/k8s-cri-oci/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+      <meta itemprop="name" content="Jason">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | CYun">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/06/09/k8s-cri-oci/" class="post-title-link" itemprop="url">k8s_cri_oci</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-06-09 15:00:19" itemprop="dateCreated datePublished" datetime="2021-06-09T15:00:19+08:00">2021-06-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/k8s/cri/" itemprop="url" rel="index"><span itemprop="name">cri</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p><img src="https://merlijn.sebrechts.be/img/2020/container-runtimes.jpg" alt="CRI and OCI"></p>
+<ul>
+<li>The OCI or Open Containers Initiative is an organization that creates container standards. <code>The OCI runtime spec defines the API of a low-level container runtime and the OCI image spec defines what a “Docker image” actually is.</code></li>
+<li>The Kubernetes project has also defined a number of standards. Relevant for this article is the CRI: the Container Runtime Interface. <code>This interface defines how Kubernetes talks with a high-level container runtime.</code></li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/06/09/k8s-cri-oci/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -533,7 +633,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2024-07-26 15:41:58" itemprop="dateModified" datetime="2024-07-26T15:41:58+08:00">2024-07-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -907,7 +1007,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2024-07-26 15:12:00" itemprop="dateModified" datetime="2024-07-26T15:12:00+08:00">2024-07-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -933,7 +1033,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Helm is the best way to find, share, and use software built Kubernetes, a software in k8s may be one separate deployment or several deployments that works together to provides service to user, Helm manages these yaml files with concept <code>Chart</code>, <strong><code>Chart is a bundle of yaml files and other files related to the software</code></strong>, Chart helps you <code>define, install, and upgrade, rollback</code> even the most complex Kubernetes application, Chart likes <code>deb package</code> which creates package with xx.deb, while to <code>create an application for k8s by Helm, you need to create Chart files with fixed layout and follow its syntax</code>.</p>
+          <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Helm is the best way to find, share, and use software built Kubernetes, a software in k8s may be one separate deployment or several deployments that works together to provides service to user, Helm manages these yaml files with concept Chart, <strong><code>Chart is a bundle of yaml files and other files related to the software</code></strong>, Chart helps you <code>define, install, and upgrade, rollback</code> even the most complex Kubernetes application, Chart likes <code>deb package</code> which creates package with xx.deb, while to <code>create an application for k8s by Helm, you need to create Chart files with fixed layout and follow its syntax</code>.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/06/07/k8s-pkg-manager/#more" rel="contents">
@@ -1035,104 +1135,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/04/23/distribute-zookeeper/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://cyun.tech/2021/04/22/protocol-vxlan-nvgre-geneve/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.gif">
-      <meta itemprop="name" content="Jason">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CYun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | CYun">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/22/protocol-vxlan-nvgre-geneve/" class="post-title-link" itemprop="url">protocol_vxlan_nvgre_geneve</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-04-22 14:33:36" itemprop="dateCreated datePublished" datetime="2021-04-22T14:33:36+08:00">2021-04-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/protocol/" itemprop="url" rel="index"><span itemprop="name">protocol</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/protocol/overlay/" itemprop="url" rel="index"><span itemprop="name">overlay</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>Tunneling is a mechanism that makes transfer of payloads feasible over an incompatible delivery network. It allows the network user to gain access to denied or insecure networks. Data encryption may be employed to transport the payload, ensuring that the encapsulated user network data appears as public even though it is private and can easily pass the conflicting network.</p>
-<p>An information center hosting hundreds of thousands of customers located across many locations with virtualized customer workloads will most likely need many VLANs and at the same time the ability to share assets on each other networks. VXLAN&#x2F; NVGRE SUPPORT Software Defined Networking (SDN) was created partly to solve problems associated with multi-tenant environments. This wide resource sharing enables <code>Microsoft to create NVGRE for Hyper-V</code>, a native hypervisor that can create virtual machines on x86-64 systems starting with Windows 8 and <code>VMware to create Virtual Extensible LAN (VXLAN)</code>, a tunneling protocol that recognizes network users to access or provide networking services to networks that does not support or provide directly.</p>
-<p>NVGRE standard is proposed by Microsoft, Intel, HP and Dell.<br>VXLAN specification was originally created by Cisco, VMware, and Arista Networks</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/22/protocol-vxlan-nvgre-geneve/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>

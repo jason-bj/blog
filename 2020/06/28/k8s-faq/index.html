@@ -30,12 +30,15 @@
 <meta property="og:site_name" content="CYun">
 <meta property="og:description" content="Question and Answer about Kubernetes.">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cyun.tech/images/k8s/operator.png">
+<meta property="og:image" content="https://cyun.tech/images/k8s/helm.jpeg">
 <meta property="article:published_time" content="2020-06-28T00:35:17.000Z">
-<meta property="article:modified_time" content="2023-08-16T15:02:01.154Z">
+<meta property="article:modified_time" content="2024-07-28T15:18:23.429Z">
 <meta property="article:author" content="Jason">
 <meta property="article:tag" content="k8s">
 <meta property="article:tag" content="k8s_faq">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cyun.tech/images/k8s/operator.png">
 
 
 <link rel="canonical" href="http://cyun.tech/2020/06/28/k8s-faq/">
@@ -152,7 +155,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pods"><span class="nav-number">1.</span> <span class="nav-text">Pods</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#why-pod-is-in-pending-status"><span class="nav-number">1.1.</span> <span class="nav-text">why pod is in pending status?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pod-is-restarted-how-can-I-see-previous-container-log"><span class="nav-number">1.2.</span> <span class="nav-text">pod is restarted, how can I see previous container log</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-can-I-check-why-pod-is-restart"><span class="nav-number">1.3.</span> <span class="nav-text">how can I check why pod is restart</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-can-I-check-liveness-setting-for-a-pod"><span class="nav-number">1.4.</span> <span class="nav-text">how can I check liveness setting for a pod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-pod-the-service-internal-cluster-ip-after-it-knows-the-service-name"><span class="nav-number">1.5.</span> <span class="nav-text">how pod the service internal cluster ip after it knows the service name?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-support-tls-in-Ingress"><span class="nav-number">1.6.</span> <span class="nav-text">how to support tls in Ingress</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#why-needs-headless-service-no-ClusterIP"><span class="nav-number">1.7.</span> <span class="nav-text">why needs headless service(no ClusterIP)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#directly-talk-to-api-server-by-restful-API-skip-kubectl"><span class="nav-number">1.8.</span> <span class="nav-text">directly talk to api server by restful API, skip kubectl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-use-host-network-directly-for-pod"><span class="nav-number">1.9.</span> <span class="nav-text">how to use host network directly for pod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-limit-resource-used-by-container"><span class="nav-number">1.10.</span> <span class="nav-text">how to limit resource used by container</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pods"><span class="nav-number">1.</span> <span class="nav-text">Pods</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#why-pod-is-in-pending-status"><span class="nav-number">1.1.</span> <span class="nav-text">why pod is in pending status?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pod-is-restarted-how-can-I-see-previous-container-log"><span class="nav-number">1.2.</span> <span class="nav-text">pod is restarted, how can I see previous container log</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-can-I-check-why-pod-is-restart"><span class="nav-number">1.3.</span> <span class="nav-text">how can I check why pod is restart</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-can-I-check-liveness-setting-for-a-pod"><span class="nav-number">1.4.</span> <span class="nav-text">how can I check liveness setting for a pod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-pod-the-service-internal-cluster-ip-after-it-knows-the-service-name"><span class="nav-number">1.5.</span> <span class="nav-text">how pod the service internal cluster ip after it knows the service name?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-support-tls-in-Ingress"><span class="nav-number">1.6.</span> <span class="nav-text">how to support tls in Ingress</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#why-needs-headless-service-no-ClusterIP"><span class="nav-number">1.7.</span> <span class="nav-text">why needs headless service(no ClusterIP)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#directly-talk-to-api-server-by-restful-API-skip-kubectl"><span class="nav-number">1.8.</span> <span class="nav-text">directly talk to api server by restful API, skip kubectl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-use-host-network-directly-for-pod"><span class="nav-number">1.9.</span> <span class="nav-text">how to use host network directly for pod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-limit-resource-used-by-container"><span class="nav-number">1.10.</span> <span class="nav-text">how to limit resource used by container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Operator-vs-Helm"><span class="nav-number">1.11.</span> <span class="nav-text">Operator vs Helm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vanilla-Kubernetes-vs-Distribution-Kubernetes"><span class="nav-number">1.12.</span> <span class="nav-text">Vanilla Kubernetes vs Distribution Kubernetes</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -167,7 +170,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">149</span>
+          <span class="site-state-item-count">150</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -262,7 +265,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2024-07-28 23:18:23" itemprop="dateModified" datetime="2024-07-28T23:18:23+08:00">2024-07-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -326,6 +329,53 @@
 <li>limits: how much cpu&#x2F;memory container can use</li>
 </ul>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">containers:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">image:</span> <span class="string">nginx:1.13.12</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">memory:</span> <span class="string">&quot;64Mi&quot;</span></span><br><span class="line">      <span class="attr">cpu:</span> <span class="string">&quot;250m&quot;</span></span><br><span class="line">    <span class="attr">limits:</span></span><br><span class="line">      <span class="attr">memory:</span> <span class="string">&quot;128Mi&quot;</span></span><br><span class="line">      <span class="attr">cpu:</span> <span class="string">&quot;500m&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Operator-vs-Helm"><a href="#Operator-vs-Helm" class="headerlink" title="Operator vs Helm"></a>Operator vs Helm</h2><p>They both serve the same basic goal of helping to install and configure apps in Kubernetes. But they do so in different ways. Depending on factors like how much control you want and how important ongoing application lifecycle management is, an operator might be better than a Helm chart, or vice versa.</p>
+<hr>
+<p>A Kubernetes Operator is a method of <strong>packaging, deploying and managing</strong> a Kubernetes application. Essentially, an Operator is a custom controller that <strong>extends the functionality of the Kubernetes API</strong>. This is accomplished by introducing new custom resources or by modifying existing ones.</p>
+<p>Kubernetes Operators let you handle complex applications more easily.<code>Operators are designed to handle tasks like upgrades, backups and failover in a more automated and reliable way</code>. They can even make complex decisions based on the state of your cluster.</p>
+<p><img src="https://cyun.tech/images/k8s/operator.png"></p>
+<hr>
+<p>A Helm chart is a package that contains the resources necessary for deploying an application on Kubernetes using a packaging format called charts. You can install Helm charts with (you guessed it!) Helm, an application package manager and configuration management tool for Kubernetes.</p>
+<p><img src="https://cyun.tech/images/k8s/helm.jpeg"></p>
+<hr>
+<p><strong>Which one to choose</strong><br>If you need to manage complex, stateful applications and require a high degree of automation, Kubernetes Operator may be the better choice. On the other hand, if you’re looking for a simpler tool to help with application deployment or if you’re new to Kubernetes, Helm may be a more suitable option.</p>
+<h2 id="Vanilla-Kubernetes-vs-Distribution-Kubernetes"><a href="#Vanilla-Kubernetes-vs-Distribution-Kubernetes" class="headerlink" title="Vanilla Kubernetes vs Distribution Kubernetes"></a>Vanilla Kubernetes vs Distribution Kubernetes</h2><p><strong>Vanilla Kubernetes is the upstream version of Kubernetes that is maintained by the Kubernetes community</strong>. It is the most basic and pure form of Kubernetes, without any modifications or additions. Vanilla Kubernetes is also known as stock Kubernetes or plain Kubernetes.</p>
+<p>👍Pros  </p>
+<ul>
+<li>Flexible: highly flexible and customizable, allowing users to create and deploy a wide range of applications and workloads</li>
+<li>Cost-effective: free and open-source, which means that users do not have to pay for support or maintenance fees</li>
+</ul>
+<p>👎Cons  </p>
+<ul>
+<li>Steep learning curve: can be difficult to learn and use, especially for users who are new to container orchestration</li>
+<li>Complex deployment and management: deploying and managing vanilla Kubernetes requires more technical expertise and manual configuration<br>Distribution Kubernetes</li>
+</ul>
+<p><strong>A Kubernetes distribution is a packaged version of Kubernetes that includes additional features, tools, integrations</strong>, and support. A Kubernetes distribution aims to simplify the installation, configuration, management, and operation of Kubernetes clusters.</p>
+<p>🔴Types of Kubernetes Distributions  </p>
+<ul>
+<li><p><code>Enterprise Kubernetes</code>: designed for large enterprises and offer additional features such as advanced security, scalability, and manageability. Examples of enterprise Kubernetes distributions include <strong>Red Hat OpenShift, IBM Cloud Kubernetes Service, and Google Kubernetes Engine (GKE)</strong></p>
+</li>
+<li><p><code>Community Kubernetes</code>: designed for the open-source community and offer a range of features and tools that are not available in Vanilla Kubernetes. Examples of community Kubernetes distributions include <strong>CoreOS, Fedora, and openSUSE</strong></p>
+</li>
+<li><p><code>Cloud-Native Kubernetes</code>: designed for cloud-native applications and offer additional features such as serverless computing, service mesh, and observability. Examples of cloud-native Kubernetes distributions include <strong>AWS Elastic Kubernetes Service (EKS), Azure Kubernetes Service (AKS), and Google Kubernetes Engine (GKE)</strong></p>
+</li>
+<li><p><code>Hybrid Kubernetes</code>: designed for organizations that need to run Kubernetes on-premises and in the cloud. Examples of hybrid Kubernetes distributions include <strong>VMware Tanzu, OpenStack, and Kubernetes on AWS</strong></p>
+</li>
+</ul>
+<p>👍Pros  </p>
+<ul>
+<li>Easier to use: provide a more streamlined and simplified experience for users, with additional tools and features that make it easier to deploy and manage applications</li>
+<li>Additional features: offer additional features and capabilities, such as advanced security, scalability, and manageability</li>
+<li>Support and maintenance: typically supported and maintained by the vendor, which means that users can receive support and updates more quickly and easily</li>
+<li>Integration with other tools: integrate with other tools and services, such as monitoring, logging, and security solutions, which can simplify the deployment and management of applications</li>
+<li>Security and compliance: some distributions come with built-in security features and compliance controls, making it easier for organizations to meet industry regulations and protect their applications and data</li>
+</ul>
+<p>👎Cons  </p>
+<ul>
+<li>Less flexible: they are designed to meet specific needs and use cases. This can limit the range of applications and workloads that can be deployed</li>
+<li>Vendor lock-in: can lead to vendor lock-in, as users may become dependent on the vendor’s tools and features<br>Additional cost: often come with additional costs, such as support and maintenance fees, which can add to the overall cost of using Kubernetes</li>
+</ul>
+
     </div>
 
     
