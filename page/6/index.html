@@ -633,7 +633,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-07-26 15:41:58" itemprop="dateModified" datetime="2024-07-26T15:41:58+08:00">2024-07-26</time>
+      <time title="Modified: 2024-07-29 15:28:09" itemprop="dateModified" datetime="2024-07-29T15:28:09+08:00">2024-07-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -659,7 +659,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p><strong>When</strong><br>Consider adding a Custom Resource to Kubernetes if you want to define new controllers, application configuration objects or other declarative API.</p>
+          <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p><img src="https://cyun.tech/images/k8s/operator.png"></p>
+<p><strong>When</strong><br>Consider adding a Custom Resource to Kubernetes if you want to define new controllers, application configuration objects or other declarative API. it’s mostly used for <strong>complex stateful application</strong>.</p>
 <p><strong>How</strong><br>Custom resources can appear and disappear in a running cluster through dynamic registration, and cluster admins can update custom resources independently of the cluster itself. Once a custom resource is installed, users can create and access its objects using kubectl, just as they do for built-in resources like Pods.</p>
 <p><strong>Operator pattern</strong><br>The <code>combination of a custom resource API and a control loop is called the Operator pattern</code>, The Operator pattern is used to manage specific, <code>usually stateful, applications</code>.</p>
 <p>Kubernetes provides two ways to add custom resources to your cluster:</p>
@@ -671,9 +672,7 @@
 <p>Typically, CRDs are a good fit if:</p>
 <ul>
 <li>You have a handful of fields</li>
-<li>You are using the resource within your company, or as part of a small open-source project (as opposed to a commercial product)</li>
-</ul>
-<p>In this article, let’s focus one CRD.</p>
+<li>You are using the resource within your company, or as part of a small open-source project (as opposed to a commercial product)
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/06/08/k8s-operator/#more" rel="contents">

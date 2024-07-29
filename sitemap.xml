@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://cyun.tech/2021/06/08/k8s-operator/</loc>
+    
+    <lastmod>2024-07-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://cyun.tech/2021/06/08/k8s-network-cni/</loc>
     
     <lastmod>2024-07-29</lastmod>
@@ -41,15 +50,6 @@
     <loc>http://cyun.tech/2020/06/28/k8s-faq/</loc>
     
     <lastmod>2024-07-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://cyun.tech/2021/06/08/k8s-operator/</loc>
-    
-    <lastmod>2024-07-26</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
