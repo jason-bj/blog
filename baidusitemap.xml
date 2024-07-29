@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://cyun.tech/2021/06/08/k8s-network-cni/</loc>
+    <lastmod>2024-07-29</lastmod>
+  </url>
+  <url>
     <loc>http://cyun.tech/2024/07/26/k8s-device-plugin/</loc>
     <lastmod>2024-07-29</lastmod>
   </url>
@@ -426,10 +430,6 @@
   </url>
   <url>
     <loc>http://cyun.tech/2021/12/15/k8s-service-mesh/</loc>
-    <lastmod>2023-08-16</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2021/06/08/k8s-network-cni/</loc>
     <lastmod>2023-08-16</lastmod>
   </url>
   <url>

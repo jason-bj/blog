@@ -166,7 +166,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">142</span>
+        <span class="site-state-item-count">143</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -819,7 +819,20 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2024-07-29 11:09:17" itemprop="dateModified" datetime="2024-07-29T11:09:17+08:00">2024-07-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/k8s/CNI/" itemprop="url" rel="index"><span itemprop="name">CNI</span></a>
+        </span>
     </span>
 
   
@@ -833,12 +846,12 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>CNI (Container Network Interface), a Cloud Native Computing Foundation project, <strong>consists of a specification and libraries for writing plugins to configure network interfaces in Linux containers, along with a number of supported plugins</strong>. CNI concerns itself only with network connectivity of containers and removing allocated resources when the container is deleted. Because of this focus, CNI has a wide range of support and the specification is simple to implement.</p>
-<p>A <code>CNI plugin</code> is responsible for inserting a network interface into the container network namespace (e.g., one end of a virtual ethernet (veth) pair) and making any necessary changes on the host (e.g., attaching the other end of the veth into a bridge). It then <strong>assigns an IP address to the interface and sets up the routes consistent with the IP Address Management</strong> section by invoking the appropriate IP Address Management (IPAM) plugin.</p>
+<p><strong>A <code>CNI plugin</code> is responsible for inserting a network interface into the container network namespace</strong>(e.g., one end of a virtual ethernet (veth) pair) and making any necessary changes on the host (e.g., attaching the other end of the veth into a bridge). It then <strong>assigns an IP address to the interface and sets up the routes consistent with the IP Address Management</strong> section by invoking the appropriate IP Address Management (IPAM) plugin.</p>
 <p><strong>Main tasks</strong>  </p>
 <ul>
-<li>insert interface in container</li>
-<li>assign ip address to contaner</li>
-<li>setup routes or iptables rules</li>
+<li>🔴insert interface in container</li>
+<li>🔴assign ip address to container</li>
+<li>🔴setup routes or iptables rules</li>
 </ul>
           <!--noindex-->
             <div class="post-button">

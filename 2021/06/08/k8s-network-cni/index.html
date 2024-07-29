@@ -30,10 +30,13 @@
 <meta property="og:site_name" content="CYun">
 <meta property="og:description" content="IntroductionCNI (Container Network Interface), a Cloud Native Computing Foundation project, consists of a specification and libraries for writing plugins to configure network interfaces in Linux conta">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cyun.tech/images/k8s/k8s_cni_provider.png">
 <meta property="article:published_time" content="2021-06-07T23:50:14.000Z">
-<meta property="article:modified_time" content="2023-08-16T15:02:01.155Z">
+<meta property="article:modified_time" content="2024-07-29T03:09:17.258Z">
 <meta property="article:author" content="Jason">
+<meta property="article:tag" content="k8s">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cyun.tech/images/k8s/k8s_cni_provider.png">
 
 
 <link rel="canonical" href="http://cyun.tech/2021/06/08/k8s-network-cni/">
@@ -150,7 +153,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Plugin"><span class="nav-number">2.</span> <span class="nav-text">Plugin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernets-network-model"><span class="nav-number">2.1.</span> <span class="nav-text">Kubernets network model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flannel"><span class="nav-number">2.2.</span> <span class="nav-text">Flannel</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CNI-conf-for-Kubernet"><span class="nav-number">3.</span> <span class="nav-text">CNI conf for Kubernet</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Plugin"><span class="nav-number">2.</span> <span class="nav-text">Plugin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernets-network-model"><span class="nav-number">2.1.</span> <span class="nav-text">Kubernets network model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flannel"><span class="nav-number">2.2.</span> <span class="nav-text">Flannel</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -171,7 +174,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">142</span>
+        <span class="site-state-item-count">143</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -260,7 +263,20 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-16 23:02:01" itemprop="dateModified" datetime="2023-08-16T23:02:01+08:00">2023-08-16</time>
+      <time title="Modified: 2024-07-29 11:09:17" itemprop="dateModified" datetime="2024-07-29T11:09:17+08:00">2024-07-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/k8s/CNI/" itemprop="url" rel="index"><span itemprop="name">CNI</span></a>
+        </span>
     </span>
 
   
@@ -274,12 +290,12 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>CNI (Container Network Interface), a Cloud Native Computing Foundation project, <strong>consists of a specification and libraries for writing plugins to configure network interfaces in Linux containers, along with a number of supported plugins</strong>. CNI concerns itself only with network connectivity of containers and removing allocated resources when the container is deleted. Because of this focus, CNI has a wide range of support and the specification is simple to implement.</p>
-<p>A <code>CNI plugin</code> is responsible for inserting a network interface into the container network namespace (e.g., one end of a virtual ethernet (veth) pair) and making any necessary changes on the host (e.g., attaching the other end of the veth into a bridge). It then <strong>assigns an IP address to the interface and sets up the routes consistent with the IP Address Management</strong> section by invoking the appropriate IP Address Management (IPAM) plugin.</p>
+<p><strong>A <code>CNI plugin</code> is responsible for inserting a network interface into the container network namespace</strong>(e.g., one end of a virtual ethernet (veth) pair) and making any necessary changes on the host (e.g., attaching the other end of the veth into a bridge). It then <strong>assigns an IP address to the interface and sets up the routes consistent with the IP Address Management</strong> section by invoking the appropriate IP Address Management (IPAM) plugin.</p>
 <p><strong>Main tasks</strong>  </p>
 <ul>
-<li>insert interface in container</li>
-<li>assign ip address to contaner</li>
-<li>setup routes or iptables rules</li>
+<li>🔴insert interface in container</li>
+<li>🔴assign ip address to container</li>
+<li>🔴setup routes or iptables rules</li>
 </ul>
 <span id="more"></span>
 <p><strong>Plugins provided by CNI projects</strong><br><strong>interface</strong></p>
@@ -305,26 +321,30 @@
 <li>agents on a node (e.g. system daemons, kubelet) can communicate with all pods on that node</li>
 </ul>
 <p>But it does NOT impose pods comunication between nodes, this is done by Network plugins which mostly implement CNI, so that kubernetes calls CNI standard API to config its network.</p>
+<p><img src="https://cyun.tech/images/k8s/k8s_cni_provider.png"></p>
 <p><strong>CNI plugins</strong></p>
+<ul>
+<li><code>Calico</code>: Calico is an open source networking and network security solution for <code>containers, virtual machines, and native host-based workloads</code></li>
+<li><code>Cilium</code>: Cilium is open source software for providing and transparently <code>securing network connectivity between application containers</code>. Cilium is L7&#x2F;HTTP aware and can enforce network policies on L3-L7 using an identity based security model that is decoupled from network addressing, and it can be used in combination with other CNI plugins</li>
+<li><code>Flannel</code>: Flannel is a very <code>simple overlay network</code> that satisfies the Kubernetes requirements</li>
+<li>OVN: OVN is an opensource network virtualization solution developed by the Open vSwitch community. It lets one create logical switches, logical routers, stateful ACLs, load-balancers etc to build different virtual networking topologies.</li>
+</ul>
+<hr>
 <ul>
 <li>ACI: Cisco Application Centric Infrastructure offers an integrated overlay and underlay SDN solution that supports containers, virtual machines, and bare metal servers</li>
 <li>Antrea: It leverages Open vSwitch as the networking data plane.</li>
 <li>AWS VPC CNI for Kubernetes</li>
 <li>Azure CNI for Kubernetes</li>
-<li>Calico: Calico is an open source networking and network security solution for <code>containers, virtual machines, and native host-based workloads</code></li>
-<li>Cilium: Cilium is open source software for providing and transparently <code>securing network connectivity between application containers</code>. Cilium is L7&#x2F;HTTP aware and can enforce network policies on L3-L7 using an identity based security model that is decoupled from network addressing, and it can be used in combination with other CNI plugins</li>
-<li>Flannel: Flannel is a very <code>simple overlay network</code> that satisfies the Kubernetes requirements</li>
 <li>Google Compute Engine (GCE)</li>
-<li>OVN: OVN is an opensource network virtualization solution developed by the Open vSwitch community. It lets one create logical switches, logical routers, stateful ACLs, load-balancers etc to build different virtual networking topologies.</li>
 </ul>
-<p><strong>how CNI plugin is called</strong>  </p>
+<p>👍<strong>How CNI plugin is called</strong>  </p>
 <ul>
-<li>When the container runtime expects to perform network operations on a container, it (like the kubelet in the case of K8s) calls the CNI plugin with the desired command.</li>
+<li>When the container runtime expects to perform network operations on a container, it (like the kubelet in the case of K8s) calls the CNI plugin with the desired command(<strong>ADD, DEL etc</strong>)</li>
 <li>The container runtime also provides related network configuration and container-specific data to the plugin.</li>
 <li>The CNI plugin performs the required operations and reports the result.</li>
 </ul>
-<p><strong>CNI is called twice by K8s (kubelet) to set up loopback and eth0 interfaces for a pod.</strong></p>
-<h2 id="Flannel"><a href="#Flannel" class="headerlink" title="Flannel"></a>Flannel</h2><h1 id="CNI-conf-for-Kubernet"><a href="#CNI-conf-for-Kubernet" class="headerlink" title="CNI conf for Kubernet"></a>CNI conf for Kubernet</h1><p>The CNI plugin is selected by passing Kubelet the <code>--network-plugin=cni</code> command-line option. Kubelet <code>reads a file from --cni-conf-dir (default /etc/cni/net.d)</code> and uses the CNI configuration from that file to set up each pod’s network. The CNI configuration file must match the CNI specification, and any required CNI plugins referenced by the configuration must be present in <code>--cni-bin-dir (default /opt/cni/bin).</code></p>
+<h2 id="Flannel"><a href="#Flannel" class="headerlink" title="Flannel"></a>Flannel</h2><p>The CNI plugin is selected by passing Kubelet the <code>--network-plugin=cni</code> command-line option. Kubelet <code>reads a file from --cni-conf-dir (default /etc/cni/net.d)</code> and uses the CNI configuration from that file to set up each pod’s network. The CNI configuration file must match the CNI specification, and any required CNI plugins referenced by the configuration must be present in <code>--cni-bin-dir (default /opt/cni/bin).</code></p>
+<p><strong>CNI Related Files</strong></p>
 <ul>
 <li>Kubelet has <code>--network-plugin=cni</code> command-line option</li>
 <li>cni conf file at <code>--cni-conf-dir (default /etc/cni/net.d)</code></li>
@@ -361,6 +381,9 @@
   </div>
 </div>
 
+          <div class="post-tags">
+              <a href="/tags/k8s/" rel="tag"># k8s</a>
+          </div>
 
         
 
