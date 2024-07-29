@@ -166,7 +166,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">141</span>
+        <span class="site-state-item-count">142</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -249,6 +249,26 @@
 
       <time title="Created: 2024-07-26 08:39:29" itemprop="dateCreated datePublished" datetime="2024-07-26T08:39:29+08:00">2024-07-26</time>
     </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-07-29 09:21:35" itemprop="dateModified" datetime="2024-07-29T09:21:35+08:00">2024-07-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/k8s/deviceplugin/" itemprop="url" rel="index"><span itemprop="name">deviceplugin</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -260,7 +280,21 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          
+          <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>Kubernetes provides a device plugin framework that you can use to <code>advertise system hardware resources to the Kubelet which then reports resource to API server</code>.</p>
+<p>Instead of customizing the code for Kubernetes itself, vendors can implement a device plugin that you deploy either manually or as a DaemonSet. The targeted devices include GPUs, high-performance NICs, FPGAs, InfiniBand adapters, and other similar computing resources that may require vendor specific initialization and setup.</p>
+<p>The workflow of the device plugin is divided into two parts:</p>
+<ul>
+<li>Resource reporting upon startup and monitoring after starts</li>
+<li>Scheduling and running during usage</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/07/26/k8s-device-plugin/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

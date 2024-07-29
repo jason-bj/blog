@@ -23,15 +23,21 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="article">
+    <meta name="description" content="OverviewKubernetes provides a device plugin framework that you can use to advertise system hardware resources to the Kubelet which then reports resource to API server. Instead of customizing the code">
+<meta property="og:type" content="article">
 <meta property="og:title" content="k8s_device_plugin">
 <meta property="og:url" content="http://cyun.tech/2024/07/26/k8s-device-plugin/index.html">
 <meta property="og:site_name" content="CYun">
+<meta property="og:description" content="OverviewKubernetes provides a device plugin framework that you can use to advertise system hardware resources to the Kubelet which then reports resource to API server. Instead of customizing the code">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cyun.tech/images/k8s/k8s_device_plugin_reporting.png">
+<meta property="og:image" content="https://cyun.tech/images/k8s/k8s_device_plugin_allocation.png">
 <meta property="article:published_time" content="2024-07-26T00:39:29.000Z">
-<meta property="article:modified_time" content="2024-07-26T00:39:29.101Z">
+<meta property="article:modified_time" content="2024-07-29T01:21:35.927Z">
 <meta property="article:author" content="Jason">
+<meta property="article:tag" content="k8s">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cyun.tech/images/k8s/k8s_device_plugin_reporting.png">
 
 
 <link rel="canonical" href="http://cyun.tech/2024/07/26/k8s-device-plugin/">
@@ -135,7 +141,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -148,6 +154,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Report-and-Monitor-Resources"><span class="nav-number">2.</span> <span class="nav-text">Report and Monitor Resources</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Resource-Allocation"><span class="nav-number">3.</span> <span class="nav-text">Resource Allocation</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -168,7 +175,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">141</span>
+        <span class="site-state-item-count">142</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -252,6 +259,26 @@
 
       <time title="Created: 2024-07-26 08:39:29" itemprop="dateCreated datePublished" datetime="2024-07-26T08:39:29+08:00">2024-07-26</time>
     </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-07-29 09:21:35" itemprop="dateModified" datetime="2024-07-29T09:21:35+08:00">2024-07-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/k8s/deviceplugin/" itemprop="url" rel="index"><span itemprop="name">deviceplugin</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -263,7 +290,35 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>Kubernetes provides a device plugin framework that you can use to <code>advertise system hardware resources to the Kubelet which then reports resource to API server</code>.</p>
+<p>Instead of customizing the code for Kubernetes itself, vendors can implement a device plugin that you deploy either manually or as a DaemonSet. The targeted devices include GPUs, high-performance NICs, FPGAs, InfiniBand adapters, and other similar computing resources that may require vendor specific initialization and setup.</p>
+<p>The workflow of the device plugin is divided into two parts:</p>
+<ul>
+<li>Resource reporting upon startup and monitoring after starts</li>
+<li>Scheduling and running during usage</li>
+</ul>
+<span id="more"></span>
+
+<h1 id="Report-and-Monitor-Resources"><a href="#Report-and-Monitor-Resources" class="headerlink" title="Report and Monitor Resources"></a>Report and Monitor Resources</h1><p><img src="https://cyun.tech/images/k8s/k8s_device_plugin_reporting.png"></p>
+<p>Each hardware device is managed by the related device plugin, which is connected as a client to the device plugin manager of the kubelet through gRPC and reports to the kubelet the UNIX socket API version and device name to which it listens.</p>
+<ul>
+<li>Step 1: The device plugin is registered to interact with Kubernetes. Multiple devices may exist on a node. The device plugin, as a client, reports the following information to the kubelet: <ul>
+<li>(1) name of the device managed by the device plugin, such as a GPU or RDMA,</li>
+<li>(2) file path of the UNIX socket to which the device plugin listens so that the kubelet can call the device plugin.</li>
+</ul>
+</li>
+<li>Step 2: The device plugin starts a gRPC server. Then, the device plugin acts on behalf of the gRPC server to provide services to the kubelet. The listening address and API version are provided in Step 1.</li>
+<li>Step 3: After the gRPC server is started, the kubelet establishes a persistent connection to ListAndWatch of the device plugin to discover the device ID and check the device health. The device plugin notifies the kubelet when a device is unhealthy. If the unhealthy device is idle, the kubelet removes it from the schedulable device list. If the unhealthy device is used by a pod, the kubelet does not do anything because killing the pod is a high-risk action.</li>
+<li>Step 4: The kubelet exposes these devices to the status of the node and sends the device quantity to the Kubernetes API server. The scheduler implements scheduling based on this information.</li>
+</ul>
+<p>The kubelet reports <code>only the GPU quantity to the Kubernetes API server</code>. The <code>device plugin manager of the kubelet stores the GPU ID list</code> and assigns the GPU IDs to devices. The Kubernetes global scheduler does not see the GPU ID list, only the GPU quantity.</p>
+<h1 id="Resource-Allocation"><a href="#Resource-Allocation" class="headerlink" title="Resource Allocation"></a>Resource Allocation</h1><p><img src="https://cyun.tech/images/k8s/k8s_device_plugin_allocation.png"></p>
+<p>When a pod wants to use a GPU, it declares the GPU resource and required quantity in Resource.limits, such as <code>nvidia.com/gpu: 1</code> in pod’s spec. Kubernetes finds the node that meets the required GPU quantity, subtracts the number of GPUs on the node by 1, and binds the pod and the node.</p>
+<p>After the binding is complete, the node-matched kubelet creates a container. When the kubelet finds that the resource specified in the pod’s container request is a GPU, it enables the internal device plugin manager to select an available GPU from the GPU ID list and assigns the GPU to the container.</p>
+<p>The kubelet sends an Allocate request to the device plugin. The request includes the device ID list that contains the GPU to be assigned to the container.</p>
+<p>After receiving the Allocate request, the device plugin finds the device path, driver directory, and environment variables related to the device ID, and returns the information to the kubelet through an Allocate response.</p>
+<p>The kubelet assigns a GPU to the container based on the received device path and driver directory. Then, Docker creates a container as instructed by the kubelet. The created container includes a GPU. Finally, the required driver directory is mounted. This completes the process of assigning a GPU to a pod in Kubernetes.</p>
+
     </div>
 
     
@@ -287,6 +342,9 @@
   </div>
 </div>
 
+          <div class="post-tags">
+              <a href="/tags/k8s/" rel="tag"># k8s</a>
+          </div>
 
         
 
