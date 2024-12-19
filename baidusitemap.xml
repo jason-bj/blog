@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://cyun.tech/2019/09/27/debugging-application/</loc>
+    <lastmod>2024-12-19</lastmod>
+  </url>
+  <url>
     <loc>http://cyun.tech/2021/10/08/linux-signal/</loc>
     <lastmod>2024-12-13</lastmod>
   </url>
@@ -19,10 +23,6 @@
   <url>
     <loc>http://cyun.tech/2021/07/14/yum-rpm-pkg/</loc>
     <lastmod>2024-08-20</lastmod>
-  </url>
-  <url>
-    <loc>http://cyun.tech/2019/09/27/debugging-application/</loc>
-    <lastmod>2024-08-01</lastmod>
   </url>
   <url>
     <loc>http://cyun.tech/2020/06/28/k8s-cmd/</loc>
