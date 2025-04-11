@@ -32,7 +32,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.boost.org/doc/libs/develop/libs/fiber/doc/NUMA.png">
 <meta property="article:published_time" content="2022-04-27T01:19:43.000Z">
-<meta property="article:modified_time" content="2025-04-11T02:34:41.538Z">
+<meta property="article:modified_time" content="2025-04-11T09:53:55.917Z">
 <meta property="article:author" content="Jason">
 <meta property="article:tag" content="numa">
 <meta name="twitter:card" content="summary">
@@ -263,7 +263,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-04-11 10:34:41" itemprop="dateModified" datetime="2025-04-11T10:34:41+08:00">2025-04-11</time>
+      <time title="Modified: 2025-04-11 17:53:55" itemprop="dateModified" datetime="2025-04-11T17:53:55+08:00">2025-04-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -383,6 +383,17 @@
 <p>The number of pages allocated on this node, by a process on another node.</p>
 </blockquote>
 </li>
+</ul>
+<p><strong>numa_miss vs numa_foreign</strong></p>
+<ul>
+<li>If a process running on Node 0 requests memory from <code>Node 1 (its preferred node)</code>, but the allocation is completed on Node 0, <strong>the numa_miss counter for Node 0 will increase</strong>, request memory from A but allocated on B, this is miss!</li>
+<li>If a process running on Node 0 requests memory from Local Node 0, but the allocation is completed on Node 1, <strong>the numa_foreign counter for Node 0 will increase</strong>, request memory from Local but allocated on remote, this is foreign!</li>
+</ul>
+<p><strong>numa_foreign vs other_node</strong></p>
+<ul>
+<li>numa_foreign is about <code>allocation preference</code> (where memory was intended to be allocated)</li>
+<li>other_node is about <code>process locality</code> (where the process is running)</li>
+<li><strong>Different perspective!!!</strong></li>
 </ul>
 <p><strong>Options</strong></p>
 <ul>
