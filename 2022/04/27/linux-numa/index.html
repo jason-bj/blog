@@ -32,7 +32,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.boost.org/doc/libs/develop/libs/fiber/doc/NUMA.png">
 <meta property="article:published_time" content="2022-04-27T01:19:43.000Z">
-<meta property="article:modified_time" content="2025-04-11T09:53:55.917Z">
+<meta property="article:modified_time" content="2025-04-22T03:24:26.278Z">
 <meta property="article:author" content="Jason">
 <meta property="article:tag" content="numa">
 <meta name="twitter:card" content="summary">
@@ -263,7 +263,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-04-11 17:53:55" itemprop="dateModified" datetime="2025-04-11T17:53:55+08:00">2025-04-11</time>
+      <time title="Modified: 2025-04-22 11:24:26" itemprop="dateModified" datetime="2025-04-22T11:24:26+08:00">2025-04-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -359,27 +359,33 @@
 </ul>
 <h2 id="numastat"><a href="#numastat" class="headerlink" title="numastat"></a>numastat</h2><p>The numastat tool is provided by the numactl package, and <strong>displays memory statistics (such as allocation hits and misses) for processes</strong> and the operating system on a per-NUMA-node basis. The default tracking categories for the numastat command are outlined as follows: </p>
 <ul>
-<li>numa_hit<blockquote>
+<li><p>numa_hit</p>
+<blockquote>
 <p><code>The number of pages</code> that were successfully allocated to this node. </p>
 </blockquote>
 </li>
-<li>numa_miss<blockquote>
-<p>The <code>number of pages that were allocated on this node because of low memory on the intended node</code>. Each numa_miss event has a corresponding numa_foreign event on another node. </p>
+<li><p>numa_miss</p>
+<blockquote>
+<p>The <code>number of pages that were allocated on this node because of low memory on the intended node</code>. <strong>Each numa_miss event has a corresponding numa_foreign event on another node.</strong> </p>
 </blockquote>
 </li>
-<li>numa_foreign<blockquote>
-<p>The <code>number of pages initially intended for this node that were allocated to another node instead</code>. Each numa_foreign event has a corresponding numa_miss event on another node. </p>
+<li><p>numa_foreign</p>
+<blockquote>
+<p>The <code>number of pages initially intended for this node that were allocated to another node instead</code>. <strong>Each numa_foreign event has a corresponding numa_miss event on another node.</strong> </p>
 </blockquote>
 </li>
-<li>interleave_hit<blockquote>
+<li><p>interleave_hit</p>
+<blockquote>
 <p>The number of interleave policy pages successfully allocated to this node. </p>
 </blockquote>
 </li>
-<li>local_node<blockquote>
+<li><p>local_node</p>
+<blockquote>
 <p>The number of pages successfully allocated on this node, <code>by a process on this node.</code></p>
 </blockquote>
 </li>
-<li>other_node<blockquote>
+<li><p>other_node</p>
+<blockquote>
 <p>The number of pages allocated on this node, by a process on another node.</p>
 </blockquote>
 </li>

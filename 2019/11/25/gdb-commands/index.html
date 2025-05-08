@@ -31,7 +31,7 @@
 <meta property="og:description" content="IntroductionCore file is generated when program crashes, if it’s not turned off, see limitation for the current user by $ ulimit -a or set it with unlimited by $ ulimit -c unlimited to allow core gene">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-11-25T03:35:16.000Z">
-<meta property="article:modified_time" content="2025-02-14T14:37:43.074Z">
+<meta property="article:modified_time" content="2025-05-08T02:32:55.550Z">
 <meta property="article:author" content="Jason">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="coredump">
@@ -262,7 +262,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-02-14 22:37:43" itemprop="dateModified" datetime="2025-02-14T22:37:43+08:00">2025-02-14</time>
+      <time title="Modified: 2025-05-08 10:32:55" itemprop="dateModified" datetime="2025-05-08T10:32:55+08:00">2025-05-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -683,18 +683,157 @@ $ readelf -x.gnu_debuglink /lib/x86_64-linux-gnu/libc-2.23.so
 &gt;core-file core.nginx  
 &gt;bt  
 </code></pre>
-<h3 id="detach-symbol-from-binary-compiled-with-g"><a href="#detach-symbol-from-binary-compiled-with-g" class="headerlink" title="detach symbol from binary(compiled with -g)"></a>detach symbol from binary(compiled with -g)</h3><pre><code class="bash"># detach symbol to a separate file, foo still has symbol  
+<h3 id="detach-symbol-from-binary-compiled-with-g"><a href="#detach-symbol-from-binary-compiled-with-g" class="headerlink" title="detach symbol from binary(compiled with -g)"></a>detach symbol from binary(compiled with -g)</h3><p>Symbol tables store key-value pairs that map names (like variables and functions) to their memory addresses, <strong>they serve basic purposes</strong> like verifying variable declarations,implementing type checking, and determining scope resolution, it’s always stored in binary file when you compile application, no need any option to enable it.</p>
+<p>Debug information is more comprehensive than just symbol tables, it includes additional context like:</p>
+<ul>
+<li>Source code filenames</li>
+<li>Line numbers mapping code to source</li>
+<li>Variable types and their attributes</li>
+<li>Scope information</li>
+<li>Class structures (methods and members)</li>
+</ul>
+<p>Debug information provides richer context specifically for debugging purposes, <strong>Debug symbols extend symbol tables with additional information</strong></p>
+<pre><code class="bash"># generate binary with debuginfo and symbol tables, even without -g option, symbol tables are still stored in binary file
+$ gcc -o hello hello.c -g
+
+# --------------- check debuginfo with several tools ---------------
+$ objdump -h hello | grep debug
+ 27 .debug_aranges 00000030  0000000000000000  0000000000000000  0000303f  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 28 .debug_info   000000f3  0000000000000000  0000000000000000  0000306f  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 29 .debug_abbrev 000000b3  0000000000000000  0000000000000000  00003162  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 30 .debug_line   00000069  0000000000000000  0000000000000000  00003215  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 31 .debug_str    00000104  0000000000000000  0000000000000000  0000327e  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 32 .debug_line_str 0000001e  0000000000000000  0000000000000000  00003382  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+$ file hello
+hello: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=9211bbda2c800fb9cbad99aea8a3936cf9689491, for GNU/Linux 3.2.0, with debug_info, not stripped
+
+$ readelf -S hello | grep .debug
+  [28] .debug_aranges    PROGBITS         0000000000000000  0000303f
+  [29] .debug_info       PROGBITS         0000000000000000  0000306f
+  [30] .debug_abbrev     PROGBITS         0000000000000000  00003162
+  [31] .debug_line       PROGBITS         0000000000000000  00003215
+  [32] .debug_str        PROGBITS         0000000000000000  0000327e
+  [33] .debug_line_str   PROGBITS         0000000000000000  00003382
+
+# --------------- check debuginfo with several tools ---------------
+
+
+# --------------- check symbol tables ---------------
+$ readelf -s hello
+
+Symbol table &#39;.dynsym&#39; contains 8 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND _[...]@GLIBC_2.34 (2)
+     2: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_deregisterT[...]
+     3: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND puts@GLIBC_2.2.5 (3)
+     4: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND [...]@GLIBC_2.2.5 (3)
+     5: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND __gmon_start__
+     6: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_registerTMC[...]
+     7: 0000000000000000     0 FUNC    WEAK   DEFAULT  UND [...]@GLIBC_2.2.5 (3)
+
+Symbol table &#39;.symtab&#39; contains 39 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS Scrt1.o
+     2: 000000000000038c    32 OBJECT  LOCAL  DEFAULT    4 __abi_tag
+     3: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS crtstuff.c
+     4: 00000000000010b0     0 FUNC    LOCAL  DEFAULT   16 deregister_tm_clones
+     5: 00000000000010e0     0 FUNC    LOCAL  DEFAULT   16 register_tm_clones
+     6: 0000000000001120     0 FUNC    LOCAL  DEFAULT   16 __do_global_dtors_aux
+     7: 0000000000004014     1 OBJECT  LOCAL  DEFAULT   26 completed.0
+     8: 0000000000003db8     0 OBJECT  LOCAL  DEFAULT   22 __do_global_dtor[...]
+     9: 0000000000001160     0 FUNC    LOCAL  DEFAULT   16 frame_dummy
+    10: 0000000000003db0     0 OBJECT  LOCAL  DEFAULT   21 __frame_dummy_in[...]
+    11: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS h.c
+    12: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS crtstuff.c
+    13: 0000000000002130     0 OBJECT  LOCAL  DEFAULT   20 __FRAME_END__
+    14: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS 
+    15: 0000000000003dc0     0 OBJECT  LOCAL  DEFAULT   23 _DYNAMIC
+    16: 000000000000202c     0 NOTYPE  LOCAL  DEFAULT   19 __GNU_EH_FRAME_HDR
+    17: 0000000000003fb0     0 OBJECT  LOCAL  DEFAULT   24 _GLOBAL_OFFSET_TABLE_
+    18: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __libc_start_mai[...]
+    19: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_deregisterT[...]
+    20: 0000000000004000     0 NOTYPE  WEAK   DEFAULT   25 data_start
+    21: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND puts@GLIBC_2.2.5
+    22: 0000000000004014     0 NOTYPE  GLOBAL DEFAULT   25 _edata
+    23: 0000000000001169    26 FUNC    GLOBAL DEFAULT   16 hello_function
+    24: 00000000000011c8     0 FUNC    GLOBAL HIDDEN    17 _fini
+    25: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND printf@GLIBC_2.2.5
+    26: 0000000000004010     4 OBJECT  GLOBAL DEFAULT   25 global_var
+    27: 0000000000004000     0 NOTYPE  GLOBAL DEFAULT   25 __data_start
+    28: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND __gmon_start__
+    29: 0000000000004008     0 OBJECT  GLOBAL HIDDEN    25 __dso_handle
+    30: 0000000000002000     4 OBJECT  GLOBAL DEFAULT   18 _IO_stdin_used
+    31: 0000000000004018     0 NOTYPE  GLOBAL DEFAULT   26 _end
+    32: 0000000000001080    38 FUNC    GLOBAL DEFAULT   16 _start
+    33: 0000000000004014     0 NOTYPE  GLOBAL DEFAULT   26 __bss_start
+    34: 0000000000001183    67 FUNC    GLOBAL DEFAULT   16 main
+    35: 0000000000004018     0 OBJECT  GLOBAL HIDDEN    25 __TMC_END__
+    36: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_registerTMC[...]
+    37: 0000000000000000     0 FUNC    WEAK   DEFAULT  UND __cxa_finalize@G[...]
+    38: 0000000000001000     0 FUNC    GLOBAL HIDDEN    12 _init
+
+$ objdump --syms hello
+
+hello:     file format elf64-x86-64
+
+SYMBOL TABLE:
+0000000000000000 l    df *ABS*	0000000000000000              Scrt1.o
+000000000000038c l     O .note.ABI-tag	0000000000000020              __abi_tag
+0000000000000000 l    df *ABS*	0000000000000000              crtstuff.c
+00000000000010b0 l     F .text	0000000000000000              deregister_tm_clones
+00000000000010e0 l     F .text	0000000000000000              register_tm_clones
+0000000000001120 l     F .text	0000000000000000              __do_global_dtors_aux
+0000000000004014 l     O .bss	0000000000000001              completed.0
+0000000000003db8 l     O .fini_array	0000000000000000              __do_global_dtors_aux_fini_array_entry
+0000000000001160 l     F .text	0000000000000000              frame_dummy
+0000000000003db0 l     O .init_array	0000000000000000              __frame_dummy_init_array_entry
+0000000000000000 l    df *ABS*	0000000000000000              h.c
+0000000000000000 l    df *ABS*	0000000000000000              crtstuff.c
+0000000000002130 l     O .eh_frame	0000000000000000              __FRAME_END__
+0000000000000000 l    df *ABS*	0000000000000000              
+0000000000003dc0 l     O .dynamic	0000000000000000              _DYNAMIC
+000000000000202c l       .eh_frame_hdr	0000000000000000              __GNU_EH_FRAME_HDR
+0000000000003fb0 l     O .got	0000000000000000              _GLOBAL_OFFSET_TABLE_
+0000000000000000       F *UND*	0000000000000000              __libc_start_main@GLIBC_2.34
+0000000000000000  w      *UND*	0000000000000000              _ITM_deregisterTMCloneTable
+0000000000004000  w      .data	0000000000000000              data_start
+0000000000000000       F *UND*	0000000000000000              puts@GLIBC_2.2.5
+0000000000004014 g       .data	0000000000000000              _edata
+0000000000001169 g     F .text	000000000000001a              hello_function
+00000000000011c8 g     F .fini	0000000000000000              .hidden _fini
+0000000000000000       F *UND*	0000000000000000              printf@GLIBC_2.2.5
+0000000000004010 g     O .data	0000000000000004              global_var
+0000000000004000 g       .data	0000000000000000              __data_start
+0000000000000000  w      *UND*	0000000000000000              __gmon_start__
+0000000000004008 g     O .data	0000000000000000              .hidden __dso_handle
+0000000000002000 g     O .rodata	0000000000000004              _IO_stdin_used
+0000000000004018 g       .bss	0000000000000000              _end
+0000000000001080 g     F .text	0000000000000026              _start
+0000000000004014 g       .bss	0000000000000000              __bss_start
+0000000000001183 g     F .text	0000000000000043              main
+0000000000004018 g     O .data	0000000000000000              .hidden __TMC_END__
+0000000000000000  w      *UND*	0000000000000000              _ITM_registerTMCloneTable
+0000000000000000  w    F *UND*	0000000000000000              __cxa_finalize@GLIBC_2.2.5
+0000000000001000 g     F .init	0000000000000000              .hidden _init
+# --------------- check symbol tables ---------------
+
+# detach debuginfo and symbol tables to a separate file, foo still has them even after saved to a separate file
 $ objcopy --only-keep-debug foo foo.debug  
   
-# strip symbol from foo, foo has no symbol now  
-# Remove debugging symbols only
+# strip debuginfo from foo, foo has no debuginfo now  
+# Remove debugging info only
 $ strip -g foo  
 
-# strip all symbols!!!
+# strip all(debuginfo and symbol tables)
 $ strip foo  
-  
-# attach symbol back to binary  
-$ objcopy --add-gnu-debuglink=foo.debug foo  
 </code></pre>
 <h3 id="watchpoints-is-deleted-by-gdb-automatically"><a href="#watchpoints-is-deleted-by-gdb-automatically" class="headerlink" title="watchpoints is deleted by gdb automatically"></a>watchpoints is deleted by gdb automatically</h3><p>gdb will delete watchpoints if out of scope of variable used by watchpoints, this usually happens<br>when you add a watchpoint on a local variable, to prevent gdb delete such watchpoints, add -l&#x2F;-location<br>to the watchpoint, <strong>but with this type of watchpoint, gdb will pick up changes that other functions make to that same address on the stack, so you can add the qualification if $_caller_is(“your_caller_func”, 0)</strong>  </p>
 <pre><code class="bash">gdb&gt; watch -location $local_var  
