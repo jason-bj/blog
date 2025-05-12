@@ -23,15 +23,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cyun.tech","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="debug application show dynamic library used by an application create and use a static library create and use a dynamic library show symbols in dynamics and static library check process thread do ever">
+    <meta name="description" content="debug applicationHere are list of frequent commands that are used in daily life and some tips that may be useful to debug application">
 <meta property="og:type" content="article">
 <meta property="og:title" content="debugging application">
 <meta property="og:url" content="http://cyun.tech/2019/09/27/debugging-application/index.html">
 <meta property="og:site_name" content="CYun">
-<meta property="og:description" content="debug application show dynamic library used by an application create and use a static library create and use a dynamic library show symbols in dynamics and static library check process thread do ever">
+<meta property="og:description" content="debug applicationHere are list of frequent commands that are used in daily life and some tips that may be useful to debug application">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-09-27T05:29:20.000Z">
-<meta property="article:modified_time" content="2024-12-19T03:05:54.955Z">
+<meta property="article:modified_time" content="2025-05-12T02:18:31.900Z">
 <meta property="article:author" content="Jason">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="linux command">
@@ -262,7 +262,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-12-19 11:05:54" itemprop="dateModified" datetime="2024-12-19T11:05:54+08:00">2024-12-19</time>
+      <time title="Modified: 2025-05-12 10:18:31" itemprop="dateModified" datetime="2025-05-12T10:18:31+08:00">2025-05-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -288,63 +288,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <ul>
-<li><a href="#debug-application">debug application</a><ul>
-<li><a href="#show-dynamic-library-used-by-an-application">show dynamic library used by an application</a></li>
-<li><a href="#create-and-use-a-static-library">create and use a static library</a></li>
-<li><a href="#create-and-use-a-dynamic-library">create and use a dynamic library</a></li>
-<li><a href="#show-symbols-in-dynamics-and-static-library">show symbols in dynamics and static library</a></li>
-<li><a href="#check-process-thread">check process thread</a></li>
-<li><a href="#do-everything-in-memory">do everything in memory</a></li>
-<li><a href="#debug-dynamic-library-info-when-runs-a-program">debug dynamic library info when runs a program</a></li>
-<li><a href="#useful-commands-in-binutils">useful commands in binutils</a></li>
-<li><a href="#process-affinity">process affinity</a></li>
-<li><a href="#irq-affinity-setting">IRQ affinity setting</a></li>
-<li><a href="#trace-process-by-strace">trace process by strace</a></li>
-<li><a href="#show-shared-memory-on-the-system">show shared memory on the system</a></li>
-<li><a href="#only-show-memcpu-usage-of-a-particular-pid">only show mem&#x2F;cpu usage of a particular pid</a></li>
-<li><a href="#show-processes-who-opened-a-file-or-dir">show processes who opened a file or dir</a></li>
-<li><a href="#force-a-running-process-to-generate-a-core-dump">force a running process to generate a core dump</a></li>
-<li><a href="#signal">signal</a></li>
-<li><a href="#show-environment-variables-of-a-running-process">show environment variables of a running process.</a></li>
-<li><a href="#check-process-name-when-knows-pid">check process name when knows pid</a></li>
-<li><a href="#memory-leak-overflow-tool">memory leak&#x2F; overflow tool</a></li>
-<li><a href="#shutdown-vs-close">shutdown() vs close()</a></li>
-<li><a href="#reset-tcp-from-application">RESET TCP from application</a></li>
-<li><a href="#install-debuginfo-of-kernel-or-application-on-centos">install debuginfo of kernel or application on centos</a></li>
-<li><a href="#show-stack-for-give-processthread">show stack for give process(thread)</a></li>
-<li><a href="#pkg-config">pkg-config</a></li>
-<li><a href="#ld-finding-library">ld finding library</a></li>
-<li><a href="#get-hardware-meta">get hardware meta</a></li>
-<li><a href="#lspci-output">lspci output</a></li>
-<li><a href="#coredump-without-symbol-table">coredump without symbol table</a></li>
-<li><a href="#network-related">network related</a><ul>
-<li><a href="#enable-forwarding-in-kernel">enable forwarding in kernel</a></li>
-<li><a href="#ip-address-and-route">IP address and Route</a></li>
-<li><a href="#deep-into-route-table">Deep into route table</a></li>
-<li><a href="#prevent-route-missing-after-reboot">prevent route missing after reboot</a></li>
-<li><a href="#show-arp-entry">show arp entry</a></li>
-<li><a href="#save-tcpdump-captured-packet-to-file">save tcpdump captured packet to file</a></li>
-<li><a href="#packet-shows-as-tcp-segment-of-a-reassembled-pdu-in-wireshark">packet shows as tcp segment of a reassembled pdu in wireshark</a></li>
-<li><a href="#get-two-sides-of-established-stream-socket">get two sides of established STREAM socket</a></li>
-<li><a href="#show-all-sockets">show all sockets</a></li>
-<li><a href="#checkset-mtu-or-mac">check&#x2F;set mtu or MAC</a></li>
-<li><a href="#socket-bind-to-no-local-address">socket bind to no-local address</a></li>
-<li><a href="#source-port-selection">source port selection</a></li>
-<li><a href="#create-vlan-interface-and-check-its-real-dev">create vlan interface and check its real dev</a></li>
-<li><a href="#check-tcp-fastopen-cookie">check tcp fastopen cookie</a></li>
-<li><a href="#how-to-know-if-a-network-interface-is-tap-tun-bridge-or-physical">How to know if a network interface is tap, tun, bridge or physical</a></li>
-<li><a href="#bind-irqs-of-ethx-to-specific-cpu">bind irq(s) of ethx to specific cpu</a></li>
-<li><a href="#check-rss-of-ethx">check rss of ethx</a></li>
-<li><a href="#get-bus-info-for-a-network-device-like-eth0">get bus info for a network device like eth0</a></li>
-<li><a href="#create-binding-interface-through-sysfs">create binding interface through sysfs</a></li>
-<li><a href="#icmp-ping-is-ok-but-tcp-connect-fails">icmp ping is ok but tcp connect fails</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="debug-application"><a href="#debug-application" class="headerlink" title="debug application"></a>debug application</h1><p>Here are list of frequent commands that are used in daily life and some tips that may be useful to debug application</p>
+        <h1 id="debug-application"><a href="#debug-application" class="headerlink" title="debug application"></a>debug application</h1><p>Here are list of frequent commands that are used in daily life and some tips that may be useful to debug application</p>
 <span id="more"></span>
 <p><strong><mark>tested only on centos7 platform</mark></strong></p>
 <h2 id="show-dynamic-library-used-by-an-application"><a href="#show-dynamic-library-used-by-an-application" class="headerlink" title="show dynamic library used by an application"></a>show dynamic library used by an application</h2><div class="tabs" id="way"><ul class="nav-tabs"><li class="tab active"><a href="#way-1">Way 1</a></li><li class="tab"><a href="#way-2">Way 2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="way-1"><div class="note success"><p><strong>$ ldd app_binary</strong><br>output:<br>linux-vdso.so.1 &#x3D;&gt;  (0x00007fff76bcd000)<br>libopenvswitch.so.1 &#x3D;&gt; &#x2F;usr&#x2F;lib&#x2F;libopenvswitch.so.1 (0x00007f19c83c2000)<br>libboost_system.so.1.54.0 &#x3D;&gt; &#x2F;usr&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libboost_system.so.1.54.0 (0x00007f19c81be000)<br>…</p>
